@@ -16,6 +16,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "etsd.core",
+    "etsd.keys",
     "etsd.users",
 
     "django.contrib.admin",
@@ -45,6 +46,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware',
 ]
 
 ROOT_URLCONF = "etsd.urls"
