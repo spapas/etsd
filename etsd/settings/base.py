@@ -158,3 +158,5 @@ AUTHENTICATION_BACKENDS = (
     "django_auth_ldap.backend.LDAPBackend",
     "etsd.core.auth.NoLoginModelBackend",
 )
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

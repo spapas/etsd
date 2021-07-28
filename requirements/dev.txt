@@ -2,5 +2,5 @@
 
 django-debug-toolbar==3.2.1
 fab-classic==1.18.1
-black==20.8b1
+black==21.7bb0
 pylint==2.6.0
