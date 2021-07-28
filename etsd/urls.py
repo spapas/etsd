@@ -10,6 +10,7 @@ urlpatterns = [
     path("", include("etsd.core.urls")),
     path("authorities/", include("authorities.urls")),
     path("users/", include("etsd.users.urls")),
+    path("keys/", include("etsd.keys.urls")),
     path("admin/", admin.site.urls),
 ]
 
@@ -21,4 +22,3 @@ if settings.DEBUG:
     except:
         pass
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

@@ -35,6 +35,7 @@
           <h4>Welcome, {{ user }}</h4>
           {% if perms.core.admin %}
               Admin access
+              <a class="btn btn-primary" href="{% url 'public_key_list' %}" role="button">Public key list</a></p>
               <a class="btn btn-primary" href="{% url 'user_list' %}" role="button">Continue</a></p>
           {% elif perms.core.user %}
               User access
