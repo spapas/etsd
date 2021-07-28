@@ -1,0 +1,14 @@
+{% extends "site_base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block page_title %}{% trans "Authority form" %}{% endblock %}
+
+{% block page_content %}
+<form method='POST'>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class='btn btn-primary' type='submit' value='{% trans "Submit" %}' />
+    <a class='btn btn-secondary' href='{% url "authority_list" %}'>{% trans "Return" %}</a>
+</form>
+{% endblock %}

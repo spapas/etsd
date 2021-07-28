@@ -1,0 +1,21 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block page_title %}{% trans "Authority detail" %}{% endblock %}
+
+{% block page_content %}
+{% trans "Kind" %}: {{ authority.kind.name }}<br />
+{% trans "Name" %}: {{ authority.name }}<br />
+{% trans "Email" %}: {{ authority.email }}<br />
+<h3>{% trans "Users" %}</h3>
+{% for u in authority.users.all %}
+    {{ u }}
+{% empty %}
+    {% trans "No users" %}
+{% endfor %}
+<hr />
+<a class='btn btn-warning' href='{% url "authority_update" authority.id %}'>{% trans "Edit" %}</a>
+<a class='btn btn-warning' href='{% url "authority_update_users" authority.id %}'>{% trans "Edit users" %}</a>
+<a class='btn btn-secondary' href='{% url "authority_list" %}'>{% trans "Return" %}</a>
+
+{% endblock %}
