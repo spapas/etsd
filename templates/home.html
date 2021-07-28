@@ -1,0 +1,54 @@
+{% extends "site_base.html" %}
+{% load core_tags %}
+{% load static %}
+{% block extra_style %}
+<style>
+
+</style>
+{% endblock %}
+{% block head_title %}Welcome{% endblock %}
+{% block body_class %}home{% endblock %}
+
+{% block body %}
+  <div class="bg-primary bg-gradient rounded-lg p-4 mb-5 text-light text-center">
+    <h1 class="display-3">Sample</h1>
+    <h3 class="display-6">Sample subtitle</h1>
+    <p>This is a template for a simple website.</p>
+  </div>
+
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Heading</h2>
+      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+      <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Heading</h2>
+      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+      <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Options</h2>
+      {% if user.is_authenticated %}
+          <h4>Welcome, {{ user }}</h4>
+          {% if perms.core.admin %}
+              Admin access
+              <a class="btn btn-primary" href="{% url 'user_list' %}" role="button">Continue</a></p>
+          {% elif perms.core.user %}
+              User access
+              <a class="btn btn-primary" href="{% url 'user_list' %}" role="button">Continue</a></p>
+          {% else %}
+              No access
+          {% endif %}
+      {% else %}
+        <p>
+          Please login to use this site!
+        </p>
+        <a class="btn btn-primary" href="{% url "auth_login" %}" role="button">Log in</a></p>
+      {% endif %}
+    </div>
+  </div>
+    
+{% endblock %}
+

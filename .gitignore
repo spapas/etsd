@@ -1,0 +1,19 @@
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+*.pyc
+*.swp
+*.swo
+*.bz
+*.b
+*.db
+.idea
+.vagrant
+local.py
+db.sqlite3
+media
+.vs
+node_modules

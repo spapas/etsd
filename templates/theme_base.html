@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load compress %}
+{% load static %}
+<html lang="{{ LANGUAGE_CODE }}" class='h-100'>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="">
+
+  <title>{% block head_title_base %}{% if SITE_NAME %}{{ SITE_NAME }}: {% endif %}{% block head_title %}{% endblock %}{% endblock %}</title>
+  {% block viewport %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% endblock %}
+
+  {% block style_base %}
+    {% compress css %}
+      <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+      <link href="{% static 'jquery-ui-1.12.1.min.css' %}" rel="stylesheet">
+      <link href="{% static 'styles.css' %}" rel="stylesheet">
+
+      <style>
+      </style>
+    {% endcompress %}
+  {% endblock %}
+  {% compress css %}
+    {% block extra_style %}{% endblock %}
+  {% endcompress %}
+  {% block extra_head_base %}
+    {% block extra_head %}{% endblock %}
+  {% endblock %}
+</head>
+
+<body class="d-flex flex-column h-100 {% block body_class %}{% endblock %}" id="{% block body_id %}{% endblock %}">
+    <main class="flex-shrink-0" role="main">
+      {% block nav %}{% endblock %}
+      <div class='container main-container'>
+        {% include "partials/_messages.html" %}
+        {% block body %}
+        {% endblock %}
+      </div>
+    </main>
+
+
+  {% block footer %}{% endblock %}
+  {% block script_base %}
+    {% compress js %}
+      <script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+      <script src="{% static 'jquery-ui-1.12.1.min.js' %}"></script>
+      <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <script
+        type="text/javascript"
+        src="{% static 'django_tables2_column_shifter/js/django_tables2_column_shifter.min.js' %}">
+    </script>
+    {% endcompress %}
+  {% endblock %}
+  {% compress js %}
+    {% block extra_script %}{% endblock %}
+  {% endcompress %}
+  {% block extra_script_no_compress %}{% endblock %}
+  {% block extra_body_base %}
+    {% block extra_body %}{% endblock %}
+  {% endblock %}
+
+</body>
+
+</html>

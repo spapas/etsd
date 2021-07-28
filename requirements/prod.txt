@@ -1,0 +1,5 @@
+-r base.txt
+
+sentry-sdk==0.10.2
+gunicorn==20.0.4
+python-memcached==1.59

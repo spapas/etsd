@@ -1,0 +1,30 @@
+﻿{% extends "site_base.html" %}
+{% load widget_tweaks %}
+
+{% block head_title %}Login{% endblock %}
+{% block page_title %}Login{% endblock %}
+{% block page_content %}
+{% if form.errors %}
+<div class='alert alert-danger'>
+  Cannot connect please try again
+  {{ form.non_field_errors }}
+</div>
+{% endif %}
+<form class='login' method="post" action="" >
+  {% csrf_token %}
+  <div class="mb-3 mt-3">
+    <label class='control-label'>{{ form.username.label_tag }}</label>
+    {{ form.username|add_class:"form-control" }}
+  </div>
+
+  <div class="mb-3">
+    <label class='control-label'>{{ form.password.label_tag }}</label>
+    {{ form.password|add_class:"form-control" }}
+  </div>
+
+  <input type="submit" class='btn btn-primary' value="Login" />
+  <a href='{% url "home" %}' class='btn btn-secondary'>Return</a>
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}

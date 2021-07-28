@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">HOME</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <div class='container-fluid d-flex justify-content-between'>
+        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav ">
+          <li class="nav-item">
+            {% if user.is_authenticated %}
+              <a class="btn btn-outline-info btn-sm" href="{% url 'auth_logout' %}">{{ user.get_full_name }} ({{ user.username }}) | Disconnect</a>
+            {% else %}
+              <a class="btn btn-outline-info btn-sm" href="{% url 'auth_login' %}">Please login</a>
+            {% endif %}
+          </li>
+        </ul>
+      </div> <!-- container-fluid-->
+    </div> <!-- navbarMain -->
+  </div> <!-- container -->
+</nav>

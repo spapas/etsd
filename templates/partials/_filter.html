@@ -1,0 +1,20 @@
+{% load crispy_forms_tags %}
+{% load django_tables2 %}
+
+<div class="row">
+    <div class="col-md-12">
+        <form class="row row-cols-md-auto g-3 align-items-center" method='GET' action=''>
+            {{ filter.form|crispy }}
+            <div class="col-12 d-flex align-self-end">
+                <input class='btn btn-info' type='submit' value='Φίλτρο'>
+                <a href='{{ request.path }}' class='btn btn-secondary'>Επαναφορά</a>
+
+                <div class="btn-group ml-2 " role="group" aria-label="Export buttons">
+                    <a href='{% export_url "csv" %}' type="button" class="btn btn-outline-secondary">csv</a>
+                    <a href='{% export_url "xls" %}' type="button" class="btn btn-outline-secondary">xls</a>
+                    <a href='{% export_url "xlsx" %}' type="button" class="btn btn-outline-secondary">xlsx</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

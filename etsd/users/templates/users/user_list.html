@@ -1,0 +1,17 @@
+{% extends "site_base.html" %}
+{% load render_table from django_tables2 %}
+
+
+{% block head_title %}User list{% endblock %}
+{% block page_title %}User list{% endblock %}
+{% block page_content %}
+
+{% include "partials/_filter.html" with filter=filter %}
+
+<div class="row">
+    <div class="col-md-12">
+        {% render_table table %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+{% block head_title %}Logout{% endblock %}
+
+{% block page_title %}Logout{% endblock %}
+{% block page_content %}
+<div class="row">
+    <div class="col-md-12">
+        <p>You have been logged out!</p>
+        <a href='{% url "home" %}' class='btn btn-primary'>Return</a>
+    </div>
+</div>
+{% endblock %}
