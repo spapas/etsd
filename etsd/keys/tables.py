@@ -9,6 +9,6 @@ class PublicKeyTable(ColumnShiftTable):
    
     class Meta:
         model = models.PublicKey
-        
         attrs = {"class": "table table-sm table-stripped"}
         empty_text = "No entries"
+        fields = ('id', 'fingerprint', 'status', 'authority', 'created_on', 'created_by')

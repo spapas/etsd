@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from django_tables2 import RequestConfig
 from django.urls import reverse
 from django_tables2.export.views import ExportMixin
+from django.utils.translation import ugettext as _
 
 
 class PublicKeyListView(ExportMixin, ListView):
@@ -42,5 +43,5 @@ class PublicKeyCreateView(CreateView):
         form.instance.authority = user_authority
         obj = form.save()
         
-        messages.add_message(self.request, messages.INFO, _('New public key created'))
+        messages.add_message(self.request, messages.INFO, _('New public key created. This key will be used after it has been approved by the administrators.'))
         return HttpResponseRedirect(reverse("home"))
