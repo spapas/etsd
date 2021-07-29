@@ -33,3 +33,22 @@ work flow to minimize errors and security
 breaches even for less security aware users.
 
 # How it works
+
+The app contains a bunch of authorities each one with a
+bunch of users. Each authority that wants to
+receive data will need to upload a Public key,
+which will then need to get the administration
+to approve using some OOB communication.
+
+After the public key is approved the authority
+can receive data. The data is encrypted with
+the receiving authority public key using
+OpenPGP.js *on the client side" and the cipher
+is saved to the server. Since the original data
+never reaches the server we can be sure that
+even if the server was compromised somehow
+no sensitive data would be breached.
+
+When a user of the receiving authority logs in
+he can choose to submit the authority private key so
+it can be used to decrypt the authority data.
