@@ -6,9 +6,21 @@ from django_tables2.utils import A
 
 
 class PublicKeyTable(ColumnShiftTable):
-   
+    id = tables.LinkColumn(
+        "publickey_detail",
+        args=[A("pk")],
+        attrs={"a": {"class": "btn btn-info btn-sm"}},
+    )
+
     class Meta:
         model = models.PublicKey
         attrs = {"class": "table table-sm table-stripped"}
         empty_text = "No entries"
-        fields = ('id', 'fingerprint', 'status', 'authority', 'created_on', 'created_by')
+        fields = (
+            "id",
+            "fingerprint",
+            "status",
+            "authority",
+            "created_on",
+            "created_by",
+        )

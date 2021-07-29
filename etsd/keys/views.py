@@ -9,7 +9,18 @@ from django_tables2.export.views import ExportMixin
 from django.utils.translation import ugettext as _
 
 
-class PublicKeyListView(ExportMixin, ListView):
+class AdminOrAuthorityQsMixin:
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.user.has_perm("core.admin"):
+            return qs
+        elif self.request.user.has_perm("core.user"):
+            return qs.filter(authority=self.request.user.get_authority())
+        else:
+            return qs.none()
+
+
+class PublicKeyListView(ExportMixin, AdminOrAuthorityQsMixin, ListView):
     model = models.PublicKey
 
     def get_table(self):
@@ -27,8 +38,11 @@ class PublicKeyListView(ExportMixin, ListView):
         RequestConfig(self.request, paginate={"per_page": 15}).configure(table)
         context["filter"] = filter
         context["table"] = table
-
         return context
+
+
+class PublicKeyDetailView(AdminOrAuthorityQsMixin, DetailView):
+    model = models.PublicKey
 
 
 class PublicKeyCreateView(CreateView):
@@ -38,10 +52,19 @@ class PublicKeyCreateView(CreateView):
     def form_valid(self, form):
         user_authority = self.request.user.get_authority()
         if not user_authority:
-            messages.error(self.request, "Public key creation is not allowed from users without an authority!")
+            messages.error(
+                self.request,
+                "Public key creation is not allowed from users without an authority!",
+            )
             return HttpResponseRedirect(reverse("home"))
         form.instance.authority = user_authority
         obj = form.save()
-        
-        messages.add_message(self.request, messages.INFO, _('New public key created. This key will be used after it has been approved by the administrators.'))
+
+        messages.add_message(
+            self.request,
+            messages.INFO,
+            _(
+                "New public key created. This key will be used after it has been approved by the administrators."
+            ),
+        )
         return HttpResponseRedirect(reverse("home"))

@@ -9,6 +9,7 @@ class PublicKeyFilter(django_filters.FilterSet):
         fields = {
             'authority__name': ['icontains'],
             'status': ['exact'],
+            'fingerprint': ['icontains'],
         }
 
     def __init__(self, *args, **kwargs):

@@ -1,0 +1,70 @@
+{% extends "site_base.html" %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% load i18n static %}
+
+
+{% block head_title %}{% blocktrans with pid=publickey.id %}Public key {{ pid }} detail{% endblocktrans %}{% endblock %}
+{% block page_title %}{% blocktrans with pid=publickey.id %}Public key {{ pid }} detail{% endblocktrans %}{% endblock %}
+{% block page_content %}
+
+<div class="row">
+  <div class="col-md-6">
+    <b>ID</b>: {{ publickey.id }}<br />
+    <b>Authority</b>: {{ publickey.authority }}<br />
+    <b>Status</b>: {{ publickey.get_status_display }}<br />
+    <b>Created on/by</b>: {{ publickey.created_on }} / {{ publickey.created_by }}<br />
+    <b>Fingerprint</b> <code>{{ publickey.fingerprint }}</code>
+  </div>
+  <div class="col-md-6">
+    
+      
+      Key text:
+      <code>
+      <pre>
+      {{ publickey.key }}
+      </pre>
+      </code>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_script %}
+<script src='{% static "openpgp/openpgp.min.js" %}'></script>
+<script>
+
+const loadPK = (async(key_data) => {
+    
+    let publicKey = await openpgp.readKey({
+        armoredKey: key_data
+    });
+    let fingerprint = publicKey.keyPacket.getFingerprint()
+    
+    return {key_data, fingerprint}
+    
+})
+
+$(function() { 
+  $('#validateButton').click(function() { 
+    
+    let keyVal = $('#id_key').val()
+    
+    loadPK(keyVal).then( ({key_data, fingerprint}) => {
+      console.log(key_data, fingerprint)
+      $('#id_fingerprint').val(fingerprint)
+      $('#id_key').prop('readonly', true)
+      $('#validateButton').prop('disabled', true)
+      $('#submitButton').prop('disabled', false)
+    }).catch(err => {
+      bootstrap5Alert({'message': err, 'title': "ERROR"})
+    })
+  })
+
+  $('#submitButton').click(function() { 
+    $(this).closest('form').submit()
+  })
+})
+</script>
+{% endblock %}
