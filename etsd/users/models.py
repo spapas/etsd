@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import ugettext as _
 
 
 # Use custom user model by default as per
@@ -6,3 +7,6 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     def __str__(self):
         return '{0} ({1})'.format(self.get_full_name(), self.username)
+
+    def get_authority(self):
+        return self.authorities.all().first()

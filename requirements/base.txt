@@ -11,6 +11,7 @@ django-tables2-column-shifter==2.0.3
 django-tools==0.48.3
 django-widget-tweaks==1.4.8
 openpyxl==3.0.7
+python-gnupg==0.4.7
 python-ldap==3.3.1
 pytz==2021.1
 six==1.16.0

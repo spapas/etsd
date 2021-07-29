@@ -62,20 +62,22 @@ const loadPK = (async(key_data) => {
 
 $(function() { 
   $('#validateButton').click(function() { 
-    console.log("CLICK")
+    
     let keyVal = $('#id_key').val()
     
     loadPK(keyVal).then( ({key_data, fingerprint}) => {
       console.log(key_data, fingerprint)
       $('#id_fingerprint').val(fingerprint)
-      $('#id_key').prop('disabled', true)
+      $('#id_key').prop('readonly', true)
       $('#validateButton').prop('disabled', true)
       $('#submitButton').prop('disabled', false)
     }).catch(err => {
       bootstrap5Alert({'message': err, 'title': "ERROR"})
     })
-    
-    
+  })
+
+  $('#submitButton').click(function() { 
+    $(this).closest('form').submit()
   })
 })
 </script>

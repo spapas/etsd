@@ -1,7 +1,10 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib import messages
 from . import models, tables, filters, forms
 from django.views.generic import ListView, DetailView, CreateView
 from django_tables2 import RequestConfig
+from django.urls import reverse
 from django_tables2.export.views import ExportMixin
 
 
@@ -30,3 +33,14 @@ class PublicKeyListView(ExportMixin, ListView):
 class PublicKeyCreateView(CreateView):
     model = models.PublicKey
     form_class = forms.PublicKeyCreateForm
+
+    def form_valid(self, form):
+        user_authority = self.request.user.get_authority()
+        if not user_authority:
+            messages.error(self.request, "Public key creation is not allowed from users without an authority!")
+            return HttpResponseRedirect(reverse("home"))
+        form.instance.authority = user_authority
+        obj = form.save()
+        
+        messages.add_message(self.request, messages.INFO, _('New public key created'))
+        return HttpResponseRedirect(reverse("home"))
