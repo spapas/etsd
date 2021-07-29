@@ -18,8 +18,7 @@
   </div>
   <div class="col-md-6">
     
-      
-      Key text:
+      <h5>Key text</h5>
       <code>
       <pre>
       {{ publickey.key }}
@@ -28,7 +27,11 @@
     </div>
   </div>
 </div>
-
+<div class='row'>
+  <div class='col-md-12'>
+    <a class='btn btn-secondary' href='{% url "public_key_list" %}'>Return</a>
+  </div>
+</div>
 {% endblock %}
 
 {% block extra_script %}
