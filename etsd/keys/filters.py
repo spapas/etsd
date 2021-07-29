@@ -8,6 +8,7 @@ class PublicKeyFilter(django_filters.FilterSet):
         model = models.PublicKey
         fields = {
             'authority__name': ['icontains'],
+            'status': ['exact'],
         }
 
     def __init__(self, *args, **kwargs):

@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "compressor",
     "authorities",
     "crispy_forms",
+    "crispy_bootstrap5",
     "django_tables2",
     "django_tables2_column_shifter",
     "django_filters",
@@ -153,7 +154,8 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "noreply@hcg.gr"
 
 # crispy forms template pack
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 from .ldap_conf import *
 
