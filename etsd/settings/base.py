@@ -167,3 +167,4 @@ AUTHENTICATION_BACKENDS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GNUPG_HOME='C:/Program Files (x86)/GnuPG'
+SIGNATURE_CHECKER_URL=''

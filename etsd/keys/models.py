@@ -28,7 +28,7 @@ class PublicKey(UserDateAbstractModel):
         max_length=10, choices=KEY_STATUS_CHOICES, default="PENDING", help_text=_('Approval status of key')
     )
     confirmation_document = models.FileField(
-        upload_to="confirmations/%Y/%m/%d/", null=True, blank=True
+        upload_to="confirmations/%Y/%m/%d/", 
     )
 
     def __str__(self):

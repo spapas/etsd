@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 {% load render_table from django_tables2 %}
 {% load crispy_forms_tags %}
+{% load core_tags %}
 {% load i18n static %}
 
 
@@ -11,7 +12,8 @@
 <div class="row">
   <div class="col-md-12">
     <div class='alert alert-info'> 
-      {% blocktrans %}
+      {% get_user_authority as auth %}
+      {% blocktrans  %}
         <p>
         You can submit a new public key through this form. The publickey must be in the ASCII armored format i.e it 
         should start with <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> contain the key data in printable ASCII
@@ -19,8 +21,13 @@
         </p>
         <p>
         After you copy over the public key text in the corresponding field, you need to press the <b>Validate</b> 
-        button to validate its correctness. If everything is correct, the fingerprint of the key will be filled
-        and you will be click the <b>Submit</b> button.
+        button to validate its correctness. If everything is correct, the fingerprint of the key will be filled.
+        </p>
+        <p>You need then to generate the confirmation document. This must be a properly signed document that 
+        will declare that "<em>The public key for the authority {{ auth }} has the fingerprint 
+        <span id='fingerprint_data'>FINGERPRINT_DATA_HERE</span></em> and upload it in the corresponding file field.
+
+        Finally you will be able to click the <b>Submit</b> button.
         </p>
         <p>
         Please notice that after you submit this you must communicate with the administrators and confirm that the
@@ -34,9 +41,9 @@
 
 <div class="row">
     <div class="col-md-12">
-      <form method="POST" id='keyform'>
+      <form method="POST" id='keyform' enctype="multipart/form-data" >
         {% csrf_token %}
-        {{ form|crispy }}
+          {{ form|crispy }}
         <button  id='validateButton' type='button' class='btn btn-primary' >{% trans "Validate" %}</button>
         <button id='submitButton'  type='button' disabled class='btn btn-success' >{% trans "Submit" %}</button>
         <a class='btn btn-secondary' href='{% url "public_key_list" %}'>{% trans "Return" %}</a>
@@ -69,6 +76,7 @@ $(function() {
     loadPK(keyVal).then( ({key_data, fingerprint}) => {
       console.log(key_data, fingerprint)
       $('#id_fingerprint').val(fingerprint)
+      $('#fingerprint_data').html(fingerprint)
       $('#id_key').prop('readonly', true)
       $('#validateButton').prop('disabled', true)
       $('#submitButton').prop('disabled', false)

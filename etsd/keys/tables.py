@@ -21,6 +21,7 @@ class PublicKeyTable(ColumnShiftTable):
             "fingerprint",
             "status",
             "authority",
+            "confirmation_document",
             "created_on",
             "created_by",
         )

@@ -10,11 +10,19 @@
 
 <div class="row">
   <div class="col-md-6">
-    <b>ID</b>: {{ publickey.id }}<br />
-    <b>Authority</b>: {{ publickey.authority }}<br />
-    <b>Status</b>: {{ publickey.get_status_display }}<br />
-    <b>Created on/by</b>: {{ publickey.created_on }} / {{ publickey.created_by }}<br />
-    <b>Fingerprint</b> <code>{{ publickey.fingerprint }}</code>
+    <b>{% translate "ID" %}</b>: {{ publickey.id }}<br />
+    <b>{% translate "Authority" %}</b>: {{ publickey.authority }}<br />
+    <b>{% translate "Status" %}</b>: {{ publickey.get_status_display }}<br />
+    <b>{% translate "Created on" %}/by</b>: {{ publickey.created_on }} / {{ publickey.created_by }}<br />
+    <b>{% translate "Fingerprint" %}</b> <code>{{ publickey.fingerprint }}</code><br />
+    <b>{% translate "Confirmation document" %}</b> <a href='{{ publickey.confirmation_document.url }}'>{% translate "Download" %}</a>
+    {% if publickey.status == 'PENDING' %}
+      <div class="alert alert-warning">
+        The public key needs confirmation by the administration in order to be used. 
+      </div>
+    {% endif %}
+
+
   </div>
   <div class="col-md-6">
     
