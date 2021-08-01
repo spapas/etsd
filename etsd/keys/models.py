@@ -7,6 +7,7 @@ KEY_STATUS_CHOICES = (
     ("ACTIVE", "Active"),
     ("PENDING", "Pending"),
     ("INACTIVE", "Inactive"),
+    ("REJECTED", "Rejected"),
 )
 
 
@@ -25,10 +26,17 @@ class PublicKey(UserDateAbstractModel):
         ),
     )
     status = models.CharField(
-        max_length=10, choices=KEY_STATUS_CHOICES, default="PENDING", help_text=_('Approval status of key')
+        verbose_name=_("Status"),
+        max_length=10,
+        choices=KEY_STATUS_CHOICES,
+        default="PENDING",
+        help_text=_("Approval status of key"),
     )
     confirmation_document = models.FileField(
-        upload_to="confirmations/%Y/%m/%d/", 
+        upload_to="confirmations/%Y/%m/%d/", verbose_name=_("Confirmation document")
+    )
+    approved_on = models.DateTimeField(
+        null=True, blank=True, verbose_name=_("Approval date")
     )
 
     def __str__(self):
