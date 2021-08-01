@@ -17,25 +17,32 @@ MESSAGE_STATUS_CHOICES = (
 
 class MessageCategory(UserDateAbstractModel):
     name = models.CharField(max_length=64, verbose_name=_("Name"))
+    is_active = models.BooleanField(default=True, verbose_name=_("Is active"))
 
 
 class Message(UserDateAbstractModel):
     sender = models.ForeignKey(
-        "authorities.Authority", verbose_name=_("Message sender")
+        "authorities.Authority",
+        verbose_name=_("Message sender"),
+        on_delete=models.PROTECT,
+        related_name="from_messages",
     )
     recipients = models.ManyToManyField(
         "authorities.Authority",
         verbose_name=_("Message recipients"),
         through="MessageRecipient",
+        related_name="to_messages",
     )
-    avaible_to_sender = models.BooleanField(
+    available_to_sender = models.BooleanField(
         default=False,
         verbose_name=_("Message is available to sender"),
         help_text=_("The message is enctypted with the sender's public key also"),
     )
     kind = models.CharField(max_length=32, choices=MESSAGE_KIND_CHOICES)
     status = models.CharField(max_length=32, choices=MESSAGE_STATUS_CHOICES)
-    category = models.ForeignKey(MessageCategory, verbose_name=_("Category"))
+    category = models.ForeignKey(
+        MessageCategory, verbose_name=_("Category"), on_delete=models.PROTECT
+    )
 
     class Meta:
         verbose_name = _("Message")
@@ -43,8 +50,12 @@ class Message(UserDateAbstractModel):
 
 
 class MessageRecipient(models.Model):
-    authority = models.ForeignKey("authorities.Authority", verbose_name=_("Authority"))
-    message = models.ForeignKey(Message, verbose_name=_("Message"))
+    authority = models.ForeignKey(
+        "authorities.Authority", verbose_name=_("Authority"), on_delete=models.PROTECT
+    )
+    message = models.ForeignKey(
+        Message, verbose_name=_("Message"), on_delete=models.CASCADE
+    )
 
     class Meta:
         verbose_name = _("Message recipient")
@@ -52,8 +63,26 @@ class MessageRecipient(models.Model):
 
 
 class MessageData(UserDateAbstractModel):
-    message = models.ForeignKey(Message, verbose_name=_("Message"))
+    message = models.ForeignKey(
+        Message, verbose_name=_("Message"), on_delete=models.CASCADE
+    )
     cipherdata = models.FileField(
-        upload_to="cipherdata/%Y/%m/%d/", verbose_name=_("Encrypted data")
+        upload_to="protected/cipherdata/%Y/%m/%d/", verbose_name=_("Encrypted data")
     )
 
+    class Meta:
+        verbose_name = _("Message data")
+        verbose_name_plural = _("Message data")
+
+
+class MessageDataAccess(UserDateAbstractModel):
+    message_data = models.ForeignKey(
+        MessageData, verbose_name=_("Message data"), on_delete=models.CASCADE
+    )
+    authority = models.ForeignKey(
+        "authorities.Authority", verbose_name=_("Authority"), on_delete=models.PROTECT
+    )
+
+    class Meta:
+        verbose_name = _("Message data access")
+        verbose_name_plural = _("Message data accesses")

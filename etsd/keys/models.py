@@ -33,7 +33,7 @@ class PublicKey(UserDateAbstractModel):
         help_text=_("Approval status of key"),
     )
     confirmation_document = models.FileField(
-        upload_to="confirmations/%Y/%m/%d/", verbose_name=_("Confirmation document")
+        upload_to="public/confirmations/%Y/%m/%d/", verbose_name=_("Confirmation document")
     )
     approved_on = models.DateTimeField(
         null=True, blank=True, verbose_name=_("Approval date")
