@@ -17,6 +17,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "etsd.core",
     "etsd.keys",
+    "etsd.messages",
     "etsd.users",
 
     "django.contrib.admin",
