@@ -17,7 +17,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "etsd.core",
     "etsd.keys",
-    "etsd.messages",
+    "etsd.msgs",
     "etsd.users",
 
     "django.contrib.admin",
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "reversion",
     "widget_tweaks",
+    'django_cleanup.apps.CleanupConfig', # Must be placed last
 ]
 
 MIDDLEWARE = [
