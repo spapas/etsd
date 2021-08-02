@@ -79,8 +79,8 @@ class MessageDataAccess(UserDateAbstractModel):
     message_data = models.ForeignKey(
         MessageData, verbose_name=_("Message data"), on_delete=models.CASCADE
     )
-    authority = models.ForeignKey(
-        "authorities.Authority", verbose_name=_("Authority"), on_delete=models.PROTECT
+    message_recipient = models.ForeignKey(
+        "MessageRecipient", verbose_name=_("Message recipient"), on_delete=models.PROTECT
     )
 
     class Meta:
