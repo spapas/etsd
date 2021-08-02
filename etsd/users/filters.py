@@ -7,9 +7,9 @@ class UserFilter(django_filters.FilterSet):
     class Meta:
         model = models.User
         fields = {
-            'username': ['icontains'],
-            'last_name': ['icontains'],
-            'last_login': ['year', "month"],
+            "username": ["icontains"],
+            "last_name": ["icontains"],
+            "last_login": ["year", "month"],
         }
 
     def __init__(self, *args, **kwargs):

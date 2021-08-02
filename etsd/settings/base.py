@@ -19,10 +19,8 @@ INSTALLED_APPS = [
     "etsd.keys",
     "etsd.msgs",
     "etsd.users",
-
-    'dal',
-    'dal_select2',
-
+    "dal",
+    "dal_select2",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,7 +38,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "reversion",
     "widget_tweaks",
-    'django_cleanup.apps.CleanupConfig', # Must be placed last
+    "django_cleanup.apps.CleanupConfig",  # Must be placed last
 ]
 
 MIDDLEWARE = [
@@ -52,7 +50,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware',
+    "django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware",
 ]
 
 ROOT_URLCONF = "etsd.urls"
@@ -91,7 +89,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -135,11 +133,11 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = "DENY"
 SESSION_COOKIE_SECURE = (
-    True
-)  # Careful this allows session to work only on HTTPS on production
+    True  # Careful this allows session to work only on HTTPS on production
+)
 CSRF_COOKIE_SECURE = (
-    True
-)  # Careful this allows CSRF to work only on HTTPS on production
+    True  # Careful this allows CSRF to work only on HTTPS on production
+)
 CSRF_COOKIE_HTTPONLY = True
 
 ADMINS = MANAGERS = [("Serafeim Papastefanos", "spapas@hcg.gr")]
@@ -169,7 +167,7 @@ AUTHENTICATION_BACKENDS = (
     "etsd.core.auth.NoLoginModelBackend",
 )
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-GNUPG_HOME='C:/Program Files (x86)/GnuPG'
-SIGNATURE_CHECKER_URL=''
+GNUPG_HOME = "C:/Program Files (x86)/GnuPG"
+SIGNATURE_CHECKER_URL = ""

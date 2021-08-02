@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('keys', '0002_auto_20210729_1438'),
+        ("keys", "0002_auto_20210729_1438"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='publickey',
-            name='confirmation_document',
-            field=models.FileField(default='', upload_to='confirmations/%Y/%m/%d/'),
+            model_name="publickey",
+            name="confirmation_document",
+            field=models.FileField(default="", upload_to="confirmations/%Y/%m/%d/"),
             preserve_default=False,
         ),
     ]

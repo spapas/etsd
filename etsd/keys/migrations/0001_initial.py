@@ -11,26 +11,80 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('authorities', '0003_authority_email'),
+        ("authorities", "0003_authority_email"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PublicKey',
+            name="PublicKey",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_on', models.DateTimeField(auto_now_add=True, verbose_name='Created on')),
-                ('modified_on', models.DateTimeField(auto_now=True, verbose_name='Modified on')),
-                ('key', models.TextField()),
-                ('fingerprint', models.CharField(max_length=128, unique=True)),
-                ('status', models.CharField(choices=[('ACTIVE', 'Active'), ('PENDING', 'Pending'), ('INACTIVE', 'Inactive')], default='PENDING', max_length=10)),
-                ('confirmation_document', models.FileField(blank=True, null=True, upload_to='confirmations/%Y/%m/%d/')),
-                ('authority', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='authorities.authority')),
-                ('created_by', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='publickey_created', to=settings.AUTH_USER_MODEL, verbose_name='Created by')),
-                ('modified_by', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='publickey_modified', to=settings.AUTH_USER_MODEL, verbose_name='Modified by')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_on",
+                    models.DateTimeField(auto_now_add=True, verbose_name="Created on"),
+                ),
+                (
+                    "modified_on",
+                    models.DateTimeField(auto_now=True, verbose_name="Modified on"),
+                ),
+                ("key", models.TextField()),
+                ("fingerprint", models.CharField(max_length=128, unique=True)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("ACTIVE", "Active"),
+                            ("PENDING", "Pending"),
+                            ("INACTIVE", "Inactive"),
+                        ],
+                        default="PENDING",
+                        max_length=10,
+                    ),
+                ),
+                (
+                    "confirmation_document",
+                    models.FileField(
+                        blank=True, null=True, upload_to="confirmations/%Y/%m/%d/"
+                    ),
+                ),
+                (
+                    "authority",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="authorities.authority",
+                    ),
+                ),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        editable=False,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="publickey_created",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Created by",
+                    ),
+                ),
+                (
+                    "modified_by",
+                    models.ForeignKey(
+                        editable=False,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="publickey_modified",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Modified by",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

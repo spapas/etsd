@@ -6,23 +6,39 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('keys', '0003_alter_publickey_confirmation_document'),
+        ("keys", "0003_alter_publickey_confirmation_document"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='publickey',
-            name='approved_on',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='Approval date'),
+            model_name="publickey",
+            name="approved_on",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="Approval date"
+            ),
         ),
         migrations.AlterField(
-            model_name='publickey',
-            name='confirmation_document',
-            field=models.FileField(upload_to='confirmations/%Y/%m/%d/', verbose_name='Confirmation document'),
+            model_name="publickey",
+            name="confirmation_document",
+            field=models.FileField(
+                upload_to="confirmations/%Y/%m/%d/",
+                verbose_name="Confirmation document",
+            ),
         ),
         migrations.AlterField(
-            model_name='publickey',
-            name='status',
-            field=models.CharField(choices=[('ACTIVE', 'Active'), ('PENDING', 'Pending'), ('INACTIVE', 'Inactive'), ('REJECTED', 'Rejected')], default='PENDING', help_text='Approval status of key', max_length=10, verbose_name='Status'),
+            model_name="publickey",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("ACTIVE", "Active"),
+                    ("PENDING", "Pending"),
+                    ("INACTIVE", "Inactive"),
+                    ("REJECTED", "Rejected"),
+                ],
+                default="PENDING",
+                help_text="Approval status of key",
+                max_length=10,
+                verbose_name="Status",
+            ),
         ),
     ]

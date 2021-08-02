@@ -27,7 +27,7 @@ SESSION_COOKIE_SECURE = False  # Override session to work also with http
 INTERNAL_IPS = ["127.0.0.1"]
 MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
-GNUPG_HOME='C:/Program Files (x86)/GnuPG'
+GNUPG_HOME = "C:/Program Files (x86)/GnuPG"
 
 try:
     from .local import *

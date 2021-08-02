@@ -2,7 +2,6 @@ from django.test import TestCase
 
 
 class SampleTestCase(TestCase):
-
     def setUp(self):
         self.value = 1
 

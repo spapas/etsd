@@ -6,7 +6,6 @@ SITE_ID = 1
 COMPRESS_OFFLINE = True
 
 
-
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 

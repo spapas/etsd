@@ -7,9 +7,9 @@ class PublicKeyFilter(django_filters.FilterSet):
     class Meta:
         model = models.PublicKey
         fields = {
-            'authority__name': ['icontains'],
-            'status': ['exact'],
-            'fingerprint': ['icontains'],
+            "authority__name": ["icontains"],
+            "status": ["exact"],
+            "fingerprint": ["icontains"],
         }
 
     def __init__(self, *args, **kwargs):

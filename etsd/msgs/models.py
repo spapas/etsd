@@ -43,6 +43,14 @@ class Message(UserDateAbstractModel):
     category = models.ForeignKey(
         MessageCategory, verbose_name=_("Category"), on_delete=models.PROTECT
     )
+    rel_message = models.ForeignKey(
+        "self",
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+        verbose_name=_("Related message"),
+    )
+    sent_on = models.DateTimeField(blank=True, null=True, verbose_name=_("Sent on"))
 
     class Meta:
         verbose_name = _("Message")
@@ -80,7 +88,9 @@ class MessageDataAccess(UserDateAbstractModel):
         MessageData, verbose_name=_("Message data"), on_delete=models.CASCADE
     )
     message_recipient = models.ForeignKey(
-        "MessageRecipient", verbose_name=_("Message recipient"), on_delete=models.PROTECT
+        "MessageRecipient",
+        verbose_name=_("Message recipient"),
+        on_delete=models.PROTECT,
     )
 
     class Meta:

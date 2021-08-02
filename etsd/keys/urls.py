@@ -20,7 +20,9 @@ def any_permission_required(*args):
 urlpatterns = [
     path(
         "",
-        permission_required("core.admin", "core.user")(views.PublicKeyListView.as_view()),
+        permission_required("core.admin", "core.user")(
+            views.PublicKeyListView.as_view()
+        ),
         name="public_key_list",
     ),
     path(
@@ -37,5 +39,4 @@ urlpatterns = [
         ),
         name="publickey_detail",
     ),
-    
 ]

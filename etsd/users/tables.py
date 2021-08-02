@@ -6,14 +6,13 @@ from django_tables2.utils import A
 
 
 class UserTable(ColumnShiftTable):
-    #id = tables.LinkColumn(
+    # id = tables.LinkColumn(
     #    "app_detail",
     #   args=[A("id")],
     #    verbose_name="ΚΩΔ",
     #    attrs={"a": {"class": "btn btn-primary btn-sm"}},
-    #)
+    # )
 
-    
     class Meta:
         model = models.User
         fields = ("id", "username", "last_name", "first_name", "last_login")

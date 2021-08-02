@@ -7,18 +7,23 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('msgs', '0001_initial'),
+        ("msgs", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='messagedataaccess',
-            name='authority',
+            model_name="messagedataaccess",
+            name="authority",
         ),
         migrations.AddField(
-            model_name='messagedataaccess',
-            name='message_recipient',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.PROTECT, to='msgs.messagerecipient', verbose_name='Message recipient'),
+            model_name="messagedataaccess",
+            name="message_recipient",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="msgs.messagerecipient",
+                verbose_name="Message recipient",
+            ),
             preserve_default=False,
         ),
     ]

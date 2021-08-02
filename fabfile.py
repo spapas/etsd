@@ -45,6 +45,7 @@ def work():
         if env.env == "prod":
             virtualenv("python manage.py compres")
 
+
 def touch_wsgi():
     print("Restarting uwsgi")
     if env.env == "prod":
@@ -70,12 +71,8 @@ def uat():
     env.env = "uat"
     env.user = "serafeim"
     env.hosts = ["uat1.hcg.gr"]
-    env.directory = (
-        "/home/serafeim/etsd/etsd"
-    )
-    env.activate = (
-        "source /home/serafeim/etsd/venv/bin/activate"
-    )
+    env.directory = "/home/serafeim/etsd/etsd"
+    env.activate = "source /home/serafeim/etsd/venv/bin/activate"
 
 
 def prod():
@@ -83,9 +80,5 @@ def prod():
     env.env = "prod"
     env.user = "serafeim"
     env.hosts = [""]
-    env.directory = (
-        "/home/serafeim/etsd/etsd"
-    )
-    env.activate = (
-        "source /home/serafeim/etsd/venv/bin/activate"
-    )
+    env.directory = "/home/serafeim/etsd/etsd"
+    env.activate = "source /home/serafeim/etsd/venv/bin/activate"

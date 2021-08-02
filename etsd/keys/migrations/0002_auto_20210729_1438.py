@@ -6,27 +6,47 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('keys', '0001_initial'),
+        ("keys", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='publickey',
-            options={'verbose_name': 'Public key', 'verbose_name_plural': 'Public keys'},
+            name="publickey",
+            options={
+                "verbose_name": "Public key",
+                "verbose_name_plural": "Public keys",
+            },
         ),
         migrations.AlterField(
-            model_name='publickey',
-            name='fingerprint',
-            field=models.CharField(help_text='The fingerprint of the key will be automatically generated after the key is validated', max_length=128, unique=True, verbose_name='Key fingerprint'),
+            model_name="publickey",
+            name="fingerprint",
+            field=models.CharField(
+                help_text="The fingerprint of the key will be automatically generated after the key is validated",
+                max_length=128,
+                unique=True,
+                verbose_name="Key fingerprint",
+            ),
         ),
         migrations.AlterField(
-            model_name='publickey',
-            name='key',
-            field=models.TextField(help_text='Please paste the key text in armored format ASCII', verbose_name='Key text'),
+            model_name="publickey",
+            name="key",
+            field=models.TextField(
+                help_text="Please paste the key text in armored format ASCII",
+                verbose_name="Key text",
+            ),
         ),
         migrations.AlterField(
-            model_name='publickey',
-            name='status',
-            field=models.CharField(choices=[('ACTIVE', 'Active'), ('PENDING', 'Pending'), ('INACTIVE', 'Inactive')], default='PENDING', help_text='Approval status of key', max_length=10),
+            model_name="publickey",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("ACTIVE", "Active"),
+                    ("PENDING", "Pending"),
+                    ("INACTIVE", "Inactive"),
+                ],
+                default="PENDING",
+                help_text="Approval status of key",
+                max_length=10,
+            ),
         ),
     ]
