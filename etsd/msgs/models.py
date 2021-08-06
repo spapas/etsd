@@ -1,6 +1,8 @@
 from etsd.core.models import UserDateAbstractModel
 from django.db import models
+from django.db.models import Max
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 MESSAGE_KIND_CHOICES = (
     ("NEW", _("New")),
@@ -52,9 +54,23 @@ class Message(UserDateAbstractModel):
     )
     sent_on = models.DateTimeField(blank=True, null=True, verbose_name=_("Sent on"))
 
+    protocol = models.PositiveBigIntegerField(blank=True, null=True)
+    protocol_year = models.PositiveIntegerField(blank=True, null=True)
+
     class Meta:
         verbose_name = _("Message")
         verbose_name_plural = _("Messages")
+        unique_together = ('protocol', 'protocol_year')
+    
+    def send(self):
+        # Get protocol for current year and fill sent_on, protocol and protocol_year
+        self.sent_on = timezone.now()
+        self.protocol_year = self.sent_on.year
+        current_year_messages = Message.objects.select_for_update().filter(protocol_year=self.protocl_year)
+        max_protocol = current_year_messages.aggregate(mp=Max('protocol'))['mp'] or 0
+        self.protocol = max_protocol + 1
+        self.status = 'SENT'
+        self.save()
 
 
 class MessageRecipient(models.Model):
