@@ -1,8 +1,10 @@
-from etsd.core.models import UserDateAbstractModel
 from django.db import models
 from django.db.models import Max
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+
+from etsd.core.models import UserDateAbstractModel
+
 
 MESSAGE_KIND_CHOICES = (
     ("NEW", _("New")),
