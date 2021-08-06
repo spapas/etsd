@@ -54,8 +54,8 @@ class Message(UserDateAbstractModel):
         on_delete=models.PROTECT,
         verbose_name=_("Related message"),
     )
-    sent_on = models.DateTimeField(blank=True, null=True, verbose_name=_("Sent on"))
 
+    sent_on = models.DateTimeField(blank=True, null=True, verbose_name=_("Sent on"))
     protocol = models.PositiveBigIntegerField(blank=True, null=True)
     protocol_year = models.PositiveIntegerField(blank=True, null=True)
 
