@@ -60,16 +60,18 @@ class Message(UserDateAbstractModel):
     class Meta:
         verbose_name = _("Message")
         verbose_name_plural = _("Messages")
-        unique_together = ('protocol', 'protocol_year')
-    
+        unique_together = ("protocol", "protocol_year")
+
     def send(self):
         # Get protocol for current year and fill sent_on, protocol and protocol_year
         self.sent_on = timezone.now()
         self.protocol_year = self.sent_on.year
-        current_year_messages = Message.objects.select_for_update().filter(protocol_year=self.protocl_year)
-        max_protocol = current_year_messages.aggregate(mp=Max('protocol'))['mp'] or 0
+        current_year_messages = Message.objects.select_for_update().filter(
+            protocol_year=self.protocol_year
+        )
+        max_protocol = current_year_messages.aggregate(mp=Max("protocol"))["mp"] or 0
         self.protocol = max_protocol + 1
-        self.status = 'SENT'
+        self.status = "SENT"
         self.save()
 
 
