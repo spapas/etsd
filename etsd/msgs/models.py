@@ -3,6 +3,8 @@ from django.db.models import Max
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
+import reversion
+
 from etsd.core.models import UserDateAbstractModel
 
 
@@ -21,11 +23,13 @@ MESSAGE_STATUS_CHOICES = (
 )
 
 
+@reversion.register
 class MessageCategory(UserDateAbstractModel):
     name = models.CharField(max_length=64, verbose_name=_("Name"))
     is_active = models.BooleanField(default=True, verbose_name=_("Is active"))
 
 
+@reversion.register
 class Message(UserDateAbstractModel):
     """
     This is a message that contains encrypted data.

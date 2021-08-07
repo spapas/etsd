@@ -1,6 +1,7 @@
 from etsd.core.models import UserDateAbstractModel
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+import reversion
 
 
 KEY_STATUS_CHOICES = (
@@ -10,7 +11,7 @@ KEY_STATUS_CHOICES = (
     ("REJECTED", "Rejected"),
 )
 
-
+@reversion.register
 class PublicKey(UserDateAbstractModel):
     authority = models.ForeignKey("authorities.Authority", on_delete=models.PROTECT)
     key = models.TextField(
