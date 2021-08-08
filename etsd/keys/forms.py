@@ -42,3 +42,9 @@ class PublicKeyCreateForm(forms.ModelForm):
             raise forms.ValidationError(_("Confirmation document is required."))
 
         return data
+
+
+class LoadPrivateKeyForm(forms.Form):
+    pass
+    #file = forms.FileField()
+    #passphrase = forms.CharField()

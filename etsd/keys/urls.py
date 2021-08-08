@@ -19,6 +19,13 @@ def any_permission_required(*args):
 
 urlpatterns = [
     path(
+        "load_private_key/",
+        any_permission_required("core.admin", "core.user")(
+            views.LoadPrivateKey.as_view(),
+        ),
+        name="privatekey_load",
+    ),
+    path(
         "",
         permission_required("core.admin", "core.user")(
             views.PublicKeyListView.as_view()

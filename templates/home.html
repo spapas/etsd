@@ -37,9 +37,11 @@
               Admin access
               <a class="btn btn-primary" href="{% url 'public_key_list' %}" role="button">Public key list</a></p>
               <a class="btn btn-primary" href="{% url 'user_list' %}" role="button">Continue</a></p>
+              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">Load private key</a>
           {% elif perms.core.user %}
               User access
               <a class="btn btn-primary" href="{% url 'user_list' %}" role="button">Continue</a></p>
+              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">Load private key</a>
           {% else %}
               No access
           {% endif %}

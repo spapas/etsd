@@ -1,6 +1,6 @@
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, FormView
 from django_tables2 import RequestConfig
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -67,4 +67,16 @@ class PublicKeyCreateView(CreateView):
                 "New public key created. This key will be used after it has been approved by the administrators."
             ),
         )
+        return HttpResponseRedirect(reverse("home"))
+
+
+class LoadPrivateKey(FormView):
+    form_class = forms.LoadPrivateKeyForm
+    template_name = 'keys/load_private_key.html'
+
+    def form_valid(self, form):
+        self.request.session['private_key_data'] = {}
+        messages.add_message(self.request, message.SUCCESS, _(
+            "Private has been loaded. Information: "
+        ))
         return HttpResponseRedirect(reverse("home"))

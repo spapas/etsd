@@ -1,0 +1,118 @@
+{% extends "site_base.html" %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% load core_tags %}
+{% load i18n static %}
+
+
+{% block head_title %}{% trans "Load private key" %}{% endblock %}
+{% block page_title %}{% trans "Load private key" %}{% endblock %}
+{% block page_content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class='alert alert-warning'> 
+      {% get_user_authority as auth %}
+      {% blocktrans  %}
+        <p>
+        You can load a Private Key through this form. This private key <u>will be 
+        stored to your browser only</u>, i.e it will never be submited to our server.
+        </p>
+        <p>
+          Please be extra careful while Private Key has been loaded to your browser.
+        </p>
+      {% endblocktrans %}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+      <form method="POST" id='keyform' >
+        {% csrf_token %}
+        {{ form|crispy }}
+
+      </form>
+    </div>
+</div>
+
+<div class='row mb-3'>
+  <div class="col">
+    <label for="file" class="form-label">{% trans "Private Key File" %}</label>
+    <input class="form-control" type="file" id="file">
+  </div>
+  <div class="col">
+    <label for="passphrase" class="form-label">{% trans "Passpharse" %}</label>
+    <input class="form-control" type="text" id="passphrase">
+  </div>
+</div>
+<div class='row'>
+  <div class="col">
+    <button  id='validateButton' type='button' class='btn btn-primary' >{% trans "Validate" %}</button>
+    <button id='submitButton'  type='button' disabled class='btn btn-success' >{% trans "Submit" %}</button>
+    <a class='btn btn-secondary' href='{% url "home" %}'>{% trans "Return" %}</a>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src='{% static "openpgp/openpgp.min.js" %}'></script>
+<script>
+
+const loadPrivateKey = (async(privateKeyArmored, passphrase) => {
+    
+    let privateKey = await openpgp.decryptKey({
+      privateKey: await openpgp.readPrivateKey({ armoredKey: privateKeyArmored }),
+      passphrase
+    });
+    console.log(privateKey)
+    return privateKey
+    
+})
+
+$(function() { 
+  $('#validateButton').click(function() { 
+    let passphrase = $("#passphrase").val()
+    if(!passphrase) {
+      bootstrap5Alert({'message': "Please fill the passphrase", 'title': "ERROR"})
+      return 
+    }
+
+    let files = $('#file').prop('files');
+    if(files.length == 0) {
+      bootstrap5Alert({'message': "Please select a private key file", 'title': "ERROR"})
+      return 
+    }
+    const fileReader = new FileReader()
+    
+    fileReader.onload = function () {
+      let privateKeyArmored = fileReader.result;
+      let privateKey = loadPrivateKey(privateKeyArmored, passphrase).then( key => {
+        console.log("KEY IS LOADED " , key)
+        window.key=key
+      }).catch(err => bootstrap5Alert({'message': err, 'title': "ERROR"}))
+      console.log("OK")
+
+      
+    };
+    fileReader.readAsText(files[0])
+    
+    return 
+    loadPK(keyVal).then( ({key_data, fingerprint}) => {
+      console.log(key_data, fingerprint)
+      $('#id_fingerprint').val(fingerprint)
+      $('#fingerprint_data').html(fingerprint)
+      $('#id_key').prop('readonly', true)
+      $('#validateButton').prop('disabled', true)
+      $('#submitButton').prop('disabled', false)
+    }).catch(err => {
+      bootstrap5Alert({'message': err, 'title': "ERROR"})
+    })
+  })
+
+  $('#submitButton').click(function() { 
+    $('#keyform').submit()
+  })
+})
+</script>
+{% endblock %}
