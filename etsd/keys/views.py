@@ -1,12 +1,13 @@
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render
 from django.contrib import messages
-from . import models, tables, filters, forms
 from django.views.generic import ListView, DetailView, CreateView
 from django_tables2 import RequestConfig
 from django.urls import reverse
-from django_tables2.export.views import ExportMixin
 from django.utils.translation import ugettext as _
+
+from django_tables2.export.views import ExportMixin
+
+from . import models, tables, filters, forms
 
 
 class AdminOrAuthorityQsMixin:
@@ -14,10 +15,9 @@ class AdminOrAuthorityQsMixin:
         qs = super().get_queryset()
         if self.request.user.has_perm("core.admin"):
             return qs
-        elif self.request.user.has_perm("core.user"):
+        if self.request.user.has_perm("core.user"):
             return qs.filter(authority=self.request.user.get_authority())
-        else:
-            return qs.none()
+        return qs.none()
 
 
 class PublicKeyListView(ExportMixin, AdminOrAuthorityQsMixin, ListView):
@@ -33,11 +33,11 @@ class PublicKeyListView(ExportMixin, AdminOrAuthorityQsMixin, ListView):
         context = super().get_context_data(*args, **kwargs)
 
         qs = self.get_queryset()
-        filter = filters.PublicKeyFilter(self.request.GET, qs)
-        self.table = table = tables.PublicKeyTable(filter.qs)
+        self.filter = filters.PublicKeyFilter(self.request.GET, qs)
+        self.table = table = tables.PublicKeyTable(self.filter.qs)
         RequestConfig(self.request, paginate={"per_page": 15}).configure(table)
-        context["filter"] = filter
-        context["table"] = table
+        context["filter"] = self.filter
+        context["table"] = self.table
         return context
 
 
