@@ -26,15 +26,6 @@
   </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-      <form method="POST" id='keyform' >
-        {% csrf_token %}
-        {{ form|crispy }}
-
-      </form>
-    </div>
-</div>
 
 <div class='row mb-3'>
   <div class="col">
@@ -46,13 +37,41 @@
     <input class="form-control" type="password" id="passphrase">
   </div>
 </div>
-<div class='row'>
-  <div class="col">
-    <button  id='validateButton' type='button' class='btn btn-primary' >{% trans "Validate" %}</button>
-    <button id='submitButton'  type='button' disabled class='btn btn-success' >{% trans "Submit" %}</button>
-    <a class='btn btn-secondary' href='{% url "home" %}'>{% trans "Return" %}</a>
-  </div>
+
+<div class="row">
+    <div class="col-md-12">
+      <form method="POST" id='keyform' >
+        {% csrf_token %}
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Private key information</h5>
+            <div class='row'>
+              <div class='col'>
+                {{ form.fingerprint|as_crispy_field }}
+              </div>
+
+              <div class='col'>
+                {{ form.user_id|as_crispy_field }}
+              </div>
+              <div class='col'>
+                {{ form.creation_time|as_crispy_field }}
+              </div>
+            </div>
+          </div> <!-- card body-->
+        </div> <!-- card -->
+        <div class='row'>
+          <div class="col">
+            <button  id='validateButton' type='button' class='btn btn-primary' >{% trans "Validate" %}</button>
+            <button id='submitButton'  type='button' disabled class='btn btn-success' >{% trans "Submit" %}</button>
+            <a class='btn btn-secondary' href='{% url "home" %}'>{% trans "Return" %}</a>
+          </div>
+        </div>
+
+      </form>
+    </div>
 </div>
+
+
 {% endblock %}
 
 {% block extra_script %}
@@ -71,8 +90,11 @@ const loadPrivateKey = (async(privateKeyArmored, passphrase) => {
 })
 
 $(function() { 
+  let privateKeyArmored = null;
+  let passphrase = null;
+
   $('#validateButton').click(function() { 
-    let passphrase = $("#passphrase").val()
+    passphrase = $("#passphrase").val()
     if(!passphrase) {
       bootstrap5Alert({'message': "Please fill the passphrase", 'title': "ERROR"})
       return 
@@ -86,13 +108,12 @@ $(function() {
     const fileReader = new FileReader()
     
     fileReader.onload = function () {
-      let privateKeyArmored = fileReader.result;
-      let privateKey = loadPrivateKey(privateKeyArmored, passphrase).then( key => {
-      
-        localStorage.setItem('privateKey', key)
+      privateKeyArmored = fileReader.result;
+      let privateKey = loadPrivateKey(privateKeyArmored, passphrase).then( key => {        
         $('#id_fingerprint').val(key.getFingerprint())
         $('#id_user_id').val(key.getUserIDs().join(','))
-        //$('#id_creation_time').val(key.getCreationTime().toUTCString())
+        $('#id_creation_time').val(key.getCreationTime().toLocaleString('el'))
+        $('#submitButton').prop('disabled', false)
 
       }).catch(err => bootstrap5Alert({'message': err, 'title': "ERROR"}))
       
@@ -100,19 +121,12 @@ $(function() {
     fileReader.readAsText(files[0])
     
     return 
-    loadPK(keyVal).then( ({key_data, fingerprint}) => {
-      console.log(key_data, fingerprint)
-      $('#id_fingerprint').val(fingerprint)
-      $('#fingerprint_data').html(fingerprint)
-      $('#id_key').prop('readonly', true)
-      $('#validateButton').prop('disabled', true)
-      $('#submitButton').prop('disabled', false)
-    }).catch(err => {
-      bootstrap5Alert({'message': err, 'title': "ERROR"})
-    })
+    
   })
 
   $('#submitButton').click(function() { 
+    localStorage.setItem('privateKeyArmored', privateKeyArmored)
+    localStorage.setItem('privateKeyPassphrase', passphrase)
     $('#keyform').submit()
   })
 })

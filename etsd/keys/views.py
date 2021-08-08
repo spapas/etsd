@@ -75,8 +75,15 @@ class LoadPrivateKey(FormView):
     template_name = 'keys/load_private_key.html'
 
     def form_valid(self, form):
-        self.request.session['private_key_data'] = {}
-        messages.add_message(self.request, message.SUCCESS, _(
-            "Private has been loaded. Information: "
+        fingerprint = form.cleaned_data['fingerprint']
+        user_id = form.cleaned_data['user_id']
+        self.request.session['private_key_data'] = {
+            'fingerprint': fingerprint,
+            'user_id': user_id,
+        }
+        messages.add_message(self.request, messages.SUCCESS, _(
+            "Private Key has been loaded. User id: {0}, fingerprint {1}".format(
+                user_id, fingerprint
+            )
         ))
         return HttpResponseRedirect(reverse("home"))
