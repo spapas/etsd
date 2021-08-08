@@ -43,7 +43,7 @@
   </div>
   <div class="col">
     <label for="passphrase" class="form-label">{% trans "Passpharse" %}</label>
-    <input class="form-control" type="text" id="passphrase">
+    <input class="form-control" type="password" id="passphrase">
   </div>
 </div>
 <div class='row'>
@@ -51,7 +51,7 @@
     <button  id='validateButton' type='button' class='btn btn-primary' >{% trans "Validate" %}</button>
     <button id='submitButton'  type='button' disabled class='btn btn-success' >{% trans "Submit" %}</button>
     <a class='btn btn-secondary' href='{% url "home" %}'>{% trans "Return" %}</a>
-</div>
+  </div>
 </div>
 {% endblock %}
 
@@ -88,11 +88,13 @@ $(function() {
     fileReader.onload = function () {
       let privateKeyArmored = fileReader.result;
       let privateKey = loadPrivateKey(privateKeyArmored, passphrase).then( key => {
-        console.log("KEY IS LOADED " , key)
-        window.key=key
-      }).catch(err => bootstrap5Alert({'message': err, 'title': "ERROR"}))
-      console.log("OK")
+      
+        localStorage.setItem('privateKey', key)
+        $('#id_fingerprint').val(key.getFingerprint())
+        $('#id_user_id').val(key.getUserIDs().join(','))
+        //$('#id_creation_time').val(key.getCreationTime().toUTCString())
 
+      }).catch(err => bootstrap5Alert({'message': err, 'title': "ERROR"}))
       
     };
     fileReader.readAsText(files[0])

@@ -45,6 +45,12 @@ class PublicKeyCreateForm(forms.ModelForm):
 
 
 class LoadPrivateKeyForm(forms.Form):
-    pass
+    fingerprint = forms.CharField(max_length=128,  )
+    user_id = forms.CharField(max_length=512, )
+    #creation_time = forms.DateTimeField()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fingerprint'].widget.attrs['readonly'] = True
+        self.fields['user_id'].widget.attrs['readonly'] = True
     #file = forms.FileField()
     #passphrase = forms.CharField()
