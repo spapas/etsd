@@ -23,9 +23,23 @@
             </div>
           </li>
         </ul>
+        
         <ul class="navbar-nav ">
           <li class="nav-item">
             {% if user.is_authenticated %}
+              {% with request.session.private_key_data as pkdata %}
+                {% if pkdata %}
+                  <a class="btn btn-outline-danger btn-sm"
+                    data-bs-toggle="tooltip" 
+                    data-bs-html="true" 
+                    data-bs-placement="bottom" 
+                    title="Fingerprint: <b>{{ pkdata.fingerprint }}</b><br/>User id: <b>{{ pkdata.user_id|escape }}</b>"
+                    href='#'
+                    >
+                      <b>Private key loaded</b>
+                  </a>
+                {% endif %}
+              {% endwith %}
               <a class="btn btn-outline-info btn-sm" href="{% url 'auth_logout' %}">{{ user.get_full_name }} ({{ user.username }}) | Disconnect</a>
             {% else %}
               <a class="btn btn-outline-info btn-sm" href="{% url 'auth_login' %}">Please login</a>

@@ -19,7 +19,17 @@
         stored to your browser only</u>, i.e it will never be submited to our server.
         </p>
         <p>
-          Please be extra careful while Private Key has been loaded to your browser.
+          You need to select the private key file which must be in the ASCII armored format.
+          Then enter the private key decryption passphrase. Now you can press the
+          "validate" button to make sure that they key and passhrase are both correct. 
+          If everything is ok the Private key information section will be filled with some
+          of the key information or else you will see an error. Finally,
+          press "load" button to actually load the key to your browser and be able to use it
+          to decrypt data.
+
+        </p>
+        <p>
+          <u>Please be extra careful while Private Key has been loaded to your browser.</u>
         </p>
       {% endblocktrans %}
     </div>
@@ -61,8 +71,8 @@
         </div> <!-- card -->
         <div class='row'>
           <div class="col">
-            <button  id='validateButton' type='button' class='btn btn-primary' >{% trans "Validate" %}</button>
-            <button id='submitButton'  type='button' disabled class='btn btn-success' >{% trans "Submit" %}</button>
+            <button  id='validateButton' type='button' class='btn btn-primary' >{% trans "Validate private key" %}</button>
+            <button id='submitButton'  type='button' disabled class='btn btn-warning' >{% trans "Load private key" %}</button>
             <a class='btn btn-secondary' href='{% url "home" %}'>{% trans "Return" %}</a>
           </div>
         </div>
@@ -75,19 +85,8 @@
 {% endblock %}
 
 {% block extra_script %}
-<script src='{% static "openpgp/openpgp.min.js" %}'></script>
-<script>
 
-const loadPrivateKey = (async(privateKeyArmored, passphrase) => {
-    
-    let privateKey = await openpgp.decryptKey({
-      privateKey: await openpgp.readPrivateKey({ armoredKey: privateKeyArmored }),
-      passphrase
-    });
-    console.log(privateKey)
-    return privateKey
-    
-})
+<script>
 
 $(function() { 
   let privateKeyArmored = null;
@@ -109,7 +108,7 @@ $(function() {
     
     fileReader.onload = function () {
       privateKeyArmored = fileReader.result;
-      let privateKey = loadPrivateKey(privateKeyArmored, passphrase).then( key => {        
+      loadPrivateKey(privateKeyArmored, passphrase).then( key => {        
         $('#id_fingerprint').val(key.getFingerprint())
         $('#id_user_id').val(key.getUserIDs().join(','))
         $('#id_creation_time').val(key.getCreationTime().toLocaleString('el'))
