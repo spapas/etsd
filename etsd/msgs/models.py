@@ -34,7 +34,7 @@ class Message(UserDateAbstractModel):
     """
     This is a message that contains encrypted data.
     The data can be available to the sender or not, but he must have an approved
-    public key for the dat ato be available to him.
+    public key for the data to be available to him.
     A message can be either
     * NEW (starts a new conversation)
     * REPLY (replies to an existin message)
