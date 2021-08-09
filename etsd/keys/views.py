@@ -1,10 +1,10 @@
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, FormView
-from django_tables2 import RequestConfig
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
+from django_tables2 import RequestConfig
 from django_tables2.export.views import ExportMixin
 
 from . import models, tables, filters, forms
@@ -45,6 +45,26 @@ class PublicKeyDetailView(AdminOrAuthorityQsMixin, DetailView):
     model = models.PublicKey
 
 
+class KeyPairCreateView(CreateView):
+    model = models.PublicKey
+    form_class = forms.KeyPairCreateForm
+    template_name = 'keys/key_pair_create.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.user_authority = self.request.user.get_authority()
+        if not self.user_authority:
+            messages.error(
+                self.request,
+                "Key pair creation is not allowed from users without an authority!",
+            )
+            return HttpResponseRedirect(reverse("home"))
+        return super().dispatch(request, *args, **kwargs)
+    
+
+    def form_valid(self, form):
+        a+=1
+
+
 class PublicKeyCreateView(CreateView):
     model = models.PublicKey
     form_class = forms.PublicKeyCreateForm
@@ -58,7 +78,7 @@ class PublicKeyCreateView(CreateView):
             )
             return HttpResponseRedirect(reverse("home"))
         form.instance.authority = user_authority
-        obj = form.save()
+        _obj = form.save()
 
         messages.add_message(
             self.request,
@@ -72,18 +92,22 @@ class PublicKeyCreateView(CreateView):
 
 class LoadPrivateKey(FormView):
     form_class = forms.LoadPrivateKeyForm
-    template_name = 'keys/load_private_key.html'
+    template_name = "keys/load_private_key.html"
 
     def form_valid(self, form):
-        fingerprint = form.cleaned_data['fingerprint']
-        user_id = form.cleaned_data['user_id']
-        self.request.session['private_key_data'] = {
-            'fingerprint': fingerprint,
-            'user_id': user_id,
+        fingerprint = form.cleaned_data["fingerprint"]
+        user_id = form.cleaned_data["user_id"]
+        self.request.session["private_key_data"] = {
+            "fingerprint": fingerprint,
+            "user_id": user_id,
         }
-        messages.add_message(self.request, messages.SUCCESS, _(
-            "Private Key has been loaded. User id: {0}, fingerprint {1}".format(
-                user_id, fingerprint
-            )
-        ))
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            _(
+                "Private Key has been loaded. User id: {0}, fingerprint {1}".format(
+                    user_id, fingerprint
+                )
+            ),
+        )
         return HttpResponseRedirect(reverse("home"))

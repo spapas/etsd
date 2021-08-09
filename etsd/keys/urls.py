@@ -40,6 +40,13 @@ urlpatterns = [
         name="public_key_create",
     ),
     path(
+        "new_key_pair/",
+        any_permission_required("core.admin", "core.user")(
+            views.KeyPairCreateView.as_view()
+        ),
+        name="key_pair_create",
+    ),
+    path(
         "detail/<int:pk>/",
         any_permission_required("core.admin", "core.user")(
             views.PublicKeyDetailView.as_view(),

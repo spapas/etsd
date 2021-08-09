@@ -16,14 +16,14 @@ class PublicKey(UserDateAbstractModel):
     authority = models.ForeignKey("authorities.Authority", on_delete=models.PROTECT)
     key = models.TextField(
         verbose_name=_("Key text"),
-        help_text=_("Please paste the key text in armored format ASCII"),
+        help_text=_("The key text in armored ASCII format"),
     )
     fingerprint = models.CharField(
         max_length=128,
         verbose_name=_("Key fingerprint"),
         unique=True,
         help_text=_(
-            "The fingerprint of the key will be automatically generated after the key is validated"
+            "The fingerprint of the key"
         ),
     )
     status = models.CharField(

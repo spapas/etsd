@@ -12,7 +12,7 @@ class PublicKeyCreateForm(forms.ModelForm):
         fields = ("key", "fingerprint", "confirmation_document")
 
     def __init__(self, *args, **kwargs):
-        super(PublicKeyCreateForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["fingerprint"].widget.attrs["readonly"] = True
 
     def clean(self):
@@ -55,3 +55,14 @@ class LoadPrivateKeyForm(forms.Form):
         self.fields['creation_time'].widget.attrs['readonly'] = True
     #file = forms.FileField()
     #passphrase = forms.CharField()
+
+
+class KeyPairCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fingerprint'].widget.attrs['readonly'] = True
+        self.fields['key'].widget.attrs.update({'readonly': True, 'rows': 4})
+
+    class Meta:
+        model = models.PublicKey
+        fields = ("key", "fingerprint", )

@@ -1,0 +1,126 @@
+{% extends "site_base.html" %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% load core_tags %}
+{% load i18n static %}
+
+
+{% block head_title %}Create new key pair{% endblock %}
+{% block page_title %}Create new key pair{% endblock %}
+{% block page_content %}
+{% get_user_authority as auth %}
+{% trans "Authority:" %} {{ auth.name }} {{ auth.email }}
+<div class="row">
+  <div class="col-md-12">
+    <div class='alert alert-info'> 
+      
+      {% blocktrans  %}
+        <p>
+        You can submit a new public key through this form. The publickey must be in the ASCII armored format i.e it 
+        should start with <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> contain the key data in printable ASCII
+        format (base64 encoded) and end with <code>-----END PGP PUBLIC KEY BLOCK-----</code>.
+        </p>
+        
+        </p>
+      {% endblocktrans %}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="mb-3"> 
+      <label for="passphrase" class="form-label requiredField">
+        {% trans "Passphrase" %}<span class="asteriskField">*</span>
+      </label>
+      <input type="password" name="passphrase" maxlength="512" class="textinput textInput form-control" required="" id="passphrase"> 
+      <small class="form-text text-muted">
+        Please use a secure enough passphrase to enrypt your private key. Rules: Must be > <b id='passphraseLength'>16</b> characters. Should be a passphrase 
+        ie a combination of multiple words and contain lower and capital letters, numbers, punctuation and special characters.
+        
+      </small>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+      <form method="POST" id='keyform' enctype="multipart/form-data" >
+        {% csrf_token %}
+          {{ form|crispy }}
+        <button  id='generateButton' type='button' class='btn btn-warning' >{% trans "Generate Key Pair" %}</button>
+        <button  id='saveButton' type='button' disabled class='btn btn-danger' >{% trans "Download Private Key" %}</button>
+        <button id='submitButton'  type='button' disabled class='btn btn-success' >{% trans "Submit" %}</button>
+        <a class='btn btn-secondary' href='{% url "public_key_list" %}'>{% trans "Return" %}</a>
+      </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_script %}
+{% get_user_authority as auth %}
+<script>
+  const authority = '{{ auth.name }}';
+  const authority_email = '{{ auth.email }}';
+</script>
+
+<script>
+const passphraseLength = 4
+
+
+const loadPK = (async(key_data) => {
+    
+    let publicKey = await openpgp.readKey({
+        armoredKey: key_data
+    });
+    let fingerprint = publicKey.keyPacket.getFingerprint()
+    
+    return {key_data, fingerprint}
+    
+})
+
+$(function() { 
+  $('#passphraseLength').html(passphraseLength)
+  $('#generateButton').click(function() { 
+    
+    const passphrase = $('#passphrase').val()
+    if(!passphrase) {
+      bootstrap5Alert({'message': "Please enter a passphrase", 'title': "ERROR"})
+      return 
+    }
+    if (passphrase.length < passphraseLength) {
+      bootstrap5Alert({'message': `Passphrase must be at least ${passphraseLength} characters`, 'title': "ERROR"})
+      return 
+    }
+    
+    (async () => {
+        const { privateKey, publicKey, revocationCertificate } = await openpgp.generateKey({
+            type: 'ecc', 
+            curve: 'curve25519', 
+            userIDs: [{ name: authority, email: authority_email, comment: "ETSD Generated Key" }], 
+            passphrase, 
+            format: 'armored' 
+        });
+
+        return {
+            privateKey,
+            publicKey
+        }
+    })().then(({ privateKey, publicKey }) => {
+      console.log("OK")
+      $('#id_key').val(publicKey)
+      console.log(privateKey, publicKey)
+    }).catch(err => {
+        console.log(err)
+    })
+
+    
+  })
+
+  $('#submitButton').click(function() { 
+    $(this).closest('form').submit()
+  })
+})
+</script>
+{% endblock %}

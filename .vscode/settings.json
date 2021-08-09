@@ -1,4 +1,5 @@
 {
     "python.formatting.provider": "black",
-    "python.pythonPath": "~/.virtualenvs/etsd/bin/"
+    "python.pythonPath": "~/.virtualenvs/etsd/bin/",
+    "python.linting.pylintEnabled": true
 }
