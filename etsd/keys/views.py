@@ -4,7 +4,10 @@ from django.views.generic import ListView, DetailView, CreateView, FormView
 from django_tables2 import RequestConfig
 from django.urls import reverse
 from django.utils.translation import ugettext as _
-
+from datetime import datetime
+from django.template.loader import get_template
+from django.core.mail import send_mail
+from .. import users
 from django_tables2.export.views import ExportMixin
 
 from . import models, tables, filters, forms
@@ -44,6 +47,34 @@ class PublicKeyListView(ExportMixin, AdminOrAuthorityQsMixin, ListView):
 class PublicKeyDetailView(AdminOrAuthorityQsMixin, DetailView):
     model = models.PublicKey
 
+    def post(self, request, *args, **kwargs):
+        pubk= models.PublicKey.objects.get(pk=self.kwargs.get('pk'))
+
+        if "acceptKey" in request.POST:
+            activekeys = models.PublicKey.objects.filter(authority=pubk.authority, status="ACTIVE")
+            for key in activekeys:
+                key.status = "INACTIVE"
+                key.save()
+            pubk.approved_on = datetime.now()
+            pubk.status = "ACTIVE"
+        if "rejectKey" in request.POST:
+            pubk.status = "REJECTED"
+        
+        email_template = get_template("keys/emails/confirmation.txt")
+        email_ctx = dict(fingerprint=pubk.fingerprint, status = pubk.status,)
+        email_body = email_template.render(email_ctx)
+        usrs = users.models.User.objects.all()
+        recip_list = [usr.email for usr in usrs if usr.get_authority()==pubk.authority]
+        send_mail(
+            subject="Public Key Confirmation", 
+            message=email_body, 
+            from_email="noreply@hcg.gr", 
+            recipient_list= recip_list, 
+            fail_silently= False
+        )
+        pubk.save()
+        return HttpResponseRedirect(self.request.path_info)
+    
 
 class PublicKeyCreateView(CreateView):
     model = models.PublicKey

@@ -9,6 +9,30 @@
 {% block page_content %}
 
 <div class="row">
+  <!-- Modal -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Public Key Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Do you want to Accept or Reject this public key?
+        </div>
+        <div class="modal-footer">
+          <form method="POST">
+            {% csrf_token %}
+            <button id='acceptButton' type="submit" name="acceptKey" class='btn btn-primary' >{% translate "Accept" %}</button>
+            <button id='rejectButton' type="submit" name="rejectKey" class='btn btn-warning'>{% translate "Reject" %}</button>
+          </form>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{% translate "Cancel" %}</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="col-md-6">
     <b>{% translate "ID" %}</b>: {{ publickey.id }}<br />
     <b>{% translate "Authority" %}</b>: {{ publickey.authority }}<br />
@@ -20,6 +44,10 @@
       <div class="alert alert-warning">
         The public key needs confirmation by the administration in order to be used. 
       </div>
+      {% if perms.core.admin %}
+        <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">{% translate "Confirmation" %}</button>
+      {% endif %}
     {% endif %}
 
 
@@ -44,6 +72,9 @@
 
 {% block extra_script %}
 <script src='{% static "openpgp/openpgp.min.js" %}'></script>
+<script src='{% static "jquery-3.5.1.min.js" %}'></script>
+<script src='{% static "modal/popper.min.js" %}'></script>
+<script src='{% static "modal/bootstrap.min.js" %}'></script>
 <script>
 
 const loadPK = (async(key_data) => {

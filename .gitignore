@@ -17,3 +17,4 @@ db.sqlite3
 media
 .vs
 node_modules
+dovenv2

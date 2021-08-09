@@ -24,4 +24,5 @@ class PublicKeyTable(ColumnShiftTable):
             "confirmation_document",
             "created_on",
             "created_by",
+            "approved_on",
         )

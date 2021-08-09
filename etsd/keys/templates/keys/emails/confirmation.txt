@@ -1,0 +1,4 @@
+{% extends 'keys/emails/base.txt' %}
+{% block content %}
+Your pending Public Key's status with fingerprint: {{ fingerprint }} has been changed to {{ status }} by an administrator.
+{% endblock %}
