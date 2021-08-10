@@ -25,8 +25,12 @@ MESSAGE_STATUS_CHOICES = (
 
 @reversion.register
 class MessageCategory(UserDateAbstractModel):
-    name = models.CharField(max_length=64, verbose_name=_("Name"))
+    name = models.CharField(max_length=64, verbose_name=_("Name"), unique=True)
     is_active = models.BooleanField(default=True, verbose_name=_("Is active"))
+
+    class Meta:
+        verbose_name = _("Message Category")
+        verbose_name_plural = _("Message Categories")
 
 
 @reversion.register
