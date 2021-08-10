@@ -56,3 +56,9 @@
     
 {% endblock %}
 
+{% block extra_script %}
+<script>
+  let who = 'world'
+  console.log(interpolate(gettext('Hello %s!'), [who]))
+</script>
+{% endblock %}

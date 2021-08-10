@@ -66,4 +66,3 @@ const confirmDelete = (cls) => document.querySelectorAll(cls).forEach(el => {
     })
   })
 })
-    
