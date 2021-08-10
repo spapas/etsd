@@ -17,6 +17,8 @@
         <p>
         You can load a Private Key through this form. This private key <u>will be 
         stored to your browser only</u>, i.e it will never be submited to our server.
+        You need to load the Private Key to be able to decrypt and download the Data
+        that has been submitted with the corresponding public key of that private key.
         </p>
         <p>
           You need to select the private key file which must be in the ASCII armored format.
@@ -29,7 +31,11 @@
 
         </p>
         <p>
-          <u>Please be extra careful while Private Key has been loaded to your browser.</u>
+          <u>
+            Please be extra careful while Private Key has been loaded to your browser. </u> 
+            For 
+            security reasons you will be logged out after 15 minutes of inactivity.
+          
         </p>
       {% endblocktrans %}
     </div>
@@ -93,17 +99,20 @@ $(function() {
   let passphrase = null;
 
   $('#validateButton').click(function() { 
-    passphrase = $("#passphrase").val()
-    if(!passphrase) {
-      bootstrap5Alert({'message': "Please fill the passphrase", 'title': "ERROR"})
-      return 
-    }
+
 
     let files = $('#file').prop('files');
     if(files.length == 0) {
       bootstrap5Alert({'message': "Please select a private key file", 'title': "ERROR"})
       return 
     }
+
+    passphrase = $("#passphrase").val()
+    if(!passphrase) {
+      bootstrap5Alert({'message': "Please fill the passphrase", 'title': "ERROR"})
+      return 
+    }
+
     const fileReader = new FileReader()
     
     fileReader.onload = function () {
