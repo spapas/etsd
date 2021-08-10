@@ -17,12 +17,25 @@
       
       {% blocktrans  %}
         <p>
-        You can submit a new public key through this form. The publickey must be in the ASCII armored format i.e it 
-        should start with <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> contain the key data in printable ASCII
-        format (base64 encoded) and end with <code>-----END PGP PUBLIC KEY BLOCK-----</code>.
+        You can generate a ney key pair through this form. The key pair is a pair of a private key and a public key. 
+        The private key is encrypted with a passphrase that you need to define here.
         </p>
-        
+        <p> 
+          The public key of the key pair is used to encrypt data that other people want to send to you. This public key will be 
+          saved to the server so others will be able to easily encrypt the data. The private key is used to decrypt that data
+          so it must remain absolutely secret and safe. 
         </p>
+        <p>
+          Neither your passphrase nor your private key will be stored on the server. It is your responsibility to 
+          properly store them in a safe place. If the private key or its decryption passphrase are lost, you will not be able to
+          decrypt the data that was encrypted with the public key of that particular key pair.
+        </p>
+        <p>
+          After you enter the passphrase, click on the "Generate key pair" button. The key pair will be generated in your browser and
+          the key information fields will be filled. Then you must download the private key using the "Download private key button". After
+          you have downloaded the private key and saved it to a safe place, you need to press the "Submit" button to save the public 
+          key to the server so it can be approved and then used to encrypt your data.
+        <p>
       {% endblocktrans %}
     </div>
   </div>
