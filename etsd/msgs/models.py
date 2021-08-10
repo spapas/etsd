@@ -152,8 +152,8 @@ class ParticipantKey(models.Model):
 
 class Data(UserDateAbstractModel):
     """
-    One instance of Data (a file usually) for the message. For now it only has
-    an FK to the message and a number but other props may be added here. The number
+    One instance of Data (a file usually) for the message. Its attributes are
+    an FK to the message, the content_type of the original file and a number. The number
     will be unique so it should be easy to refer to particular data *in* a message.
     For example "the Data 2 of the message 53/2021 has a typo".
 
@@ -166,6 +166,7 @@ class Data(UserDateAbstractModel):
         Message, verbose_name=_("Message"), on_delete=models.CASCADE
     )
     number = models.PositiveIntegerField()
+    content_type = models.CharField(max_length=128)
 
     participant_access = models.ManyToManyField("Participant", through="DataAccess")
 
