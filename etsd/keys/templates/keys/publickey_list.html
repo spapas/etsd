@@ -4,12 +4,13 @@
 
 {% block head_title %}Public key list{% endblock %}
 {% block page_title %}Public key list
-<a class='btn btn-primary' href='{% url "public_key_create" %}'>
+
+
+
+<a class='btn btn-warning' href='{% url "key_pair_create" %}'>
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
   <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
 </svg>
-</a>
-<a class='btn btn-warning' href='{% url "key_pair_create" %}'>
 New key pair
 </a>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
-from django.views.generic import ListView, DetailView, CreateView, FormView
+from django.views.generic import ListView, DetailView, CreateView, FormView, UpdateView
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
@@ -65,26 +65,52 @@ class KeyPairCreateView(CreateView):
         return super().form_valid(form)
 
 
-class PublicKeyCreateView(CreateView):
+class PublicKeySubmitView(UpdateView):
     model = models.PublicKey
-    form_class = forms.PublicKeyCreateForm
+    form_class = forms.PublicKeySubmitForm
 
-    def form_valid(self, form):
-        user_authority = self.request.user.get_authority()
-        if not user_authority:
+    def dispatch(self, request, *args, **kwargs):
+        self.user_authority = self.request.user.get_authority()
+
+        if not self.request.session.get('private_key_data'):
             messages.error(
                 self.request,
-                "Public key creation is not allowed from users without an authority!",
+                _("""You must load the private key for the corresponding public key
+                you want to submit for approval so that the system can make sure 
+                that you have proper access to the private key!"""),
             )
             return HttpResponseRedirect(reverse("home"))
-        form.instance.authority = user_authority
-        _obj = form.save()
+        if not self.user_authority:
+            messages.error(
+                self.request,
+                _("Public key approval submit is not allowed from users without an authority!"),
+            )
+            return HttpResponseRedirect(reverse("home"))
+        
+        priv_fingerprint = self.request.session.get('private_key_data')['fingerprint']
+        pub_fingerprint = self.get_object().fingerprint
+        if priv_fingerprint != pub_fingerprint:
+            messages.error(
+                self.request,
+                _("""You must load the private key for the corresponding public key
+                you want to submit for approval so that the system can make sure 
+                that you have proper access to the private key! The key you 
+                want to submit has the fingerprint {0} while the private key 
+                you have loaded has the fingerprint {1}""".format(
+                    pub_fingerprint, priv_fingerprint,
+                ))
+            )
+            return HttpResponseRedirect(reverse("home"))
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        a+=1
 
         messages.add_message(
             self.request,
             messages.INFO,
             _(
-                "New public key created. This key will be used after it has been approved by the administrators."
+                "Public key submitted for approval. This key will be used after it has been approved by the administrators."
             ),
         )
         return HttpResponseRedirect(reverse("home"))

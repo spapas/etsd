@@ -6,16 +6,16 @@ import gnupg
 from .util import check_signatures
 
 
-class PublicKeyCreateForm(forms.ModelForm):
+class PublicKeySubmitForm(forms.ModelForm):
     class Meta:
         model = models.PublicKey
-        fields = ("key", "fingerprint", "confirmation_document")
+        fields = ("confirmation_document", )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["fingerprint"].widget.attrs["readonly"] = True
+        # self.fields["fingerprint"].widget.attrs["readonly"] = True
 
-    def clean(self):
+    def clean0(self):
         data = self.cleaned_data
         if models.PublicKey.objects.filter(fingerprint=data["fingerprint"]).exists():
             raise forms.ValidationError(
