@@ -14,8 +14,11 @@
     <b>{% translate "Authority" %}</b>: {{ publickey.authority }}<br />
     <b>{% translate "Status" %}</b>: {{ publickey.get_status_display }}<br />
     <b>{% translate "Created on" %}/by</b>: {{ publickey.created_on }} / {{ publickey.created_by }}<br />
-    <b>{% translate "Fingerprint" %}</b> <code>{{ publickey.fingerprint }}</code><br />
-    <b>{% translate "Confirmation document" %}</b> <a href='{{ publickey.confirmation_document.url }}'>{% translate "Download" %}</a>
+    <b>{% translate "Fingerprint" %}</b>: <code>{{ publickey.fingerprint }}</code><br />
+    <b>{% translate "Description (user id)" %}</b>: <code>{{ publickey.user_id }}</code><br />
+    {% if publickey.confirmation_document %}
+      <b>{% translate "Confirmation document" %}</b> <a href='{{ publickey.confirmation_document.url }}'>{% translate "Download" %}</a>
+    {% endif %}
     {% if publickey.status == 'PENDING' %}
       <div class="alert alert-warning">
         The public key needs confirmation by the administration in order to be used. 
@@ -27,11 +30,11 @@
   <div class="col-md-6">
     
       <h5>Key text</h5>
-      <code>
-      <pre>
-      {{ publickey.key }}
-      </pre>
-      </code>
+<code>
+<pre>
+{{ publickey.key }}
+</pre>
+</code>
     </div>
   </div>
 </div>

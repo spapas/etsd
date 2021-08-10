@@ -8,7 +8,7 @@ const makeId = length => {
   return result
 }
 
-const bootstrap5Alert = ({ message, title, cb }) => {
+const bootstrap5Alert = ({ message, title, actionText, cb }) => {
   let modalId = makeId(12)
 
   let hmodal = `<div class="modal" tabindex="-1" id=${modalId}>
@@ -33,7 +33,7 @@ const bootstrap5Alert = ({ message, title, cb }) => {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          ${cb ? `<button id=${modalId + 'ok'} type="button" class="btn btn-danger"  >Delete!</button>`: ''}
+          ${cb ? `<button id=${modalId + 'ok'} type="button" class="btn btn-danger"  >${actionText}</button>`: ''}
         </div>
       </div>
     </div>
@@ -59,6 +59,23 @@ const confirmDelete = (cls) => document.querySelectorAll(cls).forEach(el => {
     bootstrap5Alert({
       message: 'Are you sure you want to delete this?',
       title: 'Delete',
+      actionText: 'Delete',
+      cb: () => {
+        console.log("Submit form");
+        evt.target.closest('form').submit();
+      }
+    })
+  })
+})
+
+const confirmFormAction = ({sel, message, title}) => document.querySelectorAll(sel).forEach(el => {
+  console.log("Z", el)
+  el.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    bootstrap5Alert({
+      message,
+      title,
+      actionText: 'Yes',
       cb: () => {
         console.log("Submit form");
         evt.target.closest('form').submit();

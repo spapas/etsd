@@ -2,6 +2,7 @@
 {% load render_table from django_tables2 %}
 {% load crispy_forms_tags %}
 {% load core_tags %}
+{% load widget_tweaks %}
 {% load i18n static %}
 
 
@@ -27,9 +28,9 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="mb-3"> 
+<div class="row mb-3">
+  <div class="col">
+    
       <label for="passphrase" class="form-label requiredField">
         {% trans "Passphrase" %}<span class="asteriskField">*</span>
       </label>
@@ -37,20 +38,51 @@
       <small class="form-text text-muted">
         Please use a secure enough passphrase to enrypt your private key. Rules: Must be > <b id='passphraseLength'>16</b> characters. Should be a passphrase 
         ie a combination of multiple words and contain lower and capital letters, numbers, punctuation and special characters.
-        
       </small>
-    </div>
+    
+  </div>
+
+  <div class="col">
+    
+      <label for="passphraseConfirm" class="form-label requiredField">
+        {% trans "Passphrase confirmation" %}<span class="asteriskField">*</span>
+      </label>
+      <input type="password" name="passphrase" maxlength="512" class="textinput textInput form-control" required="" id="passphraseConfirm"> 
+      <small class="form-text text-muted">
+        Please confirm your passphrase.
+      </small>
+    
   </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
       <form method="POST" id='keyform' enctype="multipart/form-data" >
-        {% csrf_token %}
-          {{ form|crispy }}
-        <button  id='generateButton' type='button' class='btn btn-warning' >{% trans "Generate Key Pair" %}</button>
-        <button  id='saveButton' type='button' disabled class='btn btn-danger' >{% trans "Download Private Key" %}</button>
-        <button id='submitButton'  type='button' disabled class='btn btn-success' >{% trans "Submit" %}</button>
+        <div class='card mb-3'>
+          <div class='card-body'>
+            <h5 class="card-title">{% trans "Generated key info" %}</h5>
+            {% csrf_token %}
+            <div class='row'>
+              <div class='col'>
+                {{ form.key|add_class:"form-control-sm"| as_crispy_field }}
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col'>
+                {{ form.user_id|add_class:"form-control-sm" | as_crispy_field }}
+                
+              </div>
+              <div class='col'>
+                
+                {{ form.fingerprint|add_class:"form-control-sm" | as_crispy_field }}  
+              </div>
+            </div>
+          </div>
+        </div>
+          
+        <button id='generateButton' type='button' class='btn btn-warning' >{% trans "Generate Key Pair" %}</button>
+        <button id='downloadButton' type='button' disabled class='btn btn-danger' >{% trans "Download Private Key" %}</button>
+        <button id='submitButton'  type='submit' disabled class='btn btn-success' >{% trans "Submit" %}</button>
         <a class='btn btn-secondary' href='{% url "public_key_list" %}'>{% trans "Return" %}</a>
       </form>
     </div>
@@ -69,57 +101,68 @@
 const passphraseLength = 4
 
 
-const loadPK = (async(key_data) => {
-    
-    let publicKey = await openpgp.readKey({
-        armoredKey: key_data
-    });
-    let fingerprint = publicKey.keyPacket.getFingerprint()
-    
-    return {key_data, fingerprint}
-    
-})
-
 $(function() { 
   $('#passphraseLength').html(passphraseLength)
   $('#generateButton').click(function() { 
     
     const passphrase = $('#passphrase').val()
+    const passphraseConfirm = $('#passphraseConfirm').val()
     if(!passphrase) {
-      bootstrap5Alert({'message': "Please enter a passphrase", 'title': "ERROR"})
+      bootstrap5Alert({'message': gettext("Please enter a passphrase"), 'title': gettext("ERROR")})
       return 
     }
     if (passphrase.length < passphraseLength) {
-      bootstrap5Alert({'message': `Passphrase must be at least ${passphraseLength} characters`, 'title': "ERROR"})
+      bootstrap5Alert({'message': gettext('Minimum passphrase length: ' ) + passphraseLength, 'title': gettext("ERROR")})
+      return 
+    }
+    if(passphrase!=passphraseConfirm) {
+      bootstrap5Alert({'message': gettext("The confirm passphrase is not the same with the passphrase"), 'title': gettext("ERROR")})
       return 
     }
     
-    (async () => {
-        const { privateKey, publicKey, revocationCertificate } = await openpgp.generateKey({
-            type: 'ecc', 
-            curve: 'curve25519', 
-            userIDs: [{ name: authority, email: authority_email, comment: "ETSD Generated Key" }], 
-            passphrase, 
-            format: 'armored' 
-        });
-
-        return {
-            privateKey,
-            publicKey
-        }
-    })().then(({ privateKey, publicKey }) => {
-      console.log("OK")
+    
+    generateKeyPair(authority, authority_email, passphrase).then(
+      ({ privateKey, publicKey }) => {
       $('#id_key').val(publicKey)
-      console.log(privateKey, publicKey)
+      $('#downloadButton').unbind( "click" );
+      $('#downloadButton').click( event => {
+        event.preventDefault();
+        downloadKey(privateKey, "private.asc")
+        jqEnable('#submitButton')
+        jqDisable('#generateButton')
+      })
+      jqEnable('#downloadButton')
+      
+      loadPublicKey(publicKey).then(
+        publicKey => {
+          //window.publicKey = publicKey
+          //console.log("OK", publicKey)
+          const user_id = publicKey.getUserIDs().join(',')
+          const fingerprint = publicKey.getFingerprint()
+          $('#id_user_id').val(user_id)
+          $('#id_fingerprint').val(fingerprint)
+
+        }
+      ).catch(err => {
+        console.log(err)
+      })
+      
     }).catch(err => {
         console.log(err)
     })
-
-    
   })
 
-  $('#submitButton').click(function() { 
-    $(this).closest('form').submit()
+  confirmFormAction({
+    'sel': '#keyform',
+    'title': 'Warning',
+    'message': `Are you sure you want to continue?<br />
+    Please make sure that:
+    <ul>
+      <li>You remember the private key encryption passphrase</li>
+      <li>You have saved the private key in a safe place</li>
+    </ul>
+    <b>If you lose access to your private key or its encryption password
+    you won't be able to use it anymore and you'll need to create a new one!</b>`,
   })
 })
 </script>

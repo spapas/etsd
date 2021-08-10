@@ -1,15 +1,20 @@
-from etsd.core.models import UserDateAbstractModel
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 from django.db import models
+
 import reversion
+
+from etsd.core.models import UserDateAbstractModel
 
 
 KEY_STATUS_CHOICES = (
-    ("ACTIVE", "Active"),
+    ("NEW", "New"),
     ("PENDING", "Pending"),
+    ("ACTIVE", "Active"),
     ("INACTIVE", "Inactive"),
     ("REJECTED", "Rejected"),
 )
+
 
 @reversion.register
 class PublicKey(UserDateAbstractModel):
@@ -22,20 +27,25 @@ class PublicKey(UserDateAbstractModel):
         max_length=128,
         verbose_name=_("Key fingerprint"),
         unique=True,
-        help_text=_(
-            "The fingerprint of the key"
-        ),
+        help_text=_("The fingerprint of the key"),
+    )
+    user_id = models.CharField(
+        max_length=128,
+        verbose_name=_("Description of key"),
+        help_text=_("The description (user id) of the key"),
     )
     status = models.CharField(
         verbose_name=_("Status"),
         max_length=10,
         choices=KEY_STATUS_CHOICES,
-        default="PENDING",
+        default="NEW",
         help_text=_("Approval status of key"),
     )
     confirmation_document = models.FileField(
         upload_to="public/confirmations/%Y/%m/%d/",
         verbose_name=_("Confirmation document"),
+        null=True,
+        blank=True,
     )
     approved_on = models.DateTimeField(
         null=True, blank=True, verbose_name=_("Approval date")
@@ -47,3 +57,6 @@ class PublicKey(UserDateAbstractModel):
     class Meta:
         verbose_name = _("Public key")
         verbose_name_plural = _("Public keys")
+
+    def get_absolute_url(self):
+        return reverse("publickey_detail", kwargs={"pk": self.pk})

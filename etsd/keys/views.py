@@ -48,7 +48,7 @@ class PublicKeyDetailView(AdminOrAuthorityQsMixin, DetailView):
 class KeyPairCreateView(CreateView):
     model = models.PublicKey
     form_class = forms.KeyPairCreateForm
-    template_name = 'keys/key_pair_create.html'
+    template_name = "keys/key_pair_create.html"
 
     def dispatch(self, request, *args, **kwargs):
         self.user_authority = self.request.user.get_authority()
@@ -59,10 +59,10 @@ class KeyPairCreateView(CreateView):
             )
             return HttpResponseRedirect(reverse("home"))
         return super().dispatch(request, *args, **kwargs)
-    
 
     def form_valid(self, form):
-        a+=1
+        form.instance.authority = self.user_authority
+        return super().form_valid(form)
 
 
 class PublicKeyCreateView(CreateView):

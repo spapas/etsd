@@ -45,24 +45,28 @@ class PublicKeyCreateForm(forms.ModelForm):
 
 
 class LoadPrivateKeyForm(forms.Form):
-    fingerprint = forms.CharField(max_length=128,  )
-    user_id = forms.CharField(max_length=512, )
+    fingerprint = forms.CharField(
+        max_length=128,
+    )
+    user_id = forms.CharField(
+        max_length=512,
+    )
     creation_time = forms.CharField(max_length=512)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['fingerprint'].widget.attrs['readonly'] = True
-        self.fields['user_id'].widget.attrs['readonly'] = True
-        self.fields['creation_time'].widget.attrs['readonly'] = True
-    #file = forms.FileField()
-    #passphrase = forms.CharField()
+        self.fields["fingerprint"].widget.attrs["readonly"] = True
+        self.fields["user_id"].widget.attrs["readonly"] = True
+        self.fields["creation_time"].widget.attrs["readonly"] = True
 
 
 class KeyPairCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['fingerprint'].widget.attrs['readonly'] = True
-        self.fields['key'].widget.attrs.update({'readonly': True, 'rows': 4})
+        self.fields["fingerprint"].widget.attrs["readonly"] = True
+        self.fields["user_id"].widget.attrs["readonly"] = True
+        self.fields["key"].widget.attrs.update({"readonly": True, "rows": 4})
 
     class Meta:
         model = models.PublicKey
-        fields = ("key", "fingerprint", )
+        fields = ("key", "fingerprint", "user_id")

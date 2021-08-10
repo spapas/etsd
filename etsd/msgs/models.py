@@ -175,14 +175,14 @@ class Data(UserDateAbstractModel):
         verbose_name_plural = _("Message data")
         unique_together = ("message", "number")
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.number:
             current_numbers = Data.objects.select_for_update().filter(
                 message_id=self.message_id
             )
             max_number = current_numbers.aggregate(mn=Max("number"))["mn"] or 0
             self.number = max_number + 1
-        super().save()
+        super().save(*args, **kwargs)
 
 
 class CipherData(models.Model):
