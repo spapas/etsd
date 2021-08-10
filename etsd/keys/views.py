@@ -72,39 +72,47 @@ class PublicKeySubmitView(UpdateView):
     def dispatch(self, request, *args, **kwargs):
         self.user_authority = self.request.user.get_authority()
 
-        if not self.request.session.get('private_key_data'):
+        if not self.request.session.get("private_key_data"):
             messages.error(
                 self.request,
-                _("""You must load the private key for the corresponding public key
+                _(
+                    """You must load the private key for the corresponding public key
                 you want to submit for approval so that the system can make sure 
-                that you have proper access to the private key!"""),
+                that you have proper access to the private key!"""
+                ),
             )
             return HttpResponseRedirect(reverse("home"))
         if not self.user_authority:
             messages.error(
                 self.request,
-                _("Public key approval submit is not allowed from users without an authority!"),
+                _(
+                    "Public key approval submit is not allowed from users without an authority!"
+                ),
             )
             return HttpResponseRedirect(reverse("home"))
-        
-        priv_fingerprint = self.request.session.get('private_key_data')['fingerprint']
+
+        priv_fingerprint = self.request.session.get("private_key_data")["fingerprint"]
         pub_fingerprint = self.get_object().fingerprint
         if priv_fingerprint != pub_fingerprint:
             messages.error(
                 self.request,
-                _("""You must load the private key for the corresponding public key
+                _(
+                    """You must load the private key for the corresponding public key
                 you want to submit for approval so that the system can make sure 
                 that you have proper access to the private key! The key you 
                 want to submit has the fingerprint {0} while the private key 
                 you have loaded has the fingerprint {1}""".format(
-                    pub_fingerprint, priv_fingerprint,
-                ))
+                        pub_fingerprint,
+                        priv_fingerprint,
+                    )
+                ),
             )
             return HttpResponseRedirect(reverse("home"))
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        a+=1
+        form.instance.status = "PENDING"
+        form.save()
 
         messages.add_message(
             self.request,
@@ -113,7 +121,7 @@ class PublicKeySubmitView(UpdateView):
                 "Public key submitted for approval. This key will be used after it has been approved by the administrators."
             ),
         )
-        return HttpResponseRedirect(reverse("home"))
+        return HttpResponseRedirect(form.instance.get_absolute_url())
 
 
 class LoadPrivateKey(FormView):

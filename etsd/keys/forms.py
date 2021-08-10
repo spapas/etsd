@@ -7,21 +7,23 @@ from .util import check_signatures
 
 
 class PublicKeySubmitForm(forms.ModelForm):
+    confirmation_document = forms.FileField(
+        required=True,
+        label=_("Confirmation document"),
+        help_text=_("This document will be checked for correct signature."),
+    )
+
     class Meta:
         model = models.PublicKey
-        fields = ("confirmation_document", )
+        fields = ("confirmation_document",)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # self.fields["fingerprint"].widget.attrs["readonly"] = True
 
-    def clean0(self):
+    def clean(self):
         data = self.cleaned_data
-        if models.PublicKey.objects.filter(fingerprint=data["fingerprint"]).exists():
-            raise forms.ValidationError(
-                _("Public key with that fingerprint already exists.")
-            )
-
+        
         gpg = gnupg.GPG(gnupghome=settings.GNUPG_HOME)
         gkey = gpg.import_keys(data["key"])
         if not gkey.fingerprints:
@@ -39,7 +41,7 @@ class PublicKeySubmitForm(forms.ModelForm):
             if r:
                 raise forms.ValidationError(r)
         else:
-            raise forms.ValidationError(_("Confirmation document is required."))
+            raise forms.ValidationError(_("Signed confirmation document is required."))
 
         return data
 

@@ -2,6 +2,7 @@
 
 // loadPrivateKey(...).then(
 //    privateKey => console.log(privateKey) // RESOVE
+//    ,
 //    reason => console.log(reason) // REJECT
 //).catch(
 //    err => console.log(err)
@@ -84,4 +85,28 @@ const displayTimer = logoutUrl => {
           window.location.href = logoutUrl
       }
     }, 1000);
+}
+
+const signAndVerify = async (publicKey, privateKey) => {
+
+    const unsignedMessage = await openpgp.createCleartextMessage({ text: 'Hello, World!' });
+    const cleartextMessage = await openpgp.sign({
+        message: unsignedMessage,
+        signingKeys: privateKey
+    });
+    
+    const signedMessage = await openpgp.readCleartextMessage({
+        cleartextMessage
+    });
+    const verificationResult = await openpgp.verify({
+        message: signedMessage,
+        verificationKeys: publicKey
+    });
+    const { verified, keyID } = verificationResult.signatures[0];
+    return verified
+    try {
+        await verified; // throws on invalid signature
+    } catch (e) {
+        throw new Error('Signature could not be verified: ' + e.message);
+    }
 }
