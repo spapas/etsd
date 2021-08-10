@@ -69,3 +69,19 @@ const downloadKey = (keyString, filename) => downloadBlob(new Blob([keyString], 
 
 const jqDisable = (sel) => $(sel).prop({'disabled': true})
 const jqEnable = (sel) => $(sel).prop({'disabled': false})
+
+const displayTimer = logoutUrl => {
+    let timeleft = 15*60;
+    let downloadTimer = setInterval(() => {
+      //console.log(timeleft)
+      timeleft--;
+      let s = String(timeleft % 60).padStart(2, '0');
+      let m = String(Math.floor(timeleft / 60)).padStart(2, '0');
+      document.getElementById("countdowntimer").textContent = `${m}:${s}`;
+      if(timeleft <= 0) {
+          clearInterval(downloadTimer);
+          //console.log("TIME OVER")
+          window.location.href = logoutUrl
+      }
+    }, 1000);
+}

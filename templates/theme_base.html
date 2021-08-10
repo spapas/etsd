@@ -56,16 +56,20 @@
         type="text/javascript"
         src="{% static 'django_tables2_column_shifter/js/django_tables2_column_shifter.min.js' %}">
     </script>
-    <script>
-      $(function() {
-        enableTooltips();
-      })
-    </script>
+    
     {% endcompress %}
   {% endblock %}
   {% compress js %}
     {% block extra_script %}{% endblock %}
   {% endcompress %}
+  <script>
+    $(function() {
+      enableTooltips();
+      {% if request.session.private_key_data %}
+        displayTimer('{% url "auth_logout" %}')
+      {% endif %}
+    })
+  </script>
   {% block extra_script_no_compress %}{% endblock %}
   {% block extra_body_base %}
     {% block extra_body %}{% endblock %}
