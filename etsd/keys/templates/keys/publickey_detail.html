@@ -23,9 +23,15 @@
       <div class="alert alert-warning">
         The public key needs confirmation by the administration in order to be used. 
       </div>
+      {% if perms.core.admin %}
+      <form action="{% url 'publickey_accept' publickey.id %}" method="POST" style="display:inline">
+        {% csrf_token %}
+        <input type="hidden" id="id_status" name="status" value="">
+        <button id='accButton' type="submit" name="acceptKey" class='btn btn-success' >{% translate "Accept" %}</button>
+        <button id='rejButton' type="submit" name="rejectKey" class='btn btn-danger'>{% translate "Reject" %}</button>
+      </form>
+      {% endif %}
     {% endif %}
-
-
   </div>
   <div class="col-md-6">
     
@@ -48,6 +54,39 @@
 {% block extra_script %}
 <script src='{% static "openpgp/openpgp.min.js" %}'></script>
 <script>
+  $(document).ready(function(){
+    $('#accButton').click(function(evt){
+      evt.preventDefault();
+      document.getElementById("id_status").value = 'ACTIVE';
+      bootstrap5Alert({
+        message: 'Are you sure you want to accept this public key?', 
+        title: 'Accept key',
+        actionText:'Accept',
+        color: 'success',
+        cb: () => {
+        console.log("Submit form");
+        evt.target.closest('form').submit();
+      }});
+    });
+  }); 
+  
+  $(document).ready(function(){
+    $('#rejButton').click(function(evt){
+      evt.preventDefault();
+      document.getElementById("id_status").value = 'REJECTED';
+      bootstrap5Alert({
+        message: 'Are you sure you want to reject this public key?', 
+        title: 'Reject key',
+        actionText:'Reject',
+        color: 'danger',
+        cb: () => {
+        console.log("Submit form");
+        evt.target.closest('form').submit();
+      }});
+    });
+  }); 
+</script>
+<script>
 
 const loadPK = (async(key_data) => {
     
@@ -59,6 +98,8 @@ const loadPK = (async(key_data) => {
     return {key_data, fingerprint}
     
 })
+
+
 
 $(function() { 
   $('#validateButton').click(function() { 

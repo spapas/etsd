@@ -1,0 +1,7 @@
+{% extends 'keys/emails/base.txt' %}
+{% load i18n static %}
+{% block content %}
+ {% blocktrans %} 
+ Your pending Public Key's status with fingerprint: {{ fingerprint }} has been changed to {{ status }} by an administrator.
+ {% endblocktrans %}
+{% endblock %}

@@ -1,12 +1,17 @@
+from etsd.users.utils import get_authority_users_emails
+from etsd.core.utils import send_mail_body
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
+
 from django.views.generic import ListView, DetailView, CreateView, FormView, UpdateView
 from django.urls import reverse
 from django.utils.translation import ugettext as _
+from django.utils import timezone
+from django.core.mail import send_mail
 
 from django_tables2 import RequestConfig
-from django_tables2.export.views import ExportMixin
 
+from django_tables2.export.views import ExportMixin
 from . import models, tables, filters, forms
 
 
@@ -42,8 +47,7 @@ class PublicKeyListView(ExportMixin, AdminOrAuthorityQsMixin, ListView):
 
 
 class PublicKeyDetailView(AdminOrAuthorityQsMixin, DetailView):
-    model = models.PublicKey
-
+    model = models.PublicKey 
 
 class KeyPairCreateView(CreateView):
     model = models.PublicKey
@@ -122,6 +126,37 @@ class PublicKeySubmitView(UpdateView):
             ),
         )
         return HttpResponseRedirect(form.instance.get_absolute_url())
+
+
+class PublicKeyAcceptRejectFormView(UpdateView):
+    model = models.PublicKey
+    form_class = forms.PublicKeyAcceptRejectForm
+    http_method_names = ['post']
+
+    def form_valid(self, form):
+        pubk=self.object
+        if pubk.status == "ACTIVE":
+            activekeys = models.PublicKey.objects.filter(authority=pubk.authority, status="ACTIVE")
+            for key in activekeys:
+                key.status = "INACTIVE"
+                key.deactivated_on = timezone.now()
+                key.save()
+            pubk.approved_on = timezone.now()
+        
+        if pubk.status == "REJECTED":
+            pubk.rejected_on = timezone.now()
+
+        email_body = send_mail_body("keys/emails/confirmation.txt",dict(fingerprint=pubk.fingerprint, status = pubk.status,))
+        send_mail(
+            subject="Public Key Confirmation", 
+            message=email_body, 
+            from_email="noreply@hcg.gr", 
+            recipient_list= get_authority_users_emails(pubk.authority), 
+            fail_silently= False
+        )
+        pubk.save()
+        return HttpResponseRedirect(reverse('publickey_detail', kwargs={'pk': self.object.pk}) )
+
 
 
 class LoadPrivateKey(FormView):

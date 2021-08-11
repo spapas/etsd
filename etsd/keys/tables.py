@@ -24,4 +24,7 @@ class PublicKeyTable(ColumnShiftTable):
             "confirmation_document",
             "created_on",
             "created_by",
+            "approved_on",
+            "deactivated_on",
+            "rejected_on",
         )
