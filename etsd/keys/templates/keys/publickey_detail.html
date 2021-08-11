@@ -19,6 +19,11 @@
     {% if publickey.confirmation_document %}
       <b>{% translate "Confirmation document" %}</b> <a href='{{ publickey.confirmation_document.url }}'>{% translate "Download" %}</a>
     {% endif %}
+    {% if publickey.status == 'NEW' %}
+      {% if request.user.get_authority ==  publickey.authority %}
+        <a class='btn btn-success' href='{% url "public_key_submit" publickey.id %}'>Submit for approval</a>
+      {% endif %}
+    {% endif %}
     {% if publickey.status == 'PENDING' %}
       <div class="alert alert-warning">
         The public key needs confirmation by the administration in order to be used. 

@@ -36,6 +36,7 @@ const loadPublicKey = (async(key_data) => {
 
 const generateKeyPair = (async (name, email, passphrase) => {
     const date = new Date().toISOString()
+    console.log(name, email)
     const { privateKey, publicKey, revocationCertificate } = await openpgp.generateKey({
         type: 'ecc', 
         curve: 'curve25519', 
