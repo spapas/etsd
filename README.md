@@ -25,10 +25,14 @@ and even after all these years if it considered
 by security experts as extremely secure. However
 it is heavily criticized because it is difficult
 to use properly leading to security breaches
-due to usage errors.
+due to usage errors. Also, in order to properly
+use it and avoid mistakes the PGP user must 
+understand some things about how the public 
+key cryptography is working. This is not an easy
+task for the non technical user.
 
 This web application wants to build on PGP's
-security but also offers a simple enough
+security but also offer a simple enough
 work flow to minimize errors and security
 breaches even for less security aware users.
 
@@ -36,14 +40,17 @@ breaches even for less security aware users.
 
 The app contains a bunch of authorities each one with a
 bunch of users. Each authority that wants to
-receive data will need to upload a Public key,
+receive data will need to generate a Private/Public key Pair 
 which will then need to get the administration
-to approve using some OOB communication.
+to approve using some OOB communication. Only the
+public key of the pair will be saved to the server. The private
+key and its encryption passphrase are saved only client side.
 
 After the public key is approved the authority
 can receive data. The data is encrypted with
-the receiving authority public key using
-OpenPGP.js *on the client side" and the cipher
+its public key using
+OpenPGP.js *on the client side" and only the cipher
+(not the original data)
 is saved to the server. Since the original data
 never reaches the server we can be sure that
 even if the server was compromised somehow
