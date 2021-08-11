@@ -25,4 +25,6 @@ class PublicKeyTable(ColumnShiftTable):
             "created_on",
             "created_by",
             "approved_on",
+            "deactivated_on",
+            "rejected_on",
         )

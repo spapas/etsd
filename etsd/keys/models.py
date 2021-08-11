@@ -40,6 +40,12 @@ class PublicKey(UserDateAbstractModel):
     approved_on = models.DateTimeField(
         null=True, blank=True, verbose_name=_("Approval date")
     )
+    deactivated_on = models.DateTimeField(
+        null=True, blank=True, verbose_name=_("Deactivation date")
+    )
+    rejected_on = models.DateTimeField(
+        null=True, blank=True, verbose_name=_("Rejection date")
+    )
 
     def __str__(self):
         return self.fingerprint

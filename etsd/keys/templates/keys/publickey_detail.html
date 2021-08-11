@@ -23,12 +23,8 @@
       {% if perms.core.admin %}
       <form action="{% url 'publickey_accept' publickey.id %}" method="POST" style="display:inline">
         {% csrf_token %}
-        <input type="hidden" id="id_status" name="status" value="ACTIVE">
+        <input type="hidden" id="id_status" name="status" value="">
         <button id='accButton' type="submit" name="acceptKey" class='btn btn-success' >{% translate "Accept" %}</button>
-      </form>
-      <form action="{% url 'publickey_accept' publickey.id %}" method="POST" style="display:inline">
-        {% csrf_token %}
-        <input type="hidden" id="id_status" name="status" value="REJECTED">
         <button id='rejButton' type="submit" name="rejectKey" class='btn btn-danger'>{% translate "Reject" %}</button>
       </form>
       {% endif %}
@@ -58,17 +54,29 @@
   $(document).ready(function(){
     $('#accButton').click(function(evt){
       evt.preventDefault();
-      bootstrap5Confirm({message: 'Are you sure you want to accept this public key?', title: 'Accept key',cb: () => {
+      document.getElementById("id_status").value = 'ACTIVE';
+      bootstrap5Alert({
+        message: 'Are you sure you want to accept this public key?', 
+        title: 'Accept key',
+        actionText:'Accept',
+        color: 'success',
+        cb: () => {
         console.log("Submit form");
         evt.target.closest('form').submit();
       }});
     });
-  });
+  }); 
   
   $(document).ready(function(){
     $('#rejButton').click(function(evt){
       evt.preventDefault();
-      bootstrap5Confirm({message: 'Are you sure you want to reject this public key?', title: 'Reject key',cb: () => {
+      document.getElementById("id_status").value = 'REJECTED';
+      bootstrap5Alert({
+        message: 'Are you sure you want to reject this public key?', 
+        title: 'Reject key',
+        actionText:'Reject',
+        color: 'danger',
+        cb: () => {
         console.log("Submit form");
         evt.target.closest('form').submit();
       }});

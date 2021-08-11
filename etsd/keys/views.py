@@ -46,7 +46,7 @@ class PublicKeyListView(ExportMixin, AdminOrAuthorityQsMixin, ListView):
 
 
 class PublicKeyDetailView(AdminOrAuthorityQsMixin, DetailView):
-    model = models.PublicKey       
+    model = models.PublicKey 
 
 class PublicKeyCreateView(CreateView):
     model = models.PublicKey
@@ -72,9 +72,11 @@ class PublicKeyCreateView(CreateView):
         )
         return HttpResponseRedirect(reverse("home"))
 
+
 class PublicKeyAcceptRejectFormView(UpdateView):
     model = models.PublicKey
     form_class = forms.PublicKeyAcceptRejectForm
+    http_method_names = ['post']
 
     def form_valid(self, form):
         pubk=self.object
@@ -82,9 +84,13 @@ class PublicKeyAcceptRejectFormView(UpdateView):
             activekeys = models.PublicKey.objects.filter(authority=pubk.authority, status="ACTIVE")
             for key in activekeys:
                 key.status = "INACTIVE"
+                key.deactivated_on = timezone.now()
                 key.save()
             pubk.approved_on = timezone.now()
         
+        if pubk.status == "REJECTED":
+            pubk.rejected_on = timezone.now()
+
         email_body = send_mail_body("keys/emails/confirmation.txt",dict(fingerprint=pubk.fingerprint, status = pubk.status,))
         send_mail(
             subject="Public Key Confirmation", 
@@ -94,7 +100,7 @@ class PublicKeyAcceptRejectFormView(UpdateView):
             fail_silently= False
         )
         pubk.save()
-        return HttpResponseRedirect(reverse('public_key_list'))
+        return HttpResponseRedirect(reverse('publickey_detail', kwargs={'pk': self.object.pk}) )
 
 
 

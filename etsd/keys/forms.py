@@ -47,6 +47,9 @@ class PublicKeyAcceptRejectForm(forms.ModelForm):
     class Meta:
         model = models.PublicKey
         fields = ("status",)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['status'].widget = forms.HiddenInput()
 
 class LoadPrivateKeyForm(forms.Form):
     fingerprint = forms.CharField(max_length=128,  )
