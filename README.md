@@ -10,7 +10,7 @@ Transmit sensitive data throughout your organization using PGP (with the help of
 
 Some organizations need to transmit sensitive data between their departments/users. Such data may be personal details, 
 work evaluation or even medical conditions. It is
-Iimportant for such data to be delivered and be
+important for such data to be delivered and be
 seen only by its recipient and not by anybody
 else.
 
