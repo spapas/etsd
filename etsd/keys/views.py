@@ -2,14 +2,15 @@ from etsd.users.utils import get_authority_users_emails
 from etsd.core.utils import send_mail_body
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
-from django.views.generic import ListView, DetailView, CreateView, FormView
-from django.views.generic.edit import UpdateView
-from django_tables2 import RequestConfig
+
+from django.views.generic import ListView, DetailView, CreateView, FormView, UpdateView
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.utils import timezone
 from django.core.mail import send_mail
-from .. import users
+
+from django_tables2 import RequestConfig
+
 from django_tables2.export.views import ExportMixin
 from . import models, tables, filters, forms
 
@@ -48,29 +49,83 @@ class PublicKeyListView(ExportMixin, AdminOrAuthorityQsMixin, ListView):
 class PublicKeyDetailView(AdminOrAuthorityQsMixin, DetailView):
     model = models.PublicKey 
 
-class PublicKeyCreateView(CreateView):
+class KeyPairCreateView(CreateView):
     model = models.PublicKey
-    form_class = forms.PublicKeyCreateForm
+    form_class = forms.KeyPairCreateForm
+    template_name = "keys/key_pair_create.html"
 
-    def form_valid(self, form):
-        user_authority = self.request.user.get_authority()
-        if not user_authority:
+    def dispatch(self, request, *args, **kwargs):
+        self.user_authority = self.request.user.get_authority()
+        if not self.user_authority:
             messages.error(
                 self.request,
-                "Public key creation is not allowed from users without an authority!",
+                "Key pair creation is not allowed from users without an authority!",
             )
             return HttpResponseRedirect(reverse("home"))
-        form.instance.authority = user_authority
-        obj = form.save()
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.authority = self.user_authority
+        return super().form_valid(form)
+
+
+class PublicKeySubmitView(UpdateView):
+    model = models.PublicKey
+    form_class = forms.PublicKeySubmitForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.user_authority = self.request.user.get_authority()
+
+        if not self.request.session.get("private_key_data"):
+            messages.error(
+                self.request,
+                _(
+                    """You must load the private key for the corresponding public key
+                you want to submit for approval so that the system can make sure 
+                that you have proper access to the private key!"""
+                ),
+            )
+            return HttpResponseRedirect(reverse("home"))
+        if not self.user_authority:
+            messages.error(
+                self.request,
+                _(
+                    "Public key approval submit is not allowed from users without an authority!"
+                ),
+            )
+            return HttpResponseRedirect(reverse("home"))
+
+        priv_fingerprint = self.request.session.get("private_key_data")["fingerprint"]
+        pub_fingerprint = self.get_object().fingerprint
+        if priv_fingerprint != pub_fingerprint:
+            messages.error(
+                self.request,
+                _(
+                    """You must load the private key for the corresponding public key
+                you want to submit for approval so that the system can make sure 
+                that you have proper access to the private key! The key you 
+                want to submit has the fingerprint {0} while the private key 
+                you have loaded has the fingerprint {1}""".format(
+                        pub_fingerprint,
+                        priv_fingerprint,
+                    )
+                ),
+            )
+            return HttpResponseRedirect(reverse("home"))
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.status = "PENDING"
+        form.save()
 
         messages.add_message(
             self.request,
             messages.INFO,
             _(
-                "New public key created. This key will be used after it has been approved by the administrators."
+                "Public key submitted for approval. This key will be used after it has been approved by the administrators."
             ),
         )
-        return HttpResponseRedirect(reverse("home"))
+        return HttpResponseRedirect(form.instance.get_absolute_url())
 
 
 class PublicKeyAcceptRejectFormView(UpdateView):
@@ -106,18 +161,22 @@ class PublicKeyAcceptRejectFormView(UpdateView):
 
 class LoadPrivateKey(FormView):
     form_class = forms.LoadPrivateKeyForm
-    template_name = 'keys/load_private_key.html'
+    template_name = "keys/load_private_key.html"
 
     def form_valid(self, form):
-        fingerprint = form.cleaned_data['fingerprint']
-        user_id = form.cleaned_data['user_id']
-        self.request.session['private_key_data'] = {
-            'fingerprint': fingerprint,
-            'user_id': user_id,
+        fingerprint = form.cleaned_data["fingerprint"]
+        user_id = form.cleaned_data["user_id"]
+        self.request.session["private_key_data"] = {
+            "fingerprint": fingerprint,
+            "user_id": user_id,
         }
-        messages.add_message(self.request, messages.SUCCESS, _(
-            "Private Key has been loaded. User id: {0}, fingerprint {1}".format(
-                user_id, fingerprint
-            )
-        ))
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            _(
+                "Private Key has been loaded. User id: {0}, fingerprint {1}".format(
+                    user_id, fingerprint
+                )
+            ),
+        )
         return HttpResponseRedirect(reverse("home"))

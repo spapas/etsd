@@ -1,0 +1,182 @@
+{% extends "site_base.html" %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% load core_tags %}
+{% load widget_tweaks %}
+{% load i18n static %}
+
+
+{% block head_title %}Create new key pair{% endblock %}
+{% block page_title %}Create new key pair{% endblock %}
+{% block page_content %}
+{% get_user_authority as auth %}
+{% trans "Authority:" %} {{ auth.name }} {{ auth.email }}
+<div class="row">
+  <div class="col-md-12">
+    <div class='alert alert-info'> 
+      
+      {% blocktrans  %}
+        <p>
+        You can generate a ney key pair through this form. The key pair is a pair of a private key and a public key. 
+        The private key is encrypted with a passphrase that you need to define here.
+        </p>
+        <p> 
+          The public key of the key pair is used to encrypt data that other people want to send to you. This public key will be 
+          saved to the server so others will be able to easily encrypt the data. The private key is used to decrypt that data
+          so it must remain absolutely secret and safe. 
+        </p>
+        <p>
+          Neither your passphrase nor your private key will be stored on the server. It is your responsibility to 
+          properly store them in a safe place. If the private key or its decryption passphrase are lost, you will not be able to
+          decrypt the data that was encrypted with the public key of that particular key pair.
+        </p>
+        <p>
+          After you enter the passphrase, click on the "Generate key pair" button. The key pair will be generated in your browser and
+          the key information fields will be filled. Then you must download the private key using the "Download private key button". After
+          you have downloaded the private key and saved it to a safe place, you need to press the "Submit" button to save the public 
+          key to the server so it can be approved and then used to encrypt your data.
+        <p>
+      {% endblocktrans %}
+    </div>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col">
+    
+      <label for="passphrase" class="form-label requiredField">
+        {% trans "Passphrase" %}<span class="asteriskField">*</span>
+      </label>
+      <input type="password" name="passphrase" maxlength="512" class="textinput textInput form-control" required="" id="passphrase"> 
+      <small class="form-text text-muted">
+        Please use a secure enough passphrase to enrypt your private key. Rules: Must be > <b id='passphraseLength'>16</b> characters. Should be a passphrase 
+        ie a combination of multiple words and contain lower and capital letters, numbers, punctuation and special characters.
+      </small>
+    
+  </div>
+
+  <div class="col">
+    
+      <label for="passphraseConfirm" class="form-label requiredField">
+        {% trans "Passphrase confirmation" %}<span class="asteriskField">*</span>
+      </label>
+      <input type="password" name="passphrase" maxlength="512" class="textinput textInput form-control" required="" id="passphraseConfirm"> 
+      <small class="form-text text-muted">
+        Please confirm your passphrase.
+      </small>
+    
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+      <form method="POST" id='keyform' enctype="multipart/form-data" >
+        <div class='card mb-3'>
+          <div class='card-body'>
+            <h5 class="card-title">{% trans "Generated key info" %}</h5>
+            {% csrf_token %}
+            <div class='row'>
+              <div class='col'>
+                {{ form.key|add_class:"form-control-sm"| as_crispy_field }}
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col'>
+                {{ form.user_id|add_class:"form-control-sm" | as_crispy_field }}
+                
+              </div>
+              <div class='col'>
+                
+                {{ form.fingerprint|add_class:"form-control-sm" | as_crispy_field }}  
+              </div>
+            </div>
+          </div>
+        </div>
+          
+        <button id='generateButton' type='button' class='btn btn-warning' >{% trans "Generate Key Pair" %}</button>
+        <button id='downloadButton' type='button' disabled class='btn btn-danger' >{% trans "Download Private Key" %}</button>
+        <button id='submitButton'  type='submit' disabled class='btn btn-success' >{% trans "Submit" %}</button>
+        <a class='btn btn-secondary' href='{% url "public_key_list" %}'>{% trans "Return" %}</a>
+      </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_script %}
+{% get_user_authority as auth %}
+<script>
+  const authority = '{{ auth.name }}';
+  const authority_email = '{{ auth.email }}';
+</script>
+
+<script>
+const passphraseLength = 4
+
+
+$(function() { 
+  $('#passphraseLength').html(passphraseLength)
+  $('#generateButton').click(function() { 
+    
+    const passphrase = $('#passphrase').val()
+    const passphraseConfirm = $('#passphraseConfirm').val()
+    if(!passphrase) {
+      bootstrap5Alert({'message': gettext("Please enter a passphrase"), 'title': gettext("ERROR")})
+      return 
+    }
+    if (passphrase.length < passphraseLength) {
+      bootstrap5Alert({'message': gettext('Minimum passphrase length: ' ) + passphraseLength, 'title': gettext("ERROR")})
+      return 
+    }
+    if(passphrase!=passphraseConfirm) {
+      bootstrap5Alert({'message': gettext("The confirm passphrase is not the same with the passphrase"), 'title': gettext("ERROR")})
+      return 
+    }
+    
+    
+    generateKeyPair(authority, authority_email, passphrase).then(
+      ({ privateKey, publicKey }) => {
+      $('#id_key').val(publicKey)
+      $('#downloadButton').unbind( "click" );
+      $('#downloadButton').click( event => {
+        event.preventDefault();
+        downloadKey(privateKey, "private.asc")
+        jqEnable('#submitButton')
+        jqDisable('#generateButton')
+      })
+      jqEnable('#downloadButton')
+      
+      loadPublicKey(publicKey).then(
+        publicKey => {
+          //window.publicKey = publicKey
+          //console.log("OK", publicKey)
+          const user_id = publicKey.getUserIDs().join(',')
+          const fingerprint = publicKey.getFingerprint()
+          $('#id_user_id').val(user_id)
+          $('#id_fingerprint').val(fingerprint)
+
+        }
+      ).catch(err => {
+        console.log(err)
+      })
+      
+    }).catch(err => {
+        console.log(err)
+    })
+  })
+
+  confirmFormAction({
+    'sel': '#keyform',
+    'title': 'Warning',
+    'message': `Are you sure you want to continue?<br />
+    Please make sure that:
+    <ul>
+      <li>You remember the private key encryption passphrase</li>
+      <li>You have saved the private key in a safe place</li>
+    </ul>
+    <b>If you lose access to your private key or its encryption password
+    you won't be able to use it anymore and you'll need to create a new one!</b>`,
+  })
+})
+</script>
+{% endblock %}

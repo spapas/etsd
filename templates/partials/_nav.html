@@ -34,9 +34,9 @@
                     data-bs-html="true" 
                     data-bs-placement="bottom" 
                     title="Fingerprint: <b>{{ pkdata.fingerprint }}</b><br/>User id: <b>{{ pkdata.user_id|escape }}</b>"
-                    href='#'
+                    href='{{ request.path }}'
                     >
-                      <b>Private key loaded</b>
+                      <b>Private key loaded <span id='countdowntimer'>15:00</span></b>
                   </a>
                 {% endif %}
               {% endwith %}

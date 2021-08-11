@@ -1,6 +1,7 @@
 import gnupg
 
-gpg = gnupg.GPG(gnupghome='C:/Program Files (x86)/GnuPG')
+#gpg = gnupg.GPG(gnupghome='C:/Program Files (x86)/GnuPG')
+gpg = gnupg.GPG(gnupghome='.', gpgbinary='C:/Program Files/git/usr/bin/gpg.exe')
 kdata = """
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
@@ -55,4 +56,4 @@ ot5dBq2WWiXzkja7DdgUhIHWAw7G+iTM4JpvxoVUeo7nD0LmcAdVWFiFAO9mBwHB
 -----END PGP PUBLIC KEY BLOCK-----
 """
 k = gpg.import_keys(kdata)
-k.fingerprints
+print(k.fingerprints)

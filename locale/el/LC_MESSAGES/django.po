@@ -1,0 +1,450 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-10 11:27+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\etsd\core\models.py:17 .\etsd\keys\templates\keys\publickey_detail.html:16
+msgid "Created on"
+msgstr ""
+
+#: .\etsd\core\models.py:20
+msgid "Modified on"
+msgstr ""
+
+#: .\etsd\core\models.py:26
+msgid "Created by"
+msgstr ""
+
+#: .\etsd\core\models.py:33
+msgid "Modified by"
+msgstr ""
+
+#: .\etsd\keys\forms.py:22
+msgid "Public key with that fingerprint already exists."
+msgstr ""
+
+#: .\etsd\keys\forms.py:28
+msgid "Invalid public key."
+msgstr ""
+
+#: .\etsd\keys\forms.py:33
+msgid "Submitted public key fingerprint is not correct!"
+msgstr ""
+
+#: .\etsd\keys\forms.py:42
+msgid "Confirmation document is required."
+msgstr ""
+
+#: .\etsd\keys\models.py:18
+msgid "Key text"
+msgstr ""
+
+#: .\etsd\keys\models.py:19
+msgid "The key text in armored ASCII format"
+msgstr ""
+
+#: .\etsd\keys\models.py:23
+msgid "Key fingerprint"
+msgstr ""
+
+#: .\etsd\keys\models.py:26
+msgid "The fingerprint of the key"
+msgstr ""
+
+#: .\etsd\keys\models.py:30 .\etsd\keys\templates\keys\publickey_detail.html:15
+msgid "Status"
+msgstr ""
+
+#: .\etsd\keys\models.py:34
+msgid "Approval status of key"
+msgstr ""
+
+#: .\etsd\keys\models.py:38 .\etsd\keys\templates\keys\publickey_detail.html:18
+msgid "Confirmation document"
+msgstr ""
+
+#: .\etsd\keys\models.py:41
+msgid "Approval date"
+msgstr ""
+
+#: .\etsd\keys\models.py:48
+msgid "Public key"
+msgstr ""
+
+#: .\etsd\keys\models.py:49
+msgid "Public keys"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:12
+msgid "Authority:"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:17
+msgid ""
+"\n"
+"        <p>\n"
+"        You can submit a new public key through this form. The publickey "
+"must be in the ASCII armored format i.e it \n"
+"        should start with <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> "
+"contain the key data in printable ASCII\n"
+"        format (base64 encoded) and end with <code>-----END PGP PUBLIC KEY "
+"BLOCK-----</code>.\n"
+"        </p>\n"
+"        \n"
+"        </p>\n"
+"      "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:34
+msgid "Passphrase"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:51
+msgid "Generate Key Pair"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:52
+msgid "Download Private Key"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:53
+#: .\etsd\keys\templates\keys\publickey_form.html:48
+#: .\templates\authorities\authority_form.html:11
+msgid "Submit"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:54
+#: .\etsd\keys\templates\keys\load_private_key.html:76
+#: .\etsd\keys\templates\keys\publickey_form.html:49
+#: .\templates\authorities\authority_detail.html:19
+#: .\templates\authorities\authority_form.html:12
+msgid "Return"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\load_private_key.html:8
+#: .\etsd\keys\templates\keys\load_private_key.html:9
+#: .\etsd\keys\templates\keys\load_private_key.html:75
+msgid "Load private key"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\load_private_key.html:16
+msgid ""
+"\n"
+"        <p>\n"
+"        You can load a Private Key through this form. This private key "
+"<u>will be \n"
+"        stored to your browser only</u>, i.e it will never be submited to "
+"our server.\n"
+"        </p>\n"
+"        <p>\n"
+"          You need to select the private key file which must be in the ASCII "
+"armored format.\n"
+"          Then enter the private key decryption passphrase. Now you can "
+"press the\n"
+"          \"validate\" button to make sure that they key and passhrase are "
+"both correct. \n"
+"          If everything is ok the Private key information section will be "
+"filled with some\n"
+"          of the key information or else you will see an error. Finally,\n"
+"          press \"load\" button to actually load the key to your browser and "
+"be able to use it\n"
+"          to decrypt data.\n"
+"\n"
+"        </p>\n"
+"        <p>\n"
+"          <u>Please be extra careful while Private Key has been loaded to "
+"your browser.</u>\n"
+"        </p>\n"
+"      "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\load_private_key.html:42
+msgid "Private Key File"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\load_private_key.html:46
+msgid "Passpharse"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\load_private_key.html:74
+msgid "Validate private key"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:7
+#: .\etsd\keys\templates\keys\publickey_detail.html:8
+#, python-format
+msgid "Public key %(pid)s detail"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:13
+msgid "ID"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:14
+#: .\etsd\msgs\models.py:117
+msgid "Authority"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:17
+msgid "Fingerprint"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:18
+msgid "Download"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_form.html:16
+#, python-format
+msgid ""
+"\n"
+"        <p>\n"
+"        You can submit a new public key through this form. The publickey "
+"must be in the ASCII armored format i.e it \n"
+"        should start with <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> "
+"contain the key data in printable ASCII\n"
+"        format (base64 encoded) and end with <code>-----END PGP PUBLIC KEY "
+"BLOCK-----</code>.\n"
+"        </p>\n"
+"        <p>\n"
+"        After you copy over the public key text in the corresponding field, "
+"you need to press the <b>Validate</b> \n"
+"        button to validate its correctness. If everything is correct, the "
+"fingerprint of the key will be filled.\n"
+"        </p>\n"
+"        <p>You need then to generate the confirmation document. This must be "
+"a properly signed document that \n"
+"        will declare that <em>The public key for the authority %(auth)s has "
+"the fingerprint \n"
+"        <span id='fingerprint_data'>FINGERPRINT_DATA_HERE</span></em> and "
+"upload it in the corresponding file field.\n"
+"\n"
+"        Finally you will be able to click the <b>Submit</b> button.\n"
+"        </p>\n"
+"        <p>\n"
+"        Please notice that after you submit this you must communicate with "
+"the administrators and confirm that the\n"
+"        fingerprint is correct. The key will be used only after it has been "
+"approved by the administrators and <b>will\n"
+"        replace the current key of your authority</b> (if it has one).\n"
+"        </p>\n"
+"      "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_form.html:47
+msgid "Validate"
+msgstr ""
+
+#: .\etsd\keys\util.py:24
+msgid "Το αρχείο περιέχει εσφαλμένη υπογραφή! Πρέπει να υπογραφεί ξανά!"
+msgstr ""
+
+#: .\etsd\keys\util.py:28
+#, python-brace-format
+msgid ""
+"Το αρχείο που ανεβάζετε δεν έχει τον κατάλληλο αριθμό υπογραφών. Το αρχείο "
+"πρέπει να έχει {0} υπογραφές και έχει {1}."
+msgstr ""
+
+#: .\etsd\keys\util.py:30
+msgid " ή "
+msgstr ""
+
+#: .\etsd\keys\util.py:35
+msgid "Το αρχείο πρέπει να είναι μορφής PDF!"
+msgstr ""
+
+#: .\etsd\keys\util.py:38
+msgid ""
+"Σφάλμα κατά την ανάγνωση του αρχείου! Παρακαλούμε επιβεβαιώσατε ότι είναι "
+"κατάλληλης μορφής και έχει υπογραφεί με το σωστό πρόγραμμα!"
+msgstr ""
+
+#: .\etsd\keys\views.py:87
+msgid ""
+"New public key created. This key will be used after it has been approved by "
+"the administrators."
+msgstr ""
+
+#: .\etsd\keys\views.py:108
+#, python-brace-format
+msgid "Private Key has been loaded. User id: {0}, fingerprint {1}"
+msgstr ""
+
+#: .\etsd\msgs\models.py:12
+msgid "New"
+msgstr ""
+
+#: .\etsd\msgs\models.py:13
+msgid "Reply"
+msgstr ""
+
+#: .\etsd\msgs\models.py:14
+msgid "Fix"
+msgstr ""
+
+#: .\etsd\msgs\models.py:18
+msgid "Draft"
+msgstr ""
+
+#: .\etsd\msgs\models.py:19
+msgid "Sent"
+msgstr ""
+
+#: .\etsd\msgs\models.py:20
+msgid "Read"
+msgstr ""
+
+#: .\etsd\msgs\models.py:21
+msgid "Archived"
+msgstr ""
+
+#: .\etsd\msgs\models.py:22
+msgid "Deleted"
+msgstr ""
+
+#: .\etsd\msgs\models.py:28 .\templates\authorities\authority_detail.html:8
+msgid "Name"
+msgstr ""
+
+#: .\etsd\msgs\models.py:29
+msgid "Is active"
+msgstr ""
+
+#: .\etsd\msgs\models.py:60
+msgid "Message is available to sender"
+msgstr ""
+
+#: .\etsd\msgs\models.py:61
+msgid "The message is also encrtypted with the sender's public key"
+msgstr ""
+
+#: .\etsd\msgs\models.py:66
+msgid "Category"
+msgstr ""
+
+#: .\etsd\msgs\models.py:73
+msgid "Related message"
+msgstr ""
+
+#: .\etsd\msgs\models.py:76
+msgid "Sent on"
+msgstr ""
+
+#: .\etsd\msgs\models.py:85 .\etsd\msgs\models.py:120 .\etsd\msgs\models.py:166
+msgid "Message"
+msgstr ""
+
+#: .\etsd\msgs\models.py:86
+msgid "Messages"
+msgstr ""
+
+#: .\etsd\msgs\models.py:125
+msgid "Message participant"
+msgstr ""
+
+#: .\etsd\msgs\models.py:126
+msgid "Message participants"
+msgstr ""
+
+#: .\etsd\msgs\models.py:149
+msgid "Participant key"
+msgstr ""
+
+#: .\etsd\msgs\models.py:150
+msgid "Participant keys"
+msgstr ""
+
+#: .\etsd\msgs\models.py:173 .\etsd\msgs\models.py:174
+#: .\etsd\msgs\models.py:215
+msgid "Message data"
+msgstr ""
+
+#: .\etsd\msgs\models.py:197
+msgid "Encrypted data"
+msgstr ""
+
+#: .\etsd\msgs\models.py:204 .\etsd\msgs\models.py:205
+msgid "Cipher data"
+msgstr ""
+
+#: .\etsd\msgs\models.py:220
+msgid "Message data access"
+msgstr ""
+
+#: .\etsd\msgs\models.py:221
+msgid "Message data accesses"
+msgstr ""
+
+#: .\templates\authorities\authority_detail.html:4
+msgid "Authority detail"
+msgstr ""
+
+#: .\templates\authorities\authority_detail.html:7
+msgid "Kind"
+msgstr ""
+
+#: .\templates\authorities\authority_detail.html:9
+msgid "Email"
+msgstr ""
+
+#: .\templates\authorities\authority_detail.html:10
+msgid "Users"
+msgstr ""
+
+#: .\templates\authorities\authority_detail.html:14
+msgid "No users"
+msgstr ""
+
+#: .\templates\authorities\authority_detail.html:17
+#: .\templates\authorities\authority_list.html:11
+msgid "Edit"
+msgstr ""
+
+#: .\templates\authorities\authority_detail.html:18
+#: .\templates\authorities\authority_list.html:12
+msgid "Edit users"
+msgstr ""
+
+#: .\templates\authorities\authority_form.html:5
+msgid "Authority form"
+msgstr ""
+
+#: .\templates\authorities\authority_list.html:4
+msgid "Authority List"
+msgstr ""
+
+#: .\templates\authorities\authority_list.html:10
+msgid "View"
+msgstr ""
+
+#: .\templates\authorities\authority_list.html:15
+msgid "No authorities"
+msgstr ""
+
+#: .\templates\authorities\authority_list.html:18
+msgid "Create"
+msgstr ""
+
+#: .\templates\home.html:16
+msgid "Electronic Transmission of Sensitive Data"
+msgstr ""
+
+#: .\templates\home.html:17
+msgid ""
+"You can use this app to transmit sensitive data across your organization"
+msgstr ""

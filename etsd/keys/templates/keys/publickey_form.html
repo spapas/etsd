@@ -1,49 +1,56 @@
 {% extends "site_base.html" %}
 {% load render_table from django_tables2 %}
 {% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% load widget_tweaks %}
 {% load core_tags %}
 {% load i18n static %}
 
 
-{% block head_title %}Public key submit{% endblock %}
-{% block page_title %}Public key submit{% endblock %}
+{% block head_title %}Public key approval submit{% endblock %}
+{% block page_title %}Public key approval submit{% endblock %}
 {% block page_content %}
 
 <div class="row">
   <div class="col-md-12">
     <div class='alert alert-info'> 
       {% get_user_authority as auth %}
-      {% blocktrans  %}
+      {% blocktranslate  with auth_name=auth.name  fingerprint=publickey.fingerprint %}
         <p>
-        You can submit a new public key through this form. The publickey must be in the ASCII armored format i.e it 
-        should start with <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> contain the key data in printable ASCII
-        format (base64 encoded) and end with <code>-----END PGP PUBLIC KEY BLOCK-----</code>.
+        You can submit a new public key for approval through this form. You need then to generate the confirmation document. 
+        This must be a properly signed document that will declare that:
         </p>
         <p>
-        After you copy over the public key text in the corresponding field, you need to press the <b>Validate</b> 
-        button to validate its correctness. If everything is correct, the fingerprint of the key will be filled.
+        <em>The public key for the authority <b>{{ auth_name }}</b> has the fingerprint 
+        <b>{{ fingerprint }}</b></em>.
         </p>
-        <p>You need then to generate the confirmation document. This must be a properly signed document that 
-        will declare that "<em>The public key for the authority {{ auth }} has the fingerprint 
-        <span id='fingerprint_data'>FINGERPRINT_DATA_HERE</span></em> and upload it in the corresponding file field.
+        <p>
+         and upload it in the corresponding file field.
 
-        Finally you will be able to click the <b>Submit</b> button.
+        You will then need to press the Validate button to confirm that the private key you have loaded is 
+        the pair of the public key you want to get approved.
         </p>
         <p>
-        Please notice that after you submit this you must communicate with the administrators and confirm that the
-        fingerprint is correct. The key will be used only after it has been approved by the administrators and <b>will
+        The key will be used only after it has been approved by the administrators and <b>will
         replace the current key of your authority</b> (if it has one).
         </p>
-      {% endblocktrans %}
+      {% endblocktranslate  %}
     </div>
   </div>
 </div>
-
+<b>
+Fingerprint: {{ form.instance.fingerprint }} <br />
+User id: {{ form.instance.user_id }}
+</b>
 <div class="row">
     <div class="col-md-12">
-      <form method="POST" id='keyform' enctype="multipart/form-data" >
+      <form class='form' method="POST" id='keyform' enctype="multipart/form-data" >
         {% csrf_token %}
-          {{ form|crispy }}
+        <div class='row'>
+          <div class='col'>
+            {{ form.confirmation_document|add_class:"form-control"|as_crispy_field }}
+          </div>
+        </div>
         <button  id='validateButton' type='button' class='btn btn-primary' >{% trans "Validate" %}</button>
         <button id='submitButton'  type='button' disabled class='btn btn-success' >{% trans "Submit" %}</button>
         <a class='btn btn-secondary' href='{% url "public_key_list" %}'>{% trans "Return" %}</a>
@@ -54,35 +61,31 @@
 {% endblock %}
 
 {% block extra_script %}
-<script src='{% static "openpgp/openpgp.min.js" %}'></script>
 <script>
 
-const loadPK = (async(key_data) => {
-    
-    let publicKey = await openpgp.readKey({
-        armoredKey: key_data
-    });
-    let fingerprint = publicKey.keyPacket.getFingerprint()
-    
-    return {key_data, fingerprint}
-    
-})
+$(function() {
+  const publicKeyArmored = `{{ publickey.key }}`;
+  console.log(publicKeyArmored)
 
-$(function() { 
   $('#validateButton').click(function() { 
     
-    let keyVal = $('#id_key').val()
-    
-    loadPK(keyVal).then( ({key_data, fingerprint}) => {
-      console.log(key_data, fingerprint)
-      $('#id_fingerprint').val(fingerprint)
-      $('#fingerprint_data').html(fingerprint)
-      $('#id_key').prop('readonly', true)
-      $('#validateButton').prop('disabled', true)
-      $('#submitButton').prop('disabled', false)
-    }).catch(err => {
-      bootstrap5Alert({'message': err, 'title': "ERROR"})
+    const publicPromise = loadPublicKey(publicKeyArmored)
+    const privatePromise = loadPrivateKeyLocal()
+
+    Promise.all([publicPromise, privatePromise]).then( ([publicKey, privateKey]) => {
+      console.log(publicKey)
+      console.log(privateKey)
+      signAndVerify(publicKey, privateKey).then( verified => {
+        if(verified) {
+          $('#validateButton').prop('disabled', true)
+          $('#submitButton').prop('disabled', false)
+        }
+      }).catch( (err) => {
+        bootstrap5Alert({'message': err, 'title': "ERROR"})
+      })
+
     })
+    
   })
 
   $('#submitButton').click(function() { 

@@ -6,22 +6,24 @@ import gnupg
 from .util import check_signatures
 
 
-class PublicKeyCreateForm(forms.ModelForm):
+class PublicKeySubmitForm(forms.ModelForm):
+    confirmation_document = forms.FileField(
+        required=True,
+        label=_("Confirmation document"),
+        help_text=_("This document will be checked for correct signature."),
+    )
+
     class Meta:
         model = models.PublicKey
-        fields = ("key", "fingerprint", "confirmation_document")
+        fields = ("confirmation_document",)
 
     def __init__(self, *args, **kwargs):
-        super(PublicKeyCreateForm, self).__init__(*args, **kwargs)
-        self.fields["fingerprint"].widget.attrs["readonly"] = True
+        super().__init__(*args, **kwargs)
+        # self.fields["fingerprint"].widget.attrs["readonly"] = True
 
     def clean(self):
         data = self.cleaned_data
-        if models.PublicKey.objects.filter(fingerprint=data["fingerprint"]).exists():
-            raise forms.ValidationError(
-                _("Public key with that fingerprint already exists.")
-            )
-
+        
         gpg = gnupg.GPG(gnupghome=settings.GNUPG_HOME)
         gkey = gpg.import_keys(data["key"])
         if not gkey.fingerprints:
@@ -39,7 +41,7 @@ class PublicKeyCreateForm(forms.ModelForm):
             if r:
                 raise forms.ValidationError(r)
         else:
-            raise forms.ValidationError(_("Confirmation document is required."))
+            raise forms.ValidationError(_("Signed confirmation document is required."))
 
         return data
 
@@ -52,13 +54,28 @@ class PublicKeyAcceptRejectForm(forms.ModelForm):
         self.fields['status'].widget = forms.HiddenInput()
 
 class LoadPrivateKeyForm(forms.Form):
-    fingerprint = forms.CharField(max_length=128,  )
-    user_id = forms.CharField(max_length=512, )
+    fingerprint = forms.CharField(
+        max_length=128,
+    )
+    user_id = forms.CharField(
+        max_length=512,
+    )
     creation_time = forms.CharField(max_length=512)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['fingerprint'].widget.attrs['readonly'] = True
-        self.fields['user_id'].widget.attrs['readonly'] = True
-        self.fields['creation_time'].widget.attrs['readonly'] = True
-    #file = forms.FileField()
-    #passphrase = forms.CharField()
+        self.fields["fingerprint"].widget.attrs["readonly"] = True
+        self.fields["user_id"].widget.attrs["readonly"] = True
+        self.fields["creation_time"].widget.attrs["readonly"] = True
+
+
+class KeyPairCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["fingerprint"].widget.attrs["readonly"] = True
+        self.fields["user_id"].widget.attrs["readonly"] = True
+        self.fields["key"].widget.attrs.update({"readonly": True, "rows": 4})
+
+    class Meta:
+        model = models.PublicKey
+        fields = ("key", "fingerprint", "user_id")

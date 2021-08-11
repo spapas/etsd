@@ -8,6 +8,7 @@ const makeId = length => {
   return result
 }
 
+
 const bootstrap5Alert = ({ message, title, actionText, cb, color }) => {
   let modalId = makeId(12)
   if(color === undefined) {
@@ -84,3 +85,4 @@ const confirmFormAction = ({sel, message, title}) => document.querySelectorAll(s
     })
   })
 })
+

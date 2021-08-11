@@ -25,8 +25,12 @@ MESSAGE_STATUS_CHOICES = (
 
 @reversion.register
 class MessageCategory(UserDateAbstractModel):
-    name = models.CharField(max_length=64, verbose_name=_("Name"))
+    name = models.CharField(max_length=64, verbose_name=_("Name"), unique=True)
     is_active = models.BooleanField(default=True, verbose_name=_("Is active"))
+
+    class Meta:
+        verbose_name = _("Message Category")
+        verbose_name_plural = _("Message Categories")
 
 
 @reversion.register
@@ -152,8 +156,8 @@ class ParticipantKey(models.Model):
 
 class Data(UserDateAbstractModel):
     """
-    One instance of Data (a file usually) for the message. For now it only has
-    an FK to the message and a number but other props may be added here. The number
+    One instance of Data (a file usually) for the message. Its attributes are
+    an FK to the message, the content_type of the original file and a number. The number
     will be unique so it should be easy to refer to particular data *in* a message.
     For example "the Data 2 of the message 53/2021 has a typo".
 
@@ -166,6 +170,7 @@ class Data(UserDateAbstractModel):
         Message, verbose_name=_("Message"), on_delete=models.CASCADE
     )
     number = models.PositiveIntegerField()
+    content_type = models.CharField(max_length=128)
 
     participant_access = models.ManyToManyField("Participant", through="DataAccess")
 
@@ -174,14 +179,14 @@ class Data(UserDateAbstractModel):
         verbose_name_plural = _("Message data")
         unique_together = ("message", "number")
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.number:
             current_numbers = Data.objects.select_for_update().filter(
                 message_id=self.message_id
             )
             max_number = current_numbers.aggregate(mn=Max("number"))["mn"] or 0
             self.number = max_number + 1
-        super().save()
+        super().save(*args, **kwargs)
 
 
 class CipherData(models.Model):

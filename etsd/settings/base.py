@@ -89,6 +89,7 @@ DATABASES = {
     }
 }
 
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 AUTH_USER_MODEL = "users.User"
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -104,7 +105,7 @@ LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGIN_URL = "/login/"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-LANGUAGE_CODE = "el"
+LANGUAGE_CODE = "en"
 TIME_ZONE = "Europe/Athens"
 USE_I18N = True
 USE_L10N = True
