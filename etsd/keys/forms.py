@@ -23,17 +23,17 @@ class PublicKeySubmitForm(forms.ModelForm):
 
     def clean(self):
         data = self.cleaned_data
-        
-        gpg = gnupg.GPG(gnupghome=settings.GNUPG_HOME)
-        gkey = gpg.import_keys(data["key"])
-        if not gkey.fingerprints:
-            raise forms.ValidationError(_("Invalid public key."))
 
-        calculated_fingerprint = gkey.fingerprints[0].lower()
-        if calculated_fingerprint != data["fingerprint"].lower():
-            raise forms.ValidationError(
-                _("Submitted public key fingerprint is not correct!")
-            )
+        # gpg = gnupg.GPG(gnupghome=settings.GNUPG_HOME, gpgbinary=r"c:\Program Files\Git\usr\bin\gpg.exe")
+        # gkey = gpg.import_keys(data["key"])
+        # if not gkey.fingerprints:
+        #    raise forms.ValidationError(_("Invalid public key."))
+
+        # calculated_fingerprint = gkey.fingerprints[0].lower()
+        # if calculated_fingerprint != data["fingerprint"].lower():
+        #    raise forms.ValidationError(
+        #        _("Submitted public key fingerprint is not correct!")
+        #    )
 
         confirmation_document = data.get("confirmation_document")
         if confirmation_document:
@@ -45,13 +45,16 @@ class PublicKeySubmitForm(forms.ModelForm):
 
         return data
 
+
 class PublicKeyAcceptRejectForm(forms.ModelForm):
     class Meta:
         model = models.PublicKey
         fields = ("status",)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['status'].widget = forms.HiddenInput()
+        self.fields["status"].widget = forms.HiddenInput()
+
 
 class LoadPrivateKeyForm(forms.Form):
     fingerprint = forms.CharField(

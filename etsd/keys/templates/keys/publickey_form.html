@@ -46,6 +46,15 @@ User id: {{ form.instance.user_id }}
     <div class="col-md-12">
       <form class='form' method="POST" id='keyform' enctype="multipart/form-data" >
         {% csrf_token %}
+        {% if form.errors %}
+          <div class='alert alert-danger'>
+            
+              {% for f in form.errors.items %}
+                {{ f.1 }}
+              {% endfor %}
+            
+          </div>
+        {% endif %}
         <div class='row'>
           <div class='col'>
             {{ form.confirmation_document|add_class:"form-control"|as_crispy_field }}
