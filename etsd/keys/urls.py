@@ -46,4 +46,11 @@ urlpatterns = [
         ),
         name="publickey_detail",
     ),
+    path(
+        "accept/<int:pk>/",
+        any_permission_required("core.admin")(
+            views.PublicKeyAcceptRejectFormView.as_view(),
+        ),
+        name="publickey_accept",
+    ),
 ]

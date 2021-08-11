@@ -43,6 +43,10 @@ class PublicKeyCreateForm(forms.ModelForm):
 
         return data
 
+class PublicKeyAcceptRejectForm(forms.ModelForm):
+    class Meta:
+        model = models.PublicKey
+        fields = ("status",)
 
 class LoadPrivateKeyForm(forms.Form):
     fingerprint = forms.CharField(max_length=128,  )
