@@ -18,10 +18,10 @@ class UserListView(ExportMixin, ListView):
         context = super().get_context_data(*args, **kwargs)
 
         qs = self.get_queryset()
-        filter = filters.UserFilter(self.request.GET, qs)
-        self.table = table = tables.UserTable(filter.qs)
-        RequestConfig(self.request, paginate={"per_page": 15}).configure(table)
-        context["filter"] = filter
-        context["table"] = table
+        self.filter = filters.UserFilter(self.request.GET, qs)
+        self.table = tables.UserTable(self.filter.qs)
+        RequestConfig(self.request, paginate={"per_page": 15}).configure(self.table)
+        context["filter"] = self.filter
+        context["table"] = self.table
 
         return context

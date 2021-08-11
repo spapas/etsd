@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "django_tables2_column_shifter",
     "django_filters",
     "django_extensions",
+    "extra_views",
     "reversion",
     "widget_tweaks",
     "django_cleanup.apps.CleanupConfig",  # Must be placed last

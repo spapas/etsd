@@ -9,7 +9,8 @@ from django.contrib import admin
 urlpatterns = [
     path("", include("etsd.core.urls")),
     path("authorities/", include("authorities.urls")),
-    path("users/", include("etsd.users.urls")),
+    # path("users/", include("etsd.users.urls")),
+    path("messages/", include("etsd.msgs.urls")),
     path("keys/", include("etsd.keys.urls")),
     path("admin/", admin.site.urls),
 ]

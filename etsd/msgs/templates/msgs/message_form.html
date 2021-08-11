@@ -1,0 +1,68 @@
+{% extends "site_base.html" %}
+{% load i18n static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+
+{% block extra_style %}
+  <style>
+  .strike {
+    border: 2px solid red !important;
+    opacity: 0.6;
+    filter: blur(2px);
+    background-color: lightgray;
+  }
+  </style>
+{% endblock %}
+
+{% block head_title %}{% trans "New Message" %}{% endblock %}
+{% block page_title %}{% trans "New Message" %}{% endblock %}
+{% block page_content %}
+
+<div class="row mb-3">
+    <div class="col">
+      <form method='POST' class='form'>
+        {% csrf_token %}
+        {{ form|crispy}}
+
+        {% include "partials/_inline_set.html" with inline_name='participant_set' inline_title="Recipient list" formset=inlines.0 %}
+
+        <button id='submitButton'  type='submit' class='btn btn-success' >{% trans "Submit" %}</button>
+        <a class='btn btn-secondary' href='{% url "message_list" %}'>{% trans "Return" %}</a>
+      </form>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_script %}
+
+<script>
+$(function() {
+    $('form').submit(function() {
+        submit = $(this).find("input[type='submit']")
+        submit.prop('disabled',true);
+    });
+})
+</script>
+
+<script src="{% static 'inline-editor.js' %}"></script>
+
+{{ app_form.media }}
+
+<script>
+    $(function() { 
+        inlineEditor('participant_set');
+    })
+
+    function delClick(el) {
+        if(el.checked) {
+            el.parentElement.parentElement.parentElement.parentElement.classList.add('strike')
+        } else {
+            el.parentElement.parentElement.parentElement.parentElement.classList.remove('strike')
+        }
+    }
+
+  </script>
+
+{% endblock %}

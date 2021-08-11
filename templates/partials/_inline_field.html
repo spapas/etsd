@@ -1,0 +1,16 @@
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% if field.field.widget.input_type == 'hidden' %}
+    {{ field }}
+{% else %}
+    <div class='col-md-3'>
+        {% if field.name == "DELETE" %}
+            {{ field|add_class:""|attr:"onclick:delClick(this)"|as_crispy_field }}
+        {% elif field.field.widget.input_type == 'checkbox' %}
+            {{ field|as_crispy_field }}
+        {% else %}
+            {{ field|add_class:"form-control-sm"|as_crispy_field }}
+        {% endif %}
+    </div>
+{% endif %}

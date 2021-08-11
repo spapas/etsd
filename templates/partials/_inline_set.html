@@ -1,0 +1,35 @@
+
+<div id='card_{{ inline_name }}' class="card">
+    <h5 class="card-header">
+        {{ inline_title }}
+        <button class='btn btn-primary' type="button" id="add-form-{{ inline_name }}">Add</button>
+    </h5>
+    
+        <div class="card-body">
+            <template id="empty-form-{{ inline_name }}">
+                <div class='row border border-primary rounded p-1 m-1'>
+
+                {% for field in formset.empty_form %}
+                    {% include "partials/_inline_field.html" %}
+                {% endfor %}
+                </div>
+            </template>
+
+            {{ formset.management_form }}
+            {% for form in formset %}
+                <div class='row border rounded p-1 m-1'>
+                    {% for field in form %}
+                        {% include "partials/_inline_field.html" %}
+                    {% endfor %}
+                </div>
+            {% empty %}
+                <div class='row p-1 m-1'>
+                    <div class='alert alert-info p-1 '>
+                    Please press the add button to add a new row
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div> <!-- card body -->
+    
+</div><!-- card -->
