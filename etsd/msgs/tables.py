@@ -14,7 +14,9 @@ PROTOCOL = """
 {{% else %}}
     {0}
 {{% endif %}}
-""" .format( _('Draft message'))
+""".format(
+    _("Draft message")
+)
 
 
 class MessageTable(ColumnShiftTable):
@@ -25,10 +27,34 @@ class MessageTable(ColumnShiftTable):
         attrs={"a": {"class": "btn btn-primary btn-sm"}},
     )
 
-    proto = tables.TemplateColumn(PROTOCOL, verbose_name=__('Protocol'), orderable=False)
+    proto = tables.TemplateColumn(
+        PROTOCOL, verbose_name=__("Protocol"), orderable=False
+    )
+    sender = tables.Column(verbose_name=__("Sender"), empty_values=(), orderable=False)
+    recipients = tables.Column(
+        verbose_name=__("Recipients"), empty_values=(), orderable=False
+    )
 
     class Meta:
         model = models.Message
-        fields = ("id", "proto", "sent_on", "kind", "status", "category", "rel_message")
+        fields = (
+            "id",
+            "proto",
+            "sent_on",
+            "kind",
+            "status",
+            "category",
+            "rel_message",
+            "sender",
+        )
         attrs = {"class": "table table-sm table-stripped"}
         empty_text = "No entries"
+
+    def render_sender(self, record):
+        return record.participant_set.filter(kind="SENDER").first().authority.name
+
+    def render_recipients(self, record):
+        return ", ".join(
+            z.authority.name
+            for z in record.participant_set.filter(kind__in=("CC", "RECIPIENT")).all()
+        )

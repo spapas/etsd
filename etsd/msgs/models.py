@@ -66,9 +66,13 @@ class Message(UserDateAbstractModel):
         help_text=_("The message is also encrtypted with the sender's public key"),
     )
     kind = models.CharField(max_length=32, choices=MESSAGE_KIND_CHOICES)
-    status = models.CharField(max_length=32, choices=MESSAGE_STATUS_CHOICES)
+    status = models.CharField(max_length=32, choices=MESSAGE_STATUS_CHOICES, default='DRAFT')
     category = models.ForeignKey(
-        MessageCategory, verbose_name=_("Category"), on_delete=models.PROTECT, blank=True, null=True
+        MessageCategory,
+        verbose_name=_("Category"),
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
     )
     rel_message = models.ForeignKey(
         "self",
@@ -102,7 +106,7 @@ class Message(UserDateAbstractModel):
         self.protocol = max_protocol + 1
         self.status = "SENT"
         self.save()
-    
+
     def get_absolute_url(self):
         return reverse("message_detail", kwargs={"pk": self.pk})
 

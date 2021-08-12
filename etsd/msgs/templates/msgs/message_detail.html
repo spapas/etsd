@@ -1,22 +1,52 @@
 {% extends "site_base.html" %}
 {% load i18n %}
-
-
-
+{% load rules_light_tags %}
 {% block head_title %}{% trans "Message detail" %}{% endblock %}
 {% block page_title %}{% trans "Message detail" %}{% endblock %}
 {% block page_content %}
 
+<div class='row mb-3'>
+  <div class='col'>
+    {% trans "Kind" %}: {{ message.get_kind_display }}<br />
+    {% trans "Status" %}: {{ message.get_status_display }}<br />
+    {% trans "Related message" %}: {{ message.rel_message|default:"-" }}<br />
+    {% trans "Category" %}: {{ message.category|default:"-" }}<br />
+    {% trans "Sent on" %}: {{ message.sent_on|default:"-" }}<br />
+    {% trans "Protocol" %}: {% if message.protocol %}{{ message.protocol }} / {{ message.year }}{% endif %}<br />
 
-{% for mp in message.participant_set.all %}
-  {{ mp.authority }}: {{ mp.get_kind_display }}
-  
-{% endfor %}
+  </div>
+  <div class='col'>
+    <h5>{% trans "Participants" %}</h5>
+    <ul>
+    {% for mp in message.participant_set.all %}
+      <li>{{ mp.authority }}: {{ mp.get_kind_display }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+
+
+{% rule 'msgs.message.add_data' message as can_add_data %}
+{% rule 'msgs.message.send' message as can_send %}
+{% rule 'msgs.message.delete' message as can_delete %}
 
 <div class="row">
-    <div class="col-md-12">
-		<a class='btn btn-info' href='{% url "message_list" %}'>Return</a>
-    </div>
+  <div class="col-md-12">
+	  <a class='btn btn-info' href='{% url "message_list" %}'>{% trans "Return" %}</a>
+
+    {% if can_add_data %}
+      <a class='btn btn-primary' href='{% url "message_add_data"  message.id %}'>{% trans "Add data" %}</a> 
+    {% endif %}
+    
+    {% if can_delete %}
+      <a class='btn btn-danger' href=''>{% trans "Delete" %}</a>
+    {% endif %}
+    {% if can_send %}
+      <a class='btn btn-success' href=''>{% trans "Send" %}</a>
+    {% endif %}
+    
+    <a class='btn btn-warning' href=''>{% trans "Archive" %}</a>
+   </div>
 </div>
 
 {% endblock %}

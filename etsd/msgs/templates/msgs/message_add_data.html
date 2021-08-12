@@ -1,0 +1,76 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load rules_light_tags %}
+{% block head_title %}{% trans "Add Data to Message" %} {{ message.id }}{% endblock %}
+{% block page_title %}{% trans "Add Data to Message" %} {{ message.id }}{% endblock %}
+{% block page_content %}
+
+
+{{ participant_keys }}
+
+<div class='row mb-3'>
+  <div class='col'>
+    <div>
+      <label for="formFile" class="form-label">File to upload</label>
+      <input class="form-control form-control-lg"  type="file" id='file'>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+	  
+    <a class='btn btn-success' href='#'>{% trans "Submit" %}</a>
+	  <a class='btn btn-secondary' href='{% url "message_detail" object.id %}'>{% trans "Return" %}</a>
+  </div>
+</div>
+
+{{ participant_keys|json_script:"participant-keys" }}
+
+{% endblock %}
+
+
+
+{% block extra_script %}
+<script>
+  console.log("OK")
+  const participantKeys = JSON.parse(document.getElementById('participant-keys').textContent);
+
+  $(function() {
+    const keyLoadPromises = participantKeys.map(pk => loadPublicKey(pk.participant__participantkey__public_key__key)) 
+
+    Promise.all(keyLoadPromises).then((values) => {
+      for(let i = 0; i < values.length; i++) {
+        participantKeys[i].publicKey = values[i]
+      }
+      console.log("Keys ok")
+    });
+
+
+      document.getElementById('file').addEventListener("change", function() {
+        if (this.files && this.files[0]) {
+            var theFile = this.files[0];
+            var reader = new FileReader();
+
+            reader.addEventListener('load', function(e) {
+                
+                console.log("FILE OK")
+                console.log(e.target.result)
+                
+                const encryptPromises = participantKeys.map(pk => encrypt(pk.publicKey, e.target.result))
+                Promise.all(encryptPromises).then((values) => {
+                  console.log("ENC OK")
+                  for(let i = 0; i < values.length; i++) {
+                    participantKeys[i].cipher = values[i]
+                  }
+                })
+            });
+
+            reader.readAsBinaryString(theFile);
+        }
+    });
+
+  })
+</script>
+{% endblock %}

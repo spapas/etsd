@@ -111,3 +111,11 @@ const signAndVerify = async (publicKey, privateKey) => {
         throw new Error('Signature could not be verified: ' + e.message);
     }
 }
+
+const encrypt = async (publicKey, binMessage) => {
+    const encrypted = await openpgp.encrypt({
+        message: await openpgp.createMessage({ binary: new Uint8Array (binMessage) }), 
+        encryptionKeys: publicKey
+    })
+    return encrypted
+}

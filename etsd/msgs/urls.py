@@ -1,12 +1,13 @@
-from django.contrib import admin
 from django.urls import path
-from . import views
 from django.contrib.auth.decorators import (
     permission_required,
     login_required,
     user_passes_test,
 )
+import rules_light
+from . import views
 
+rules_light.autodiscover()
 
 def any_permission_required(*args):
     """
@@ -38,5 +39,12 @@ urlpatterns = [
             views.MessageCreateView.as_view()
         ),
         name="message_create",
+    ),
+    path(
+        "add_data/<int:pk>/",
+        any_permission_required("core.admin", "core.user")(
+            views.MessageAddDataView.as_view()
+        ),
+        name="message_add_data",
     ),
 ]

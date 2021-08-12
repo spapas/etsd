@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "extra_views",
     "reversion",
+    "rules_light",
     "widget_tweaks",
     "django_cleanup.apps.CleanupConfig",  # Must be placed last
 ]
