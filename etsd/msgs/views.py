@@ -116,12 +116,14 @@ class MessageAddDataView(SingleObjectMixin, TemplateResponseMixin, View):
             models.ParticipantKey.objects.filter(
                 participant__message=self.object
             ).values(
-                "participant__authority__id",
-                "participant__authority__name",
+                "participant_id",
+                #"participant__authority__id",
+                #"participant__authority__name",
                 "participant__participantkey__public_key__key",
             )
         )
         return context
 
     def post(self, request, *args, **kwargs):
-        a += 1
+        print(request.POST)
+        print(request.FILES)

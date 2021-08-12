@@ -16,8 +16,9 @@
     </div>
   </div>
 </div>
-
-
+<form method='POST'>
+  {% csrf_token %}
+</form>
 <div class="row">
   <div class="col-md-12">
 	  
@@ -40,6 +41,8 @@
   const getFileExt = fname=> fname.slice((Math.max(0, fname.lastIndexOf(".")) || Infinity) + 1);
   const fileData = {}
   const participantKeys = JSON.parse(document.getElementById('participant-keys').textContent);
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
 
   $(function() {
     $('#submitButton').prop('disabled', true)
@@ -90,8 +93,30 @@
 
     $('#submitButton').click(function(e) {
       const fd = new FormData()
-      console.log(fd)
+      fd.append('fileType',  fileData.fileType)
+      fd.append('fileExtension', fileData.extension)
+      participantKeys.forEach(pk => {
+        fd.append('cipher' , new Blob([pk.cipher], {type: 'application/pgp-encrypted'}))
+        fd.append('participant_id' , pk.participant_id)
+      })
+      
+      for(var pair of fd.entries()) {
+        console.log(pair[0]+ ', '+ pair[1]);
+      }
 
+      $.ajax({
+        url: '{{ request.path }}',
+        type: 'POST',
+        data: fd,
+        headers: {'X-CSRFToken': csrftoken},
+        processData: false,
+        contentType: false,
+        success: function(data) {
+          console.log("POST OK")
+          console.log(data)
+        }
+
+      })
     })
 
   })
