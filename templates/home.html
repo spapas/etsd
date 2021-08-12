@@ -37,12 +37,13 @@
               Admin access
               <a class="btn btn-primary" href="{% url 'public_key_list' %}" role="button">Public key list</a></p>
               <a class="btn btn-primary" href="{% url 'message_list' %}" role="button">Messages</a></p>
-              
+              <a class="btn btn-primary" href="{% url 'authority_update_users' user.get_authority.id %}" role="button">Edit Users</a></p>              
               <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">Load private key</a>
           {% elif perms.core.user %}
               User access
               <a class="btn btn-primary" href="{% url 'message_list' %}" role="button">Messages</a></p>
               <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">Load private key</a>
+              <a class="btn btn-primary" href="{% url 'authority_update_users' user.get_authority.id %}" role="button">Edit Users</a></p> 
           {% else %}
               No access
           {% endif %}

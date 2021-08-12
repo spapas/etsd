@@ -1,0 +1,39 @@
+{% extends "site_base.html" %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Επιλογή χρηστών Υπηρεσίας{% endblock %}
+{% block page_title %}Επιλογή χρηστών Υπηρεσίας{% endblock %}
+{% block page_content %}
+
+<div class='alert alert-info'>
+  Επιλέξτε τους χρήστες της Υπηρεσίας σας.
+  <div>
+    {% if usrs %}
+      <b>Έχουν επιλεγεί οι εξής χρήστες</b>
+      <ul>
+      {% for user in usrs %}
+        <li> {{ user.username }}</li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <b>Δεν έχουν επιλεγεί χρήστες</b>
+    {% endif %}
+  </div>
+</div>
+<form method='POST' >
+  {% csrf_token %}
+  {{ form|crispy }}
+  <div class='mt-3'>
+    <input type='submit' value='Υποβολή' class='btn btn-primary'>
+    <a class='btn btn-secondary' href='{% url "home" %}'>Επιστροφή</a>
+  </div>
+</form>
+
+
+{% endblock %}
+
+{% block extra_script_no_compress %}
+  {{ form.media }}
+{% endblock %}
