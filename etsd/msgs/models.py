@@ -67,7 +67,7 @@ class Message(UserDateAbstractModel):
     kind = models.CharField(max_length=32, choices=MESSAGE_KIND_CHOICES)
     status = models.CharField(max_length=32, choices=MESSAGE_STATUS_CHOICES)
     category = models.ForeignKey(
-        MessageCategory, verbose_name=_("Category"), on_delete=models.PROTECT
+        MessageCategory, verbose_name=_("Category"), on_delete=models.PROTECT, blank=True, null=True
     )
     rel_message = models.ForeignKey(
         "self",

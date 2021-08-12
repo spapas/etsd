@@ -17,11 +17,26 @@
     <b>{% translate "Fingerprint" %}</b>: <code>{{ publickey.fingerprint }}</code><br />
     <b>{% translate "Description (user id)" %}</b>: <code>{{ publickey.user_id }}</code><br />
     {% if publickey.confirmation_document %}
-      <b>{% translate "Confirmation document" %}</b> <a href='{{ publickey.confirmation_document.url }}'>{% translate "Download" %}</a>
+      <b>{% translate "Confirmation document" %}</b> <a href='{{ publickey.confirmation_document.url }}'>{% translate "Download" %}</a><br />
+    {% endif %}
+
+    {% if publickey.approved_on %}
+      <span class='text-success'>
+        {% translate "Approved on" %}: {{ publickey.approved_on }}<br />
+      </span> 
     {% endif %}
     {% if publickey.status == 'NEW' %}
+      <div class='alert alert-info'>
+        {% trans "The key cannot be used until it has been submitted for approval" %}
+      </div>
       {% if request.user.get_authority ==  publickey.authority %}
-        <a class='btn btn-success' href='{% url "public_key_submit" publickey.id %}'>Submit for approval</a>
+        {% if request.session.private_key_data %}
+          <a class='btn btn-success' href='{% url "public_key_submit" publickey.id %}'>Submit for approval</a>
+        {% else %}
+          <div class='alert alert-warning'>
+            {% trans "You must load the private key of the key pair in order to be able to submit this public key for approval!" %}
+          </div>
+        {% endif %}
       {% endif %}
     {% endif %}
     {% if publickey.status == 'PENDING' %}
