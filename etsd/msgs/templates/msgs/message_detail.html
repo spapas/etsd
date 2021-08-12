@@ -1,0 +1,22 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+
+
+{% block head_title %}{% trans "Message detail" %}{% endblock %}
+{% block page_title %}{% trans "Message detail" %}{% endblock %}
+{% block page_content %}
+
+
+{% for mp in message.participant_set.all %}
+  {{ mp.authority }}: {{ mp.get_kind_display }}
+  
+{% endfor %}
+
+<div class="row">
+    <div class="col-md-12">
+		<a class='btn btn-info' href='{% url "message_list" %}'>Return</a>
+    </div>
+</div>
+
+{% endblock %}

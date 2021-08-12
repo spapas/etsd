@@ -26,6 +26,13 @@ urlpatterns = [
         name="message_list",
     ),
     path(
+        "message_detail/<int:pk>/",
+        any_permission_required("core.admin", "core.user")(
+            views.MessageDetailView.as_view()
+        ),
+        name="message_detail",
+    ),    
+    path(
         "new/",
         any_permission_required("core.admin", "core.user")(
             views.MessageCreateView.as_view()

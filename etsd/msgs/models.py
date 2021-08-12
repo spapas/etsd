@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Max
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
@@ -101,6 +102,9 @@ class Message(UserDateAbstractModel):
         self.protocol = max_protocol + 1
         self.status = "SENT"
         self.save()
+    
+    def get_absolute_url(self):
+        return reverse("message_detail", kwargs={"pk": self.pk})
 
 
 PARTICIPANT_KIND_CHOICES = (
