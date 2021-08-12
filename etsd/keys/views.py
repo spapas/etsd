@@ -47,7 +47,8 @@ class PublicKeyListView(ExportMixin, AdminOrAuthorityQsMixin, ListView):
 
 
 class PublicKeyDetailView(AdminOrAuthorityQsMixin, DetailView):
-    model = models.PublicKey 
+    model = models.PublicKey
+
 
 class KeyPairCreateView(CreateView):
     model = models.PublicKey
@@ -59,9 +60,17 @@ class KeyPairCreateView(CreateView):
         if not self.user_authority:
             messages.error(
                 self.request,
-                "Key pair creation is not allowed from users without an authority!",
+                _("Key pair creation is not allowed from users without an authority!"),
             )
-            return HttpResponseRedirect(reverse("home"))
+            return HttpResponseRedirect(reverse("public_key_list"))
+
+        if not self.user_authority.email:
+            messages.error(
+                self.request,
+                _("Your authority must have an email!"),
+            )
+            return HttpResponseRedirect(reverse("public_key_list"))
+
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -131,32 +140,41 @@ class PublicKeySubmitView(UpdateView):
 class PublicKeyAcceptRejectFormView(UpdateView):
     model = models.PublicKey
     form_class = forms.PublicKeyAcceptRejectForm
-    http_method_names = ['post']
+    http_method_names = ["post"]
 
     def form_valid(self, form):
-        pubk=self.object
+        pubk = self.object
         if pubk.status == "ACTIVE":
-            activekeys = models.PublicKey.objects.filter(authority=pubk.authority, status="ACTIVE")
+            activekeys = models.PublicKey.objects.filter(
+                authority=pubk.authority, status="ACTIVE"
+            )
             for key in activekeys:
                 key.status = "INACTIVE"
                 key.deactivated_on = timezone.now()
                 key.save()
             pubk.approved_on = timezone.now()
-        
+
         if pubk.status == "REJECTED":
             pubk.rejected_on = timezone.now()
 
-        email_body = send_mail_body("keys/emails/confirmation.txt",dict(fingerprint=pubk.fingerprint, status = pubk.status,))
+        email_body = send_mail_body(
+            "keys/emails/confirmation.txt",
+            dict(
+                fingerprint=pubk.fingerprint,
+                status=pubk.status,
+            ),
+        )
         send_mail(
-            subject="Public Key Confirmation", 
-            message=email_body, 
-            from_email="noreply@hcg.gr", 
-            recipient_list= get_authority_users_emails(pubk.authority), 
-            fail_silently= False
+            subject="Public Key Confirmation",
+            message=email_body,
+            from_email="noreply@hcg.gr",
+            recipient_list=get_authority_users_emails(pubk.authority),
+            fail_silently=False,
         )
         pubk.save()
-        return HttpResponseRedirect(reverse('publickey_detail', kwargs={'pk': self.object.pk}) )
-
+        return HttpResponseRedirect(
+            reverse("publickey_detail", kwargs={"pk": self.object.pk})
+        )
 
 
 class LoadPrivateKey(FormView):

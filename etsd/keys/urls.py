@@ -27,7 +27,7 @@ urlpatterns = [
     ),
     path(
         "",
-        permission_required("core.admin", "core.user")(
+        any_permission_required("core.admin", "core.user")(
             views.PublicKeyListView.as_view()
         ),
         name="public_key_list",
