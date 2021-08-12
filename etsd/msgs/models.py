@@ -178,7 +178,8 @@ class Data(UserDateAbstractModel):
         Message, verbose_name=_("Message"), on_delete=models.CASCADE
     )
     number = models.PositiveIntegerField()
-    content_type = models.CharField(max_length=128)
+    content_type = models.CharField(max_length=128, blank=True, default='')
+    extension = models.CharField(max_length=128)
 
     participant_access = models.ManyToManyField("Participant", through="DataAccess")
 

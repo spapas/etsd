@@ -21,7 +21,10 @@
 <div class="row">
   <div class="col-md-12">
 	  
-    <a class='btn btn-success' href='#'>{% trans "Submit" %}</a>
+    <button class='btn btn-success' id='submitButton'>
+      <span id='spinner' style='display: none' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      {% trans "Submit" %}
+    </button>
 	  <a class='btn btn-secondary' href='{% url "message_detail" object.id %}'>{% trans "Return" %}</a>
   </div>
 </div>
@@ -34,10 +37,13 @@
 
 {% block extra_script %}
 <script>
-  console.log("OK")
+  const getFileExt = fname=> fname.slice((Math.max(0, fname.lastIndexOf(".")) || Infinity) + 1);
+  const fileData = {}
   const participantKeys = JSON.parse(document.getElementById('participant-keys').textContent);
 
   $(function() {
+    $('#submitButton').prop('disabled', true)
+
     const keyLoadPromises = participantKeys.map(pk => loadPublicKey(pk.participant__participantkey__public_key__key)) 
 
     Promise.all(keyLoadPromises).then((values) => {
@@ -47,29 +53,46 @@
       console.log("Keys ok")
     });
 
-
       document.getElementById('file').addEventListener("change", function() {
         if (this.files && this.files[0]) {
-            var theFile = this.files[0];
-            var reader = new FileReader();
+            let theFile = this.files[0];
+            
+            if (theFile.size > 1024*1024*4) {
+              bootstrap5Alert({'message': gettext("File can be up to 4 MB!"), 'title': gettext("ERROR")})
+              document.getElementById('file').value=''
+              return 
+            }
+
+            fileData.fileType = theFile.type
+            fileData.extension = getFileExt(theFile.name)
+            let reader = new FileReader();
 
             reader.addEventListener('load', function(e) {
                 
-                console.log("FILE OK")
-                console.log(e.target.result)
-                
                 const encryptPromises = participantKeys.map(pk => encrypt(pk.publicKey, e.target.result))
                 Promise.all(encryptPromises).then((values) => {
-                  console.log("ENC OK")
+                  
                   for(let i = 0; i < values.length; i++) {
                     participantKeys[i].cipher = values[i]
                   }
+                  console.log("ENCRYPTION OK")
+
+                  $('#spinner').hide()
+                  $('#submitButton').prop('disabled', false)
+
                 })
             });
-
+            $('#spinner').show()
+            $('#submitButton').prop('disabled', true)
             reader.readAsBinaryString(theFile);
         }
     });
+
+    $('#submitButton').click(function(e) {
+      const fd = new FormData()
+      console.log(fd)
+
+    })
 
   })
 </script>
