@@ -9,7 +9,7 @@
     <li>{{ a }} 
         <a class='btn btn-info btn-sm' href='{% url "authority_view" a.id %}'>{% trans "View" %}</a>
         <a class='btn btn-warning btn-sm' href='{% url "authority_update" a.id %}'>{% trans "Edit" %}</a>
-        <a class='btn btn-warning btn-sm' href='{% url "authority_update_users" a.id %}'>{% trans "Edit users" %}</a>
+        <a class='btn btn-warning btn-sm' href='{% url "authority_update_data" a.id %}'>{% trans "Edit users" %}</a>
     </li>
 {% empty %}
     <li>{% trans "No authorities" %}</li>

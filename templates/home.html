@@ -35,15 +35,15 @@
           <h4>Welcome, {{ user }}</h4>
           {% if perms.core.admin %}
               Admin access
-              <a class="btn btn-primary" href="{% url 'public_key_list' %}" role="button">Public key list</a></p>
-              <a class="btn btn-primary" href="{% url 'message_list' %}" role="button">Messages</a></p>
-              <a class="btn btn-primary" href="{% url 'authority_update_users' user.get_authority.id %}" role="button">Edit Users</a></p>              
-              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">Load private key</a>
+              <a class="btn btn-primary" href="{% url 'public_key_list' %}" role="button">{% translate "Public key list" %}</a></p>
+              <a class="btn btn-primary" href="{% url 'message_list' %}" role="button">{% translate "Messages" %}</a></p>
+              <a class="btn btn-primary" href="{% url 'authority_update_data' user.get_authority.id %}" role="button">{% translate "Edit Authority Data" %}</a></p>              
+              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">{% translate "Load private key" %}</a>
           {% elif perms.core.user %}
               User access
-              <a class="btn btn-primary" href="{% url 'message_list' %}" role="button">Messages</a></p>
-              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">Load private key</a>
-              <a class="btn btn-primary" href="{% url 'authority_update_users' user.get_authority.id %}" role="button">Edit Users</a></p> 
+              <a class="btn btn-primary" href="{% url 'message_list' %}" role="button">{% translate "Messages" %}</a></p>
+              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">{% translate "Load private key" %}</a>
+              <a class="btn btn-primary" href="{% url 'authority_update_data' user.get_authority.id %}" role="button">{% translate "Edit Authority Data" %}</a></p> 
           {% else %}
               No access
           {% endif %}
@@ -51,7 +51,7 @@
         <p>
           Please login to use this site!
         </p>
-        <a class="btn btn-primary" href="{% url "auth_login" %}" role="button">Log in</a></p>
+        <a class="btn btn-primary" href="{% url "auth_login" %}" role="button">{% translate "Log in" %}</a></p>
       {% endif %}
     </div>
   </div>
