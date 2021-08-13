@@ -20,30 +20,17 @@ class AuthorityEditUsersView(UpdateView, ):
 
     def form_valid(self,form):
         usrs = form.cleaned_data['users']
-        auth = self.request.user.get_authority()
+        auth = form.instance
         initial_users = get_user_model().objects.filter(authorities=auth)
         added_users = set(usrs).difference(set(initial_users))
         removed_users = set(initial_users).difference(set(usrs))
-        for usr in added_users:
-            if usr.authorities.exists():
-                messages.add_message(
-                    self.request, 
-                    messages.ERROR, 
-                    _("""User {0} belongs to authority {1} and cannot be added! 
-                      Remove {0} from {1} and try again.""".format(usr.username, usr.authorities.first().name))
-                )
-                return HttpResponseRedirect(self.request.path)
 
         for usr in added_users:
-            usr.user_permissions.add(Permission.objects.get(codename='change_authority'))
-            usr.user_permissions.add(Permission.objects.get(codename='view_authority'))
-            usr.user_permissions.add(Permission.objects.get(codename='user'))
+            if not usr.has_perm('core.admin'):
+                usr.user_permissions.add(5)
         for usr in removed_users:
-            #usr.user_permissions.clear()
-            usr.user_permissions.remove(Permission.objects.get(codename='change_authority'))
-            usr.user_permissions.remove(Permission.objects.get(codename='view_authority'))
-            usr.user_permissions.remove(Permission.objects.get(codename='user'))
-
+            if not usr.has_perm('core.admin'):
+                usr.user_permissions.remove(5)
 
         form.save()
         messages.add_message(self.request, messages.INFO, _("Authority Data succesfully updated!"))

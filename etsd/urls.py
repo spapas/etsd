@@ -8,6 +8,19 @@ from django.contrib import admin
 from django.contrib.auth.decorators import permission_required
 from authorities.views import AuthorityListView, AuthorityCreateView, AuthorityUpdateView, AuthorityDetailView
 from etsd.core.views import AuthorityEditUsersView
+from django.contrib.auth.decorators import (
+    permission_required,
+    login_required,
+    user_passes_test,
+)
+
+def any_permission_required(*args):
+    """
+    A decorator which checks user has any of the given permissions.
+    permission required can not be used in its place as that takes only a
+    single permission.
+    """
+    return user_passes_test(lambda u: any(u.has_perm(perm) for perm in args))
 
 urlpatterns = [
     path("", include("etsd.core.urls")),
@@ -17,11 +30,11 @@ urlpatterns = [
     path("keys/", include("etsd.keys.urls")),
     path("users/", include("etsd.users.urls")),
     path("admin/", admin.site.urls),
-    path('authorities/', permission_required('authorities.view_authority')(AuthorityListView.as_view()), name='authority_list', ),
-    path('authorities/create', permission_required('authorities.add_authority')(AuthorityCreateView.as_view()), name='authority_create', ),
-    path('authorities/update/<int:pk>/', permission_required('authorities.change_authority')(AuthorityUpdateView.as_view()), name='authority_update', ),
-    path('authorities/view/<int:pk>/', permission_required('authorities.view_authority')(AuthorityDetailView.as_view()), name='authority_view', ),
-    path('authorities/update_data/<int:pk>/', permission_required('authorities.change_authority')(AuthorityEditUsersView.as_view()), name='authority_update_data', ),
+    path('authorities/', permission_required('core.admin')(AuthorityListView.as_view()), name='authority_list', ),
+    path('authorities/create', permission_required('core.admin')(AuthorityCreateView.as_view()), name='authority_create', ),
+    path('authorities/update/<int:pk>/', permission_required('core.admin')(AuthorityUpdateView.as_view()), name='authority_update', ),
+    path('authorities/view/<int:pk>/', permission_required('core.admin')(AuthorityDetailView.as_view()), name='authority_view', ),
+    path('authorities/update_data/<int:pk>/', any_permission_required('core.admin','core.user')(AuthorityEditUsersView.as_view()), name='authority_update_data', ),
 ]
 
 if settings.DEBUG:
