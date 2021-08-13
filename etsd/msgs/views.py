@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -142,8 +142,8 @@ class MessageAddDataView(SingleObjectMixin, TemplateResponseMixin, View):
         return context
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
-        print(request.FILES)
+        #print(request.POST)
+        #print(request.FILES)
         message = self.object = self.get_object()
         file_type = request.POST.get("fileType")
         file_extension = request.POST.get("fileExtension")
@@ -165,3 +165,18 @@ class MessageAddDataView(SingleObjectMixin, TemplateResponseMixin, View):
             )
 
         return HttpResponse("OK")
+
+
+@rules_light.class_decorator("msgs.message.send")
+class MessageSendPostView(SingleObjectMixin, View):
+    model = models.Message
+    http_method_names = ["post"]
+    
+    def post(self, request, *args, **kwargs):
+        message = self.object = self.get_object()
+        message.send()
+        messages.success(
+            self.request,
+            _("Message send"),
+        )
+        return HttpResponseRedirect(message.get_absolute_url())
