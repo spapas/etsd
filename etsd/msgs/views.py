@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.detail import SingleObjectMixin
+from django.db.models import Q
 
 from django_tables2 import RequestConfig
 from django_tables2.export.views import ExportMixin
