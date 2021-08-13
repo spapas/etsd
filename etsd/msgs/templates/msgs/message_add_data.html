@@ -92,6 +92,8 @@
     });
 
     $('#submitButton').click(function(e) {
+      $('#spinner').show()
+      $('#submitButton').prop('disabled', true)
       const fd = new FormData()
       fd.append('fileType',  fileData.fileType)
       fd.append('fileExtension', fileData.extension)
@@ -114,6 +116,16 @@
         success: function(data) {
           console.log("POST OK")
           console.log(data)
+          $('#spinner').hide()
+          $('#submitButton').prop('disabled', false)
+          if(data=='OK') {
+            bootstrap5Alert({
+              'message': gettext("Data successfully added to message!<br />You can add more data if you want."), 
+              'title': gettext("SUCCESS"),
+              'color': 'success'
+            })
+            document.getElementById('file').value=''
+          }
         }
 
       })
