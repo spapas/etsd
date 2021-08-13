@@ -4,6 +4,8 @@ from django.conf import settings
 
 
 def check_signatures(file, arr_of_number_of_signatures):
+    if not settings.CHECK_FILE_SIGNATURES:
+        return None
     r = requests.post(
         settings.SIGNATURE_CHECKER_URL,
         files={

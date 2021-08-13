@@ -29,6 +29,7 @@ INTERNAL_IPS = ["127.0.0.1"]
 MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
 GNUPG_HOME = "C:/Program Files (x86)/GnuPG"
+CHECK_FILE_SIGNATURES = False
 
 try:
     from .local import *
