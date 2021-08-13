@@ -66,7 +66,9 @@ class Message(UserDateAbstractModel):
         help_text=_("The message is also encrtypted with the sender's public key"),
     )
     kind = models.CharField(max_length=32, choices=MESSAGE_KIND_CHOICES)
-    status = models.CharField(max_length=32, choices=MESSAGE_STATUS_CHOICES, default='DRAFT')
+    status = models.CharField(
+        max_length=32, choices=MESSAGE_STATUS_CHOICES, default="DRAFT"
+    )
     category = models.ForeignKey(
         MessageCategory,
         verbose_name=_("Category"),
@@ -178,7 +180,7 @@ class Data(UserDateAbstractModel):
         Message, verbose_name=_("Message"), on_delete=models.CASCADE
     )
     number = models.PositiveIntegerField()
-    content_type = models.CharField(max_length=128, blank=True, default='')
+    content_type = models.CharField(max_length=128, blank=True, default="")
     extension = models.CharField(max_length=128)
 
     participant_access = models.ManyToManyField("Participant", through="DataAccess")
@@ -198,6 +200,15 @@ class Data(UserDateAbstractModel):
         super().save(*args, **kwargs)
 
 
+def cipher_data_upload_to(instance, _filename):
+    date = instance.data.message.created_on.strftime("%Y/%m/%d")
+    path = "protected/cipherdata/{0}/".format(date)
+    fname = "cipher_{0}_{1}".format(
+        instance.data_id, instance.participant_key.public_key_id
+    )
+    return path + fname
+
+
 class CipherData(models.Model):
     """
     The actual encrypted data! It contains a file with the cipher data along with
@@ -208,7 +219,7 @@ class CipherData(models.Model):
     """
 
     cipher_data = models.FileField(
-        upload_to="protected/cipherdata/%Y/%m/%d/", verbose_name=_("Encrypted data")
+        upload_to=cipher_data_upload_to, verbose_name=_("Encrypted data")
     )
 
     data = models.ForeignKey("Data", on_delete=models.CASCADE)

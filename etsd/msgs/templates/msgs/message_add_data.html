@@ -125,7 +125,19 @@
               'color': 'success'
             })
             document.getElementById('file').value=''
+          } else {
+            bootstrap5Alert({'message': gettext("Error while trying to upload!" + data), 'title': gettext("ERROR")})
           }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          $('#spinner').hide()
+          $('#submitButton').prop('disabled', false)
+
+          bootstrap5Alert({
+            'message': gettext("Error while trying to add the data: <br /> "+  thrownError), 
+            'title': gettext("ERROR"),
+          })
+          document.getElementById('file').value=''
         }
 
       })
