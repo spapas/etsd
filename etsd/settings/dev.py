@@ -31,6 +31,8 @@ MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 GNUPG_HOME = "C:/Program Files (x86)/GnuPG"
 CHECK_FILE_SIGNATURES = False
 
+AUTH_PASSWORD_VALIDATORS = []
+
 try:
     from .local import *
 except ImportError:
