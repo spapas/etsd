@@ -97,7 +97,7 @@
       fd.append('fileExtension', fileData.extension)
       participantKeys.forEach(pk => {
         fd.append('cipher' , new Blob([pk.cipher], {type: 'application/pgp-encrypted'}))
-        fd.append('participant_id' , pk.participant_id)
+        fd.append('participant_key_id' , pk.id)
       })
       
       for(var pair of fd.entries()) {

@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -91,7 +92,7 @@ class MessageCreateView(CreateWithInlinesView):
         return r
 
 
-@rules_light.class_decorator("msgs.message.read")
+@rules_light.class_decorator
 class MessageDetailView(MessageAccessMixin, DetailView):
     model = models.Message
 
@@ -101,6 +102,7 @@ class MessageDetailView(MessageAccessMixin, DetailView):
         return context
 
 
+@rules_light.class_decorator("msgs.message.add_data")
 class MessageAddDataView(SingleObjectMixin, TemplateResponseMixin, View):
     model = models.Message
     template_name = "msgs/message_add_data.html"
@@ -116,9 +118,10 @@ class MessageAddDataView(SingleObjectMixin, TemplateResponseMixin, View):
             models.ParticipantKey.objects.filter(
                 participant__message=self.object
             ).values(
+                "id",
                 "participant_id",
-                #"participant__authority__id",
-                #"participant__authority__name",
+                # "participant__authority__id",
+                # "participant__authority__name",
                 "participant__participantkey__public_key__key",
             )
         )
@@ -127,3 +130,24 @@ class MessageAddDataView(SingleObjectMixin, TemplateResponseMixin, View):
     def post(self, request, *args, **kwargs):
         print(request.POST)
         print(request.FILES)
+        message = self.object = self.get_object()
+        file_type = request.POST.get("fileType")
+        file_extension = request.POST.get("fileExtension")
+
+        participant_key_ids = request.POST.getlist("participant_key_id")
+        ciphers = request.FILES.getlist("cipher")
+
+        print(file_type, file_extension)
+        print(participant_key_ids, ciphers)
+
+        data = models.Data.objects.create(
+            message=message, content_type=file_type, extension=file_extension
+        )
+        for participant_key_id, cipher in zip(participant_key_ids, ciphers):
+            models.CipherData.objects.create(
+                data=data,
+                participant_key_id=participant_key_id,
+                cipher_data=cipher,
+            )
+
+        return HttpResponse("OK")
