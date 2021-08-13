@@ -111,6 +111,9 @@ class Message(UserDateAbstractModel):
 
     def get_absolute_url(self):
         return reverse("message_detail", kwargs={"pk": self.pk})
+    
+    def get_authority_cipher_data(self, authority):
+        return CipherData.objects.filter(data__message=self, participant_key__public_key__authority=authority)
 
 
 PARTICIPANT_KIND_CHOICES = (

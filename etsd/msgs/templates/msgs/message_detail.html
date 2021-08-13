@@ -24,11 +24,37 @@
     </ul>
     <h5>{% trans "Data" %}</h5>
     <ul>
+
     {% for d in message.data_set.all %}
-      <li>{{ d.number }} {{ d.extension }} {{ d.content_type }} (id: {{ d.id }})</li>
+      <li>
+        {{ d.number }} {{ d.extension }} {{ d.content_type }} (id: {{ d.id }})
+        
+      </li>
     {% empty %}
       <li>Not available</li>
     {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class='row'>
+  <div class='col'>
+    <h5>{% trans "Cipher data" %}</h5>
+    <ul>
+      {% for cd in authority_cipher_data %}
+      <li>
+        {{ cd.data.number }} {{ cd.data.extension }}
+        {{ cd.participant_key.public_key.fingerprint }}
+        {{ cd.participant_key.public_key.authority.name }}
+        {{ cd.cipher_data.path }}
+        {% if cd.participant_key.public_key.fingerprint == request.session.private_key_data.fingerprint %}
+          <button class='btn btn-danger'>Decrypt and download</button>
+        {% else %}
+          <span class='text-danger'>Not possible to decryp with the private key you have loaded!</span>
+        {% endif %}
+      </li>
+      {% empty %}
+        <li>Not available</li>
+      {% endfor %}
     </ul>
   </div>
 </div>
@@ -56,5 +82,11 @@
     <a class='btn btn-warning' href=''>{% trans "Archive" %}</a>
    </div>
 </div>
+
+{% endblock %}
+{% block extra_script %}
+<script>
+  
+</script>
 
 {% endblock %}

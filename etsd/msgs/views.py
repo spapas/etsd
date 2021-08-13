@@ -112,7 +112,9 @@ class MessageDetailView(MessageAccessMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-
+        context["authority_cipher_data"] = self.get_object().get_authority_cipher_data(
+            self.request.user.get_authority()
+        )
         return context
 
 
@@ -142,8 +144,8 @@ class MessageAddDataView(SingleObjectMixin, TemplateResponseMixin, View):
         return context
 
     def post(self, request, *args, **kwargs):
-        #print(request.POST)
-        #print(request.FILES)
+        # print(request.POST)
+        # print(request.FILES)
         message = self.object = self.get_object()
         file_type = request.POST.get("fileType")
         file_extension = request.POST.get("fileExtension")
@@ -171,7 +173,7 @@ class MessageAddDataView(SingleObjectMixin, TemplateResponseMixin, View):
 class MessageSendPostView(SingleObjectMixin, View):
     model = models.Message
     http_method_names = ["post"]
-    
+
     def post(self, request, *args, **kwargs):
         message = self.object = self.get_object()
         message.send()
