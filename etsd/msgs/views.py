@@ -20,7 +20,20 @@ class MessageAccessMixin:
         return (
             super()
             .get_queryset()
-            .filter(participant__authority=self.request.user.get_authority())
+            .filter(
+                # Sender can always see his messages
+                # Others only when message is sent
+                Q(
+                    participant__authority=self.request.user.get_authority(),
+                    participant__kind="SENDER",
+                )
+                | Q(
+                    status="SENT",
+                    participant__authority=self.request.user.get_authority(),
+                    participant__kind__in=["RECIPIENT", "CC"],
+                )
+            )
+            .distinct()
             .select_related("category")
         )
 

@@ -18,9 +18,9 @@ MESSAGE_KIND_CHOICES = (
 MESSAGE_STATUS_CHOICES = (
     ("DRAFT", _("Draft")),
     ("SENT", _("Sent")),
-    ("READ", _("Read")),
-    ("ARCHIVED", _("Archived")),
-    ("DELETED", _("Deleted")),
+    # ("READ", _("Read")),
+    # ("ARCHIVED", _("Archived")),
+    #("DELETED", _("Deleted")),
 )
 
 
