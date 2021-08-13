@@ -113,8 +113,11 @@ const signAndVerify = async (publicKey, privateKey) => {
 }
 
 const encrypt = async (publicKey, binMessage) => {
+    console.log("BML", binMessage.length)
+    let uint8ar = Uint8Array.from(binMessage);
+
     const encrypted = await openpgp.encrypt({
-        message: await openpgp.createMessage({ binary: new Uint8Array (binMessage) }), 
+        message: await openpgp.createMessage({ binary: uint8ar }), 
         encryptionKeys: publicKey
     })
     return encrypted
