@@ -33,6 +33,8 @@ CHECK_FILE_SIGNATURES = False
 
 AUTH_PASSWORD_VALIDATORS = []
 
+SENDFILE_BACKEND = 'sendfile.backends.development'
+
 try:
     from .local import *
 except ImportError:

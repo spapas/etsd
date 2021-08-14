@@ -120,6 +120,10 @@ MEDIA_ROOT = "/home/serafeim/etsd/media"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
+SENDFILE_BACKEND = 'sendfile.backends.nginx'
+# TODO: CONFIGURE SENDFILE HERE 
+
+
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",

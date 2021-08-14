@@ -1,4 +1,8 @@
-from django.http.response import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
+from django.http.response import (
+    HttpResponse,
+    HttpResponseRedirect,
+    HttpResponseForbidden,
+)
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -114,9 +118,18 @@ class MessageDetailView(MessageAccessMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["authority_cipher_data"] = self.get_object().get_authority_cipher_data(
-            self.request.user.get_authority()
-        )
+        context["authority_cipher_data"] = [
+            {
+                'number': cd.data.number,
+                'id': cd.id,
+                'ext': cd.data.extension,
+                'fingerprint': cd.participant_key.public_key.fingerprint,
+                'authority_name': cd.participant_key.public_key.authority.name
+            }
+            for cd in self.get_object().get_authority_cipher_data(
+                self.request.user.get_authority()
+            )
+        ]
         return context
 
 
@@ -138,7 +151,7 @@ class MessageAddDataView(SingleObjectMixin, TemplateResponseMixin, View):
             ).values(
                 "id",
                 "participant_id",
-                # "participant__authority__id",
+                # "p>articipant__authority__id",
                 # "participant__authority__name",
                 "participant__participantkey__public_key__key",
             )
@@ -189,7 +202,7 @@ class MessageSendPostView(SingleObjectMixin, View):
 def get_cipher_data_file(request, pk):
     cipher_data = get_object_or_404(models.CipherData, pk=pk)
     msg = cipher_data.data.message
-    rules_light.require(request.user, "msgs.message.read", msg )
-    if cipher_data.participant_key.public_key.authority == request.user.authority:
-        return sendfile(request, cipher_data.cipher_data)
+    rules_light.require(request.user, "msgs.message.read", msg)
+    if cipher_data.participant_key.public_key.authority == request.user.get_authority():
+        return sendfile(request, cipher_data.cipher_data.path)
     return HttpResponseForbidden()
