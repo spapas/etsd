@@ -190,6 +190,6 @@ def get_cipher_data_file(request, pk):
     cipher_data = get_object_or_404(models.CipherData, pk=pk)
     msg = cipher_data.data.message
     rules_light.require(request.user, "msgs.message.read", msg )
-    if cipher_data.participant_key.public_key.authority = request.user.authority:
+    if cipher_data.participant_key.public_key.authority == request.user.authority:
         return sendfile(request, cipher_data.cipher_data)
     return HttpResponseForbidden()
