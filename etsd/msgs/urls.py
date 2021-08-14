@@ -47,4 +47,11 @@ urlpatterns = [
         ),
         name="message_add_data",
     ),
+    path(
+        "get_cipher_data_file/<int:pk>/",
+        any_permission_required("core.admin", "core.user")(
+            views.get_cipher_data_file
+        ),
+        name="get_cipher_data_file",
+    ),
 ]

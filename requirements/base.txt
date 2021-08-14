@@ -11,6 +11,7 @@ django-extra-views==0.14.0
 django-filter==2.4.0
 django-reversion==4.0.0
 django-rules-light==0.3.0
+django-sendfile==0.3.11
 django-tables2==2.4.0
 django-tables2-column-shifter==2.0.3
 django-tools==0.48.3

@@ -1,14 +1,16 @@
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.detail import SingleObjectMixin
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 from django_tables2 import RequestConfig
 from django_tables2.export.views import ExportMixin
 import rules_light
+from sendfile import sendfile
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 from etsd.keys.models import PublicKey
@@ -182,3 +184,12 @@ class MessageSendPostView(SingleObjectMixin, View):
             _("Message send"),
         )
         return HttpResponseRedirect(message.get_absolute_url())
+
+
+def get_cipher_data_file(request, pk):
+    cipher_data = get_object_or_404(models.CipherData, pk=pk)
+    msg = cipher_data.data.message
+    rules_light.require(request.user, "msgs.message.read", msg )
+    if cipher_data.participant_key.public_key.authority = request.user.authority:
+        return sendfile(request, cipher_data.cipher_data)
+    return HttpResponseForbidden()
