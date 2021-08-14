@@ -66,13 +66,21 @@
               return 
             }
 
+            // Display the spinners now...
+            $('#spinner').show()
+            $('#submitButton').prop('disabled', true)
+
             fileData.fileType = theFile.type
             fileData.extension = getFileExt(theFile.name)
             let reader = new FileReader();
 
             reader.addEventListener('load', function(e) {
-                
-                const encryptPromises = participantKeys.map(pk => encrypt(pk.publicKey, e.target.result))
+                // Create an encryption promise for all participantKeys
+                const encryptPromises = participantKeys.map(
+                  // e.target.result === reader.result and is an ArrayBuffer
+                  pk => encrypt(pk.publicKey, e.target.result)
+                )
+                // And only continue after all are finished
                 Promise.all(encryptPromises).then((values) => {
                   
                   for(let i = 0; i < values.length; i++) {
@@ -85,8 +93,7 @@
 
                 })
             });
-            $('#spinner').show()
-            $('#submitButton').prop('disabled', true)
+            // Here we say that we want the result as an ArrayBuffer
             reader.readAsArrayBuffer(theFile);
         }
     });

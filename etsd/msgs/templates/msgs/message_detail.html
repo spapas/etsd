@@ -40,26 +40,9 @@
   <div class='col'>
     <h5>{% trans "Cipher data" %}</h5>
     <ul id='cipher-data-container'>
+      <li>Not available</li>
+    </ul>
 
-    </ul>
-    <hr />
-    <ul>
-      {% for cd in authority_cipher_data %}
-      <li>
-        {{ cd.data.number }} {{ cd.data.extension }}
-        {{ cd.participant_key.public_key.fingerprint }}
-        {{ cd.participant_key.public_key.authority.name }}
-        {{ cd.cipher_data.path }}
-        {% if cd.participant_key.public_key.fingerprint == request.session.private_key_data.fingerprint %}
-          
-        {% else %}
-          
-        {% endif %}
-      </li>
-      {% empty %}
-        <li>Not available</li>
-      {% endfor %}
-    </ul>
   </div>
 </div>
 
@@ -108,36 +91,37 @@
   const decryptAndDownload = (cipher_id, data_ext) => {
     console.log("OK DOWNLOAD ", cipher_id, data_ext)
     const url = `${cipherDataFileUrl}${cipher_id}/`
+    // Download the cipher
     $.get(url, data => {
-      //console.log("Fot file")
-      //console.log(data)
+      // And decrypt it using the loaded private key
       decrypt(privateKey, data).then(
         decrypted => {
-          console.log(decrypted)
-          console.log(typeof decrypted)
+          // After it's been decrypted just download it with the downloadBlob
           downloadBlob(new Blob([decrypted]), cipher_id+'.'+data_ext)
         }
         ,
-        reason => console.log(reason)
+        reason => console.log(reason) // No error handling for now
       ).catch(
-        err => console.log(err)
+        err => console.log(err) // No error handling for now
       )
     })
   }
 
   $(function() {
-    const cipherDataContent = cipherData.map(cd => `<li class='mb-1'>
-        ${cd.number}, ${cd.ext}, ${cd.authority_name},
-        ${
-          cd.fingerprint==privateKeyFingerprint
-          ?`<button class='btn btn-danger btn-sm' onclick='decryptAndDownload(${cd.id}, "${cd.ext}")'>
-              Decrypt and download
-            </button>`
-          :`<span class='text-danger'>Not possible to decryp with the private key you have loaded!</span>`
-        }
-      </li>`).join('')
-    
-    $('#cipher-data-container').html(cipherDataContent)
+    if(cipherData.length > 0) {
+      const cipherDataContent = cipherData.map(cd => `<li class='mb-1'>
+          ${cd.number}, ${cd.ext}, ${cd.authority_name},
+          ${
+            cd.fingerprint==privateKeyFingerprint
+            ?`<button class='btn btn-danger btn-sm' onclick='decryptAndDownload(${cd.id}, "${cd.ext}")'>
+                Decrypt and download
+              </button>`
+            :`<span class='text-danger'>Not possible to decryp with the private key you have loaded!</span>`
+          }
+        </li>`).join('')
+      
+      $('#cipher-data-container').html(cipherDataContent)
+    }
   })
 </script>
 
