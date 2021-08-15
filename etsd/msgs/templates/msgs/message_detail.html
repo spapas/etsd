@@ -7,9 +7,14 @@
 
 <div class='row mb-3'>
   <div class='col'>
+    <h5>{% trans "Status" %}: {{ message.get_status_display }}</h5>
     {% trans "Kind" %}: {{ message.get_kind_display }}<br />
-    {% trans "Status" %}: {{ message.get_status_display }}<br />
-    {% trans "Related message" %}: {{ message.rel_message|default:"-" }}<br />
+    {% if message.rel_message %} 
+      {% trans "Related message" %}: 
+      <a class='btn btn-sm btn-info' href='{% url "message_detail" message.rel_message.id %}'>{{ message.rel_message }}</a>
+      <br />
+    {% endif %}
+    
     {% trans "Category" %}: {{ message.category|default:"-" }}<br />
     {% trans "Sent on" %}: {{ message.sent_on|default:"-" }}<br />
     {% trans "Protocol" %}: {% if message.protocol %}{{ message.protocol }} / {{ message.protocol_year }}{% endif %}<br />
