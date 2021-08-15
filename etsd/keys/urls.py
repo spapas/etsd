@@ -20,7 +20,7 @@ def any_permission_required(*args):
 urlpatterns = [
     path(
         "load_private_key/",
-        any_permission_required("core.admin", "core.user")(
+        any_permission_required("core.user")(
             views.LoadPrivateKey.as_view(),
         ),
         name="privatekey_load",
@@ -34,14 +34,14 @@ urlpatterns = [
     ),
     path(
         "submit/<int:pk>/",
-        any_permission_required("core.admin", "core.user")(
+        any_permission_required("core.user")(
             views.PublicKeySubmitView.as_view()
         ),
         name="public_key_submit",
     ),
     path(
         "new_key_pair/",
-        any_permission_required("core.admin", "core.user")(
+        any_permission_required("core.user")(
             views.KeyPairCreateView.as_view()
         ),
         name="key_pair_create",

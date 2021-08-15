@@ -22,47 +22,47 @@ def any_permission_required(*args):
 urlpatterns = [
     path(
         "",
-        any_permission_required("core.admin", "core.user")(
+        any_permission_required("core.user")(
             views.MessageListView.as_view()
         ),
         name="message_list",
     ),
     path(
         "message_detail/<int:pk>/",
-        any_permission_required("core.admin", "core.user")(
+        any_permission_required("core.user")(
             views.MessageDetailView.as_view()
         ),
         name="message_detail",
     ),
     path(
         "new/",
-        any_permission_required("core.admin", "core.user")(
+        any_permission_required("core.user")(
             views.MessageCreateView.as_view()
         ),
         name="message_create",
     ),
     path(
         "add_data/<int:pk>/",
-        any_permission_required("core.admin", "core.user")(
+        any_permission_required("core.user")(
             views.MessageAddDataView.as_view()
         ),
         name="message_add_data",
     ),
     path(
         "get_cipher_data_file/<int:pk>/",
-        any_permission_required("core.admin", "core.user")(views.get_cipher_data_file),
+        any_permission_required("core.user")(views.get_cipher_data_file),
         name="get_cipher_data_file",
     ),
     path(
         "send/<int:pk>/",
-        any_permission_required("core.admin", "core.user")(
+        any_permission_required("core.user")(
             views.MessageSendPostView.as_view()
         ),
         name="message_send",
     ),
     path(
         "delete/<int:pk>/",
-        any_permission_required("core.admin", "core.user")(
+        any_permission_required("core.user")(
             views.MessageDeletePostView.as_view()
         ),
         name="message_delete",
