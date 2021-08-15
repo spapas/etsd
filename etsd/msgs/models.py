@@ -63,7 +63,7 @@ class Message(UserDateAbstractModel):
     available_to_sender = models.BooleanField(
         default=False,
         verbose_name=_("Message is available to sender"),
-        help_text=_("The message is also encrtypted with the sender's public key"),
+        help_text=_("The message is also encrypted with the sender's public key"),
     )
     kind = models.CharField(max_length=32, choices=MESSAGE_KIND_CHOICES)
     status = models.CharField(
