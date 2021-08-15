@@ -8,7 +8,7 @@
 <div class='row mb-3'>
   <div class='col'>
     <div>
-      <label for="formFile" class="form-label">File to upload</label>
+      <label for="formFile" class="form-label">File to encrypt and upload</label>
       <input class="form-control form-control-lg"  type="file" id='file'>
     </div>
   </div>
@@ -50,7 +50,7 @@
       for(let i = 0; i < values.length; i++) {
         participantKeys[i].publicKey = values[i]
       }
-      console.log("Keys ok")
+      console.log("Public keys ok")
     });
 
       document.getElementById('file').addEventListener("change", function() {
@@ -124,7 +124,7 @@
           $('#submitButton').prop('disabled', false)
           if(data=='OK') {
             bootstrap5Alert({
-              'message': gettext("Data successfully added to message!<br />You can add more data if you want."), 
+              'message': gettext("Data successfully added to message!<br />You can add more data if you want.<br /><br />Please press Return when you are finished to send your message."), 
               'title': gettext("SUCCESS"),
               'color': 'success'
             })

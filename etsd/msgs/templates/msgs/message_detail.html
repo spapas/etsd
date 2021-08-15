@@ -5,6 +5,25 @@
 {% block page_title %}{% trans "Message detail" %}{% endblock %}
 {% block page_content %}
 
+{% if message.status == 'DRAFT' %}
+  <div class='alert alert-warning'> 
+  {% blocktrans %}
+  <p>
+    Message is a Draft. You need to add some data (files) to the message by using the "Add data"
+    button and then send it by pressing the "Send" button. Sending a message is possible only
+    after you have added some data. You can use the add data functionality as many times as you want.
+  </p>
+  <p>
+    If you have made some mistake you can delete the message completely by clicking the "Delete"
+    button. However please keep in mind that this is only possible <b>before</b> sending the message. After 
+    the message has been send there's no way to alter it or its contents; you need to send a "Fix" message
+    and refer this one.
+  
+  </p>
+  {% endblocktrans %}
+  </div>
+{% endif %}
+
 <div class='row mb-3'>
   <div class='col'>
     <h5>{% trans "Status" %}: {{ message.get_status_display }}</h5>
