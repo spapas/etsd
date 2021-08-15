@@ -3,6 +3,7 @@ from django.http.response import (
     HttpResponseRedirect,
     HttpResponseForbidden,
 )
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -120,11 +121,11 @@ class MessageDetailView(MessageAccessMixin, DetailView):
         context = super().get_context_data(*args, **kwargs)
         context["authority_cipher_data"] = [
             {
-                'number': cd.data.number,
-                'id': cd.id,
-                'ext': cd.data.extension,
-                'fingerprint': cd.participant_key.public_key.fingerprint,
-                'authority_name': cd.participant_key.public_key.authority.name
+                "number": cd.data.number,
+                "id": cd.id,
+                "ext": cd.data.extension,
+                "fingerprint": cd.participant_key.public_key.fingerprint,
+                "authority_name": cd.participant_key.public_key.authority.name,
             }
             for cd in self.get_object().get_authority_cipher_data(
                 self.request.user.get_authority()
@@ -197,6 +198,25 @@ class MessageSendPostView(SingleObjectMixin, View):
             _("Message send"),
         )
         return HttpResponseRedirect(message.get_absolute_url())
+
+
+@rules_light.class_decorator("msgs.message.delete")
+class MessageDeletePostView(SingleObjectMixin, View):
+    model = models.Message
+    http_method_names = ["post"]
+
+    def post(self, request, *args, **kwargs):
+        message = self.object = self.get_object()
+        for m in message.participant_set.all():
+            if hasattr(m, "participantkey"):
+                m.participantkey.delete()
+            m.delete()
+        message.delete()
+        messages.error(
+            self.request,
+            _("Message deleted"),
+        )
+        return HttpResponseRedirect(reverse("message_list"))
 
 
 def get_cipher_data_file(request, pk):

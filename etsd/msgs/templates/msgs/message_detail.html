@@ -60,7 +60,10 @@
     {% endif %}
     
     {% if can_delete %}
-      <a class='btn btn-danger' href=''>{% trans "Delete" %}</a>
+      <form id='deleteForm' class='d-inline' method='POST' action='{% url "message_delete" message.id %}'>
+        {% csrf_token %}  
+        <input type='submit' class='btn btn-danger' value='{% trans "Delete" %}'>
+      </form>
     {% endif %}
     {% if can_send %}
       <form id='sendForm' class='d-inline' method='POST' action='{% url "message_send" message.id %}'>
@@ -127,6 +130,7 @@
     }
 
     confirmFormAction({sel: '#sendForm', message: gettext('Are you sure you want to send the message?'), title: gettext('Send message')})
+    confirmDelete('#deleteForm')
 
   })
 </script>

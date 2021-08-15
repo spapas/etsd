@@ -9,6 +9,7 @@ from . import views
 
 rules_light.autodiscover()
 
+
 def any_permission_required(*args):
     """
     A decorator which checks user has any of the given permissions.
@@ -32,7 +33,7 @@ urlpatterns = [
             views.MessageDetailView.as_view()
         ),
         name="message_detail",
-    ),    
+    ),
     path(
         "new/",
         any_permission_required("core.admin", "core.user")(
@@ -49,16 +50,21 @@ urlpatterns = [
     ),
     path(
         "get_cipher_data_file/<int:pk>/",
-        any_permission_required("core.admin", "core.user")(
-            views.get_cipher_data_file
-        ),
+        any_permission_required("core.admin", "core.user")(views.get_cipher_data_file),
         name="get_cipher_data_file",
-    ),  
+    ),
     path(
         "send/<int:pk>/",
         any_permission_required("core.admin", "core.user")(
             views.MessageSendPostView.as_view()
         ),
         name="message_send",
+    ),
+    path(
+        "delete/<int:pk>/",
+        any_permission_required("core.admin", "core.user")(
+            views.MessageDeletePostView.as_view()
+        ),
+        name="message_delete",
     ),
 ]
