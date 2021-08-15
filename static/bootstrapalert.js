@@ -76,30 +76,31 @@ const confirmDelete = (cls) => document.querySelectorAll(cls).forEach(el => {
   el.addEventListener('submit', (evt) => {
     evt.preventDefault();
     bootstrap5Alert({
-      message: 'Are you sure you want to delete this?',
-      title: 'Delete',
-      actionText: 'Delete',
+      message: gettext('Are you sure you want to delete this?'),
+      title: gettext('Delete'),
+      actionText: gettext('Delete'),
       cb: () => {
         console.log("Submit form");
         evt.target.closest('form').submit();
       }
     })
+    return false
   })
 })
 
 const confirmFormAction = ({sel, message, title}) => document.querySelectorAll(sel).forEach(el => {
-  console.log("Z", el)
   el.addEventListener('submit', (evt) => {
     evt.preventDefault();
     bootstrap5Alert({
       message,
       title,
-      actionText: 'Yes',
+      actionText: gettext('Yes'),
       cb: () => {
         console.log("Submit form");
         evt.target.closest('form').submit();
       }
     })
+    return false
   })
 })
 

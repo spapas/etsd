@@ -12,7 +12,7 @@
     {% trans "Related message" %}: {{ message.rel_message|default:"-" }}<br />
     {% trans "Category" %}: {{ message.category|default:"-" }}<br />
     {% trans "Sent on" %}: {{ message.sent_on|default:"-" }}<br />
-    {% trans "Protocol" %}: {% if message.protocol %}{{ message.protocol }} / {{ message.year }}{% endif %}<br />
+    {% trans "Protocol" %}: {% if message.protocol %}{{ message.protocol }} / {{ message.protocol_year }}{% endif %}<br />
 
   </div>
   <div class='col'>
@@ -63,7 +63,10 @@
       <a class='btn btn-danger' href=''>{% trans "Delete" %}</a>
     {% endif %}
     {% if can_send %}
-      <a class='btn btn-success' href=''>{% trans "Send" %}</a>
+      <form id='sendForm' class='d-inline' method='POST' action='{% url "message_send" message.id %}'>
+        {% csrf_token %}
+        <input type='submit' class='btn btn-success' value='{% trans "Send" %}'>
+      </form>
     {% endif %}
     
     <a class='btn btn-warning' href=''>{% trans "Archive" %}</a>
@@ -122,6 +125,9 @@
       
       $('#cipher-data-container').html(cipherDataContent)
     }
+
+    confirmFormAction({sel: '#sendForm', message: gettext('Are you sure you want to send the message?'), title: gettext('Send message')})
+
   })
 </script>
 

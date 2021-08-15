@@ -20,7 +20,7 @@ MESSAGE_STATUS_CHOICES = (
     ("SENT", _("Sent")),
     # ("READ", _("Read")),
     # ("ARCHIVED", _("Archived")),
-    #("DELETED", _("Deleted")),
+    # ("DELETED", _("Deleted")),
 )
 
 
@@ -111,9 +111,18 @@ class Message(UserDateAbstractModel):
 
     def get_absolute_url(self):
         return reverse("message_detail", kwargs={"pk": self.pk})
-    
+
     def get_authority_cipher_data(self, authority):
-        return CipherData.objects.filter(data__message=self, participant_key__public_key__authority=authority)
+        return CipherData.objects.filter(
+            data__message=self, participant_key__public_key__authority=authority
+        )
+
+    def __str__(self):
+        return (
+            "{}/{}".format(self.protocol, self.protocol_year)
+            if self.protocol
+            else "DRAFT (id {0})".format(self.id)
+        )
 
 
 PARTICIPANT_KIND_CHOICES = (

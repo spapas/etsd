@@ -53,5 +53,12 @@ urlpatterns = [
             views.get_cipher_data_file
         ),
         name="get_cipher_data_file",
+    ),  
+    path(
+        "send/<int:pk>/",
+        any_permission_required("core.admin", "core.user")(
+            views.MessageSendPostView.as_view()
+        ),
+        name="message_send",
     ),
 ]
