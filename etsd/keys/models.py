@@ -1,3 +1,4 @@
+import os
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 from django.db import models
@@ -14,6 +15,14 @@ KEY_STATUS_CHOICES = (
     ("INACTIVE", "Inactive"),
     ("REJECTED", "Rejected"),
 )
+
+
+def confirmation_document_upload_to(instance, filename):
+    date = instance.created_on.strftime("%Y/%m/%d")
+    path = "public/confirmations/{0}/".format(date)
+    _filename, file_extension = os.path.splitext(filename)
+    fname = "doc_{0}{1}".format(instance.id, file_extension)
+    return path + fname
 
 
 @reversion.register
@@ -42,7 +51,7 @@ class PublicKey(UserDateAbstractModel):
         help_text=_("Approval status of key"),
     )
     confirmation_document = models.FileField(
-        upload_to="public/confirmations/%Y/%m/%d/",
+        upload_to=confirmation_document_upload_to,
         verbose_name=_("Confirmation document"),
         null=True,
         blank=True,
