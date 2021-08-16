@@ -124,6 +124,12 @@ class Message(UserDateAbstractModel):
     def get_authority_cipher_data(self, authority):
         return CipherData.objects.filter(
             data__message=self, participant_key__public_key__authority=authority
+        ).select_related(
+            "data",
+            "participant_key",
+            "participant_key__public_key",
+            "participant_key__public_key__authority",
+            "participant_key__public_key__authority__kind",
         )
 
     def __str__(self):
@@ -150,8 +156,8 @@ MESSAGE_PARTICIPANT_STATUS_CHOICES = (
 class Participant(models.Model):
     """
     The participants of a message. A participant is an authority and can be
-    either the sender, receiver or a carbon copy (cc). The message/authority 
-    (participant) relation can also  have a status of UNREAD/READ/ARCHIVED. 
+    either the sender, receiver or a carbon copy (cc). The message/authority
+    (participant) relation can also  have a status of UNREAD/READ/ARCHIVED.
     A Message has an m2m
     relation with Authority though the participant model.
     """
@@ -164,11 +170,12 @@ class Participant(models.Model):
     )
     kind = models.CharField(max_length=32, choices=PARTICIPANT_KIND_CHOICES)
     # The default status of a participant-message will be unread
-    status = models.CharField(max_length=32, choices=MESSAGE_PARTICIPANT_STATUS_CHOICES, default="UNREAD")
-
+    status = models.CharField(
+        max_length=32, choices=MESSAGE_PARTICIPANT_STATUS_CHOICES, default="UNREAD"
+    )
 
     def __str__(self):
-        return '{0}: {1} ({2})'.format(self.message, self.authority, self.kind)
+        return "{0}: {1} ({2})".format(self.message, self.authority, self.kind)
 
     class Meta:
         verbose_name = _("Message participant")

@@ -44,6 +44,10 @@ class MessageAccessMixin:
             )
             .distinct()
             .select_related("category")
+        ).prefetch_related(
+            "participant_set",
+            "participant_set__authority",
+            "participant_set__authority__kind",
         )
 
 
@@ -200,10 +204,12 @@ class MessageDetailView(MessageAccessMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        msg = self.get_object()
-        context["participant"] = msg.participant_set.get(
-            authority=self.request.user.get_authority()
-        )
+        msg = self.object
+        context["participant"] = [
+            x
+            for x in msg.participant_set.all()
+            if x.authority == self.request.user.get_authority()
+        ][0]
 
         context["message_data"] = [
             {
@@ -319,11 +325,9 @@ def get_cipher_data_file(request, pk):
         models.DataAccess.objects.create(participant=participant, data=cipher_data.data)
 
         # Check if all data has been accessed
-        
+
         if (
-            models.DataAccess.objects.filter(
-                participant=participant
-            )
+            models.DataAccess.objects.filter(participant=participant)
             .values("data_id")
             .distinct()
             .count()

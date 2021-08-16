@@ -17,7 +17,9 @@ from . import models, tables, filters, forms
 
 class AdminOrAuthorityQsMixin:
     def get_queryset(self):
-        qs = super().get_queryset()
+        qs = super().get_queryset().select_related(
+            'authority', 'authority__kind', 'created_by', 'modified_by'
+        )
         if self.request.user.has_perm("core.admin"):
             return qs
         if self.request.user.has_perm("core.user"):
