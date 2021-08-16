@@ -157,7 +157,11 @@ class ParticipantListView(ExportMixin, ListView):
 
 class ParticipantInlineFormSet(BaseInlineFormSet):
     def clean(self):
-        if not [x for x in self.forms if not  x.cleaned_data.get('DELETE')]:
+        super().clean()
+        def is_missing(x):
+            return x.cleaned_data == {} or x.cleaned_data.get("DELETE")
+
+        if not [x for x in self.forms if not  is_missing(x)]:
             raise ValidationError(_("At least one participant is required"))
         for form in self.forms:
             if not form.cleaned_data:
