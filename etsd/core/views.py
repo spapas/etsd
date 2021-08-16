@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from dal import autocomplete
+from django.db.models import Q
 
 
 class AuthorityEditUsersView(UpdateView, ):
@@ -34,3 +36,16 @@ class AuthorityEditUsersView(UpdateView, ):
         form.save()
         messages.add_message(self.request, messages.INFO, _("Authority Data succesfully updated!"))
         return HttpResponseRedirect(self.request.path)
+
+class AuthorityAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return Authority.objects.none()
+
+        qs = Authority.objects.all().exclude(id=self.request.user.get_authority().id)
+
+        if self.q:
+            qs = qs.filter(Q(name__icontains=self.q) | Q(code__icontains=self.q) | Q(email__icontains=self.q))
+
+        return qs

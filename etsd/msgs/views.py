@@ -11,7 +11,7 @@ from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.detail import SingleObjectMixin
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-
+from django.forms.models import BaseInlineFormSet
 from django_tables2 import RequestConfig
 from django_tables2.export.views import ExportMixin
 import rules_light
@@ -73,9 +73,18 @@ class MessageListView(MessageAccessMixin, ExportMixin, ListView):
         return context
 
 
+class ParticipantInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        if not [x for x in self.forms if not  x.cleaned_data.get('DELETE')]:
+            raise forms.ValidationError(_("At least one participant is required"))
+        for form in self.forms:
+            if not form.cleaned_data:
+                raise forms.ValidationError(_("Please don't add empty rows"))
+
+
 class ParticipantInline(InlineFormSetFactory):
     model = models.Participant
-
+    formset_class = ParticipantInlineFormSet
     form_class = forms.ParticipantInlineForm
     factory_kwargs = {"extra": 0}
 
@@ -87,6 +96,29 @@ class MessageCreateView(CreateWithInlinesView):
 
     def forms_valid(self, form, inlines):
         r = super().forms_valid(form, inlines)
+        recipient_list = [inline_form.cleaned_data.get('authority') for inline_form in inlines[0]]
+        if not recipient_list:
+            messages.add_message(
+                self.request, 
+                messages.ERROR, 
+                _("You have to add at least one recipient!")
+            )
+            return HttpResponseRedirect(self.request.path)
+        if None in recipient_list:
+            messages.add_message(
+                self.request, 
+                messages.ERROR, 
+                _("All participants information must be added!")
+            )
+            return HttpResponseRedirect(self.request.path)
+        if len(recipient_list)!=len(set(recipient_list)):
+            messages.add_message(
+                self.request, 
+                messages.ERROR, 
+                _("Other participants may only be included once!")
+            )
+            return HttpResponseRedirect(self.request.path)
+        
         messages.info(
             self.request,
             _("Draft message created"),
@@ -95,7 +127,6 @@ class MessageCreateView(CreateWithInlinesView):
         models.Participant.objects.create(
             message=msg, authority=self.request.user.get_authority(), kind="SENDER"
         )
-
         # Create the ParticipantKey objects
         for participant in models.Participant.objects.filter(message=msg):
             if participant.kind == "SENDER" and not msg.available_to_sender:
