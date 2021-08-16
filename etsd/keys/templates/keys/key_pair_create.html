@@ -138,19 +138,19 @@ $(function() {
     }
     
     
-    generateKeyPair(authority, authority_email, passphrase).then(
+    gtools.generateKeyPair(authority, authority_email, passphrase).then(
       ({ privateKey, publicKey }) => {
       $('#id_key').val(publicKey)
       $('#downloadButton').unbind( "click" );
       $('#downloadButton').click( event => {
         event.preventDefault();
-        downloadKey(privateKey, "private.asc")
-        jqEnable('#submitButton')
-        jqDisable('#generateButton')
+        gtools.downloadKey(privateKey, "private.asc")
+        gtools.jqEnable('#submitButton')
+        gtools.jqDisable('#generateButton')
       })
-      jqEnable('#downloadButton')
+      gtools.jqEnable('#downloadButton')
       
-      loadPublicKey(publicKey).then(
+      gtools.loadPublicKey(publicKey).then(
         publicKey => {
           //window.publicKey = publicKey
           //console.log("OK", publicKey)

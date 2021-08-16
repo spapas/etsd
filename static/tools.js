@@ -8,7 +8,9 @@
 //    err => console.log(err)
 //)
 
-const loadPrivateKey = (async(privateKeyArmored, passphrase) => {
+const gtools = {}
+
+gtools.loadPrivateKey = (async(privateKeyArmored, passphrase) => {
     let privateKey = await openpgp.decryptKey({
       privateKey: await openpgp.readPrivateKey({ armoredKey: privateKeyArmored }),
       passphrase
@@ -16,18 +18,18 @@ const loadPrivateKey = (async(privateKeyArmored, passphrase) => {
     return privateKey
 })
 
-const loadPrivateKeyLocal = async () => loadPrivateKey(
+gtools.loadPrivateKeyLocal = async () => gtools.loadPrivateKey(
     localStorage['privateKeyArmored'],localStorage['privateKeyPassphrase'] 
 )
 
-const enableTooltips = () => {
+gtools.enableTooltips = () => {
     let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))      
     let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 }
 
-const loadPublicKey = (async(key_data) => {
+gtools.loadPublicKey = (async(key_data) => {
     let publicKey = await openpgp.readKey({
         armoredKey: key_data
     });
@@ -35,7 +37,7 @@ const loadPublicKey = (async(key_data) => {
     
 })
 
-const generateKeyPair = (async (name, email, passphrase) => {
+gtools.generateKeyPair = (async (name, email, passphrase) => {
     const date = new Date().toISOString()
     console.log(name, email)
     const { privateKey, publicKey, revocationCertificate } = await openpgp.generateKey({
@@ -52,7 +54,7 @@ const generateKeyPair = (async (name, email, passphrase) => {
     }
 })
 
-const downloadBlob = (blob, filename) => {
+gtools.downloadBlob = (blob, filename) => {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -68,12 +70,12 @@ const downloadBlob = (blob, filename) => {
     return a;
 }
 
-const downloadKey = (keyString, filename) => downloadBlob(new Blob([keyString], {type :'application/pgp-keys'}), filename)
+gtools.downloadKey = (keyString, filename) => gtools.downloadBlob(new Blob([keyString], {type :'application/pgp-keys'}), filename)
 
-const jqDisable = (sel) => $(sel).prop({'disabled': true})
-const jqEnable = (sel) => $(sel).prop({'disabled': false})
+gtools.jqDisable = (sel) => $(sel).prop({'disabled': true})
+gtools.jqEnable = (sel) => $(sel).prop({'disabled': false})
 
-const displayTimer = logoutUrl => {
+gtools.displayTimer = logoutUrl => {
     let timeleft = 15*60;
     let downloadTimer = setInterval(() => {
       //console.log(timeleft)
@@ -89,7 +91,7 @@ const displayTimer = logoutUrl => {
     }, 1000);
 }
 
-const signAndVerify = async (publicKey, privateKey) => {
+gtools.signAndVerify = async (publicKey, privateKey) => {
 
     const unsignedMessage = await openpgp.createCleartextMessage({ text: 'Hello, World!' });
     const cleartextMessage = await openpgp.sign({
@@ -113,7 +115,7 @@ const signAndVerify = async (publicKey, privateKey) => {
     }
 }
 
-const encrypt = async (publicKey, binMessage) => {
+gtools.encrypt = async (publicKey, binMessage) => {
     // The binMessage is an ArrayBuffer so it needs to be converte toan Uint8Array
     const encrypted = await openpgp.encrypt({
         message: await openpgp.createMessage({ binary: new Uint8Array(binMessage) }), 
@@ -122,7 +124,7 @@ const encrypt = async (publicKey, binMessage) => {
     return encrypted
 }
 
-const decrypt = async(privateKey, encrypted) => {
+gtools.decrypt = async(privateKey, encrypted) => {
     const message = await openpgp.readMessage({
         armoredMessage: encrypted 
     });
