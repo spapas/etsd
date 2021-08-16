@@ -25,10 +25,11 @@ class AuthorityEditUsersView(UpdateView, ):
         added_users = set(new_users).difference(set(initial_users))
         removed_users = set(initial_users).difference(set(new_users))
 
+        user_permission = Permission.objects.get(codename="user", content_type__model="globalpermissionholder")
         for usr in added_users:
-            usr.user_permissions.add(Permission.objects.get(codename="user", content_type__model="globalpermissionholder"))
+            usr.user_permissions.add(user_permission)
         for usr in removed_users:
-            usr.user_permissions.remove(Permission.objects.get(codename="user", content_type__model="globalpermissionholder"))
+            usr.user_permissions.remove(user_permission)
 
         form.save()
         messages.add_message(self.request, messages.INFO, _("Authority Data succesfully updated!"))
