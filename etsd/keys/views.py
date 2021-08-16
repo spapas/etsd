@@ -1,4 +1,4 @@
-from etsd.users.utils import get_authority_users_emails
+from etsd.users.utils import get_authority_users_emails, get_admin_emails
 from etsd.core.utils import send_mail_body
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
@@ -128,7 +128,22 @@ class PublicKeySubmitView(UpdateView):
     def form_valid(self, form):
         form.instance.status = "PENDING"
         form.save()
-
+        pubk = self.object
+        
+        email_body = send_mail_body(
+            "keys/emails/awaiting_approval.txt",
+            dict(
+                key_id=pubk.user_id,
+                creator=pubk.created_by,
+            ),
+        )
+        send_mail(
+            subject="Public Key awaiting approval",
+            message=email_body,
+            from_email="noreply@hcg.gr",
+            recipient_list=get_admin_emails(),
+            fail_silently=False,
+        )
         messages.add_message(
             self.request,
             messages.INFO,
