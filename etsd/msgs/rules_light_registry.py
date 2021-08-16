@@ -5,6 +5,7 @@ def can_read(user, _rule, msg) -> bool:
     authority = user.get_authority()
     return len([x for x in msg.participant_set.all() if x.authority == authority]) > 0
 
+
 # This function is used to use the prefetch related participant_set
 def participant_is_participant(msg, user):
     authority = user.get_authority()
@@ -59,3 +60,15 @@ rules_light.registry["msgs.message.send"] = can_send
 rules_light.registry["msgs.message.delete"] = can_add_data
 rules_light.registry["msgs.message.archive"] = can_archive
 rules_light.registry["msgs.message.unarchive"] = can_unarchive
+
+
+def can_delete_cipherdata(user, rule, cipher_data) -> bool:
+    message = cipher_data.data.message 
+    if can_add_data(user, rule, message):
+        return True
+    # if the message is not draft, we can delete the cipher data *only* if we have read the message
+    participant = get_auth_participant(message, user)
+    return participant.status == "READ"
+
+
+rules_light.registry["msgs.cipherdata.delete"] = can_delete_cipherdata
