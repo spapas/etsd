@@ -59,9 +59,9 @@ class MessageListView(ExportMixin, ListView):
 
     def get_queryset(self):
         return (
-            super().get_queryset()
+            super()
+            .get_queryset()
             .prefetch_related("participant_set", "participant_set__authority")
-            
         )
 
     def get_context_data(self, *args, **kwargs):
@@ -85,7 +85,7 @@ class ParticipantListView(ExportMixin, ListView):
         return {}
 
     def get_queryset(self):
-        my_authority=self.request.user.get_authority()
+        my_authority = self.request.user.get_authority()
         return (
             super()
             .get_queryset()
@@ -200,18 +200,29 @@ class MessageDetailView(MessageAccessMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['participant'] = self.get_object().participant_set.get(authority=self.request.user.get_authority())
+        msg = self.get_object()
+        context["participant"] = msg.participant_set.get(
+            authority=self.request.user.get_authority()
+        )
+
+        context["message_data"] = [
+            {
+                "number": x.number,
+                "ext": x.extension,
+                "data_id": x.id,
+            }
+            for x in msg.data_set.all()
+        ]
         context["authority_cipher_data"] = [
             {
                 "number": cd.data.number,
                 "id": cd.id,
+                "data_id": cd.data_id,
                 "ext": cd.data.extension,
                 "fingerprint": cd.participant_key.public_key.fingerprint,
                 "authority_name": cd.participant_key.public_key.authority.name,
             }
-            for cd in self.get_object().get_authority_cipher_data(
-                self.request.user.get_authority()
-            )
+            for cd in msg.get_authority_cipher_data(self.request.user.get_authority())
         ]
         return context
 
@@ -296,7 +307,7 @@ class MessageDeletePostView(SingleObjectMixin, View):
             self.request,
             _("Message deleted"),
         )
-        return HttpResponseRedirect(reverse("message_list"))
+        return HttpResponseRedirect(reverse("participant_list"))
 
 
 def get_cipher_data_file(request, pk):
@@ -305,17 +316,22 @@ def get_cipher_data_file(request, pk):
     rules_light.require(request.user, "msgs.message.read", msg)
     if cipher_data.participant_key.public_key.authority == request.user.get_authority():
         participant = cipher_data.participant_key.participant
-        models.DataAccess.objects.create(
-            participant=participant, data=cipher_data.data
-        )
+        models.DataAccess.objects.create(participant=participant, data=cipher_data.data)
 
         # Check if all data has been accessed
-        if models.DataAccess.objects.filter(
-            participant=participant, data=cipher_data.data
-        ).values('data_id').distinct().count() == msg.data_set.all().count():
-            # If the status = 'UNREAD' make it read 
-            if participant.status == 'UNREAD':
-                participant.status = 'READ'
+        
+        if (
+            models.DataAccess.objects.filter(
+                participant=participant
+            )
+            .values("data_id")
+            .distinct()
+            .count()
+            == msg.data_set.all().count()
+        ):
+            # If the status = 'UNREAD' make it read
+            if participant.status == "UNREAD":
+                participant.status = "READ"
                 participant.save()
         return sendfile(request, cipher_data.cipher_data.path)
     return HttpResponseForbidden()
@@ -328,8 +344,10 @@ class MessageArchivePostView(SingleObjectMixin, View):
 
     def post(self, request, *args, **kwargs):
         message = self.object = self.get_object()
-        participant = message.participant_set.get(authority=self.request.user.get_authority())
-        participant.status='ARCHIVED'
+        participant = message.participant_set.get(
+            authority=self.request.user.get_authority()
+        )
+        participant.status = "ARCHIVED"
         participant.save()
         messages.success(
             self.request,
@@ -345,11 +363,13 @@ class MessageUnarchivePostView(SingleObjectMixin, View):
 
     def post(self, request, *args, **kwargs):
         message = self.object = self.get_object()
-        participant = message.participant_set.get(authority=self.request.user.get_authority())
-        participant.status='READ'
+        participant = message.participant_set.get(
+            authority=self.request.user.get_authority()
+        )
+        participant.status = "READ"
         participant.save()
         messages.success(
             self.request,
             _("Message unarchived"),
         )
-        return HttpResponseRedirect(message.get_absolute_url())        
+        return HttpResponseRedirect(message.get_absolute_url())

@@ -104,6 +104,7 @@ class ParticipantTable(ColumnShiftTable):
             "message_id",
             "status",
             "proto",
+            "kind",
             A("message.sent_on"),
             A("message.kind"),
         )

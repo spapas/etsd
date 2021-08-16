@@ -23,6 +23,7 @@ class ParticipantFilter(django_filters.FilterSet):
         model = models.Participant
         fields = {
             "status": ["exact"],
+            "kind": ["exact"],
             "message__kind": ["exact"],
             "message__status": ["exact"],
             "message__protocol": ["exact"],
