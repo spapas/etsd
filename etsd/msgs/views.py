@@ -160,7 +160,9 @@ class ParticipantInlineFormSet(BaseInlineFormSet):
         super().clean()
         def is_missing(x):
             return x.cleaned_data == {} or x.cleaned_data.get("DELETE")
-
+        recipient_list = [inline_form.cleaned_data.get('authority') for inline_form in self.forms if not inline_form.cleaned_data.get("DELETE")]
+        if len(recipient_list)!=len(set(recipient_list)):
+            raise ValidationError(_("Other participants may only be included once!"))
         if not [x for x in self.forms if not  is_missing(x)]:
             raise ValidationError(_("At least one participant is required"))
         for form in self.forms:
@@ -182,29 +184,7 @@ class MessageCreateView(CreateWithInlinesView):
 
     def forms_valid(self, form, inlines):
         r = super().forms_valid(form, inlines)
-        recipient_list = [inline_form.cleaned_data.get('authority') for inline_form in inlines[0]]
-        if not recipient_list:
-            messages.add_message(
-                self.request, 
-                messages.ERROR, 
-                _("You have to add at least one recipient!")
-            )
-            return HttpResponseRedirect(self.request.path)
-        if None in recipient_list:
-            messages.add_message(
-                self.request, 
-                messages.ERROR, 
-                _("All participants information must be added!")
-            )
-            return HttpResponseRedirect(self.request.path)
-        if len(recipient_list)!=len(set(recipient_list)):
-            messages.add_message(
-                self.request, 
-                messages.ERROR, 
-                _("Other participants may only be included once!")
-            )
-            return HttpResponseRedirect(self.request.path)
-        
+                
         messages.info(
             self.request,
             _("Draft message created"),
