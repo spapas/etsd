@@ -24,7 +24,25 @@ def can_send(user, _rule, msg) -> bool:
     )
 
 
+def can_archive(user, _rule, msg) -> bool:
+    if msg.status == "DRAFT":
+        return False
+
+    participant = msg.participant_set.get(authority=user.get_authority())
+    return participant.status == "READ"
+
+
+def can_unarchive(user, _rule, msg) -> bool:
+    if msg.status == "DRAFT":
+        return False
+
+    participant = msg.participant_set.get(authority=user.get_authority())
+    return participant.status == "ARCHIVED"
+
+
 rules_light.registry["msgs.message.read"] = can_read
 rules_light.registry["msgs.message.add_data"] = can_add_data
 rules_light.registry["msgs.message.send"] = can_send
 rules_light.registry["msgs.message.delete"] = can_add_data
+rules_light.registry["msgs.message.archive"] = can_archive
+rules_light.registry["msgs.message.unarchive"] = can_unarchive

@@ -26,7 +26,8 @@
 
 <div class='row mb-3'>
   <div class='col'>
-    <h5>{% trans "Status" %}: {{ message.get_status_display }}</h5>
+    <h5>{% trans "Status" %}: {{ participant.get_status_display }}</h5>
+    <h5>{% trans "Message status" %}: {{ message.get_status_display }}</h5>
     {% trans "Kind" %}: {{ message.get_kind_display }}<br />
     {% if message.rel_message %} 
       {% trans "Related message" %}: 
@@ -74,10 +75,12 @@
 {% rule 'msgs.message.add_data' message as can_add_data %}
 {% rule 'msgs.message.send' message as can_send %}
 {% rule 'msgs.message.delete' message as can_delete %}
+{% rule 'msgs.message.archive' message as can_archive %}
+{% rule 'msgs.message.unarchive' message as can_unarchive %}
 
 <div class="row">
   <div class="col-md-12">
-	  <a class='btn btn-info' href='{% url "message_list" %}'>{% trans "Return" %}</a>
+	  <a class='btn btn-info' href='{% url "participant_list" %}'>{% trans "Return" %}</a>
 
     {% if can_add_data %}
       <a class='btn btn-primary' href='{% url "message_add_data"  message.id %}'>{% trans "Add data" %}</a> 
@@ -95,8 +98,18 @@
         <input type='submit' class='btn btn-success' value='{% trans "Send" %}'>
       </form>
     {% endif %}
-    
-    <a class='btn btn-warning' href=''>{% trans "Archive" %}</a>
+    {% if can_archive %}
+      <form id='archiveForm' class='d-inline' method='POST' action='{% url "message_archive" message.id %}'>
+        {% csrf_token %}
+        <input type='submit' class='btn btn-warning' value='{% trans "Archive" %}'>
+      </form>
+    {% endif %}
+    {% if can_unarchive %}
+      <form id='archiveForm' class='d-inline' method='POST' action='{% url "message_unarchive" message.id %}'>
+        {% csrf_token %}
+        <input type='submit' class='btn btn-warning' value='{% trans "Unarchive" %}'>
+      </form>
+    {% endif %}
    </div>
 </div>
 
@@ -126,10 +139,10 @@
       url, 
       success: data => {
         // And decrypt it using the loaded private key
-        decrypt(privateKey, data).then(
+        gtools.decrypt(privateKey, data).then(
           decrypted => {
             // After it's been decrypted just download it with the downloadBlob
-            downloadBlob(new Blob([decrypted]), cipher_id+'.'+data_ext)
+            gtools.downloadBlob(new Blob([decrypted]), cipher_id+'.'+data_ext)
           }
           ,
           reason => console.log(reason) // No error handling for now

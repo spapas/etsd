@@ -9,7 +9,9 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.detail import SingleObjectMixin
-from django.db.models import Q
+from django.db.models import Q, Case, Value, When, Prefetch
+from django.db.models.functions import Coalesce
+
 from django.shortcuts import get_object_or_404
 
 from django_tables2 import RequestConfig
@@ -45,7 +47,8 @@ class MessageAccessMixin:
         )
 
 
-class MessageListView(MessageAccessMixin, ExportMixin, ListView):
+# This class is visible only by the admins and shows *all* messages.
+class MessageListView(ExportMixin, ListView):
     model = models.Message
 
     def get_table(self):
@@ -56,9 +59,9 @@ class MessageListView(MessageAccessMixin, ExportMixin, ListView):
 
     def get_queryset(self):
         return (
-            super()
-            .get_queryset()
+            super().get_queryset()
             .prefetch_related("participant_set", "participant_set__authority")
+            
         )
 
     def get_context_data(self, *args, **kwargs):
@@ -69,7 +72,79 @@ class MessageListView(MessageAccessMixin, ExportMixin, ListView):
         RequestConfig(self.request, paginate={"per_page": 15}).configure(self.table)
         context["filter"] = self.filter
         context["table"] = self.table
+        return context
 
+
+class ParticipantListView(ExportMixin, ListView):
+    model = models.Participant
+
+    def get_table(self):
+        return self.table
+
+    def get_table_kwargs(self):
+        return {}
+
+    def get_queryset(self):
+        my_authority=self.request.user.get_authority()
+        return (
+            super()
+            .get_queryset()
+            .filter(
+                # Sender can always see his messages
+                # Others only when message is sent
+                Q(
+                    authority=my_authority,
+                    kind="SENDER",
+                )
+                | Q(
+                    message__status="SENT",
+                    authority=my_authority,
+                    kind__in=["RECIPIENT", "CC"],
+                )
+            )
+            .distinct()
+            .select_related(
+                "message",
+                "message__category",
+                "authority",
+                "message__rel_message",
+            )
+            .prefetch_related(
+                Prefetch(
+                    "message__participant_set",
+                    queryset=models.Participant.objects.filter(
+                        kind="SENDER"
+                    ).select_related("authority"),
+                    to_attr="sender",
+                ),
+                Prefetch(
+                    "message__participant_set",
+                    queryset=models.Participant.objects.filter(
+                        kind__in=["RECIPIENT", "CC"]
+                    ).select_related("authority"),
+                    to_attr="recipients",
+                ),
+            )
+            .annotate(
+                status_order=Case(
+                    When(message__status="DRAFT", then=Value(0)),
+                    When(status="UNREAD", then=Value(1)),
+                    When(status="READ", then=Value(2)),
+                    When(status="ARCHIVED", then=Value(3)),
+                ),
+                send_order=Coalesce("message__sent_on", "message__created_on"),
+            )
+            .order_by("status_order", "-send_order")
+        )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        qs = self.get_queryset()
+        self.filter = filters.ParticipantFilter(self.request.GET, qs)
+        self.table = tables.ParticipantTable(self.filter.qs)
+        RequestConfig(self.request, paginate={"per_page": 15}).configure(self.table)
+        context["filter"] = self.filter
+        context["table"] = self.table
         return context
 
 
@@ -92,8 +167,14 @@ class MessageCreateView(CreateWithInlinesView):
             _("Draft message created"),
         )
         msg = form.instance
+        # The sender will have a default status of "READ" for this message
+        # Notice that the Participant objects for the other perticipants will
+        # be created automatically from the formset save
         models.Participant.objects.create(
-            message=msg, authority=self.request.user.get_authority(), kind="SENDER"
+            message=msg,
+            authority=self.request.user.get_authority(),
+            kind="SENDER",
+            status="READ",
         )
 
         # Create the ParticipantKey objects
@@ -119,6 +200,7 @@ class MessageDetailView(MessageAccessMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
+        context['participant'] = self.get_object().participant_set.get(authority=self.request.user.get_authority())
         context["authority_cipher_data"] = [
             {
                 "number": cd.data.number,
@@ -152,8 +234,6 @@ class MessageAddDataView(SingleObjectMixin, TemplateResponseMixin, View):
             ).values(
                 "id",
                 "participant_id",
-                # "p>articipant__authority__id",
-                # "participant__authority__name",
                 "participant__participantkey__public_key__key",
             )
         )
@@ -224,9 +304,52 @@ def get_cipher_data_file(request, pk):
     msg = cipher_data.data.message
     rules_light.require(request.user, "msgs.message.read", msg)
     if cipher_data.participant_key.public_key.authority == request.user.get_authority():
+        participant = cipher_data.participant_key.participant
         models.DataAccess.objects.create(
-            participant=cipher_data.participant_key.participant,
-            data=cipher_data.data
+            participant=participant, data=cipher_data.data
         )
+
+        # Check if all data has been accessed
+        if models.DataAccess.objects.filter(
+            participant=participant, data=cipher_data.data
+        ).values('data_id').distinct().count() == msg.data_set.all().count():
+            # If the status = 'UNREAD' make it read 
+            if participant.status == 'UNREAD':
+                participant.status = 'READ'
+                participant.save()
         return sendfile(request, cipher_data.cipher_data.path)
     return HttpResponseForbidden()
+
+
+@rules_light.class_decorator("msgs.message.archive")
+class MessageArchivePostView(SingleObjectMixin, View):
+    model = models.Message
+    http_method_names = ["post"]
+
+    def post(self, request, *args, **kwargs):
+        message = self.object = self.get_object()
+        participant = message.participant_set.get(authority=self.request.user.get_authority())
+        participant.status='ARCHIVED'
+        participant.save()
+        messages.success(
+            self.request,
+            _("Message archived"),
+        )
+        return HttpResponseRedirect(message.get_absolute_url())
+
+
+@rules_light.class_decorator("msgs.message.unarchive")
+class MessageUnarchivePostView(SingleObjectMixin, View):
+    model = models.Message
+    http_method_names = ["post"]
+
+    def post(self, request, *args, **kwargs):
+        message = self.object = self.get_object()
+        participant = message.participant_set.get(authority=self.request.user.get_authority())
+        participant.status='READ'
+        participant.save()
+        messages.success(
+            self.request,
+            _("Message unarchived"),
+        )
+        return HttpResponseRedirect(message.get_absolute_url())        

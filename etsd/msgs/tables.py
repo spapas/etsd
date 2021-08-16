@@ -58,3 +58,65 @@ class MessageTable(ColumnShiftTable):
             z.authority.name
             for z in record.participant_set.filter(kind__in=("CC", "RECIPIENT")).all()
         )
+
+
+PARTICIPANT_PROTOCOL = """
+{{% if record.message.protocol %}}
+    {{{{ record.message.protocol }}}} / {{{{ record.message.protocol_year }}}}
+{{% else %}}
+    {0}
+{{% endif %}}
+""".format(
+    _("Draft message")
+)
+
+
+class ParticipantTable(ColumnShiftTable):
+    message_id = tables.LinkColumn(
+        "message_detail",
+        args=[A("message_id")],
+        verbose_name="ID",
+        attrs={"a": {"class": "btn btn-primary btn-sm"}},
+    )
+
+    proto = tables.TemplateColumn(
+        PARTICIPANT_PROTOCOL,
+        verbose_name=__("Protocol"),
+        order_by=A("message.protocol"),
+    )
+
+    rel_message = tables.LinkColumn(
+        "message_detail",
+        args=[A("message.rel_message_id")],
+        verbose_name=_("Related message"),
+        attrs={"a": {"class": "btn btn-primary btn-sm"}},
+    )
+
+    sender = tables.Column(verbose_name=__("Sender"), empty_values=(), orderable=False)
+    recipients = tables.Column(
+        verbose_name=__("Recipients"), empty_values=(), orderable=False
+    )
+
+    class Meta:
+        model = models.Participant
+        attrs = {"class": "table table-sm table-stripped"}
+        fields = (
+            "message_id",
+            "status",
+            "proto",
+            A("message.sent_on"),
+            A("message.kind"),
+        )
+        empty_text = "No entries"
+
+    def render_sender(self, record):
+        return ", ".join(
+            z.authority.name
+            for z in record.message.sender
+        )
+
+    def render_recipients(self, record):
+        return ", ".join(
+            z.authority.name
+            for z in record.message.recipients
+        )

@@ -16,3 +16,22 @@ class MessageFilter(django_filters.FilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+
+class ParticipantFilter(django_filters.FilterSet):
+    class Meta:
+        model = models.Participant
+        fields = {
+            "status": ["exact"],
+            "message__kind": ["exact"],
+            "message__status": ["exact"],
+            "message__protocol": ["exact"],
+            "message__protocol_year": ["exact"],
+            "message__sent_on": ["exact", "month", "year"],
+            "message__rel_message__protocol": [
+                "exact",
+            ],
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

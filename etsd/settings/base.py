@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django_filters",
     "django_extensions",
     "extra_views",
+    'memoize',
     "reversion",
     "rules_light",
     "widget_tweaks",
