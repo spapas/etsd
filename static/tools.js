@@ -111,3 +111,25 @@ const signAndVerify = async (publicKey, privateKey) => {
         throw new Error('Signature could not be verified: ' + e.message);
     }
 }
+
+const encrypt = async (publicKey, binMessage) => {
+    // The binMessage is an ArrayBuffer so it needs to be converte toan Uint8Array
+    const encrypted = await openpgp.encrypt({
+        message: await openpgp.createMessage({ binary: new Uint8Array(binMessage) }), 
+        encryptionKeys: publicKey
+    })
+    return encrypted
+}
+
+const decrypt = async(privateKey, encrypted) => {
+    const message = await openpgp.readMessage({
+        armoredMessage: encrypted 
+    });
+    // Use the binary format to return an Uint8Array
+    const { data: decrypted } = await openpgp.decrypt({
+        message,
+        format: 'binary',
+        decryptionKeys: privateKey
+    });
+    return decrypted
+}

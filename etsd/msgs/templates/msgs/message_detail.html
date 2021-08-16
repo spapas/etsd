@@ -1,0 +1,162 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load rules_light_tags %}
+{% block head_title %}{% trans "Message detail" %}{% endblock %}
+{% block page_title %}{% trans "Message detail" %}{% endblock %}
+{% block page_content %}
+
+{% if message.status == 'DRAFT' %}
+  <div class='alert alert-warning'> 
+  {% blocktrans %}
+  <p>
+    Message is a Draft. You need to add some data (files) to the message by using the "Add data"
+    button and then send it by pressing the "Send" button. Sending a message is possible only
+    after you have added some data. You can use the add data functionality as many times as you want.
+  </p>
+  <p>
+    If you have made some mistake you can delete the message completely by clicking the "Delete"
+    button. However please keep in mind that this is only possible <b>before</b> sending the message. After 
+    the message has been send there's no way to alter it or its contents; you need to send a "Fix" message
+    and refer this one.
+  
+  </p>
+  {% endblocktrans %}
+  </div>
+{% endif %}
+
+<div class='row mb-3'>
+  <div class='col'>
+    <h5>{% trans "Status" %}: {{ message.get_status_display }}</h5>
+    {% trans "Kind" %}: {{ message.get_kind_display }}<br />
+    {% if message.rel_message %} 
+      {% trans "Related message" %}: 
+      <a class='btn btn-sm btn-info' href='{% url "message_detail" message.rel_message.id %}'>{{ message.rel_message }}</a>
+      <br />
+    {% endif %}
+    
+    {% trans "Category" %}: {{ message.category|default:"-" }}<br />
+    {% trans "Sent on" %}: {{ message.sent_on|default:"-" }}<br />
+    {% trans "Protocol" %}: {% if message.protocol %}{{ message.protocol }} / {{ message.protocol_year }}{% endif %}<br />
+
+  </div>
+  <div class='col'>
+    <h5>{% trans "Participants" %}</h5>
+    <ul>
+    {% for mp in message.participant_set.all %}
+      <li>{{ mp.authority }}: {{ mp.get_kind_display }}</li>
+    {% endfor %}
+    </ul>
+    <h5>{% trans "Data" %}</h5>
+    <ul>
+
+    {% for d in message.data_set.all %}
+      <li>
+        {{ d.number }} {{ d.extension }} {{ d.content_type }} (id: {{ d.id }})
+        
+      </li>
+    {% empty %}
+      <li>Not available</li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class='row'>
+  <div class='col'>
+    <h5>{% trans "Cipher data" %}</h5>
+    <ul id='cipher-data-container'>
+      <li>Not available</li>
+    </ul>
+
+  </div>
+</div>
+
+
+{% rule 'msgs.message.add_data' message as can_add_data %}
+{% rule 'msgs.message.send' message as can_send %}
+{% rule 'msgs.message.delete' message as can_delete %}
+
+<div class="row">
+  <div class="col-md-12">
+	  <a class='btn btn-info' href='{% url "message_list" %}'>{% trans "Return" %}</a>
+
+    {% if can_add_data %}
+      <a class='btn btn-primary' href='{% url "message_add_data"  message.id %}'>{% trans "Add data" %}</a> 
+    {% endif %}
+    
+    {% if can_delete %}
+      <form id='deleteForm' class='d-inline' method='POST' action='{% url "message_delete" message.id %}'>
+        {% csrf_token %}  
+        <input type='submit' class='btn btn-danger' value='{% trans "Delete" %}'>
+      </form>
+    {% endif %}
+    {% if can_send %}
+      <form id='sendForm' class='d-inline' method='POST' action='{% url "message_send" message.id %}'>
+        {% csrf_token %}
+        <input type='submit' class='btn btn-success' value='{% trans "Send" %}'>
+      </form>
+    {% endif %}
+    
+    <a class='btn btn-warning' href=''>{% trans "Archive" %}</a>
+   </div>
+</div>
+
+{{ authority_cipher_data|json_script:"authority-cipher-data" }}
+
+{% endblock %}
+{% block extra_script %}
+<script>
+  const cipherData = JSON.parse(document.getElementById('authority-cipher-data').textContent);
+  const privateKeyFingerprint = '{{ request.session.private_key_data.fingerprint }}'
+
+  if(privateKeyFingerprint) {
+    loadPrivateKeyLocal().then(
+      privateKey=>{
+        console.log("Private key loaded!")
+        window.privateKey=privateKey
+      }
+    )
+  }
+  const cipherDataFileUrl = '{% url "get_cipher_data_file" 1 %}'.slice(0,-2)
+
+  const decryptAndDownload = (cipher_id, data_ext) => {
+    console.log("OK DOWNLOAD ", cipher_id, data_ext)
+    const url = `${cipherDataFileUrl}${cipher_id}/`
+    // Download the cipher
+    $.get(url, data => {
+      // And decrypt it using the loaded private key
+      decrypt(privateKey, data).then(
+        decrypted => {
+          // After it's been decrypted just download it with the downloadBlob
+          downloadBlob(new Blob([decrypted]), cipher_id+'.'+data_ext)
+        }
+        ,
+        reason => console.log(reason) // No error handling for now
+      ).catch(
+        err => console.log(err) // No error handling for now
+      )
+    })
+  }
+
+  $(function() {
+    if(cipherData.length > 0) {
+      const cipherDataContent = cipherData.map(cd => `<li class='mb-1'>
+          ${cd.number}, ${cd.ext}, ${cd.authority_name},
+          ${
+            cd.fingerprint==privateKeyFingerprint
+            ?`<button class='btn btn-danger btn-sm' onclick='decryptAndDownload(${cd.id}, "${cd.ext}")'>
+                Decrypt and download
+              </button>`
+            :`<span class='text-danger'>Not possible to decryp with the private key you have loaded!</span>`
+          }
+        </li>`).join('')
+      
+      $('#cipher-data-container').html(cipherDataContent)
+    }
+
+    confirmFormAction({sel: '#sendForm', message: gettext('Are you sure you want to send the message?'), title: gettext('Send message')})
+    confirmDelete('#deleteForm')
+
+  })
+</script>
+
+{% endblock %}

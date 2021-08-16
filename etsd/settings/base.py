@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "extra_views",
     "reversion",
+    "rules_light",
     "widget_tweaks",
     "django_cleanup.apps.CleanupConfig",  # Must be placed last
 ]
@@ -118,6 +119,10 @@ MEDIA_URL = "/media_etsd/"
 MEDIA_ROOT = "/home/serafeim/etsd/media"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+
+SENDFILE_BACKEND = 'sendfile.backends.nginx'
+# TODO: CONFIGURE SENDFILE HERE 
+
 
 CACHES = {
     "default": {

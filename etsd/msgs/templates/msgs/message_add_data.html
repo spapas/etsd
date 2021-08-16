@@ -1,0 +1,152 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load rules_light_tags %}
+{% block head_title %}{% trans "Add Data to Message" %} {{ message.id }}{% endblock %}
+{% block page_title %}{% trans "Add Data to Message" %} {{ message.id }}{% endblock %}
+{% block page_content %}
+
+<div class='row mb-3'>
+  <div class='col'>
+    <div>
+      <label for="formFile" class="form-label">File to encrypt and upload</label>
+      <input class="form-control form-control-lg"  type="file" id='file'>
+    </div>
+  </div>
+</div>
+<form method='POST'>
+  {% csrf_token %}
+</form>
+<div class="row">
+  <div class="col-md-12">
+	  
+    <button class='btn btn-success' id='submitButton'>
+      <span id='spinner' style='display: none' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      {% trans "Submit" %}
+    </button>
+	  <a class='btn btn-secondary' href='{% url "message_detail" object.id %}'>{% trans "Return" %}</a>
+  </div>
+</div>
+
+{{ participant_keys|json_script:"participant-keys" }}
+
+{% endblock %}
+
+
+
+{% block extra_script %}
+<script>
+  const getFileExt = fname=> fname.slice((Math.max(0, fname.lastIndexOf(".")) || Infinity) + 1);
+  const fileData = {}
+  const participantKeys = JSON.parse(document.getElementById('participant-keys').textContent);
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+
+  $(function() {
+    $('#submitButton').prop('disabled', true)
+
+    const keyLoadPromises = participantKeys.map(pk => loadPublicKey(pk.participant__participantkey__public_key__key)) 
+
+    Promise.all(keyLoadPromises).then((values) => {
+      for(let i = 0; i < values.length; i++) {
+        participantKeys[i].publicKey = values[i]
+      }
+      console.log("Public keys ok")
+    });
+
+      document.getElementById('file').addEventListener("change", function() {
+        if (this.files && this.files[0]) {
+            let theFile = this.files[0];
+            
+            if (theFile.size > 1024*1024*4) {
+              bootstrap5Alert({'message': gettext("File can be up to 4 MB!"), 'title': gettext("ERROR")})
+              document.getElementById('file').value=''
+              return 
+            }
+
+            // Display the spinners now...
+            $('#spinner').show()
+            $('#submitButton').prop('disabled', true)
+
+            fileData.fileType = theFile.type
+            fileData.extension = getFileExt(theFile.name)
+            let reader = new FileReader();
+
+            reader.addEventListener('load', function(e) {
+                // Create an encryption promise for all participantKeys
+                const encryptPromises = participantKeys.map(
+                  // e.target.result === reader.result and is an ArrayBuffer
+                  pk => encrypt(pk.publicKey, e.target.result)
+                )
+                // And only continue after all are finished
+                Promise.all(encryptPromises).then((values) => {
+                  
+                  for(let i = 0; i < values.length; i++) {
+                    participantKeys[i].cipher = values[i]
+                  }
+                  console.log("ENCRYPTION OK")
+
+                  $('#spinner').hide()
+                  $('#submitButton').prop('disabled', false)
+
+                })
+            });
+            // Here we say that we want the result as an ArrayBuffer
+            reader.readAsArrayBuffer(theFile);
+        }
+    });
+
+    $('#submitButton').click(function(e) {
+      $('#spinner').show()
+      $('#submitButton').prop('disabled', true)
+      const fd = new FormData()
+      fd.append('fileType',  fileData.fileType)
+      fd.append('fileExtension', fileData.extension)
+      participantKeys.forEach(pk => {
+        fd.append('cipher' , new Blob([pk.cipher], {type: 'application/pgp-encrypted'}))
+        fd.append('participant_key_id' , pk.id)
+      })
+      
+      for(var pair of fd.entries()) {
+        console.log(pair[0]+ ', '+ pair[1]);
+      }
+
+      $.ajax({
+        url: '{{ request.path }}',
+        type: 'POST',
+        data: fd,
+        headers: {'X-CSRFToken': csrftoken},
+        processData: false,
+        contentType: false,
+        success: function(data) {
+          console.log("POST OK")
+          console.log(data)
+          $('#spinner').hide()
+          $('#submitButton').prop('disabled', false)
+          if(data=='OK') {
+            bootstrap5Alert({
+              'message': gettext("Data successfully added to message!<br />You can add more data if you want.<br /><br />Please press Return when you are finished to send your message."), 
+              'title': gettext("SUCCESS"),
+              'color': 'success'
+            })
+            document.getElementById('file').value=''
+          } else {
+            bootstrap5Alert({'message': gettext("Error while trying to upload!" + data), 'title': gettext("ERROR")})
+          }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          $('#spinner').hide()
+          $('#submitButton').prop('disabled', false)
+
+          bootstrap5Alert({
+            'message': gettext("Error while trying to add the data: <br /> "+  thrownError), 
+            'title': gettext("ERROR"),
+          })
+          document.getElementById('file').value=''
+        }
+
+      })
+    })
+
+  })
+</script>
+{% endblock %}

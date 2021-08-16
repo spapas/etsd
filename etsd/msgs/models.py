@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Max
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
@@ -17,9 +18,9 @@ MESSAGE_KIND_CHOICES = (
 MESSAGE_STATUS_CHOICES = (
     ("DRAFT", _("Draft")),
     ("SENT", _("Sent")),
-    ("READ", _("Read")),
-    ("ARCHIVED", _("Archived")),
-    ("DELETED", _("Deleted")),
+    # ("READ", _("Read")),
+    # ("ARCHIVED", _("Archived")),
+    # ("DELETED", _("Deleted")),
 )
 
 
@@ -60,14 +61,20 @@ class Message(UserDateAbstractModel):
     """
 
     available_to_sender = models.BooleanField(
-        default=False,
+        default=True,
         verbose_name=_("Message is available to sender"),
-        help_text=_("The message is also encrtypted with the sender's public key"),
+        help_text=_("The message is also encrypted with the sender's public key"),
     )
     kind = models.CharField(max_length=32, choices=MESSAGE_KIND_CHOICES)
-    status = models.CharField(max_length=32, choices=MESSAGE_STATUS_CHOICES)
+    status = models.CharField(
+        max_length=32, choices=MESSAGE_STATUS_CHOICES, default="DRAFT"
+    )
     category = models.ForeignKey(
-        MessageCategory, verbose_name=_("Category"), on_delete=models.PROTECT
+        MessageCategory,
+        verbose_name=_("Category"),
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
     )
     rel_message = models.ForeignKey(
         "self",
@@ -101,6 +108,21 @@ class Message(UserDateAbstractModel):
         self.protocol = max_protocol + 1
         self.status = "SENT"
         self.save()
+
+    def get_absolute_url(self):
+        return reverse("message_detail", kwargs={"pk": self.pk})
+
+    def get_authority_cipher_data(self, authority):
+        return CipherData.objects.filter(
+            data__message=self, participant_key__public_key__authority=authority
+        )
+
+    def __str__(self):
+        return (
+            "{}/{}".format(self.protocol, self.protocol_year)
+            if self.protocol
+            else "DRAFT (id {0})".format(self.id)
+        )
 
 
 PARTICIPANT_KIND_CHOICES = (
@@ -170,7 +192,8 @@ class Data(UserDateAbstractModel):
         Message, verbose_name=_("Message"), on_delete=models.CASCADE
     )
     number = models.PositiveIntegerField()
-    content_type = models.CharField(max_length=128)
+    content_type = models.CharField(max_length=128, blank=True, default="")
+    extension = models.CharField(max_length=128)
 
     participant_access = models.ManyToManyField("Participant", through="DataAccess")
 
@@ -189,6 +212,15 @@ class Data(UserDateAbstractModel):
         super().save(*args, **kwargs)
 
 
+def cipher_data_upload_to(instance, _filename):
+    date = instance.data.message.created_on.strftime("%Y/%m/%d")
+    path = "protected/cipherdata/{0}/".format(date)
+    fname = "cipher_{0}_{1}".format(
+        instance.data_id, instance.participant_key.public_key_id
+    )
+    return path + fname
+
+
 class CipherData(models.Model):
     """
     The actual encrypted data! It contains a file with the cipher data along with
@@ -199,7 +231,7 @@ class CipherData(models.Model):
     """
 
     cipher_data = models.FileField(
-        upload_to="protected/cipherdata/%Y/%m/%d/", verbose_name=_("Encrypted data")
+        upload_to=cipher_data_upload_to, verbose_name=_("Encrypted data")
     )
 
     data = models.ForeignKey("Data", on_delete=models.CASCADE)

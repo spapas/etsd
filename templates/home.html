@@ -11,7 +11,7 @@
 {% block body_class %}home{% endblock %}
 
 {% block body %}
-  <div class="bg-primary bg-gradient rounded-lg p-4 mb-5 text-light text-center">
+  <div class="bg-primary bg-gradient rounded-lg p-4 mb-5 text-light text-center rounded-1">
     <h1 class="display-3">E · T · S · D</h1>
     <h3 class="display-6">{% trans "Electronic Transmission of Sensitive Data" %}</h1>
     <p>{% trans "You can use this app to transmit sensitive data across your organization" %}</p>
@@ -22,31 +22,42 @@
     <div class="col-md-4">
       <h2>Heading</h2>
       <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      
     </div>
     <div class="col-md-4">
       <h2>Heading</h2>
       <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      
     </div>
     <div class="col-md-4">
-      <h2>Options</h2>
+      
       {% if user.is_authenticated %}
-          <h4>Welcome, {{ user }}</h4>
-          {% if perms.core.admin %}
-              Admin access
-              <a class="btn btn-primary" href="{% url 'public_key_list' %}" role="button">{% translate "Public key list" %}</a></p>
-              <a class="btn btn-primary" href="{% url 'message_list' %}" role="button">{% translate "Messages" %}</a></p>
-              <a class="btn btn-primary" href="{% url 'authority_list' %}" role="button">{% translate "Edit Authority Data" %}</a></p>              
-              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">{% translate "Load private key" %}</a>
+
+          <h4>{% trans "Welcome," %} {{ user }}</h4>
+          {% if perms.core.admin and perms.core.user %}
+            <em>{% trans "Admin and user access" %}</em>
+          {% elif perms.core.admin %}
+            <em>{% trans "Admin access" %}</em>
           {% elif perms.core.user %}
-              User access
-              <a class="btn btn-primary" href="{% url 'message_list' %}" role="button">{% translate "Messages" %}</a></p>
-              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">{% translate "Load private key" %}</a>
-              <a class="btn btn-primary" href="{% url 'authority_update_data' user.get_authority.id %}" role="button">{% translate "Edit Authority Data" %}</a></p> 
+            <em>{% trans "User access" %}</em>
           {% else %}
-              No access
+            <em>{% trans "No access!" %}</em>
           {% endif %}
+      
+          <hr />
+      
+          {% if perms.core.admin or  perms.core.user %}
+            <a class="btn btn-primary btn-sm" href="{% url 'public_key_list' %}" role="button">Public key list</a>
+            <a class="btn btn-primary" href="{% url 'authority_list' %}" role="button">{% translate "Edit Authority Data" %}</a></p> 
+          {% endif %}
+          {% if perms.core.user %}
+              <a class="btn btn-primary btn-sm" href="{% url 'message_list' %}" role="button">Messages</a>
+              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">Load private key</a>    
+          {% endif %}
+          {% if perms.core.admin %}
+              <a class="btn btn-danger" href="{% url 'authority_list' %}" role="button">{% translate "Edit Authority Data" %}</a></p>              
+          {% endif %}
+              
       {% else %}
         <p>
           Please login to use this site!
