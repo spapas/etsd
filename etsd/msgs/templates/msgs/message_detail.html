@@ -74,6 +74,7 @@
           <th>{% trans "Extension" %}</th>
           <th>{% trans "Authority" %}</th>
           <th>{% trans "Decrypt" %}</th>
+          <th>{% trans "Delete" %}</th>
         </tr>
       </thead>
       <tbody id='cipher-data-container'>
@@ -89,6 +90,8 @@
 {% rule 'msgs.message.delete' message as can_delete %}
 {% rule 'msgs.message.archive' message as can_archive %}
 {% rule 'msgs.message.unarchive' message as can_unarchive %}
+
+{% csrf_token %}
 
 <div class="row">
   <div class="col-md-12">
@@ -145,6 +148,7 @@
     )
   }
   const cipherDataFileUrl = '{% url "get_cipher_data_file" 1 %}'.slice(0,-2)
+  const cipherDataDeleteUrl = '{% url "cipherdata_delete" 1 %}'.slice(0,-2)
 
   const decryptAndDownload = (cipher_id, data_ext) => {
     console.log("OK DOWNLOAD ", cipher_id, data_ext)
@@ -167,6 +171,39 @@
       },
       cache: false
     })
+    return false
+  }
+
+  const deleteCipherData = (cipher_id) => {
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+    const cb = () => {
+      const url = `${cipherDataDeleteUrl}${cipher_id}/`
+      $.ajax({
+        url, 
+        method: 'POST',
+        headers: {'X-CSRFToken': csrftoken},
+        success: data => {
+          location.reload();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          if(xhr.status == 403) {
+            bootstrap5Alert({
+              'message': gettext("You cannot delete this file. Please make sure that you have read all the message files first."), 
+              'title': gettext("ERROR")
+            })
+          }
+        },
+        cache: false
+      })
+    }
+    bootstrap5Alert({
+      'message': gettext("Are you sure you want to delete this file?"), 
+      'title': gettext("Confirm"), 
+      'actionText': gettext("Delete"), 
+      'cb': cb
+    })
+    return false 
   }
 
   $(function() {
@@ -181,7 +218,7 @@
           <td>${
             cd?
             (cd.fingerprint==privateKeyFingerprint
-            ?`<button class='btn btn-danger btn-sm' onclick='decryptAndDownload(${cd.id}, "${cd.ext}")'>
+            ?`<button class='btn btn-warning btn-sm' onclick='return decryptAndDownload(${cd.id}, "${cd.ext}")'>
                 ${gettext('Decrypt and download')}
               </button>`
             :`<span class='text-danger'>
@@ -189,6 +226,9 @@
               </span>`
             ):`<span class='text-danger'>Cipher data available</span>`
           }</td>
+          <td>
+            ${cd?`<a onclick='return deleteCipherData(${cd.id})' class='btn btn-danger' href='#'>DELETE</a>`:'-'}
+          </td>
         </tr>`
       }).join('')
       
@@ -197,6 +237,8 @@
 
     confirmFormAction({sel: '#sendForm', message: gettext('Are you sure you want to send the message?'), title: gettext('Send message')})
     confirmDelete('#deleteForm')
+
+
 
   })
 </script>

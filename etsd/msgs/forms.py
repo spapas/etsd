@@ -16,7 +16,7 @@ class ParticipantInlineForm(forms.ModelForm):
         fields = ["kind", "authority"]
 
     def __init__(self, *args, **kwargs):
-        super(ParticipantInlineForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         user = ThreadLocal.get_current_user()
 
         new_choices = list(self.fields["kind"].choices)
