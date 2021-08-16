@@ -17,7 +17,7 @@ class ParticipantInlineForm(forms.ModelForm):
         widget=autocomplete.ModelSelect2(
             url="authority-autocomplete",
         ),
-        queryset=Authority.objects.all(),
+        queryset=Authority.objects.none(),
         label=_("Select authority"),
         required=True,
         help_text=_(
