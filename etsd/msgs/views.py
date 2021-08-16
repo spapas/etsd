@@ -224,5 +224,9 @@ def get_cipher_data_file(request, pk):
     msg = cipher_data.data.message
     rules_light.require(request.user, "msgs.message.read", msg)
     if cipher_data.participant_key.public_key.authority == request.user.get_authority():
+        models.DataAccess.objects.create(
+            participant=cipher_data.participant_key.participant,
+            data=cipher_data.data
+        )
         return sendfile(request, cipher_data.cipher_data.path)
     return HttpResponseForbidden()

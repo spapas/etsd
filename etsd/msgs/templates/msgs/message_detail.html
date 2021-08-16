@@ -122,18 +122,22 @@
     console.log("OK DOWNLOAD ", cipher_id, data_ext)
     const url = `${cipherDataFileUrl}${cipher_id}/`
     // Download the cipher
-    $.get(url, data => {
-      // And decrypt it using the loaded private key
-      gtools.decrypt(privateKey, data).then(
-        decrypted => {
-          // After it's been decrypted just download it with the downloadBlob
-          gtools.downloadBlob(new Blob([decrypted]), cipher_id+'.'+data_ext)
-        }
-        ,
-        reason => console.log(reason) // No error handling for now
-      ).catch(
-        err => console.log(err) // No error handling for now
-      )
+    $.ajax({
+      url, 
+      success: data => {
+        // And decrypt it using the loaded private key
+        decrypt(privateKey, data).then(
+          decrypted => {
+            // After it's been decrypted just download it with the downloadBlob
+            downloadBlob(new Blob([decrypted]), cipher_id+'.'+data_ext)
+          }
+          ,
+          reason => console.log(reason) // No error handling for now
+        ).catch(
+          err => console.log(err) // No error handling for now
+        )
+      },
+      cache: false
     })
   }
 
@@ -144,9 +148,11 @@
           ${
             cd.fingerprint==privateKeyFingerprint
             ?`<button class='btn btn-danger btn-sm' onclick='decryptAndDownload(${cd.id}, "${cd.ext}")'>
-                Decrypt and download
+                ${gettext('Decrypt and download')}
               </button>`
-            :`<span class='text-danger'>Not possible to decryp with the private key you have loaded!</span>`
+            :`<span class='text-danger'>
+                ${gettext('Not possible to decrypt. Please make sure you have loaded the proper private key')}
+              </span>`
           }
         </li>`).join('')
       

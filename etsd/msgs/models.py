@@ -63,9 +63,17 @@ class Message(UserDateAbstractModel):
     available_to_sender = models.BooleanField(
         default=True,
         verbose_name=_("Message is available to sender"),
-        help_text=_("The message is also encrypted with the sender's public key"),
+        help_text=_(
+            "The message is also encrypted with the sender's public key. You need to select this to be able to see the data of your message."
+        ),
     )
-    kind = models.CharField(max_length=32, choices=MESSAGE_KIND_CHOICES)
+    kind = models.CharField(
+        max_length=32,
+        choices=MESSAGE_KIND_CHOICES,
+        help_text=_(
+            "If you select Reply or Fix you must also select the related message to which you reply or fix"
+        ),
+    )
     status = models.CharField(
         max_length=32, choices=MESSAGE_STATUS_CHOICES, default="DRAFT"
     )
@@ -82,6 +90,7 @@ class Message(UserDateAbstractModel):
         null=True,
         on_delete=models.PROTECT,
         verbose_name=_("Related message"),
+        help_text=_("Please select a related message if needed"),
     )
 
     sent_on = models.DateTimeField(blank=True, null=True, verbose_name=_("Sent on"))
@@ -147,6 +156,9 @@ class Participant(models.Model):
     )
     kind = models.CharField(max_length=32, choices=PARTICIPANT_KIND_CHOICES)
 
+    def __str__(self):
+        return '{0}: {1} ({2})'.format(self.message, self.authority, self.kind)
+
     class Meta:
         verbose_name = _("Message participant")
         verbose_name_plural = _("Message participants")
@@ -210,6 +222,9 @@ class Data(UserDateAbstractModel):
             max_number = current_numbers.aggregate(mn=Max("number"))["mn"] or 0
             self.number = max_number + 1
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "{0}: {1}.{2}".format(self.message, self.number, self.extension)
 
 
 def cipher_data_upload_to(instance, _filename):
