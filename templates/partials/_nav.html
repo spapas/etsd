@@ -9,9 +9,9 @@
 
     <div class="collapse navbar-collapse" id="navbarMain">
       <div class='container-fluid d-flex justify-content-between'>
-        {% if user.is_authenticated %}
-          {% if perms.core.user or perms.core.admin %}
-            <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+          {% if user.is_authenticated %}
+            {% if perms.core.user or perms.core.admin %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'message_list' %}">{% trans "Messages" %}</a>
               </li>
@@ -23,9 +23,9 @@
                   <a class="dropdown-item" href="{% url 'public_key_list' %}">Public key List</a>
                 </div>
               </li>
-            </ul>
+            {% endif %}
           {% endif %}
-        {% endif %}
+        </ul>
         
         <ul class="navbar-nav ">
           <li class="nav-item">

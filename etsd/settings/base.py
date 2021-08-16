@@ -178,3 +178,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 GNUPG_HOME = "C:/Program Files (x86)/GnuPG"
 SIGNATURE_CHECKER_URL = ""
+
+AUTHORITY_STR_FUNCTION = 'etsd.core.utils.authority_str'
+AUTHORITY_KIND_STR_FUNCTION = 'etsd.core.utils.authority_kind_str'

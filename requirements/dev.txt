@@ -1,6 +1,6 @@
 -r base.txt
 
-django-debug-toolbar==3.2.1
+django-debug-toolbar==3.2.2
 fab-classic==1.18.1
 black==21.7b0
 pylint==2.9.6
