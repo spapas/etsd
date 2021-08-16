@@ -26,7 +26,8 @@
 
 <div class='row mb-3'>
   <div class='col'>
-    <h5>{% trans "Status" %}: {{ message.get_status_display }}</h5>
+    <h5>{% trans "Status" %}: {{ participant.get_status_display }}</h5>
+    <h5>{% trans "Message status" %}: {{ message.get_status_display }}</h5>
     {% trans "Kind" %}: {{ message.get_kind_display }}<br />
     {% if message.rel_message %} 
       {% trans "Related message" %}: 
@@ -41,32 +42,44 @@
   </div>
   <div class='col'>
     <h5>{% trans "Participants" %}</h5>
-    <ul>
-    {% for mp in message.participant_set.all %}
-      <li>{{ mp.authority }}: {{ mp.get_kind_display }}</li>
-    {% endfor %}
-    </ul>
-    <h5>{% trans "Data" %}</h5>
-    <ul>
-
-    {% for d in message.data_set.all %}
-      <li>
-        {{ d.number }} {{ d.extension }} {{ d.content_type }} (id: {{ d.id }})
-        
-      </li>
-    {% empty %}
-      <li>Not available</li>
-    {% endfor %}
-    </ul>
+    <table class='table table-sm table-striped table-bordered'>
+      <thead>
+        <tr>
+          <th>{% trans "Authority" %}</th>
+          <th>{% trans "Kind" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mp in message.participant_set.all %}
+          <tr>
+            <td>{{ mp.authority }}</td>
+            <td>{{ mp.get_kind_display }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
+
+    
+
+
 <div class='row'>
   <div class='col'>
-    <h5>{% trans "Cipher data" %}</h5>
-    <ul id='cipher-data-container'>
-      <li>Not available</li>
-    </ul>
-
+    <h5>{% trans "Data" %}</h5>
+    <table class='table table-sm table-striped table-bordered'>
+      <thead>
+        <tr>
+          <th>{% trans "Number" %}</th>
+          <th>{% trans "Extension" %}</th>
+          <th>{% trans "Authority" %}</th>
+          <th>{% trans "Decrypt" %}</th>
+        </tr>
+      </thead>
+      <tbody id='cipher-data-container'>
+      </tbody>
+    </table>
+    
   </div>
 </div>
 
@@ -74,10 +87,12 @@
 {% rule 'msgs.message.add_data' message as can_add_data %}
 {% rule 'msgs.message.send' message as can_send %}
 {% rule 'msgs.message.delete' message as can_delete %}
+{% rule 'msgs.message.archive' message as can_archive %}
+{% rule 'msgs.message.unarchive' message as can_unarchive %}
 
 <div class="row">
   <div class="col-md-12">
-	  <a class='btn btn-info' href='{% url "message_list" %}'>{% trans "Return" %}</a>
+	  <a class='btn btn-info' href='{% url "participant_list" %}'>{% trans "Return" %}</a>
 
     {% if can_add_data %}
       <a class='btn btn-primary' href='{% url "message_add_data"  message.id %}'>{% trans "Add data" %}</a> 
@@ -95,17 +110,30 @@
         <input type='submit' class='btn btn-success' value='{% trans "Send" %}'>
       </form>
     {% endif %}
-    
-    <a class='btn btn-warning' href=''>{% trans "Archive" %}</a>
+    {% if can_archive %}
+      <form id='archiveForm' class='d-inline' method='POST' action='{% url "message_archive" message.id %}'>
+        {% csrf_token %}
+        <input type='submit' class='btn btn-warning' value='{% trans "Archive" %}'>
+      </form>
+    {% endif %}
+    {% if can_unarchive %}
+      <form id='archiveForm' class='d-inline' method='POST' action='{% url "message_unarchive" message.id %}'>
+        {% csrf_token %}
+        <input type='submit' class='btn btn-warning' value='{% trans "Unarchive" %}'>
+      </form>
+    {% endif %}
    </div>
 </div>
 
 {{ authority_cipher_data|json_script:"authority-cipher-data" }}
+{{ message_data|json_script:"message-data" }}
 
 {% endblock %}
 {% block extra_script %}
 <script>
+  const messageData = JSON.parse(document.getElementById('message-data').textContent);
   const cipherData = JSON.parse(document.getElementById('authority-cipher-data').textContent);
+
   const privateKeyFingerprint = '{{ request.session.private_key_data.fingerprint }}'
 
   if(privateKeyFingerprint) {
@@ -126,10 +154,10 @@
       url, 
       success: data => {
         // And decrypt it using the loaded private key
-        decrypt(privateKey, data).then(
+        gtools.decrypt(privateKey, data).then(
           decrypted => {
             // After it's been decrypted just download it with the downloadBlob
-            downloadBlob(new Blob([decrypted]), cipher_id+'.'+data_ext)
+            gtools.downloadBlob(new Blob([decrypted]), cipher_id+'.'+data_ext)
           }
           ,
           reason => console.log(reason) // No error handling for now
@@ -142,19 +170,27 @@
   }
 
   $(function() {
-    if(cipherData.length > 0) {
-      const cipherDataContent = cipherData.map(cd => `<li class='mb-1'>
-          ${cd.number}, ${cd.ext}, ${cd.authority_name},
-          ${
-            cd.fingerprint==privateKeyFingerprint
+    if(messageData.length > 0) {
+      const cipherDataContent = messageData.map(md => {
+        let cd = cipherData.find(cd => cd.data_id == md.data_id)
+        
+        return `<tr>
+          <td>${md.number}</td>
+          <td>${md.ext}</td>
+          <td>${cd?cd.authority_name:"-"}</td>
+          <td>${
+            cd?
+            (cd.fingerprint==privateKeyFingerprint
             ?`<button class='btn btn-danger btn-sm' onclick='decryptAndDownload(${cd.id}, "${cd.ext}")'>
                 ${gettext('Decrypt and download')}
               </button>`
             :`<span class='text-danger'>
                 ${gettext('Not possible to decrypt. Please make sure you have loaded the proper private key')}
               </span>`
-          }
-        </li>`).join('')
+            ):`<span class='text-danger'>Cipher data available</span>`
+          }</td>
+        </tr>`
+      }).join('')
       
       $('#cipher-data-container').html(cipherDataContent)
     }

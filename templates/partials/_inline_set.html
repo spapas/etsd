@@ -4,8 +4,15 @@
         {{ inline_title }}
         <button class='btn btn-primary' type="button" id="add-form-{{ inline_name }}">Add</button>
     </h5>
+
     
         <div class="card-body">
+        {% if formset.non_form_errors %}
+            <div class="alert alert-danger">
+                {{ formset.non_form_errors }}
+            </div>
+        {% endif %}
+
             <template id="empty-form-{{ inline_name }}">
                 <div class='row border border-primary rounded p-1 m-1'>
 

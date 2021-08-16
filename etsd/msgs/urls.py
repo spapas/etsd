@@ -21,8 +21,15 @@ def any_permission_required(*args):
 
 urlpatterns = [
     path(
-        "",
+        "participants/",
         any_permission_required("core.user")(
+            views.ParticipantListView.as_view()
+        ),
+        name="participant_list",
+    ),
+    path(
+        "list/",
+        any_permission_required("core.admin")(
             views.MessageListView.as_view()
         ),
         name="message_list",
@@ -66,5 +73,19 @@ urlpatterns = [
             views.MessageDeletePostView.as_view()
         ),
         name="message_delete",
+    ),
+    path(
+        "archive/<int:pk>/",
+        any_permission_required("core.user")(
+            views.MessageArchivePostView.as_view()
+        ),
+        name="message_archive",
+    ),
+    path(
+        "unarchive/<int:pk>/",
+        any_permission_required("core.user")(
+            views.MessageUnarchivePostView.as_view()
+        ),
+        name="message_unarchive",
     ),
 ]

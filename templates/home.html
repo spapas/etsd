@@ -56,11 +56,12 @@
             {% endif %}
           {% endif %}
           {% if perms.core.user %}
-              <a class="btn btn-primary btn-sm" href="{% url 'message_list' %}" role="button">Messages</a>
+              <a class="btn btn-primary btn-sm" href="{% url 'participant_list' %}" role="button">Messages</a>
               <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">Load private key</a>    
           {% endif %}
           {% if perms.core.admin %}
-              <a class="btn btn-danger btn-sm" href="{% url 'authority_list' %}" role="button">{% translate "Edit Authority Data" %}</a></p>              
+            <a class="btn btn-primary btn-sm" href="{% url 'message_list' %}" role="button">All Messages</a>
+              <a class="btn btn-danger btn-sm" href="{% url 'authority_list' %}" role="button">{% translate "Authorities" %}</a></p>              
           {% endif %}
               
       {% else %}

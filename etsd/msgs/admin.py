@@ -61,6 +61,10 @@ class DataAccessAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
-    
+
     list_filter = ("participant__authority",)
-    search_fields = ("data__number", "data__message__protocol", "participant__authority__name")
+    search_fields = (
+        "data__number",
+        "data__message__protocol",
+        "participant__authority__name",
+    )

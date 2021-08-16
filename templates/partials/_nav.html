@@ -13,7 +13,7 @@
           {% if user.is_authenticated %}
             {% if perms.core.user or perms.core.admin %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'message_list' %}">{% trans "Messages" %}</a>
+                <a class="nav-link" href="{% url 'participant_list' %}">{% trans "Messages" %}</a>
               </li>
 
               <li class="nav-item dropdown">
