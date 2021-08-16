@@ -2,8 +2,10 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import TemplateView
 from django.views.decorators.http import last_modified
 from django.views.i18n import JavaScriptCatalog
+from . import views
 from django.utils import timezone
 from django.urls import path
+
 
 last_modified_date = timezone.now()
 

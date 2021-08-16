@@ -15,7 +15,7 @@
 {% endfor %}
 <hr />
 <a class='btn btn-warning' href='{% url "authority_update" authority.id %}'>{% trans "Edit" %}</a>
-<a class='btn btn-warning' href='{% url "authority_update_users" authority.id %}'>{% trans "Edit users" %}</a>
+<a class='btn btn-warning' href='{% url "authority_update_data" authority.id %}'>{% trans "Edit users" %}</a>
 <a class='btn btn-secondary' href='{% url "authority_list" %}'>{% trans "Return" %}</a>
 
 {% endblock %}

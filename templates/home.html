@@ -32,6 +32,7 @@
     <div class="col-md-4">
       
       {% if user.is_authenticated %}
+
           <h4>{% trans "Welcome," %} {{ user }}</h4>
           {% if perms.core.admin and perms.core.user %}
             <em>{% trans "Admin and user access" %}</em>
@@ -42,22 +43,26 @@
           {% else %}
             <em>{% trans "No access!" %}</em>
           {% endif %}
+      
           <hr />
+      
           {% if perms.core.admin or  perms.core.user %}
             <a class="btn btn-primary btn-sm" href="{% url 'public_key_list' %}" role="button">Public key list</a>
+            <a class="btn btn-primary" href="{% url 'authority_list' %}" role="button">{% translate "Edit Authority Data" %}</a></p> 
           {% endif %}
           {% if perms.core.user %}
               <a class="btn btn-primary btn-sm" href="{% url 'message_list' %}" role="button">Messages</a>
-              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">Load private key</a>
-              
+              <a class='btn btn-warning btn-sm' href='{% url "privatekey_load" %}' role="button">Load private key</a>    
+          {% endif %}
+          {% if perms.core.admin %}
+              <a class="btn btn-danger" href="{% url 'authority_list' %}" role="button">{% translate "Edit Authority Data" %}</a></p>              
           {% endif %}
               
-          
       {% else %}
         <p>
           Please login to use this site!
         </p>
-        <a class="btn btn-primary" href="{% url "auth_login" %}" role="button">Log in</a></p>
+        <a class="btn btn-primary" href="{% url "auth_login" %}" role="button">{% translate "Log in" %}</a></p>
       {% endif %}
     </div>
   </div>
