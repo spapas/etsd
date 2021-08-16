@@ -16,7 +16,7 @@ from django.forms.models import BaseInlineFormSet
 from django.core.exceptions import ValidationError
 
 from django.shortcuts import get_object_or_404
-
+from django.forms.models import BaseInlineFormSet
 from django_tables2 import RequestConfig
 from django_tables2.export.views import ExportMixin
 import rules_light
@@ -162,8 +162,12 @@ class ParticipantInlineFormSet(BaseInlineFormSet):
         def is_missing(x):
             return x.cleaned_data == {} or x.cleaned_data.get("DELETE")
 
-        if not [x for x in self.forms if not is_missing(x)]:
-            raise ValidationError(_("At least one recipient is required"))
+        recipient_list = [inline_form.cleaned_data.get('authority') for inline_form in self.forms if not inline_form.cleaned_data.get("DELETE")]
+        if len(recipient_list)!=len(set(recipient_list)):
+            raise ValidationError(_("Other participants may only be included once!"))
+        if not [x for x in self.forms if not  is_missing(x)]:
+            raise ValidationError(_("At least one participant is required"))
+
         for form in self.forms:
             if not form.cleaned_data:
                 raise ValidationError(_("Please don't add empty rows"))
@@ -183,6 +187,7 @@ class MessageCreateView(CreateWithInlinesView):
 
     def forms_valid(self, form, inlines):
         r = super().forms_valid(form, inlines)
+                
         messages.info(
             self.request,
             _("Draft message created"),
@@ -197,7 +202,6 @@ class MessageCreateView(CreateWithInlinesView):
             kind="SENDER",
             status="READ",
         )
-
         # Create the ParticipantKey objects
         for participant in models.Participant.objects.filter(message=msg):
             if participant.kind == "SENDER" and not msg.available_to_sender:

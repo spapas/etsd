@@ -1,6 +1,8 @@
 from django import forms
 from django_tools.middlewares import ThreadLocal
 from django.utils.translation import ugettext as _
+from dal import autocomplete
+from authorities.models import Authority
 
 from . import models
 from etsd.keys.models import PublicKey
@@ -11,6 +13,17 @@ def has_active_public_key(authority):
 
 
 class ParticipantInlineForm(forms.ModelForm):
+    authority = forms.ModelChoiceField(
+        widget=autocomplete.ModelSelect2(
+            url="authority-autocomplete",
+        ),
+        queryset=Authority.objects.all(),
+        label=_("Select authority"),
+        required=True,
+        help_text=_(
+            ' Add authorities by typing their full name/short name/email and selecting them. '
+        ),
+    )
     class Meta:
         model = models.Participant
         fields = ["kind", "authority"]
@@ -22,6 +35,7 @@ class ParticipantInlineForm(forms.ModelForm):
         new_choices = list(self.fields["kind"].choices)
         self.fields["kind"].choices = new_choices[:3]
 
+        # redundant? already in authority_autocomplete
         auth_qs = self.fields["authority"].queryset
         self.fields["authority"].queryset = auth_qs.exclude(id=user.get_authority().id)
 
