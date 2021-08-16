@@ -22,7 +22,19 @@
     <div class="col">
       <form method='POST' class='form'>
         {% csrf_token %}
-        {{ form|crispy}}
+        <div class='row'>
+          <div class='col-md-6'>
+            {{ form.kind|as_crispy_field }}
+          </div>
+          <div class='col-md-6'>
+            {{ form.rel_message|as_crispy_field }}
+          </div>
+        </div>
+         <div class='row'>
+          <div class='col-md-12'>
+            {{ form.available_to_sender|as_crispy_field }}
+          </div>
+        </div>
 
         {% include "partials/_inline_set.html" with inline_name='participant_set' inline_title="Recipient list" formset=inlines.0 %}
 
@@ -41,7 +53,7 @@
 $(function() {
     $('form').submit(function() {
         submit = $(this).find("input[type='submit']")
-        submit.prop('disabled',true);
+        submit.prop('disabled', true);
     });
 })
 </script>

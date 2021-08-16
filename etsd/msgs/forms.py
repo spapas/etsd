@@ -37,7 +37,7 @@ class ParticipantInlineForm(forms.ModelForm):
 class MessageCreateForm(forms.ModelForm):
     class Meta:
         model = models.Message
-        fields = ["category", "kind", "available_to_sender", "rel_message"]
+        fields = ["kind", "available_to_sender", "rel_message" ]
 
     def clean(self):
         user = ThreadLocal.get_current_user()

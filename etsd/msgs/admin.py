@@ -37,3 +37,30 @@ class MessageAdmin(VersionAdmin):
     )
     list_filter = ("available_to_sender", "kind", "status", "category", "protocol_year")
     search_fields = ("id", "protocol")
+
+
+@admin.register(models.DataAccess)
+class DataAccessAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "data",
+        "participant",
+        "created_by",
+        "created_on",
+        "modified_by",
+        "modified_on",
+    )
+    readonly_fields = (
+        "data",
+        "participant",
+        "created_by",
+        "created_on",
+        "modified_by",
+        "modified_on",
+    )
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+    
+    list_filter = ("participant__authority",)
+    search_fields = ("data__number", "data__message__protocol", "participant__authority__name")

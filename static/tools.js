@@ -7,6 +7,7 @@
 //).catch(
 //    err => console.log(err)
 //)
+
 const loadPrivateKey = (async(privateKeyArmored, passphrase) => {
     let privateKey = await openpgp.decryptKey({
       privateKey: await openpgp.readPrivateKey({ armoredKey: privateKeyArmored }),
