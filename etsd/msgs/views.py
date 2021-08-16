@@ -12,6 +12,9 @@ from django.views.generic.detail import SingleObjectMixin
 from django.db.models import Q, Case, Value, When, Prefetch
 from django.db.models.functions import Coalesce
 
+from django.forms.models import BaseInlineFormSet
+from django.core.exceptions import ValidationError
+
 from django.shortcuts import get_object_or_404
 
 from django_tables2 import RequestConfig
@@ -152,9 +155,18 @@ class ParticipantListView(ExportMixin, ListView):
         return context
 
 
+class ParticipantInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        if not [x for x in self.forms if not  x.cleaned_data.get('DELETE')]:
+            raise ValidationError(_("At least one participant is required"))
+        for form in self.forms:
+            if not form.cleaned_data:
+                raise ValidationError(_("Please don't add empty rows"))
+
+
 class ParticipantInline(InlineFormSetFactory):
     model = models.Participant
-
+    formset_class = ParticipantInlineFormSet
     form_class = forms.ParticipantInlineForm
     factory_kwargs = {"extra": 0}
 
