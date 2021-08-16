@@ -15,12 +15,12 @@ def init_ldap_con():
 
 def get_ldap_user(con, user):
     base_dn = 'ou=People,dc=yen,dc=gr'
-    filter = "(uid={0})".format(user)
-    ldap_user = con.search_s( base_dn, ldap.SCOPE_SUBTREE, filter)
+    filt = "(uid={0})".format(user)
+    ldap_user = con.search_s( base_dn, ldap.SCOPE_SUBTREE, filt)
     return ldap_user
 
 
-def ldap_check(self, usernames):
+def ldap_check( usernames):
 
     con = init_ldap_con()
     for un in usernames:
@@ -30,12 +30,12 @@ def ldap_check(self, usernames):
         lu = get_ldap_user(con, un.username)
 
         if not lu:
-            return _("""User {0} cannot be added! No such ldap user.""".format(un.username))
+            return _("User {0} cannot be added! No such ldap user.".format(un.username))
 
         dn = lu[0][1]['departmentNumber'][0].decode('utf-8')
 
         if u'ΥΠΗΡΕΣΙΕΣ' in dn or u'ΛΙΜΕΝΙΚΕΣ' in dn:
-            return _("""{0} is an authority and cannot be added as a user!""".format(un.username))
+            return _("{0} is an authority and cannot be added as a user!".format(un.username))
 
     return None
 
@@ -64,7 +64,7 @@ class AuthorityUsersModelForm(forms.ModelForm):
         auth = self.instance
         initial_users = auth.users.all()
         added_users = set(new_users).difference(set(initial_users))
-        user_errors = ldap_check(self, new_users)
+        user_errors = ldap_check( new_users)
         if user_errors:
             self.add_error("users", _(user_errors))
         for usr in added_users:
