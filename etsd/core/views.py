@@ -19,18 +19,16 @@ class AuthorityEditUsersView(UpdateView, ):
         return kwargs
 
     def form_valid(self,form):
-        usrs = form.cleaned_data['users']
+        new_users = form.cleaned_data['users']
         auth = form.instance
-        initial_users = get_user_model().objects.filter(authorities=auth)
-        added_users = set(usrs).difference(set(initial_users))
-        removed_users = set(initial_users).difference(set(usrs))
+        initial_users = auth.users.all()
+        added_users = set(new_users).difference(set(initial_users))
+        removed_users = set(initial_users).difference(set(new_users))
 
         for usr in added_users:
-            if not usr.has_perm('core.admin'):
-                usr.user_permissions.add(5)
+            usr.user_permissions.add(Permission.objects.get(codename="user", content_type__model="globalpermissionholder"))
         for usr in removed_users:
-            if not usr.has_perm('core.admin'):
-                usr.user_permissions.remove(5)
+            usr.user_permissions.remove(Permission.objects.get(codename="user", content_type__model="globalpermissionholder"))
 
         form.save()
         messages.add_message(self.request, messages.INFO, _("Authority Data succesfully updated!"))

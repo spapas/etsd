@@ -4,10 +4,10 @@ from django.utils.translation import ugettext_lazy as _
 from authorities.models import Authority
 from dal import autocomplete
 from django.utils.translation import ugettext as _
-import ldap
+from etsd.settings.ldap_conf import *
 
 def init_ldap_con():
-    con = ldap.initialize('ldap://login1.yen.gr:389')
+    con = ldap.initialize(AUTH_LDAP_SERVER_URI)
     con.simple_bind_s()
     return con
 
@@ -29,12 +29,12 @@ def ldap_check(self, usernames):
         lu = get_ldap_user(con, un.username)
 
         if not lu:
-            return u'Υπάρχει πρόβλημα με το χρήστη "'+ un.username +u'" και δε μπορεί να προστεθεί!'
+            return _("""User {0} cannot be added! No such ldap user.""".format(un.username))
 
         dn = lu[0][1]['departmentNumber'][0].decode('utf-8')
 
         if u'ΥΠΗΡΕΣΙΕΣ' in dn or u'ΛΙΜΕΝΙΚΕΣ' in dn:
-            return u'Δεν επιτρέπεται να προσθέσετε χρήστες Υπηρεσιών (συγκεκριμένα δεν επιτρέπεται ο χρήστης "'+ un.username +u'")!'
+            return _("""{0} is an authority and cannot be added as a user!""".format(un.username))
 
     return None
 
@@ -46,6 +46,7 @@ class AuthorityUsersModelForm(forms.ModelForm):
         queryset=get_user_model().objects.all(), 
         label=_('Select users'), 
         required=False, 
+        help_text = _(" You can remove users by pressing the \"x\" next to their name or add more by typing their username/last name/email and selecting them. ")
     )
 
     class Meta:
@@ -58,11 +59,11 @@ class AuthorityUsersModelForm(forms.ModelForm):
 
 
     def clean(self):
-        usrs = self.cleaned_data.get('users')
+        new_users = self.cleaned_data.get('users')
         auth = self.instance
-        initial_users = get_user_model().objects.filter(authorities=auth)
-        added_users = set(usrs).difference(set(initial_users))
-        user_errors = ldap_check(self, usrs)
+        initial_users = auth.users.all()
+        added_users = set(new_users).difference(set(initial_users))
+        user_errors = ldap_check(self, new_users)
         if user_errors:
             self.add_error("users", _(user_errors))
         for usr in added_users:
@@ -71,6 +72,6 @@ class AuthorityUsersModelForm(forms.ModelForm):
                     _("""User {0} belongs to authority {1} and cannot be added! 
                       Remove {0} from {1} and try again.""".format(usr.username, usr.authorities.first().name))
                 )
-        if self.request.user not in usrs and not self.request.user.has_perm('core.admin'):
+        if self.request.user not in new_users and not self.request.user.has_perm('core.admin'):
             self.add_error("users",_("You cant remove yourself!"))
         

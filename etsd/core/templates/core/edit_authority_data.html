@@ -10,9 +10,7 @@
 
 <div class='alert alert-info'>
   {% blocktrans with auth=form.instance.name %}
-  <b>Below are Authority's {{auth}} active users. </b><br>
-  You can remove users by pressing the "x" next to their name or add more by typing their username/last name/email and selecting them.
-  <br>You can also edit Authority's email.
+  <b>Here you can update Authority's {{auth}} active users and email. </b>
   {% endblocktrans %}
 </div>
 <form method='POST' >
