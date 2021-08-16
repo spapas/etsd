@@ -158,13 +158,16 @@ class ParticipantListView(ExportMixin, ListView):
 class ParticipantInlineFormSet(BaseInlineFormSet):
     def clean(self):
         super().clean()
+
         def is_missing(x):
             return x.cleaned_data == {} or x.cleaned_data.get("DELETE")
+
         recipient_list = [inline_form.cleaned_data.get('authority') for inline_form in self.forms if not inline_form.cleaned_data.get("DELETE")]
         if len(recipient_list)!=len(set(recipient_list)):
             raise ValidationError(_("Other participants may only be included once!"))
         if not [x for x in self.forms if not  is_missing(x)]:
             raise ValidationError(_("At least one participant is required"))
+
         for form in self.forms:
             if not form.cleaned_data:
                 raise ValidationError(_("Please don't add empty rows"))
@@ -395,3 +398,15 @@ class MessageUnarchivePostView(SingleObjectMixin, View):
             _("Message unarchived"),
         )
         return HttpResponseRedirect(message.get_absolute_url())
+
+
+@rules_light.class_decorator("msgs.cipherdata.delete")
+class CipherDataDeletePostView(SingleObjectMixin, View):
+    model = models.CipherData
+    http_method_names = ["post"]
+
+    def post(self, request, *args, **kwargs):
+        cipherdata = self.object = self.get_object()
+        cipherdata.delete()
+        return HttpResponse("OK")
+

@@ -22,37 +22,27 @@ def any_permission_required(*args):
 urlpatterns = [
     path(
         "participants/",
-        any_permission_required("core.user")(
-            views.ParticipantListView.as_view()
-        ),
+        any_permission_required("core.user")(views.ParticipantListView.as_view()),
         name="participant_list",
     ),
     path(
         "list/",
-        any_permission_required("core.admin")(
-            views.MessageListView.as_view()
-        ),
+        any_permission_required("core.admin")(views.MessageListView.as_view()),
         name="message_list",
     ),
     path(
         "message_detail/<int:pk>/",
-        any_permission_required("core.user")(
-            views.MessageDetailView.as_view()
-        ),
+        any_permission_required("core.user")(views.MessageDetailView.as_view()),
         name="message_detail",
     ),
     path(
         "new/",
-        any_permission_required("core.user")(
-            views.MessageCreateView.as_view()
-        ),
+        any_permission_required("core.user")(views.MessageCreateView.as_view()),
         name="message_create",
     ),
     path(
         "add_data/<int:pk>/",
-        any_permission_required("core.user")(
-            views.MessageAddDataView.as_view()
-        ),
+        any_permission_required("core.user")(views.MessageAddDataView.as_view()),
         name="message_add_data",
     ),
     path(
@@ -62,30 +52,27 @@ urlpatterns = [
     ),
     path(
         "send/<int:pk>/",
-        any_permission_required("core.user")(
-            views.MessageSendPostView.as_view()
-        ),
+        any_permission_required("core.user")(views.MessageSendPostView.as_view()),
         name="message_send",
     ),
     path(
         "delete/<int:pk>/",
-        any_permission_required("core.user")(
-            views.MessageDeletePostView.as_view()
-        ),
+        any_permission_required("core.user")(views.MessageDeletePostView.as_view()),
         name="message_delete",
     ),
     path(
         "archive/<int:pk>/",
-        any_permission_required("core.user")(
-            views.MessageArchivePostView.as_view()
-        ),
+        any_permission_required("core.user")(views.MessageArchivePostView.as_view()),
         name="message_archive",
     ),
     path(
         "unarchive/<int:pk>/",
-        any_permission_required("core.user")(
-            views.MessageUnarchivePostView.as_view()
-        ),
+        any_permission_required("core.user")(views.MessageUnarchivePostView.as_view()),
         name="message_unarchive",
+    ),
+    path(
+        "cipherdata_delete/<int:pk>/",
+        any_permission_required("core.user")(views.CipherDataDeletePostView.as_view()),
+        name="cipherdata_delete",
     ),
 ]
