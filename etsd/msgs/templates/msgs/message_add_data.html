@@ -44,7 +44,7 @@
   $(function() {
     $('#submitButton').prop('disabled', true)
 
-    const keyLoadPromises = participantKeys.map(pk => loadPublicKey(pk.participant__participantkey__public_key__key)) 
+    const keyLoadPromises = participantKeys.map(pk => gtools.loadPublicKey(pk.participant__participantkey__public_key__key)) 
 
     Promise.all(keyLoadPromises).then((values) => {
       for(let i = 0; i < values.length; i++) {
@@ -75,7 +75,7 @@
                 // Create an encryption promise for all participantKeys
                 const encryptPromises = participantKeys.map(
                   // e.target.result === reader.result and is an ArrayBuffer
-                  pk => encrypt(pk.publicKey, e.target.result)
+                  pk => gtools.encrypt(pk.publicKey, e.target.result)
                 )
                 // And only continue after all are finished
                 Promise.all(encryptPromises).then((values) => {

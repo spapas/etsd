@@ -109,7 +109,7 @@
   const privateKeyFingerprint = '{{ request.session.private_key_data.fingerprint }}'
 
   if(privateKeyFingerprint) {
-    loadPrivateKeyLocal().then(
+    gtools.loadPrivateKeyLocal().then(
       privateKey=>{
         console.log("Private key loaded!")
         window.privateKey=privateKey
@@ -124,10 +124,10 @@
     // Download the cipher
     $.get(url, data => {
       // And decrypt it using the loaded private key
-      decrypt(privateKey, data).then(
+      gtools.decrypt(privateKey, data).then(
         decrypted => {
           // After it's been decrypted just download it with the downloadBlob
-          downloadBlob(new Blob([decrypted]), cipher_id+'.'+data_ext)
+          gtools.downloadBlob(new Blob([decrypted]), cipher_id+'.'+data_ext)
         }
         ,
         reason => console.log(reason) // No error handling for now

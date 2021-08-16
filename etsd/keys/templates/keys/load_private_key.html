@@ -121,7 +121,7 @@ $(function() {
     
     fileReader.onload = function () {
       privateKeyArmored = fileReader.result;
-      loadPrivateKey(privateKeyArmored, passphrase).then( key => {        
+      gtools.loadPrivateKey(privateKeyArmored, passphrase).then( key => {        
         $('#id_fingerprint').val(key.getFingerprint())
         $('#id_user_id').val(key.getUserIDs().join(','))
         $('#id_creation_time').val(key.getCreationTime().toLocaleString('el'))

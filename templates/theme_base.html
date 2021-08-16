@@ -69,9 +69,9 @@
   <script>
     
     $(function() {
-      enableTooltips();
+      gtools.enableTooltips();
       {% if request.session.private_key_data %}
-        displayTimer('{% url "auth_logout" %}')
+        gtools.displayTimer('{% url "auth_logout" %}')
       {% endif %}
     })
   </script>

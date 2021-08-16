@@ -78,13 +78,13 @@ $(function() {
 
   $('#validateButton').click(function() { 
     
-    const publicPromise = loadPublicKey(publicKeyArmored)
-    const privatePromise = loadPrivateKeyLocal()
+    const publicPromise = gtools.loadPublicKey(publicKeyArmored)
+    const privatePromise = gtools.loadPrivateKeyLocal()
 
     Promise.all([publicPromise, privatePromise]).then( ([publicKey, privateKey]) => {
       console.log(publicKey)
       console.log(privateKey)
-      signAndVerify(publicKey, privateKey).then( verified => {
+      gtools.signAndVerify(publicKey, privateKey).then( verified => {
         if(verified) {
           $('#validateButton').prop('disabled', true)
           $('#submitButton').prop('disabled', false)
