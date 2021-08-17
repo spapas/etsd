@@ -1,0 +1,7 @@
+{% extends 'keys/emails/base.txt' %}
+{% load i18n static %}
+{% block content %}
+ {% blocktrans %} 
+ A new public key ({{ key_id }}) has been submitted by user {{ creator }} for approval by an administrator.
+ {% endblocktrans %}
+{% endblock %}
