@@ -41,11 +41,17 @@
       <h2>{% trans "Key management" %}</h2>
       <p>
         {% blocktrans %}
-          Using this app you can generate a private/public key pair of your Authority. The private key will be encrypted with a passphrase.
-          Both the private key and the passphrase must be saved by the user in a safe place and neither is ever send to
-          the server. The public key will be submitted to the server and must be approved from the app administrators in
-          order to be used. After the public key of an authority has been approved, the authority can receive messages with encrypted 
-          data.
+          <p>
+            Using this app you can generate a private/public key pair of your Authority. The private key will be encrypted with a passphrase.
+            Both the private key and the passphrase must be saved by the user in a safe place and neither is ever send to
+            the server. The public key will be submitted to the server and must be approved from the app administrators in
+            order to be used. After the public key of an authority has been approved, the authority can receive messages with encrypted 
+            data.
+          </p>
+          <p>
+            In order to quickly decrypt the data of his Authority, the user can "load" the private key to his session. This means that 
+            he will ...
+          </p>
         {% endblocktrans %}
       </p>
       
