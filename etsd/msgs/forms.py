@@ -35,9 +35,8 @@ class ParticipantInlineForm(forms.ModelForm):
         new_choices = list(self.fields["kind"].choices)
         self.fields["kind"].choices = new_choices[:3]
 
-        # redundant? already in authority_autocomplete
-        auth_qs = self.fields["authority"].queryset
-        self.fields["authority"].queryset = auth_qs.exclude(id=user.get_authority().id)
+        auth_qs = Authority.objects.all().exclude(id=user.get_authority().id)
+        self.fields["authority"].queryset = auth_qs
 
     def clean(self):
         authority = self.cleaned_data.get("authority")
