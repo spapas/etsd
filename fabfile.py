@@ -10,13 +10,6 @@ def black():
     print("Black ok!")
 
 
-def flake8():
-    "Run flake8 checks"
-    print("Check with flake8")
-    local("flake8 .")
-    print("flake8 ok!")
-
-
 def commit():
     local("git add .")
     with settings(warn_only=True):
@@ -49,13 +42,12 @@ def work():
 def touch_wsgi():
     print("Restarting uwsgi")
     if env.env == "prod":
-        run(r"cat /home/serafeim/aismanager/gunicorn.pid | xargs kill -HUP")
+        run(r"cat /home/serafeim/etsd/gunicorn.pid | xargs kill -HUP")
 
 
 def full_deploy():
-    "Reformat - check - commit - pull - do work - and restart uwsgi"
+    "Reformat - commit - pull - do work - and restart gunicorn"
     black()
-    flake8()
     commit()
     pull()
     work()
@@ -70,7 +62,7 @@ def uat():
     "UAT settings"
     env.env = "uat"
     env.user = "serafeim"
-    env.hosts = ["uat1.hcg.gr"]
+    env.hosts = ["172.19.130.84"]
     env.directory = "/home/serafeim/etsd/etsd"
     env.activate = "source /home/serafeim/etsd/venv/bin/activate"
 

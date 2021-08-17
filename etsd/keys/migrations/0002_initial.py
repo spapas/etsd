@@ -10,19 +10,31 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('keys', '0001_initial'),
+        ("keys", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='publickey',
-            name='created_by',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='publickey_created', to=settings.AUTH_USER_MODEL, verbose_name='Created by'),
+            model_name="publickey",
+            name="created_by",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="publickey_created",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Created by",
+            ),
         ),
         migrations.AddField(
-            model_name='publickey',
-            name='modified_by',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='publickey_modified', to=settings.AUTH_USER_MODEL, verbose_name='Modified by'),
+            model_name="publickey",
+            name="modified_by",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="publickey_modified",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Modified by",
+            ),
         ),
     ]

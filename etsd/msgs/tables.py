@@ -111,13 +111,7 @@ class ParticipantTable(ColumnShiftTable):
         empty_text = "No entries"
 
     def render_sender(self, record):
-        return ", ".join(
-            z.authority.name
-            for z in record.message.sender
-        )
+        return ", ".join(z.authority.name for z in record.message.sender)
 
     def render_recipients(self, record):
-        return ", ".join(
-            z.authority.name
-            for z in record.message.recipients
-        )
+        return ", ".join(z.authority.name for z in record.message.recipients)

@@ -63,7 +63,7 @@ rules_light.registry["msgs.message.unarchive"] = can_unarchive
 
 
 def can_delete_cipherdata(user, rule, cipher_data) -> bool:
-    message = cipher_data.data.message 
+    message = cipher_data.data.message
     if can_add_data(user, rule, message):
         return True
     # if the message is not draft, we can delete the cipher data *only* if we have read the message

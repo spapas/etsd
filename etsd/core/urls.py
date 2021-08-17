@@ -20,6 +20,7 @@ def any_permission_required(*args):
     """
     return user_passes_test(lambda u: any(u.has_perm(perm) for perm in args))
 
+
 last_modified_date = timezone.now()
 
 

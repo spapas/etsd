@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     "django_tables2_column_shifter",
     "django_filters",
     "django_extensions",
-    'email_log',
+    "email_log",
     "extra_views",
-    'memoize',
+    "memoize",
     "reversion",
     "rules_light",
     "widget_tweaks",
@@ -95,7 +95,7 @@ DATABASES = {
     }
 }
 
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 AUTH_USER_MODEL = "users.User"
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -124,8 +124,8 @@ MEDIA_ROOT = "/home/serafeim/etsd/media"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
-SENDFILE_BACKEND = 'sendfile.backends.nginx'
-# TODO: CONFIGURE SENDFILE HERE 
+SENDFILE_BACKEND = "sendfile.backends.nginx"
+# TODO: CONFIGURE SENDFILE HERE
 
 
 CACHES = {
@@ -158,7 +158,7 @@ FILTERS_HELP_TEXT_EXCLUDE = True
 FILTERS_HELP_TEXT_FILTER = False
 
 # EMAIL cfg
-EMAIL_BACKEND = 'email_log.backends.EmailBackend'
+EMAIL_BACKEND = "email_log.backends.EmailBackend"
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = ""
 MAIL_PORT = 587
@@ -184,5 +184,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 GNUPG_HOME = "C:/Program Files (x86)/GnuPG"
 SIGNATURE_CHECKER_URL = ""
 
-AUTHORITY_STR_FUNCTION = 'etsd.core.utils.authority_str'
-AUTHORITY_KIND_STR_FUNCTION = 'etsd.core.utils.authority_kind_str'
+AUTHORITY_STR_FUNCTION = "etsd.core.utils.authority_str"
+AUTHORITY_KIND_STR_FUNCTION = "etsd.core.utils.authority_kind_str"

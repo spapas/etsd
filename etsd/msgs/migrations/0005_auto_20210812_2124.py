@@ -6,19 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('msgs', '0004_alter_message_status'),
+        ("msgs", "0004_alter_message_status"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='data',
-            name='extension',
-            field=models.CharField(default='doc', max_length=128),
+            model_name="data",
+            name="extension",
+            field=models.CharField(default="doc", max_length=128),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='data',
-            name='content_type',
-            field=models.CharField(blank=True, default='', max_length=128),
+            model_name="data",
+            name="content_type",
+            field=models.CharField(blank=True, default="", max_length=128),
         ),
     ]

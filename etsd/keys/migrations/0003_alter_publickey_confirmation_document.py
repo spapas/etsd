@@ -7,13 +7,18 @@ import etsd.keys.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('keys', '0002_initial'),
+        ("keys", "0002_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='publickey',
-            name='confirmation_document',
-            field=models.FileField(blank=True, null=True, upload_to=etsd.keys.models.confirmation_document_upload_to, verbose_name='Confirmation document'),
+            model_name="publickey",
+            name="confirmation_document",
+            field=models.FileField(
+                blank=True,
+                null=True,
+                upload_to=etsd.keys.models.confirmation_document_upload_to,
+                verbose_name="Confirmation document",
+            ),
         ),
     ]

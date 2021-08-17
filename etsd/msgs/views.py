@@ -29,7 +29,6 @@ from . import models, filters, tables, forms
 from django.core.mail import send_mail
 
 
-
 class MessageAccessMixin:
     def get_queryset(self):
         return (
@@ -165,10 +164,14 @@ class ParticipantInlineFormSet(BaseInlineFormSet):
         def is_missing(x):
             return x.cleaned_data == {} or x.cleaned_data.get("DELETE")
 
-        recipient_list = [inline_form.cleaned_data.get('authority') for inline_form in self.forms if not inline_form.cleaned_data.get("DELETE")]
-        if len(recipient_list)!=len(set(recipient_list)):
+        recipient_list = [
+            inline_form.cleaned_data.get("authority")
+            for inline_form in self.forms
+            if not inline_form.cleaned_data.get("DELETE")
+        ]
+        if len(recipient_list) != len(set(recipient_list)):
             raise ValidationError(_("Other participants may only be included once!"))
-        if not [x for x in self.forms if not  is_missing(x)]:
+        if not [x for x in self.forms if not is_missing(x)]:
             raise ValidationError(_("At least one participant is required"))
 
         for form in self.forms:
@@ -190,7 +193,7 @@ class MessageCreateView(CreateWithInlinesView):
 
     def forms_valid(self, form, inlines):
         r = super().forms_valid(form, inlines)
-                
+
         messages.info(
             self.request,
             _("Draft message created"),
@@ -316,7 +319,9 @@ class MessageSendPostView(SingleObjectMixin, View):
         message.send()
         email_body = send_mail_body(
             "msgs/emails/new_message.txt",
-            dict(sender=self.object.participant_set.get(kind="SENDER").authority.name,),
+            dict(
+                sender=self.object.participant_set.get(kind="SENDER").authority.name,
+            ),
         )
         recip_emails = []
         recip_participants = self.object.participant_set.exclude(kind="SENDER")
@@ -324,7 +329,7 @@ class MessageSendPostView(SingleObjectMixin, View):
             recip_emails.append(rp.authority.email)
             for recip_user in rp.authority.users.all():
                 recip_emails.append(recip_user.email)
-        
+
         send_mail(
             subject="New encrypted message",
             message=email_body,
@@ -332,7 +337,7 @@ class MessageSendPostView(SingleObjectMixin, View):
             recipient_list=recip_emails,
             fail_silently=False,
         )
-        
+
         messages.success(
             self.request,
             _("Message send"),
@@ -431,4 +436,3 @@ class CipherDataDeletePostView(SingleObjectMixin, View):
         cipherdata = self.object = self.get_object()
         cipherdata.delete()
         return HttpResponse("OK")
-
