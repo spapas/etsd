@@ -72,14 +72,19 @@ authority will be able to receive encrypted data.
 To send an encrypted message you need to go to the <a href='{{ participant_list }}'>Message list</a> page and click the 
 <a href='{{ message_create }}'>New message</a> button. The message can be a New one (not related to another message),
 a Reply to an existing message or a Fix to an existing message. If you select Reply or Fix you also need to select the
-related message.
+related message. If "Message is available to sender" checkbox is selected the data of the message will also be encrypted 
+with the sender's public key so it will be saved to the server and be available to the sender to decrypt it. This checkbox 
+cannot be selected if the sender does not have an approved public key.
 </p>
 <p>To add the message recipients, click the <strong>Add</strong> button and select if the recipient is 
-a To or a Carbon Copy (cc) and receiving Authority from the autocomplete list. You can add as many recipients as you want.
-When you are finished press the <strong>Submit</strong> button. Notice that only Authorities that have an approved 
+a To or a Carbon Copy (cc) and receiving Authority from the autocomplete list. 
+Notice that only Authorities that have an approved 
 public key can be selected here.
+You can add as many recipients as you want.
+When you are finished press the <strong>Submit</strong> button. 
 </p>
 <p>
+Now you need to add the data to the email...
 </p>
 {% endblocktrans %}
 
