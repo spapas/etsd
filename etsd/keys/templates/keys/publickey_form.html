@@ -69,7 +69,7 @@ User id: {{ form.instance.user_id }}
 
 {% endblock %}
 
-{% block extra_script %}
+{% block extra_script_no_compress %}
   <script> 
     const publicKeyArmored = `{{ publickey.key }}`;
 
