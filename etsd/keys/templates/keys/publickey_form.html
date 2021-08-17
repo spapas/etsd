@@ -69,12 +69,16 @@ User id: {{ form.instance.user_id }}
 
 {% endblock %}
 
+{% block extra_script_no_compress %}
+  <script> 
+    const publicKeyArmored = `{{ publickey.key }}`;
+
+  </script> 
+{% endblock %}
 {% block extra_script %}
 <script>
 
 $(function() {
-  const publicKeyArmored = `{{ publickey.key }}`;
-  console.log(publicKeyArmored)
 
   $('#validateButton').click(function() { 
     

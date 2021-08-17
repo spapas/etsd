@@ -13,6 +13,9 @@ EMAIL_LOG_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 COMPRESS_OFFLINE = True
 
+MEDIA_ROOT = "/home/serafeim/etsd/media"
+SENDFILE_ROOT = "/home/serafeim/etsd/media/protected"
+
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",

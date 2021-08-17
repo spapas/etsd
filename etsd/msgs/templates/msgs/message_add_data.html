@@ -32,6 +32,11 @@
 {% endblock %}
 
 
+{% block extra_script_no_compress %}
+<script>
+  const requestPath = '{{ request.path }}'
+</script>
+{% endblock %}
 
 {% block extra_script %}
 <script>
@@ -105,13 +110,9 @@
         fd.append('cipher' , new Blob([pk.cipher], {type: 'application/pgp-encrypted'}))
         fd.append('participant_key_id' , pk.id)
       })
-      
-      for(var pair of fd.entries()) {
-        console.log(pair[0]+ ', '+ pair[1]);
-      }
 
       $.ajax({
-        url: '{{ request.path }}',
+        url: requestPath,
         type: 'POST',
         data: fd,
         headers: {'X-CSRFToken': csrftoken},
@@ -143,7 +144,6 @@
           })
           document.getElementById('file').value=''
         }
-
       })
     })
 

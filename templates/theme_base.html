@@ -63,6 +63,7 @@
     {% endcompress %}
     <script src="{% url 'javascript-catalog' %}"></script>
   {% endblock %}
+  {% block extra_script_no_compress %}{% endblock %}
   {% compress js %}
     {% block extra_script %}{% endblock %}
   {% endcompress %}
@@ -75,7 +76,7 @@
       {% endif %}
     })
   </script>
-  {% block extra_script_no_compress %}{% endblock %}
+  
   {% block extra_body_base %}
     {% block extra_body %}{% endblock %}
   {% endblock %}

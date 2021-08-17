@@ -106,17 +106,18 @@
 
 {% endblock %}
 
-{% block extra_script %}
+{% block extra_script_no_compress %}
 {% get_user_authority as auth %}
 <script>
+  const passphraseLength = 4
   const authority = '{{ auth.name }}';
-  console.log(authority)
   const authority_email = '{{ auth.email }}';
 </script>
 
-<script>
-const passphraseLength = 4
+{% endblock %}
 
+{% block extra_script %}
+<script>
 
 $(function() { 
   $('#passphraseLength').html(passphraseLength)

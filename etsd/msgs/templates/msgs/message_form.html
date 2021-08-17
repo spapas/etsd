@@ -11,8 +11,12 @@
     filter: blur(2px);
     background-color: lightgray;
   }
-  .select2{
+  .select2 {
     all:inherit !important;
+  }
+
+  .select2-container--default .select2-selection--single {
+      height: 38px  !important;
   }
   </style>
 {% endblock %}
@@ -43,7 +47,7 @@
         {% include "partials/_inline_set.html" with inline_name='participant_set' inline_title="Recipient list" formset=inlines.0 %}
 
         <button id='submitButton'  type='submit' class='btn btn-success' >{% trans "Submit" %}</button>
-        <a class='btn btn-secondary' href='{% url "message_list" %}'>{% trans "Return" %}</a>
+        <a class='btn btn-secondary' href='{% url "participant_list" %}'>{% trans "Return" %}</a>
       </form>
     </div>
 </div>
@@ -52,6 +56,8 @@
 
 {% block extra_script_no_compress %}
   {{ inlines.0.media }}
+  {{ app_form.media }}
+
 {% endblock %}
 
 {% block extra_script %}
@@ -67,7 +73,6 @@ $(function() {
 
 <script src="{% static 'inline-editor.js' %}"></script>
 
-{{ app_form.media }}
 
 <script>
     $(function() { 
