@@ -1,6 +1,6 @@
 from etsd.users.utils import get_authority_users_emails, get_admin_emails
 from etsd.core.utils import send_mail_body
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseForbidden, HttpResponseRedirect
 from django.contrib import messages
 
 from django.views.generic import ListView, DetailView, CreateView, FormView, UpdateView
@@ -161,6 +161,9 @@ class PublicKeyAcceptRejectFormView(UpdateView):
 
     def form_valid(self, form):
         pubk = self.object
+        if models.PublicKey.objects.get(pk=pubk.pk).status != "PENDING":
+            return HttpResponseForbidden()
+        
         if pubk.status == "ACTIVE":
             activekeys = models.PublicKey.objects.filter(
                 authority=pubk.authority, status="ACTIVE"
