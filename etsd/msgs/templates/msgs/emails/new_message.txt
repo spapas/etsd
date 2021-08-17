@@ -1,0 +1,7 @@
+{% extends 'keys/emails/base.txt' %}
+{% load i18n static %}
+{% block content %}
+ {% blocktrans %} 
+ Authority {{ sender }} has sent you a new encrypted message.
+ {% endblocktrans %}
+{% endblock %}

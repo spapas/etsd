@@ -1,3 +1,4 @@
+from etsd.core.utils import send_mail_body
 from django.http.response import (
     HttpResponse,
     HttpResponseRedirect,
@@ -25,6 +26,8 @@ from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 from etsd.keys.models import PublicKey
 from . import models, filters, tables, forms
+from django.core.mail import send_mail
+
 
 
 class MessageAccessMixin:
@@ -311,6 +314,25 @@ class MessageSendPostView(SingleObjectMixin, View):
     def post(self, request, *args, **kwargs):
         message = self.object = self.get_object()
         message.send()
+        email_body = send_mail_body(
+            "msgs/emails/new_message.txt",
+            dict(sender=self.object.participant_set.get(kind="SENDER").authority.name,),
+        )
+        recip_emails = []
+        recip_participants = self.object.participant_set.exclude(kind="SENDER")
+        for rp in recip_participants:
+            recip_emails.append(rp.authority.email)
+            for recip_user in rp.authority.users.all():
+                recip_emails.append(recip_user.email)
+        
+        send_mail(
+            subject="New encrypted message",
+            message=email_body,
+            from_email="noreply@hcg.gr",
+            recipient_list=recip_emails,
+            fail_silently=False,
+        )
+        
         messages.success(
             self.request,
             _("Message send"),
