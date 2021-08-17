@@ -75,4 +75,11 @@ urlpatterns = [
         any_permission_required("core.user")(views.CipherDataDeletePostView.as_view()),
         name="cipherdata_delete",
     ),
+    path(
+        "message-autocomplete/",
+        any_permission_required("core.admin", "core.user")(
+            views.MessageAutocomplete.as_view(),
+        ),
+        name="message-autocomplete",
+    ),
 ]

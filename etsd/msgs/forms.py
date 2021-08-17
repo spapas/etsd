@@ -49,6 +49,17 @@ class ParticipantInlineForm(forms.ModelForm):
 
 
 class MessageCreateForm(forms.ModelForm):
+    rel_message = forms.ModelMultipleChoiceField(
+        widget=autocomplete.ModelSelect2Multiple(
+            url="message-autocomplete",
+        ),
+        queryset=models.Message.objects.all(),
+        label=_("Select related message"),
+        required=False,
+        help_text=_(
+            'Add a related message by typing its protocol/protocol year and selecting them. '
+        ),
+    )
     class Meta:
         model = models.Message
         fields = ["kind", "available_to_sender", "rel_message"]
