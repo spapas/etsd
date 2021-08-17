@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "django_tables2_column_shifter",
     "django_filters",
     "django_extensions",
+    'email_log',
     "extra_views",
     'memoize',
     "reversion",
@@ -156,14 +157,15 @@ FILTERS_HELP_TEXT_EXCLUDE = True
 FILTERS_HELP_TEXT_FILTER = False
 
 # EMAIL cfg
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "mail.hcg.gr"
+EMAIL_BACKEND = 'email_log.backends.EmailBackend'
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = ""
 MAIL_PORT = 587
-EMAIL_HOST_USER = "noreply@hcg.gr"
-SERVER_EMAIL = "noreply@hcg.gr"
+EMAIL_HOST_USER = ""
+SERVER_EMAIL = ""
 EMAIL_HOST_PASSWORD = ""  # Configure me in local.py
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "noreply@hcg.gr"
+DEFAULT_FROM_EMAIL = ""
 
 # crispy forms template pack
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

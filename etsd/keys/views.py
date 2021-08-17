@@ -17,8 +17,10 @@ from . import models, tables, filters, forms
 
 class AdminOrAuthorityQsMixin:
     def get_queryset(self):
-        qs = super().get_queryset().select_related(
-            'authority', 'authority__kind', 'created_by', 'modified_by'
+        qs = (
+            super()
+            .get_queryset()
+            .select_related("authority", "authority__kind", "created_by", "modified_by")
         )
         if self.request.user.has_perm("core.admin"):
             return qs
@@ -129,7 +131,7 @@ class PublicKeySubmitView(UpdateView):
         form.instance.status = "PENDING"
         form.save()
         pubk = self.object
-        
+
         email_body = send_mail_body(
             "keys/emails/awaiting_approval.txt",
             dict(

@@ -43,4 +43,5 @@ urlpatterns = [
         ),
         name="authority-autocomplete",
     ),
+    path("help/", views.HelpTemplateView.as_view(), name="help"),
 ]
