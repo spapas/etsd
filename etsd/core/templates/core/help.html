@@ -95,6 +95,21 @@ Sending the message is only possible after you have added some data. Also, befor
 it completely along with any data it has using the <strong>Delete</strong> button. Keep in mind that deleting a 
 message is not possible after it has been sent.
 </p>
+<h4>Viewing messages</h4>
+<p>
+By visting the  <a href='{{ participant_list }}'>Message list</a> page you will see all the message that 
+concern your Authority (either as a sender or a recipient). The messages are by default sorted by their 
+status: First the unread (or non-sent), then the read and then the archived messages. You can filter/search 
+the messages using the filter in this page. Messages with the same status will be sorted by their sent date.
+</p>
+<p>
+You can then click to the blue id button to see the message details. However notice that you will not be 
+able to see the message data until you <a href='{{ privatekey_load }}'>load the private key</a> for your Authority.
+After you have loaded the correct private key you will be able to donwload and decrypt the data of this message.
+When all the data has been downloaded and decrypted the status of the message will be changed to "Read". 
+A "Read" message can be archived by pressing the <strong>Archive</strong> button. An "archived" message will just be 
+moved to the end of the list of messages. You can also unarchive a message so it will be changed to "Read" again.
+</p>
 
 {% endblocktrans %}
 
