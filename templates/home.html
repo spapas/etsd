@@ -17,24 +17,40 @@
     <p>{% trans "You can use this app to transmit sensitive data across your organization" %}</p>
   </div>
 
-  <!-- Example row of columns -->
   <div class="row">
+    <div class="col-md-4">
+      <h2>{% trans "Encrypted messaging" %}</h2>
+      <p>
+        {% blocktrans %}
+          <p>
+            This app can be used to transmit messages containing encrypted data between authorities.
+            The OpenPGP standard is used to encrypt the data using the fully client-side OpenPGPjs implementation.
+            This means that the encryption and decryption of the data is performed only in the user's computer so
+            no plaintext ever reaches the server.
+          </p>
+          <p>
+            Following the principles of Public Key Cryptography, any Authority can send encrypted messages however 
+            only Authorities that do have an approved private/public key pair can receive these encrypted messages.
+            This is required because the public key of the receiving Authority must be used to encrypt the message
+            so only this Authority will be able to decrypt it using its private part of the key.
+          </p>
+        {% endblocktrans %}
+      </p>
+    </div>
     <div class="col-md-4">
       <h2>{% trans "Key management" %}</h2>
       <p>
         {% blocktrans %}
-          Using this app you can generate a private/public key pair. The private key will be encrypted with a passphrase.
+          Using this app you can generate a private/public key pair of your Authority. The private key will be encrypted with a passphrase.
           Both the private key and the passphrase must be saved by the user in a safe place and neither is ever send to
-          the server. The public key will be submitted to the server.
+          the server. The public key will be submitted to the server and must be approved from the app administrators in
+          order to be used. After the public key of an authority has been approved, the authority can receive messages with encrypted 
+          data.
         {% endblocktrans %}
       </p>
       
     </div>
-    <div class="col-md-4">
-      <h2>Heading</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      
-    </div>
+    
     <div class="col-md-4">
       {% if user.is_authenticated %}
         {% get_user_authority as user_authority %}

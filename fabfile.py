@@ -39,7 +39,6 @@ def work():
         virtualenv("python manage.py migrate")
         virtualenv("python manage.py update_permissions")
         virtualenv("python manage.py collectstatic --noinput")
-
         virtualenv("python manage.py compress")
 
 
