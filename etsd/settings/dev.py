@@ -20,7 +20,7 @@ TEMPLATES[0]["OPTIONS"]["loaders"] = (
     "django.template.loaders.app_directories.Loader",
 )
 
-# AUTHENTICATION_BACKENDS += ("django.contrib.auth.backends.ModelBackend",)
+
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
 CSRF_COOKIE_SECURE = False  # Override CSRF to work also with http

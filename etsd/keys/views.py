@@ -165,7 +165,7 @@ class PublicKeyAcceptRejectFormView(UpdateView):
         pubk = self.object
         if models.PublicKey.objects.get(pk=pubk.pk).status != "PENDING":
             return HttpResponseForbidden()
-        
+
         if pubk.status == "ACTIVE":
             activekeys = models.PublicKey.objects.filter(
                 authority=pubk.authority, status="ACTIVE"
