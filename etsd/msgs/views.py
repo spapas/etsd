@@ -27,6 +27,7 @@ from extra_views import CreateWithInlinesView, InlineFormSetFactory
 from etsd.keys.models import PublicKey
 from . import models, filters, tables, forms
 from django.core.mail import send_mail
+from dal import autocomplete
 
 
 class MessageAccessMixin:
@@ -442,3 +443,20 @@ class CipherDataDeletePostView(SingleObjectMixin, View):
         cipherdata = self.object = self.get_object()
         cipherdata.delete()
         return HttpResponse("OK")
+
+
+class MessageAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return models.Message.objects.none()
+
+        qs = models.Message.objects.exclude(status="DRAFT")
+
+        if self.q:
+            qs = qs.filter(
+                Q(protocol__icontains=self.q)
+                | Q(protocol_year__icontains=self.q)
+            )
+
+        return qs
