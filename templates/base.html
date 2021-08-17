@@ -1,0 +1,21 @@
+{% extends "theme_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load cache %}
+
+{% cache 3600 header_footer request.user.username %}
+  {% block nav %}
+    {% include "partials/_nav.html" %}
+  {% endblock %}
+
+  {% block footer %}
+    {% include "partials/_footer.html" %}
+  {% endblock %}
+{% endcache %}
+
+{% block body %}
+  <h1 class='pt-4 page-header'>{% block page_title %}{% endblock %}</h1>
+  <div>
+    {% block page_content %}{% endblock %}
+  </div>
+{% endblock %}

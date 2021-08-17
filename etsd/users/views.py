@@ -29,6 +29,7 @@ class UserListView(ExportMixin, ListView):
 
         return context
 
+
 class UserAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
@@ -38,6 +39,10 @@ class UserAutocomplete(autocomplete.Select2QuerySetView):
         qs = User.objects.all()
 
         if self.q:
-            qs = qs.filter(Q(username__icontains=self.q) | Q(last_name__icontains=self.q) | Q(email__icontains=self.q))
+            qs = qs.filter(
+                Q(username__icontains=self.q)
+                | Q(last_name__icontains=self.q)
+                | Q(email__icontains=self.q)
+            )
 
         return qs

@@ -15,6 +15,7 @@ SITE_ID = 3
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    "etsd.branding",
     "etsd.core",
     "etsd.keys",
     "etsd.msgs",
@@ -36,8 +37,9 @@ INSTALLED_APPS = [
     "django_tables2_column_shifter",
     "django_filters",
     "django_extensions",
+    "email_log",
     "extra_views",
-    'memoize',
+    "memoize",
     "reversion",
     "rules_light",
     "widget_tweaks",
@@ -93,7 +95,7 @@ DATABASES = {
     }
 }
 
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 AUTH_USER_MODEL = "users.User"
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -122,8 +124,8 @@ MEDIA_ROOT = "/home/serafeim/etsd/media"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
-SENDFILE_BACKEND = 'sendfile.backends.nginx'
-# TODO: CONFIGURE SENDFILE HERE 
+SENDFILE_BACKEND = "sendfile.backends.nginx"
+# TODO: CONFIGURE SENDFILE HERE
 
 
 CACHES = {
@@ -156,14 +158,15 @@ FILTERS_HELP_TEXT_EXCLUDE = True
 FILTERS_HELP_TEXT_FILTER = False
 
 # EMAIL cfg
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "mail.hcg.gr"
+EMAIL_BACKEND = "email_log.backends.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = ""
 MAIL_PORT = 587
-EMAIL_HOST_USER = "noreply@hcg.gr"
-SERVER_EMAIL = "noreply@hcg.gr"
+EMAIL_HOST_USER = ""
+SERVER_EMAIL = ""
 EMAIL_HOST_PASSWORD = ""  # Configure me in local.py
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "noreply@hcg.gr"
+DEFAULT_FROM_EMAIL = ""
 
 # crispy forms template pack
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -181,5 +184,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 GNUPG_HOME = "C:/Program Files (x86)/GnuPG"
 SIGNATURE_CHECKER_URL = ""
 
-AUTHORITY_STR_FUNCTION = 'etsd.core.utils.authority_str'
-AUTHORITY_KIND_STR_FUNCTION = 'etsd.core.utils.authority_kind_str'
+AUTHORITY_STR_FUNCTION = "etsd.core.utils.authority_str"
+AUTHORITY_KIND_STR_FUNCTION = "etsd.core.utils.authority_kind_str"

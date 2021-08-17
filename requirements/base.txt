@@ -6,6 +6,8 @@ django-autocomplete-light==3.8.2
 django-cleanup==5.2.0
 django-compressor==2.4.1
 django-crispy-forms==1.12.0
+# django-email-log==1.0.0
+ -e git+https://github.com/spapas/django-email-log@patch-1#egg=django_email_log
 django-extensions==3.1.3
 django-extra-views==0.14.0
 django-filter==2.4.0

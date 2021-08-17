@@ -9,29 +9,108 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('authorities', '0003_authority_email'),
+        ("authorities", "0003_authority_email"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PublicKey',
+            name="PublicKey",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_on', models.DateTimeField(auto_now_add=True, verbose_name='Created on')),
-                ('modified_on', models.DateTimeField(auto_now=True, verbose_name='Modified on')),
-                ('key', models.TextField(help_text='The key text in armored ASCII format', verbose_name='Key text')),
-                ('fingerprint', models.CharField(help_text='The fingerprint of the key', max_length=128, unique=True, verbose_name='Key fingerprint')),
-                ('user_id', models.CharField(help_text='The description (user id) of the key', max_length=128, verbose_name='Description of key')),
-                ('status', models.CharField(choices=[('NEW', 'New'), ('PENDING', 'Pending'), ('ACTIVE', 'Active'), ('INACTIVE', 'Inactive'), ('REJECTED', 'Rejected')], default='NEW', help_text='Approval status of key', max_length=10, verbose_name='Status')),
-                ('confirmation_document', models.FileField(blank=True, null=True, upload_to='public/confirmations/%Y/%m/%d/', verbose_name='Confirmation document')),
-                ('approved_on', models.DateTimeField(blank=True, null=True, verbose_name='Approval date')),
-                ('deactivated_on', models.DateTimeField(blank=True, null=True, verbose_name='Deactivation date')),
-                ('rejected_on', models.DateTimeField(blank=True, null=True, verbose_name='Rejection date')),
-                ('authority', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='authorities.authority')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_on",
+                    models.DateTimeField(auto_now_add=True, verbose_name="Created on"),
+                ),
+                (
+                    "modified_on",
+                    models.DateTimeField(auto_now=True, verbose_name="Modified on"),
+                ),
+                (
+                    "key",
+                    models.TextField(
+                        help_text="The key text in armored ASCII format",
+                        verbose_name="Key text",
+                    ),
+                ),
+                (
+                    "fingerprint",
+                    models.CharField(
+                        help_text="The fingerprint of the key",
+                        max_length=128,
+                        unique=True,
+                        verbose_name="Key fingerprint",
+                    ),
+                ),
+                (
+                    "user_id",
+                    models.CharField(
+                        help_text="The description (user id) of the key",
+                        max_length=128,
+                        verbose_name="Description of key",
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("NEW", "New"),
+                            ("PENDING", "Pending"),
+                            ("ACTIVE", "Active"),
+                            ("INACTIVE", "Inactive"),
+                            ("REJECTED", "Rejected"),
+                        ],
+                        default="NEW",
+                        help_text="Approval status of key",
+                        max_length=10,
+                        verbose_name="Status",
+                    ),
+                ),
+                (
+                    "confirmation_document",
+                    models.FileField(
+                        blank=True,
+                        null=True,
+                        upload_to="public/confirmations/%Y/%m/%d/",
+                        verbose_name="Confirmation document",
+                    ),
+                ),
+                (
+                    "approved_on",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="Approval date"
+                    ),
+                ),
+                (
+                    "deactivated_on",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="Deactivation date"
+                    ),
+                ),
+                (
+                    "rejected_on",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="Rejection date"
+                    ),
+                ),
+                (
+                    "authority",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="authorities.authority",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Public key',
-                'verbose_name_plural': 'Public keys',
+                "verbose_name": "Public key",
+                "verbose_name_plural": "Public keys",
             },
         ),
     ]

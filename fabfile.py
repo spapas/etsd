@@ -10,13 +10,6 @@ def black():
     print("Black ok!")
 
 
-def flake8():
-    "Run flake8 checks"
-    print("Check with flake8")
-    local("flake8 .")
-    print("flake8 ok!")
-
-
 def commit():
     local("git add .")
     with settings(warn_only=True):
@@ -28,7 +21,7 @@ def commit():
 
 def pull():
     with cd(env.directory):
-        run("git fetch origin")
+        run("https_proxy=http://proxy.hcg.gr:8080 git fetch origin")
         run("git merge origin/master")
     print("fetch / merge ok")
 
@@ -38,24 +31,27 @@ def work():
     with cd(env.directory):
         requirements_txt = "requirements/" + env.env + ".txt"
         if os.stat(requirements_txt).st_size > 0:
-            virtualenv("pip install -r {0}".format(requirements_txt))
+            virtualenv(
+                "https_proxy=http://proxy.hcg.gr:8080 pip install -r {0}".format(
+                    requirements_txt
+                )
+            )
         virtualenv("python manage.py migrate")
         virtualenv("python manage.py update_permissions")
         virtualenv("python manage.py collectstatic --noinput")
-        if env.env == "prod":
-            virtualenv("python manage.py compres")
+
+        virtualenv("python manage.py compress")
 
 
 def touch_wsgi():
     print("Restarting uwsgi")
     if env.env == "prod":
-        run(r"cat /home/serafeim/aismanager/gunicorn.pid | xargs kill -HUP")
+        run(r"cat /home/serafeim/etsd/gunicorn.pid | xargs kill -HUP")
 
 
 def full_deploy():
-    "Reformat - check - commit - pull - do work - and restart uwsgi"
+    "Reformat - commit - pull - do work - and restart gunicorn"
     black()
-    flake8()
     commit()
     pull()
     work()
@@ -70,7 +66,7 @@ def uat():
     "UAT settings"
     env.env = "uat"
     env.user = "serafeim"
-    env.hosts = ["uat1.hcg.gr"]
+    env.hosts = ["172.19.130.84"]
     env.directory = "/home/serafeim/etsd/etsd"
     env.activate = "source /home/serafeim/etsd/venv/bin/activate"
 

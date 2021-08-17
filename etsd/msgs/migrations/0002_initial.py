@@ -10,103 +10,179 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('msgs', '0001_initial'),
-        ('authorities', '0003_authority_email'),
+        ("msgs", "0001_initial"),
+        ("authorities", "0003_authority_email"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='messagecategory',
-            name='created_by',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='messagecategory_created', to=settings.AUTH_USER_MODEL, verbose_name='Created by'),
+            model_name="messagecategory",
+            name="created_by",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="messagecategory_created",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Created by",
+            ),
         ),
         migrations.AddField(
-            model_name='messagecategory',
-            name='modified_by',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='messagecategory_modified', to=settings.AUTH_USER_MODEL, verbose_name='Modified by'),
+            model_name="messagecategory",
+            name="modified_by",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="messagecategory_modified",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Modified by",
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='msgs.messagecategory', verbose_name='Category'),
+            model_name="message",
+            name="category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                to="msgs.messagecategory",
+                verbose_name="Category",
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='created_by',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='message_created', to=settings.AUTH_USER_MODEL, verbose_name='Created by'),
+            model_name="message",
+            name="created_by",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="message_created",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Created by",
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='modified_by',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='message_modified', to=settings.AUTH_USER_MODEL, verbose_name='Modified by'),
+            model_name="message",
+            name="modified_by",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="message_modified",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Modified by",
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='participants',
-            field=models.ManyToManyField(through='msgs.Participant', to='authorities.Authority'),
+            model_name="message",
+            name="participants",
+            field=models.ManyToManyField(
+                through="msgs.Participant", to="authorities.Authority"
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='rel_message',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='msgs.message', verbose_name='Related message'),
+            model_name="message",
+            name="rel_message",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="msgs.message",
+                verbose_name="Related message",
+            ),
         ),
         migrations.AddField(
-            model_name='dataaccess',
-            name='created_by',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='dataaccess_created', to=settings.AUTH_USER_MODEL, verbose_name='Created by'),
+            model_name="dataaccess",
+            name="created_by",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="dataaccess_created",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Created by",
+            ),
         ),
         migrations.AddField(
-            model_name='dataaccess',
-            name='data',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='msgs.data', verbose_name='Message data'),
+            model_name="dataaccess",
+            name="data",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                to="msgs.data",
+                verbose_name="Message data",
+            ),
         ),
         migrations.AddField(
-            model_name='dataaccess',
-            name='modified_by',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='dataaccess_modified', to=settings.AUTH_USER_MODEL, verbose_name='Modified by'),
+            model_name="dataaccess",
+            name="modified_by",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="dataaccess_modified",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Modified by",
+            ),
         ),
         migrations.AddField(
-            model_name='dataaccess',
-            name='participant',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='msgs.participant'),
+            model_name="dataaccess",
+            name="participant",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT, to="msgs.participant"
+            ),
         ),
         migrations.AddField(
-            model_name='data',
-            name='created_by',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='data_created', to=settings.AUTH_USER_MODEL, verbose_name='Created by'),
+            model_name="data",
+            name="created_by",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="data_created",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Created by",
+            ),
         ),
         migrations.AddField(
-            model_name='data',
-            name='message',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='msgs.message', verbose_name='Message'),
+            model_name="data",
+            name="message",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="msgs.message",
+                verbose_name="Message",
+            ),
         ),
         migrations.AddField(
-            model_name='data',
-            name='modified_by',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='data_modified', to=settings.AUTH_USER_MODEL, verbose_name='Modified by'),
+            model_name="data",
+            name="modified_by",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="data_modified",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Modified by",
+            ),
         ),
         migrations.AddField(
-            model_name='data',
-            name='participant_access',
-            field=models.ManyToManyField(through='msgs.DataAccess', to='msgs.Participant'),
+            model_name="data",
+            name="participant_access",
+            field=models.ManyToManyField(
+                through="msgs.DataAccess", to="msgs.Participant"
+            ),
         ),
         migrations.AddField(
-            model_name='cipherdata',
-            name='data',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='msgs.data'),
+            model_name="cipherdata",
+            name="data",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="msgs.data"
+            ),
         ),
         migrations.AddField(
-            model_name='cipherdata',
-            name='participant_key',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='msgs.participantkey'),
+            model_name="cipherdata",
+            name="participant_key",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="msgs.participantkey"
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='message',
-            unique_together={('protocol', 'protocol_year')},
+            name="message",
+            unique_together={("protocol", "protocol_year")},
         ),
         migrations.AlterUniqueTogether(
-            name='data',
-            unique_together={('message', 'number')},
+            name="data",
+            unique_together={("message", "number")},
         ),
     ]

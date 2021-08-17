@@ -18,7 +18,11 @@ def any_permission_required(*args):
 
 
 urlpatterns = [
-    path("", any_permission_required("core.admin")(views.UserListView.as_view()), name="user_list"),
+    path(
+        "",
+        any_permission_required("core.admin")(views.UserListView.as_view()),
+        name="user_list",
+    ),
     path(
         "user-autocomplete/",
         any_permission_required("core.admin", "core.user")(

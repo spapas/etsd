@@ -34,16 +34,12 @@ urlpatterns = [
     ),
     path(
         "submit/<int:pk>/",
-        any_permission_required("core.user")(
-            views.PublicKeySubmitView.as_view()
-        ),
+        any_permission_required("core.user")(views.PublicKeySubmitView.as_view()),
         name="public_key_submit",
     ),
     path(
         "new_key_pair/",
-        any_permission_required("core.user")(
-            views.KeyPairCreateView.as_view()
-        ),
+        any_permission_required("core.user")(views.KeyPairCreateView.as_view()),
         name="key_pair_create",
     ),
     path(

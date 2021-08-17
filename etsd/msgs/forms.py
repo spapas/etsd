@@ -21,9 +21,10 @@ class ParticipantInlineForm(forms.ModelForm):
         label=_("Select authority"),
         required=True,
         help_text=_(
-            ' Add authorities by typing their full name/short name/email and selecting them. '
+            " Add authorities by typing their full name/short name/email and selecting them. "
         ),
     )
+
     class Meta:
         model = models.Participant
         fields = ["kind", "authority"]
@@ -50,7 +51,7 @@ class ParticipantInlineForm(forms.ModelForm):
 class MessageCreateForm(forms.ModelForm):
     class Meta:
         model = models.Message
-        fields = ["kind", "available_to_sender", "rel_message"  ]
+        fields = ["kind", "available_to_sender", "rel_message"]
 
     def clean(self):
         user = ThreadLocal.get_current_user()

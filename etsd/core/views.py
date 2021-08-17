@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseRedirect
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, TemplateView
 from authorities.models import Authority
 from .forms import AuthorityUsersModelForm
 from django.contrib import messages
@@ -60,3 +60,7 @@ class AuthorityAutocomplete(autocomplete.Select2QuerySetView):
             )
 
         return qs
+
+
+class HelpTemplateView(TemplateView):
+    template_name = "core/help.html"

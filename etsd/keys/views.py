@@ -17,8 +17,10 @@ from . import models, tables, filters, forms
 
 class AdminOrAuthorityQsMixin:
     def get_queryset(self):
-        qs = super().get_queryset().select_related(
-            'authority', 'authority__kind', 'created_by', 'modified_by'
+        qs = (
+            super()
+            .get_queryset()
+            .select_related("authority", "authority__kind", "created_by", "modified_by")
         )
         if self.request.user.has_perm("core.admin"):
             return qs
@@ -129,7 +131,7 @@ class PublicKeySubmitView(UpdateView):
         form.instance.status = "PENDING"
         form.save()
         pubk = self.object
-        
+
         email_body = send_mail_body(
             "keys/emails/awaiting_approval.txt",
             dict(
@@ -138,7 +140,7 @@ class PublicKeySubmitView(UpdateView):
             ),
         )
         send_mail(
-            subject="Public Key awaiting approval",
+            subject=_("Public Key awaiting approval"),
             message=email_body,
             from_email="noreply@hcg.gr",
             recipient_list=get_admin_emails(),
@@ -163,7 +165,7 @@ class PublicKeyAcceptRejectFormView(UpdateView):
         pubk = self.object
         if models.PublicKey.objects.get(pk=pubk.pk).status != "PENDING":
             return HttpResponseForbidden()
-        
+
         if pubk.status == "ACTIVE":
             activekeys = models.PublicKey.objects.filter(
                 authority=pubk.authority, status="ACTIVE"
@@ -184,13 +186,15 @@ class PublicKeyAcceptRejectFormView(UpdateView):
                 status=pubk.status,
             ),
         )
+
         send_mail(
-            subject="Public Key Confirmation",
+            subject=_("Public Key Confirmation"),
             message=email_body,
             from_email="noreply@hcg.gr",
             recipient_list=get_authority_users_emails(pubk.authority),
             fail_silently=False,
         )
+
         pubk.save()
         return HttpResponseRedirect(
             reverse("publickey_detail", kwargs={"pk": self.object.pk})

@@ -12,7 +12,7 @@ CACHES = {
 
 INSTALLED_APPS += ("debug_toolbar",)
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_LOG_BACKEND = "django.core.mail.backends.console.EmailBackend"
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 TEMPLATES[0]["OPTIONS"]["loaders"] = (
@@ -20,7 +20,7 @@ TEMPLATES[0]["OPTIONS"]["loaders"] = (
     "django.template.loaders.app_directories.Loader",
 )
 
-#AUTHENTICATION_BACKENDS += ("django.contrib.auth.backends.ModelBackend",)
+
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
 CSRF_COOKIE_SECURE = False  # Override CSRF to work also with http
@@ -33,7 +33,8 @@ CHECK_FILE_SIGNATURES = False
 
 AUTH_PASSWORD_VALIDATORS = []
 
-SENDFILE_BACKEND = 'sendfile.backends.development'
+SENDFILE_BACKEND = "sendfile.backends.development"
+
 
 try:
     from .local import *
