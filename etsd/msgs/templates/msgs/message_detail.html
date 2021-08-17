@@ -132,12 +132,19 @@
 {{ message_data|json_script:"message-data" }}
 
 {% endblock %}
+{% block extra_script_no_compress %}
+  <script>
+    const cipherDataFileUrl = '{% url "get_cipher_data_file" 1 %}'.slice(0,-2)
+    const cipherDataDeleteUrl = '{% url "cipherdata_delete" 1 %}'.slice(0,-2)
+    const privateKeyFingerprint = '{{ request.session.private_key_data.fingerprint }}'
+
+  </script>
+{% endblock %}
+
 {% block extra_script %}
 <script>
   const messageData = JSON.parse(document.getElementById('message-data').textContent);
   const cipherData = JSON.parse(document.getElementById('authority-cipher-data').textContent);
-
-  const privateKeyFingerprint = '{{ request.session.private_key_data.fingerprint }}'
 
   if(privateKeyFingerprint) {
     gtools.loadPrivateKeyLocal().then(
@@ -147,8 +154,7 @@
       }
     )
   }
-  const cipherDataFileUrl = '{% url "get_cipher_data_file" 1 %}'.slice(0,-2)
-  const cipherDataDeleteUrl = '{% url "cipherdata_delete" 1 %}'.slice(0,-2)
+  
 
   const decryptAndDownload = (cipher_id, data_ext) => {
     console.log("OK DOWNLOAD ", cipher_id, data_ext)
