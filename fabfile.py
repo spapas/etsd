@@ -39,8 +39,8 @@ def work():
         virtualenv("python manage.py migrate")
         virtualenv("python manage.py update_permissions")
         virtualenv("python manage.py collectstatic --noinput")
-        if env.env == "prod":
-            virtualenv("python manage.py compress")
+
+        virtualenv("python manage.py compress")
 
 
 def touch_wsgi():
