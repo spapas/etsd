@@ -14,9 +14,9 @@ EMAIL_LOG_BACKEND = "django.core.mail.backends.console.EmailBackend"
 COMPRESS_OFFLINE = True
 
 STATICFILES_FINDERS = (
-"django.contrib.staticfiles.finders.FileSystemFinder",
-"django.contrib.staticfiles.finders.AppDirectoriesFinder",
-"compressor.finders.CompressorFinder",
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
 )
 
 try:
