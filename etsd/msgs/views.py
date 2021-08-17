@@ -14,7 +14,7 @@ from django.db.models import Q, Case, Value, When, Prefetch
 from django.db.models.functions import Coalesce
 
 from django.forms.models import BaseInlineFormSet
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 
 from django.shortcuts import get_object_or_404
 from django.forms.models import BaseInlineFormSet
@@ -191,6 +191,12 @@ class MessageCreateView(CreateWithInlinesView):
     inlines = [ParticipantInline]
     form_class = forms.MessageCreateForm
 
+    def dispatch(self, request, *args, **kwargs):
+        self.authority = request.user.get_authority()
+        if not self.authority:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
     def forms_valid(self, form, inlines):
         r = super().forms_valid(form, inlines)
 
@@ -204,7 +210,7 @@ class MessageCreateView(CreateWithInlinesView):
         # be created automatically from the formset save
         models.Participant.objects.create(
             message=msg,
-            authority=self.request.user.get_authority(),
+            authority=self.authority,
             kind="SENDER",
             status="READ",
         )
