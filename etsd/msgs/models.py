@@ -18,9 +18,6 @@ MESSAGE_KIND_CHOICES = (
 MESSAGE_STATUS_CHOICES = (
     ("DRAFT", _("Draft")),
     ("SENT", _("Sent")),
-    # ("READ", _("Read")),
-    # ("ARCHIVED", _("Archived")),
-    # ("DELETED", _("Deleted")),
 )
 
 
@@ -42,9 +39,9 @@ class Message(UserDateAbstractModel):
     public key for the data to be available to him.
     A message can be either
     * NEW (starts a new conversation)
-    * REPLY (replies to an existin message)
+    * REPLY (replies to an existing message)
     * FIX (fixes an error in a previous message)
-    For the REPLY an FIX kinds tobe selected the rel_message must also be filled.
+    For the REPLY an FIX kinds to be selected the rel_message must also be filled.
     A message can have the following statuses:
     * DRAFT (message recipients have been selected)
     * WITH_DATA (message has data) TODO: ??
@@ -64,7 +61,8 @@ class Message(UserDateAbstractModel):
         default=True,
         verbose_name=_("Message is available to sender"),
         help_text=_(
-            "The message is also encrypted with the sender's public key. You need to select this to be able to see the data of your message."
+            """The message is also encrypted with the sender's public key. 
+            You need to select this to be able to see the data of your message."""
         ),
     )
     kind = models.CharField(
