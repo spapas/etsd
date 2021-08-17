@@ -140,7 +140,7 @@ class PublicKeySubmitView(UpdateView):
             ),
         )
         send_mail(
-            subject="Public Key awaiting approval",
+            subject=_("Public Key awaiting approval"),
             message=email_body,
             from_email="noreply@hcg.gr",
             recipient_list=get_admin_emails(),
@@ -183,13 +183,15 @@ class PublicKeyAcceptRejectFormView(UpdateView):
                 status=pubk.status,
             ),
         )
+
         send_mail(
-            subject="Public Key Confirmation",
+            subject=_("Public Key Confirmation"),
             message=email_body,
             from_email="noreply@hcg.gr",
             recipient_list=get_authority_users_emails(pubk.authority),
             fail_silently=False,
         )
+
         pubk.save()
         return HttpResponseRedirect(
             reverse("publickey_detail", kwargs={"pk": self.object.pk})
