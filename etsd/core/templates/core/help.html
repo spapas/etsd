@@ -8,7 +8,32 @@
 {% block page_title %}{% blocktrans %}Help{% endblocktrans %}{% endblock %}
 {% block page_content %}
 
-
+<h2>{% trans "Key management" %}</h2>
+{% url "public_key_list" as public_key_list %}
+{% url "key_pair_create" as key_pair_create %}
+{% blocktrans %}
+<p>
+If your Authority needs to receive data then you must generate a new private/public key pair. To do this, 
+go to the <a href='{{ public_key_list }}'>Public Key list</a> page and click the 
+<a href='{{ key_pair_create }}'>New key pair</a> button.
+</p>
+<p>
+In this form you need to first enter a proper passphrase that will be used to encrypt your private key. Just follow
+the on-screen instructions. Then you have to press the <strong>Generate Key Pair</strong> button to actually generate 
+the key pair in your browser. Then you'll see that the <strong>"Download Private Key"</strong> button will be enabled
+and you can download the private key using this. The downloaded private key will be encrypted using the passphrase you 
+entered so you need both of them. If you miss one of them, you'll need to generate a new key pair. 
+</p>
+<p>
+Please be extra careful when downloading the private key. It is a file that contains your private key and should
+only be used to decrypt your data. If someone gets hold of this file and its passphrase, they can decrypt your data.
+It is recommended that you store the private key in a safe place and also write down the passphrase and keep it in a 
+*different* place or even better just try to remember it without writing it anywhere.
+</p>
+<p>
+After you have downloaded the private key you must press the <strong>Submit</strong> button to save the public key 
+that will be used to encrypt your Authority data in the server.
+{% endblocktrans %}
 
 {% endblock %}
 
