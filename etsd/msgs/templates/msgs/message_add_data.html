@@ -32,13 +32,19 @@
 {% endblock %}
 
 
+{% block extra_script_no_compress %}
+<script>
+  const requestPath = '{{ request.path }}'
+</script>
+{% endblock %}
+
 {% block extra_script %}
 <script>
   const getFileExt = fname=> fname.slice((Math.max(0, fname.lastIndexOf(".")) || Infinity) + 1);
   const fileData = {}
   const participantKeys = JSON.parse(document.getElementById('participant-keys').textContent);
   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-  const requestPath = '{{ request.path }}'
+
 
   $(function() {
     $('#submitButton').prop('disabled', true)
@@ -104,10 +110,6 @@
         fd.append('cipher' , new Blob([pk.cipher], {type: 'application/pgp-encrypted'}))
         fd.append('participant_key_id' , pk.id)
       })
-      
-      for(var pair of fd.entries()) {
-        console.log(pair[0]+ ', '+ pair[1]);
-      }
 
       $.ajax({
         url: requestPath,
@@ -142,7 +144,6 @@
           })
           document.getElementById('file').value=''
         }
-
       })
     })
 

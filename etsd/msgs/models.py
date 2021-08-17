@@ -141,8 +141,8 @@ class Message(UserDateAbstractModel):
 
 
 PARTICIPANT_KIND_CHOICES = (
-    ("RECIPIENT", _("Recipient")),
-    ("CC", _("Carbon Copy")),
+    ("RECIPIENT", _("Recipient (to)")),
+    ("CC", _("Carbon Copy (cc)")),
     ("SENDER", _("Sender")),
 )
 

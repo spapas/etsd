@@ -11,9 +11,15 @@
 <h2>{% trans "Key management" %}</h2>
 {% url "public_key_list" as public_key_list %}
 {% url "key_pair_create" as key_pair_create %}
+{% url "privatekey_load" as privatekey_load %}
 {% blocktrans %}
 <p>
-If your Authority needs to receive data then you must generate a new private/public key pair. To do this, 
+If your Authority needs to receive data then you must generate a new private/public key pair and submit
+it for approval.
+</p>
+<h4>Key pair generation</h4>
+<p>
+To do this, 
 go to the <a href='{{ public_key_list }}'>Public Key list</a> page and click the 
 <a href='{{ key_pair_create }}'>New key pair</a> button.
 </p>
@@ -33,6 +39,45 @@ It is recommended that you store the private key in a safe place and also write 
 <p>
 After you have downloaded the private key you must press the <strong>Submit</strong> button to save the public key 
 that will be used to encrypt your Authority data in the server.
+</p>
+<h4>Key pair approval </h4>
+<p>
+The key pair you just generated must be approved for usage. To start the approval process you first need to 
+<a href='{{ privatekey_load }}'>load the private key</a> in your browser. To load the key, select the private key 
+file and enter the passphrase to the field. Then press the <strong>Validate</strong> button to make sure that the 
+private key is properly decrypted. Finally, press the <strong>Load private key</strong> button to actually load the 
+key to your browser's session.
+</p>
+<p> 
+After you have loaded the private key you can submit the public key to the server for approval. To do this,
+go to the <a href='{{ public_key_list }}'>Public Key list</a> page, find the key you just generated and click the
+<strong>Submit for approval</strong> button (notice that this button will be enabled only if the private key is
+loaded). In the next screen, you need to upload a properly signed document that declares that this is 
+the key you want to use for your Authority. After you have selected the document just press submit.
+</p>
+<p>
+Your approval request will be submitted to the administrators of the application; after they approve this your 
+authority will be able to receive encrypted data.
+</p>
+{% endblocktrans %}
+
+
+<h2>{% trans "Encrypted messaging" %}</h2>
+{% url "participant_list" as participant_list %}
+{% url "message_create" as message_create %}
+{% url "privatekey_load" as privatekey_load %}
+{% blocktrans %}
+<h4>Sending messages</h4>
+<p>
+To send an encrypted message you need to go to the <a href='{{ participant_list }}'>Message list</a> page and click the 
+<a href='{{ message_create }}'>New message</a> button. The message can be a New one (not related to another message),
+a Reply to an existing message or a Fix to an existing message. If you select Reply or Fix you also need to select the
+related message. To add the message recipients, click the <strong>Add</strong> button and select if the recipient is 
+a To or a Carbon Copy (cc) and receiving Authority from the autocomplete list. You can add as many recipients as you want.
+When you are finished press the <strong>Submit</strong> button.
+</p>
+<p>
+</p>
 {% endblocktrans %}
 
 {% endblock %}
