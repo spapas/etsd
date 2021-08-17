@@ -32,14 +32,13 @@
 {% endblock %}
 
 
-
 {% block extra_script %}
 <script>
   const getFileExt = fname=> fname.slice((Math.max(0, fname.lastIndexOf(".")) || Infinity) + 1);
   const fileData = {}
   const participantKeys = JSON.parse(document.getElementById('participant-keys').textContent);
   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
+  const requestPath = '{{ request.path }}'
 
   $(function() {
     $('#submitButton').prop('disabled', true)
@@ -111,7 +110,7 @@
       }
 
       $.ajax({
-        url: '{{ request.path }}',
+        url: requestPath,
         type: 'POST',
         data: fd,
         headers: {'X-CSRFToken': csrftoken},
