@@ -47,6 +47,7 @@
         <tr>
           <th>{% trans "Authority" %}</th>
           <th>{% trans "Kind" %}</th>
+          <th>{% trans "Public Key Fingerprint" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -54,6 +55,15 @@
           <tr>
             <td>{{ mp.authority }}</td>
             <td>{{ mp.get_kind_display }}</td>
+            <td>
+              {% if mp.participantkey %}
+                <a href='{{ mp.participantkey.public_key.confirmation_document.path }}'>
+                  {{ mp.participantkey.public_key }}
+                </a>
+              {% else %}
+                {% trans "Data will not be encrypted" %}
+              {% endif %}
+            </td>
           </tr>
         {% endfor %}
       </tbody>
@@ -230,7 +240,7 @@
             :`<span class='text-danger'>
                 ${gettext('Not possible to decrypt. Please make sure you have loaded the proper private key')}
               </span>`
-            ):`<span class='text-danger'>Cipher data available</span>`
+            ):`<span class='text-danger'>${gettext('Cipher data not available')}</span>`
           }</td>
           <td>
             ${cd?`<a onclick='return deleteCipherData(${cd.id})' class='btn btn-danger' href='#'>DELETE</a>`:'-'}
