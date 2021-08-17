@@ -67,6 +67,12 @@ authority will be able to receive encrypted data.
 {% url "message_create" as message_create %}
 {% url "privatekey_load" as privatekey_load %}
 {% blocktrans %}
+<p>Using this app you can transmit messages between Authorities. 
+All message data is encrypted using public key cryptography: The public key of the receiving 
+authority is used to encrypt the message. This authority will then use its private key to 
+decrypt it. All the encrypting/decrypting is done on the browser-side meaning that the private
+keys of the authorities and the plaintext (non-encrypted) data files always stay in the 
+user's computer and never reach the server.</p>
 <h4>Sending messages</h4>
 <p>
 To send an encrypted message you need to go to the <a href='{{ participant_list }}'>Message list</a> page and click the 
