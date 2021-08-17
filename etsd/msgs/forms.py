@@ -49,8 +49,8 @@ class ParticipantInlineForm(forms.ModelForm):
 
 
 class MessageCreateForm(forms.ModelForm):
-    rel_message = forms.ModelMultipleChoiceField(
-        widget=autocomplete.ModelSelect2Multiple(
+    rel_message = forms.ModelChoiceField(
+        widget=autocomplete.ModelSelect2(
             url="message-autocomplete",
         ),
         queryset=models.Message.objects.all(),
