@@ -3,6 +3,13 @@
 {% load crispy_forms_tags %}
 {% load i18n static %}
 
+{% block extra_style %}
+  <style>
+  .select2{
+    all:inherit !important;
+  }
+  </style>
+{% endblock %}
 
 {% block head_title %}{% blocktrans %}Edit Authority Data{% endblocktrans %}{% endblock %}
 {% block page_title %}{% blocktrans %}Edit Authority Data{% endblocktrans %}{% endblock %}
