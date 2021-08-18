@@ -59,3 +59,11 @@ no sensitive data would be breached.
 When a user of the receiving authority logs in
 he can choose to submit the authority private key so
 it can be used to decrypt the authority data.
+
+# Installation
+
+This is a rather simple Django application. It has *no* external dependencies
+beyond Django and a database. You can even use sqlite3 if you wanted but I'd 
+recommend something like Postgresql. All other dependencies are django
+packages that can be installed through the requirements/*.txt (there are 
+different files for dev/uat/prod).
