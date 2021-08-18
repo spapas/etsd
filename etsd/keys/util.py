@@ -23,20 +23,20 @@ def check_signatures(file, arr_of_number_of_signatures):
             for info in sinfo:
                 if not info["signatureVerified"] == "YES" or info["isSelfSigned"]:
                     return _(
-                        "Το αρχείο περιέχει εσφαλμένη υπογραφή! Πρέπει να υπογραφεί ξανά!"
+                        "The signature is invalid!"
                     )
         else:
             return _(
-                "Το αρχείο που ανεβάζετε δεν έχει τον κατάλληλο αριθμό υπογραφών. Το αρχείο πρέπει να έχει {0} υπογραφές και έχει {1}."
+                "The file you are uploading does not ave the correct number of signatures. It must have {0} signatures but it has {1}."
             ).format(
-                _(" ή ").join(str(x) for x in arr_of_number_of_signatures), len(sinfo)
+                _(" or ").join(str(x) for x in arr_of_number_of_signatures), len(sinfo)
             )
 
     else:
         if "contain versioninfo" in j["message"]:
-            return _("Το αρχείο πρέπει να είναι μορφής PDF!")
+            return _("This must be a PDF file!")
         if "exception" in j["message"]:
             return _(
-                "Σφάλμα κατά την ανάγνωση του αρχείου! Παρακαλούμε επιβεβαιώσατε ότι είναι κατάλληλης μορφής και έχει υπογραφεί με το σωστό πρόγραμμα!"
+                "Error while trying to read the file! Please make sure it has been signed properly."
             )
         return j["message"]

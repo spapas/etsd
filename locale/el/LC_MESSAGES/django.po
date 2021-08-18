@@ -671,49 +671,24 @@ msgstr ""
 
 #: .\etsd\keys\templates\keys\publickey_form.html:63
 msgid "Validate"
-msgstr ""
+msgstr "Επιβεβαίωση"
 
 #: .\etsd\keys\templates\keys\publickey_list.html:5
 #: .\etsd\keys\templates\keys\publickey_list.html:7
 msgid "Public key list"
-msgstr ""
+msgstr "Κατάλογος δημοσίων κλειδιών"
 
 #: .\etsd\keys\templates\keys\publickey_list.html:12
 msgid "New key pair"
-msgstr ""
-
-#: .\etsd\keys\util.py:26
-msgid "Το αρχείο περιέχει εσφαλμένη υπογραφή! Πρέπει να υπογραφεί ξανά!"
-msgstr ""
-
-#: .\etsd\keys\util.py:30
-#, python-brace-format
-msgid ""
-"Το αρχείο που ανεβάζετε δεν έχει τον κατάλληλο αριθμό υπογραφών. Το αρχείο "
-"πρέπει να έχει {0} υπογραφές και έχει {1}."
-msgstr ""
-
-#: .\etsd\keys\util.py:32
-msgid " ή "
-msgstr ""
-
-#: .\etsd\keys\util.py:37
-msgid "Το αρχείο πρέπει να είναι μορφής PDF!"
-msgstr ""
-
-#: .\etsd\keys\util.py:40
-msgid ""
-"Σφάλμα κατά την ανάγνωση του αρχείου! Παρακαλούμε επιβεβαιώσατε ότι είναι "
-"κατάλληλης μορφής και έχει υπογραφεί με το σωστό πρόγραμμα!"
-msgstr ""
+msgstr "Νέο ζεύγος κλειδιών"
 
 #: .\etsd\keys\views.py:67
 msgid "Key pair creation is not allowed from users without an authority!"
-msgstr ""
+msgstr "Δεν επιτρέπεται η δημιουργία ζεύγους κλειδιών σε χρήστες χωρίς Υπηρεσία!"
 
 #: .\etsd\keys\views.py:74
 msgid "Your authority must have an email!"
-msgstr ""
+msgstr "Η Υπηρεσία σας δεν έχει email!"
 
 #: .\etsd\keys\views.py:96
 msgid ""
@@ -727,6 +702,7 @@ msgstr ""
 msgid ""
 "Public key approval submit is not allowed from users without an authority!"
 msgstr ""
+"Η υποβολή δημοσίου κλειδιού για έγκριση δεν επιτρέπεται σε χρήστες χωρίς Υπηρεσία!"
 
 #: .\etsd\keys\views.py:117
 #, python-brace-format
@@ -743,7 +719,7 @@ msgstr ""
 
 #: .\etsd\keys\views.py:143
 msgid "Public Key awaiting approval"
-msgstr ""
+msgstr "Δημόσιο κλειδί αναμένει έγκριση"
 
 #: .\etsd\keys\views.py:153
 msgid ""
@@ -753,88 +729,88 @@ msgstr ""
 
 #: .\etsd\keys\views.py:191
 msgid "Public Key Confirmation"
-msgstr ""
+msgstr "Επιβεβαίωση δημοσίου κλειδιού"
 
 #: .\etsd\keys\views.py:219
 #, python-brace-format
 msgid "Private Key has been loaded. User id: {0}, fingerprint {1}"
-msgstr ""
+msgstr "Το ιδιωτικό κλειδί φορτώθηκε. Κωδικός: {0}, αποτύπωμα {1}"
 
 #: .\etsd\msgs\forms.py:21
 msgid "Select authority"
-msgstr ""
+msgstr "Επιλογή Υπηρεσίας"
 
 #: .\etsd\msgs\forms.py:24
 msgid ""
 " Add authorities by typing their full name/short name/email and selecting "
 "them. "
-msgstr ""
+msgstr "Προσθέστε Υπηρεσίες αναζητώντας τες με το όνομα/email τους"
 
 #: .\etsd\msgs\forms.py:47
 msgid "This authority does not have an active public key!"
-msgstr ""
+msgstr "Η Υπηρεσία αυτή δεν έχει ενεργό δημόσιο κλειδί"
 
 #: .\etsd\msgs\forms.py:57
 msgid "Select related message"
-msgstr ""
+msgstr "Επιλέξατε το σχετικό μήνυμα"
 
 #: .\etsd\msgs\forms.py:60
 msgid ""
 "Add a related message by typing its protocol/protocol year and selecting "
 "them. "
-msgstr ""
+msgstr "Προσθέστε ένα σχετικό μήνυμα κάνοντας αναζήτηση με τον αρ. πρωτοκόλλου του"
 
 #: .\etsd\msgs\forms.py:76
 msgid "Your authority does not have an active public key!"
-msgstr ""
+msgstr "Η Υπηρεσία σας δεν έχει ενεργό δημόσιο κλειδί"
 
 #: .\etsd\msgs\forms.py:84
 msgid "You cannot add a related message when message kind is New!"
-msgstr ""
+msgstr "Δε μπορείτε να επιλέξετε σχετικό μήνυμα όταν το είδος είναι Νέο!"
 
 #: .\etsd\msgs\forms.py:89
 msgid "You must provide a related message when message kind is not New!"
-msgstr ""
+msgstr "Πρέπει να επιλέξετε σχετικό μήνυμα όταν το είδος δεν είναι Νέο!"
 
 #: .\etsd\msgs\models.py:13
 msgid "New"
-msgstr ""
+msgstr "Νέο"
 
 #: .\etsd\msgs\models.py:14
 msgid "Reply"
-msgstr ""
+msgstr "Απάντηση"
 
 #: .\etsd\msgs\models.py:15
 msgid "Fix"
-msgstr ""
+msgstr "Ορθή επανάληψη"
 
 #: .\etsd\msgs\models.py:19
 msgid "Draft"
-msgstr ""
+msgstr "Πρόχειρο"
 
 #: .\etsd\msgs\models.py:20
 msgid "Sent"
-msgstr ""
+msgstr "Απεστελμένο"
 
 #: .\etsd\msgs\models.py:26 .\templates\authorities\authority_detail.html:8
 msgid "Name"
-msgstr ""
+msgstr "Όνομα"
 
 #: .\etsd\msgs\models.py:27
 msgid "Is active"
-msgstr ""
+msgstr "Ενεργό"
 
 #: .\etsd\msgs\models.py:30
 msgid "Message Category"
-msgstr ""
+msgstr "Κατηγορία μηνύματος"
 
 #: .\etsd\msgs\models.py:31
 msgid "Message Categories"
-msgstr ""
+msgstr "Κατηγορίες μηνυμάτων"
 
 #: .\etsd\msgs\models.py:62
 msgid "Message is available to sender"
-msgstr ""
+msgstr "Το μήνυμα δεν είναι διαθέσιμο"
 
 #: .\etsd\msgs\models.py:64
 msgid ""
@@ -842,103 +818,106 @@ msgid ""
 "            You need to select this to be able to see the data of your "
 "message."
 msgstr ""
+"Το μήνυμα θα κρυπτογραφηθεί και με το δημόσιο κλειδί του αποστολέα . \n"
+"Πρέπει να επιλέξετε αυτή την επιλογή αν θέλετε να βλέπετε τα δεδομένα του μηνύματός σας."
 
 #: .\etsd\msgs\models.py:72
 msgid ""
 "If you select Reply or Fix you must also select the related message to which "
 "you reply or fix"
-msgstr ""
+msgstr "Αν επιλέξετε Απάντηση ή Ορθή Επανάληψη πρέπει να επιλέξετε και το σχετικό "
+"μήνυμα"
 
 #: .\etsd\msgs\models.py:80 .\etsd\msgs\templates\msgs\message_detail.html:39
 msgid "Category"
-msgstr ""
+msgstr "Κατηγορία"
 
 #: .\etsd\msgs\models.py:90 .\etsd\msgs\tables.py:91
 #: .\etsd\msgs\templates\msgs\message_detail.html:34
 msgid "Related message"
-msgstr ""
+msgstr "Σχετικό μήνυμα"
 
 #: .\etsd\msgs\models.py:91
 msgid "Please select a related message if needed"
-msgstr ""
+msgstr "Επιλέξατε σχετικό μήνυμα αν χρειάζεται"
 
 #: .\etsd\msgs\models.py:94 .\etsd\msgs\templates\msgs\message_detail.html:40
 msgid "Sent on"
-msgstr ""
+msgstr "Ημ. αποστολής"
 
 #: .\etsd\msgs\models.py:103 .\etsd\msgs\models.py:167
 #: .\etsd\msgs\models.py:220
 msgid "Message"
-msgstr ""
+msgstr "Μήνυμα"
 
 #: .\etsd\msgs\models.py:104 .\templates\partials\_nav.html:16
 msgid "Messages"
-msgstr ""
+msgstr "Μηνύματα"
 
 #: .\etsd\msgs\models.py:142
 msgid "Recipient (to)"
-msgstr ""
+msgstr "Προς"
 
 #: .\etsd\msgs\models.py:143
 msgid "Carbon Copy (cc)"
-msgstr ""
+msgstr "CC"
 
 #: .\etsd\msgs\models.py:144
 msgid "Sender"
-msgstr ""
+msgstr "Αποστολέας"
 
 #: .\etsd\msgs\models.py:148
 msgid "Unread"
-msgstr ""
+msgstr "Μη διαβασμένο"
 
 #: .\etsd\msgs\models.py:149
 msgid "Read"
-msgstr ""
+msgstr "Διαβασμένο"
 
 #: .\etsd\msgs\models.py:150
 msgid "Archived"
-msgstr ""
+msgstr "Αρχειοθετημένο"
 
 #: .\etsd\msgs\models.py:179
 msgid "Message participant"
-msgstr ""
+msgstr "Συμμετέχων"
 
 #: .\etsd\msgs\models.py:180
 msgid "Message participants"
-msgstr ""
+msgstr "Συμμετέχοντες"
 
 #: .\etsd\msgs\models.py:203
 msgid "Participant key"
-msgstr ""
+msgstr "Κλειδί συμμετέχοντα"
 
 #: .\etsd\msgs\models.py:204
 msgid "Participant keys"
-msgstr ""
+msgstr "Κλειδί συμμετεχόντων"
 
 #: .\etsd\msgs\models.py:229 .\etsd\msgs\models.py:230
 #: .\etsd\msgs\models.py:283
 msgid "Message data"
-msgstr ""
+msgstr "Δεδομένα μηνύματος"
 
 #: .\etsd\msgs\models.py:265
 msgid "Encrypted data"
-msgstr ""
+msgstr "Κρυπτογραφημένα δεδομένα"
 
 #: .\etsd\msgs\models.py:272 .\etsd\msgs\models.py:273
 msgid "Cipher data"
-msgstr ""
+msgstr "Κρυπτογραφημένα δεδομένα"
 
 #: .\etsd\msgs\models.py:288
 msgid "Message data access"
-msgstr ""
+msgstr "Πρόσβαση σε δεδομένα"
 
 #: .\etsd\msgs\models.py:289
 msgid "Message data accesses"
-msgstr ""
+msgstr "Προσβάσεις σε δεδομένα"
 
 #: .\etsd\msgs\tables.py:18 .\etsd\msgs\tables.py:70
 msgid "Draft message"
-msgstr ""
+msgstr "Πρόχειρο μήνυμα"
 
 #: .\etsd\msgs\templates\msgs\emails\new_message.txt:4
 #, python-format
@@ -947,6 +926,9 @@ msgid ""
 " Authority %(sender)s has sent you a new encrypted message.\n"
 " "
 msgstr ""
+" \n"
+" Η Υπηρεσία %(sender)s σας έστειλε ένα νέο κρυπτογραφημένο μήνυμα.\n"
+" "
 
 #: .\etsd\msgs\templates\msgs\message_add_data.html:5
 #: .\etsd\msgs\templates\msgs\message_add_data.html:6
