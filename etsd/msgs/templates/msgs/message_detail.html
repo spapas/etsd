@@ -251,7 +251,12 @@
       $('#cipher-data-container').html(cipherDataContent)
     }
 
-    confirmFormAction({sel: '#sendForm', message: gettext('Are you sure you want to send the message?'), title: gettext('Send message')})
+    confirmFormAction({
+      sel: '#sendForm', 
+      message: gettext('Are you sure you want to send the message?'), 
+      title: gettext('Send message'),
+      color: 'success'
+    })
     confirmDelete('#deleteForm')
 
   })

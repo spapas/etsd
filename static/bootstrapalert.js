@@ -89,12 +89,13 @@ const confirmDelete = (cls) => document.querySelectorAll(cls).forEach(el => {
   })
 })
 
-const confirmFormAction = ({sel, message, title}) => document.querySelectorAll(sel).forEach(el => {
+const confirmFormAction = ({sel, message, title, color}) => document.querySelectorAll(sel).forEach(el => {
   el.addEventListener('submit', (evt) => {
     evt.preventDefault();
     bootstrap5Alert({
       message,
       title,
+      color,
       actionText: gettext('Yes'),
       cb: () => {
         console.log("Submit form");
