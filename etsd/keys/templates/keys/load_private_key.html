@@ -104,7 +104,6 @@ $(function() {
 
   $('#validateButton').click(function() { 
 
-
     let files = $('#file').prop('files');
     if(files.length == 0) {
       bootstrap5Alert({'message': gettext("Please select a private key file"), 'title': gettext("ERROR")})
@@ -127,7 +126,7 @@ $(function() {
         $('#id_creation_time').val(key.getCreationTime().toLocaleString('el'))
         $('#submitButton').prop('disabled', false)
         bootstrap5Alert({
-          'message': gettext("Private key succesfully validated! Please press the Load private key button to load it in your browser session."), 
+          'message': gettext("Private key successfully validated! Please press the Load private key button to load it in your browser session."), 
           'title': gettext("Success"),
           'color': 'success'
         })

@@ -8,17 +8,46 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-10 11:27+0300\n"
+"POT-Creation-Date: 2021-08-18 13:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\etsd\core\models.py:17 .\etsd\keys\templates\keys\publickey_detail.html:16
+#: .\etsd\core\forms.py:34
+msgid "User {0} cannot be added! No such ldap user."
+msgstr ""
+
+#: .\etsd\core\forms.py:40
+msgid "{0} is an authority and cannot be added as a user!"
+msgstr ""
+
+#: .\etsd\core\forms.py:52
+msgid "Select users"
+msgstr ""
+
+#: .\etsd\core\forms.py:55
+msgid ""
+" You can remove users by pressing the \"x\" next to their name or add more "
+"by typing their username/last name/email and selecting them. "
+msgstr ""
+
+#: .\etsd\core\forms.py:83
+msgid ""
+"User {0} belongs to authority {1} and cannot be added! \n"
+"                      Remove {0} from {1} and try again."
+msgstr ""
+
+#: .\etsd\core\forms.py:92
+msgid "You cant remove yourself!"
+msgstr ""
+
+#: .\etsd\core\models.py:17
+#: .\etsd\keys\templates\keys\publickey_detail.html:16
 msgid "Created on"
 msgstr ""
 
@@ -34,111 +63,377 @@ msgstr ""
 msgid "Modified by"
 msgstr ""
 
-#: .\etsd\keys\forms.py:22
-msgid "Public key with that fingerprint already exists."
+#: .\etsd\core\templates\core\edit_authority_data.html:14
+#: .\etsd\core\templates\core\edit_authority_data.html:15
+#: .\templates\home.html:85
+msgid "Edit Authority Data"
 msgstr ""
 
-#: .\etsd\keys\forms.py:28
-msgid "Invalid public key."
-msgstr ""
-
-#: .\etsd\keys\forms.py:33
-msgid "Submitted public key fingerprint is not correct!"
-msgstr ""
-
-#: .\etsd\keys\forms.py:42
-msgid "Confirmation document is required."
-msgstr ""
-
-#: .\etsd\keys\models.py:18
-msgid "Key text"
-msgstr ""
-
-#: .\etsd\keys\models.py:19
-msgid "The key text in armored ASCII format"
-msgstr ""
-
-#: .\etsd\keys\models.py:23
-msgid "Key fingerprint"
-msgstr ""
-
-#: .\etsd\keys\models.py:26
-msgid "The fingerprint of the key"
-msgstr ""
-
-#: .\etsd\keys\models.py:30 .\etsd\keys\templates\keys\publickey_detail.html:15
-msgid "Status"
-msgstr ""
-
-#: .\etsd\keys\models.py:34
-msgid "Approval status of key"
-msgstr ""
-
-#: .\etsd\keys\models.py:38 .\etsd\keys\templates\keys\publickey_detail.html:18
-msgid "Confirmation document"
-msgstr ""
-
-#: .\etsd\keys\models.py:41
-msgid "Approval date"
-msgstr ""
-
-#: .\etsd\keys\models.py:48
-msgid "Public key"
-msgstr ""
-
-#: .\etsd\keys\models.py:49
-msgid "Public keys"
-msgstr ""
-
-#: .\etsd\keys\templates\keys\key_pair_create.html:12
-msgid "Authority:"
-msgstr ""
-
-#: .\etsd\keys\templates\keys\key_pair_create.html:17
+#: .\etsd\core\templates\core\edit_authority_data.html:19
+#, python-format
 msgid ""
 "\n"
-"        <p>\n"
-"        You can submit a new public key through this form. The publickey "
-"must be in the ASCII armored format i.e it \n"
-"        should start with <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> "
-"contain the key data in printable ASCII\n"
-"        format (base64 encoded) and end with <code>-----END PGP PUBLIC KEY "
-"BLOCK-----</code>.\n"
-"        </p>\n"
-"        \n"
-"        </p>\n"
-"      "
+"  <b>Here you can update Authority's %(auth)s active users and email. </b>\n"
+"  "
 msgstr ""
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:34
-msgid "Passphrase"
-msgstr ""
-
-#: .\etsd\keys\templates\keys\key_pair_create.html:51
-msgid "Generate Key Pair"
-msgstr ""
-
-#: .\etsd\keys\templates\keys\key_pair_create.html:52
-msgid "Download Private Key"
-msgstr ""
-
-#: .\etsd\keys\templates\keys\key_pair_create.html:53
-#: .\etsd\keys\templates\keys\publickey_form.html:48
+#: .\etsd\core\templates\core\edit_authority_data.html:27
+#: .\etsd\keys\templates\keys\key_pair_create.html:101
+#: .\etsd\keys\templates\keys\publickey_form.html:64
+#: .\etsd\msgs\templates\msgs\message_add_data.html:25
+#: .\etsd\msgs\templates\msgs\message_form.html:56
 #: .\templates\authorities\authority_form.html:11
 msgid "Submit"
 msgstr ""
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:54
-#: .\etsd\keys\templates\keys\load_private_key.html:76
-#: .\etsd\keys\templates\keys\publickey_form.html:49
+#: .\etsd\core\templates\core\edit_authority_data.html:28
+#: .\etsd\keys\templates\keys\key_pair_create.html:102
+#: .\etsd\keys\templates\keys\load_private_key.html:86
+#: .\etsd\keys\templates\keys\publickey_detail.html:69
+#: .\etsd\keys\templates\keys\publickey_form.html:65
+#: .\etsd\msgs\templates\msgs\message_add_data.html:27
+#: .\etsd\msgs\templates\msgs\message_detail.html:108
+#: .\etsd\msgs\templates\msgs\message_form.html:57
 #: .\templates\authorities\authority_detail.html:19
 #: .\templates\authorities\authority_form.html:12
 msgid "Return"
 msgstr ""
 
+#: .\etsd\core\templates\core\help.html:7
+#: .\etsd\core\templates\core\help.html:8 .\templates\partials\_nav.html:35
+msgid "Help"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:11 .\templates\home.html:41
+msgid "Key management"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:15
+#, python-format
+msgid ""
+"\n"
+"<p>\n"
+"If your Authority needs to receive data then you must generate a new private/"
+"public key pair and submit\n"
+"it for approval.\n"
+"</p>\n"
+"<h4>Key pair generation</h4>\n"
+"<p>\n"
+"To do this, \n"
+"go to the <a href='%(public_key_list)s'>Public Key list</a> page and click "
+"the \n"
+"<a href='%(key_pair_create)s'>New key pair</a> button.\n"
+"</p>\n"
+"<p>\n"
+"In this form you need to first enter a proper passphrase that will be used "
+"to encrypt your private key. Just follow\n"
+"the on-screen instructions. Then you have to press the <strong>Generate Key "
+"Pair</strong> button to actually generate \n"
+"the key pair in your browser. Then you'll see that the <strong>\"Download "
+"Private Key\"</strong> button will be enabled\n"
+"and you can download the private key using this. The downloaded private key "
+"will be encrypted using the passphrase you \n"
+"entered so you need both of them. If you miss one of them, you'll need to "
+"generate a new key pair. \n"
+"</p>\n"
+"<p>\n"
+"Please be extra careful when downloading the private key. It is a file that "
+"contains your private key and should\n"
+"only be used to decrypt your data. If someone gets hold of this file and its "
+"passphrase, they can decrypt your data.\n"
+"It is recommended that you store the private key in a safe place and also "
+"write down the passphrase and keep it in a \n"
+"*different* place or even better just try to remember it without writing it "
+"anywhere.\n"
+"</p>\n"
+"<p>\n"
+"After you have downloaded the private key you must press the <strong>Submit</"
+"strong> button to save the public key \n"
+"that will be used to encrypt your Authority data in the server.\n"
+"</p>\n"
+"<h4>Key pair approval </h4>\n"
+"<p>\n"
+"The key pair you just generated must be approved for usage. To start the "
+"approval process you first need to \n"
+"<a href='%(privatekey_load)s'>load the private key</a> in your browser. To "
+"load the key, select the private key \n"
+"file and enter the passphrase to the field. Then press the <strong>Validate</"
+"strong> button to make sure that the \n"
+"private key is properly decrypted. Finally, press the <strong>Load private "
+"key</strong> button to actually load the \n"
+"key to your browser's session.\n"
+"</p>\n"
+"<p> \n"
+"After you have loaded the private key you can submit the public key to the "
+"server for approval. To do this,\n"
+"go to the <a href='%(public_key_list)s'>Public Key list</a> page, find the "
+"key you just generated and click the\n"
+"<strong>Submit for approval</strong> button (notice that this button will be "
+"enabled only if the private key is\n"
+"loaded). In the next screen, you need to upload a properly signed document "
+"that declares that this is \n"
+"the key you want to use for your Authority. After you have selected the "
+"document just press submit.\n"
+"</p>\n"
+"<p>\n"
+"Your approval request will be submitted to the administrators of the "
+"application; after they approve this your \n"
+"authority will be able to receive encrypted data.\n"
+"</p>\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:65 .\templates\home.html:22
+msgid "Encrypted messaging"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:69
+#, python-format
+msgid ""
+"\n"
+"<p>Using this app you can transmit messages between Authorities. \n"
+"All message data is encrypted using public key cryptography: The public key "
+"of the receiving \n"
+"authority is used to encrypt the message. This authority will then use its "
+"private key to \n"
+"decrypt it. All the encrypting/decrypting is done on the browser-side "
+"meaning that the private\n"
+"keys of the authorities and the plaintext (non-encrypted) data files always "
+"stay in the \n"
+"user's computer and never reach the server.</p>\n"
+"<h4>Sending messages</h4>\n"
+"<p>\n"
+"To send an encrypted message you need to go to the <a href='%"
+"(participant_list)s'>Message list</a> page and click the \n"
+"<a href='%(message_create)s'>New message</a> button. The message can be a "
+"New one (not related to another message),\n"
+"a Reply to an existing message or a Fix to an existing message. If you "
+"select Reply or Fix you also need to select the\n"
+"related message. If \"Message is available to sender\" checkbox is selected "
+"the data of the message will also be encrypted \n"
+"with the sender's public key so it will be saved to the server and be "
+"available to the sender to decrypt it. This checkbox \n"
+"cannot be selected if the sender does not have an approved public key.\n"
+"</p>\n"
+"<p>To add the message recipients, click the <strong>Add</strong> button and "
+"select if the recipient is \n"
+"a To or a Carbon Copy (cc) and receiving Authority from the autocomplete "
+"list. \n"
+"Notice that only Authorities that have an approved \n"
+"public key can be selected here.\n"
+"You can add as many recipients as you want.\n"
+"When you are finished press the <strong>Submit</strong> button. \n"
+"</p>\n"
+"<p>\n"
+"Now you need to add the data to the email. To do that press the <strong>Add "
+"Data</strong> button. In this form, just \n"
+"select (or drag n drop) the file you want and press the <strong>Submit</"
+"strong> button. You will see a popup informing \n"
+"you that the file has been uploaded. You can the add another file or press "
+"the <strong>Return</strong> button to close\n"
+"this form and return to the main message screen.\n"
+"</p>\n"
+"<p>\n"
+"After you have added the data to the email, you can then press the "
+"<strong>Send</strong> button to send the message.\n"
+"Sending the message is only possible after you have added some data. Also, "
+"before the mail is sent you can delete \n"
+"it completely along with any data it has using the <strong>Delete</strong> "
+"button. Keep in mind that deleting a \n"
+"message is not possible after it has been sent.\n"
+"</p>\n"
+"<h4>Viewing messages</h4>\n"
+"<p>\n"
+"By visting the  <a href='%(participant_list)s'>Message list</a> page you "
+"will see all the message that \n"
+"concern your Authority (either as a sender or a recipient). The messages are "
+"by default sorted by their \n"
+"status: First the unread (or non-sent), then the read and then the archived "
+"messages. You can filter/search \n"
+"the messages using the filter in this page. Messages with the same status "
+"will be sorted by their sent date.\n"
+"</p>\n"
+"<p>\n"
+"You can then click to the blue id button to see the message details. However "
+"notice that you will not be \n"
+"able to see the message data until you <a href='%(privatekey_load)s'>load "
+"the private key</a> for your Authority.\n"
+"After you have loaded the correct private key you will be able to donwload "
+"and decrypt the data of this message.\n"
+"When all the data has been downloaded and decrypted the status of the "
+"message will be changed to \"Read\". \n"
+"A \"Read\" message can be archived by pressing the <strong>Archive</strong> "
+"button. An \"archived\" message will just be \n"
+"moved to the end of the list of messages. You can also unarchive a message "
+"so it will be changed to \"Read\" again.\n"
+"</p>\n"
+"\n"
+msgstr ""
+
+#: .\etsd\core\views.py:42
+msgid "Authority Data succesfully updated!"
+msgstr ""
+
+#: .\etsd\keys\forms.py:12 .\etsd\keys\models.py:55
+#: .\etsd\keys\templates\keys\publickey_detail.html:20
+msgid "Confirmation document"
+msgstr ""
+
+#: .\etsd\keys\forms.py:13
+msgid "This document will be checked for correct signature."
+msgstr ""
+
+#: .\etsd\keys\forms.py:44
+msgid "Signed confirmation document is required."
+msgstr ""
+
+#: .\etsd\keys\models.py:32
+msgid "Key text"
+msgstr ""
+
+#: .\etsd\keys\models.py:33
+msgid "The key text in armored ASCII format"
+msgstr ""
+
+#: .\etsd\keys\models.py:37
+msgid "Key fingerprint"
+msgstr ""
+
+#: .\etsd\keys\models.py:39
+msgid "The fingerprint of the key"
+msgstr ""
+
+#: .\etsd\keys\models.py:43
+msgid "Description of key"
+msgstr ""
+
+#: .\etsd\keys\models.py:44
+msgid "The description (user id) of the key"
+msgstr ""
+
+#: .\etsd\keys\models.py:47
+#: .\etsd\keys\templates\keys\publickey_detail.html:15
+#: .\etsd\msgs\templates\msgs\message_detail.html:29
+msgid "Status"
+msgstr ""
+
+#: .\etsd\keys\models.py:51
+msgid "Approval status of key"
+msgstr ""
+
+#: .\etsd\keys\models.py:60
+msgid "Approval date"
+msgstr ""
+
+#: .\etsd\keys\models.py:63
+msgid "Deactivation date"
+msgstr ""
+
+#: .\etsd\keys\models.py:66
+msgid "Rejection date"
+msgstr ""
+
+#: .\etsd\keys\models.py:73
+msgid "Public key"
+msgstr ""
+
+#: .\etsd\keys\models.py:74
+msgid "Public keys"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\emails\awaiting_approval.txt:4
+#, python-format
+msgid ""
+" \n"
+" A new public key (%(key_id)s) has been submitted by user %(creator)s for "
+"approval by an administrator.\n"
+" "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\emails\base.txt:3
+#: .\etsd\msgs\templates\msgs\emails\base.txt:3
+msgid ""
+"For more info login to the Electronic Transmission of Sensitive Data app."
+msgstr ""
+
+#: .\etsd\keys\templates\keys\emails\confirmation.txt:4
+#, python-format
+msgid ""
+" \n"
+" Your pending Public Key's status with fingerprint: %(fingerprint)s has been "
+"changed to %(status)s by an administrator.\n"
+" "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:13
+msgid "Authority:"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:18
+msgid ""
+"\n"
+"        <p>\n"
+"        You can generate a ney key pair through this form. The key pair is a "
+"pair of a private key and a public key. \n"
+"        The private key is encrypted with a passphrase that you need to "
+"define here.\n"
+"        </p>\n"
+"        <p> \n"
+"          The public key of the key pair is used to encrypt data that other "
+"people want to send to you. This public key will be \n"
+"          saved to the server so others will be able to easily encrypt the "
+"data. The private key is used to decrypt that data\n"
+"          so it must remain absolutely secret and safe. \n"
+"        </p>\n"
+"        <p>\n"
+"          Neither your passphrase nor your private key will be stored on the "
+"server. It is your responsibility to \n"
+"          properly store them in a safe place. If the private key or its "
+"decryption passphrase are lost, you will not be able to\n"
+"          decrypt the data that was encrypted with the public key of that "
+"particular key pair.\n"
+"        </p>\n"
+"        <p>\n"
+"          After you enter the passphrase, click on the \"Generate key pair\" "
+"button. The key pair will be generated in your browser and\n"
+"          the key information fields will be filled. Then you must download "
+"the private key using the \"Download private key button\". After\n"
+"          you have downloaded the private key and saved it to a safe place, "
+"you need to press the \"Submit\" button to save the public \n"
+"          key to the server so it can be approved and then used to encrypt "
+"your data.\n"
+"        <p>\n"
+"        <p>\n"
+"          Notice that in order to submit an approval request for your new "
+"key you need to first load your private key using the \"Load private key\" "
+"button.\n"
+"        </p>\n"
+"      "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:51
+msgid "Passphrase"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:64
+msgid "Passphrase confirmation"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:79
+msgid "Generated key info"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:99
+msgid "Generate Key Pair"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:100
+msgid "Download Private Key"
+msgstr ""
+
 #: .\etsd\keys\templates\keys\load_private_key.html:8
 #: .\etsd\keys\templates\keys\load_private_key.html:9
-#: .\etsd\keys\templates\keys\load_private_key.html:75
+#: .\etsd\keys\templates\keys\load_private_key.html:85
+#: .\templates\partials\_nav.html:25
 msgid "Load private key"
 msgstr ""
 
@@ -150,10 +445,17 @@ msgid ""
 "<u>will be \n"
 "        stored to your browser only</u>, i.e it will never be submited to "
 "our server.\n"
+"        You need to load the Private Key to be able to decrypt and download "
+"the Data\n"
+"        that has been submitted with the corresponding public key of that "
+"private key.\n"
 "        </p>\n"
 "        <p>\n"
 "          You need to select the private key file which must be in the ASCII "
-"armored format.\n"
+"armored format\n"
+"          (this is the format of the file you will get when you generate the "
+"private key \n"
+"          from this app).\n"
 "          Then enter the private key decryption passphrase. Now you can "
 "press the\n"
 "          \"validate\" button to make sure that they key and passhrase are "
@@ -163,25 +465,33 @@ msgid ""
 "          of the key information or else you will see an error. Finally,\n"
 "          press \"load\" button to actually load the key to your browser and "
 "be able to use it\n"
-"          to decrypt data.\n"
+"          to decrypt data. \n"
 "\n"
 "        </p>\n"
 "        <p>\n"
-"          <u>Please be extra careful while Private Key has been loaded to "
-"your browser.</u>\n"
+"          <u>\n"
+"            Please be extra careful while Private Key has been loaded to "
+"your browser. </u> \n"
+"            For \n"
+"            security reasons you will be logged out after 15 minutes of "
+"inactivity, however\n"
+"            it is recommended to <b>logout</b> immediately after you finish "
+"your work so that \n"
+"            the loaded private key will be invalidated.\n"
+"          \n"
 "        </p>\n"
 "      "
 msgstr ""
 
-#: .\etsd\keys\templates\keys\load_private_key.html:42
+#: .\etsd\keys\templates\keys\load_private_key.html:52
 msgid "Private Key File"
 msgstr ""
 
-#: .\etsd\keys\templates\keys\load_private_key.html:46
+#: .\etsd\keys\templates\keys\load_private_key.html:56
 msgid "Passpharse"
 msgstr ""
 
-#: .\etsd\keys\templates\keys\load_private_key.html:74
+#: .\etsd\keys\templates\keys\load_private_key.html:84
 msgid "Validate private key"
 msgstr ""
 
@@ -196,7 +506,8 @@ msgid "ID"
 msgstr ""
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:14
-#: .\etsd\msgs\models.py:117
+#: .\etsd\msgs\models.py:164 .\etsd\msgs\templates\msgs\message_detail.html:48
+#: .\etsd\msgs\templates\msgs\message_detail.html:85
 msgid "Authority"
 msgstr ""
 
@@ -205,197 +516,488 @@ msgid "Fingerprint"
 msgstr ""
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:18
+msgid "Description (user id)"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:20
 msgid "Download"
 msgstr ""
 
-#: .\etsd\keys\templates\keys\publickey_form.html:16
+#: .\etsd\keys\templates\keys\publickey_detail.html:25
+msgid "Approved on"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:30
+msgid "The key cannot be used until it has been submitted for approval"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:37
+msgid ""
+"You must load the private key of the key pair in order to be able to submit "
+"this public key for approval!"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:50
+msgid "Accept"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:51
+msgid "Reject"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_form.html:18
 #, python-format
 msgid ""
 "\n"
 "        <p>\n"
-"        You can submit a new public key through this form. The publickey "
-"must be in the ASCII armored format i.e it \n"
-"        should start with <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> "
-"contain the key data in printable ASCII\n"
-"        format (base64 encoded) and end with <code>-----END PGP PUBLIC KEY "
-"BLOCK-----</code>.\n"
+"        You can submit a new public key for approval through this form. You "
+"need then to generate the confirmation document. \n"
+"        This must be a properly signed document that will declare that:\n"
 "        </p>\n"
 "        <p>\n"
-"        After you copy over the public key text in the corresponding field, "
-"you need to press the <b>Validate</b> \n"
-"        button to validate its correctness. If everything is correct, the "
-"fingerprint of the key will be filled.\n"
+"        <em>The public key for the authority <b>%(auth_name)s</b> has the "
+"fingerprint \n"
+"        <b>%(fingerprint)s</b></em>.\n"
 "        </p>\n"
-"        <p>You need then to generate the confirmation document. This must be "
-"a properly signed document that \n"
-"        will declare that <em>The public key for the authority %(auth)s has "
-"the fingerprint \n"
-"        <span id='fingerprint_data'>FINGERPRINT_DATA_HERE</span></em> and "
-"upload it in the corresponding file field.\n"
+"        <p>\n"
+"         and upload it in the corresponding file field.\n"
 "\n"
-"        Finally you will be able to click the <b>Submit</b> button.\n"
+"        You will then need to press the Validate button to confirm that the "
+"private key you have loaded is \n"
+"        the pair of the public key you want to get approved.\n"
 "        </p>\n"
 "        <p>\n"
-"        Please notice that after you submit this you must communicate with "
-"the administrators and confirm that the\n"
-"        fingerprint is correct. The key will be used only after it has been "
-"approved by the administrators and <b>will\n"
+"        The key will be used only after it has been approved by the "
+"administrators and <b>will\n"
 "        replace the current key of your authority</b> (if it has one).\n"
 "        </p>\n"
 "      "
 msgstr ""
 
-#: .\etsd\keys\templates\keys\publickey_form.html:47
+#: .\etsd\keys\templates\keys\publickey_form.html:63
 msgid "Validate"
 msgstr ""
 
-#: .\etsd\keys\util.py:24
+#: .\etsd\keys\templates\keys\publickey_list.html:5
+#: .\etsd\keys\templates\keys\publickey_list.html:7
+msgid "Public key list"
+msgstr ""
+
+#: .\etsd\keys\templates\keys\publickey_list.html:12
+msgid "New key pair"
+msgstr ""
+
+#: .\etsd\keys\util.py:26
 msgid "Το αρχείο περιέχει εσφαλμένη υπογραφή! Πρέπει να υπογραφεί ξανά!"
 msgstr ""
 
-#: .\etsd\keys\util.py:28
-#, python-brace-format
+#: .\etsd\keys\util.py:30
 msgid ""
 "Το αρχείο που ανεβάζετε δεν έχει τον κατάλληλο αριθμό υπογραφών. Το αρχείο "
 "πρέπει να έχει {0} υπογραφές και έχει {1}."
 msgstr ""
 
-#: .\etsd\keys\util.py:30
+#: .\etsd\keys\util.py:32
 msgid " ή "
 msgstr ""
 
-#: .\etsd\keys\util.py:35
+#: .\etsd\keys\util.py:37
 msgid "Το αρχείο πρέπει να είναι μορφής PDF!"
 msgstr ""
 
-#: .\etsd\keys\util.py:38
+#: .\etsd\keys\util.py:40
 msgid ""
 "Σφάλμα κατά την ανάγνωση του αρχείου! Παρακαλούμε επιβεβαιώσατε ότι είναι "
 "κατάλληλης μορφής και έχει υπογραφεί με το σωστό πρόγραμμα!"
 msgstr ""
 
-#: .\etsd\keys\views.py:87
-msgid ""
-"New public key created. This key will be used after it has been approved by "
-"the administrators."
+#: .\etsd\keys\views.py:67
+msgid "Key pair creation is not allowed from users without an authority!"
 msgstr ""
 
-#: .\etsd\keys\views.py:108
-#, python-brace-format
+#: .\etsd\keys\views.py:74
+msgid "Your authority must have an email!"
+msgstr ""
+
+#: .\etsd\keys\views.py:96
+msgid ""
+"You must load the private key for the corresponding public key\n"
+"                you want to submit for approval so that the system can make "
+"sure \n"
+"                that you have proper access to the private key!"
+msgstr ""
+
+#: .\etsd\keys\views.py:106
+msgid ""
+"Public key approval submit is not allowed from users without an authority!"
+msgstr ""
+
+#: .\etsd\keys\views.py:117
+msgid ""
+"You must load the private key for the corresponding public key\n"
+"                you want to submit for approval so that the system can make "
+"sure \n"
+"                that you have proper access to the private key! The key "
+"you \n"
+"                want to submit has the fingerprint {0} while the private "
+"key \n"
+"                you have loaded has the fingerprint {1}"
+msgstr ""
+
+#: .\etsd\keys\views.py:143
+msgid "Public Key awaiting approval"
+msgstr ""
+
+#: .\etsd\keys\views.py:153
+msgid ""
+"Public key submitted for approval. This key will be used after it has been "
+"approved by the administrators."
+msgstr ""
+
+#: .\etsd\keys\views.py:191
+msgid "Public Key Confirmation"
+msgstr ""
+
+#: .\etsd\keys\views.py:219
 msgid "Private Key has been loaded. User id: {0}, fingerprint {1}"
 msgstr ""
 
-#: .\etsd\msgs\models.py:12
-msgid "New"
+#: .\etsd\msgs\forms.py:21
+msgid "Select authority"
+msgstr ""
+
+#: .\etsd\msgs\forms.py:24
+msgid ""
+" Add authorities by typing their full name/short name/email and selecting "
+"them. "
+msgstr ""
+
+#: .\etsd\msgs\forms.py:47
+msgid "This authority does not have an active public key!"
+msgstr ""
+
+#: .\etsd\msgs\forms.py:57
+msgid "Select related message"
+msgstr ""
+
+#: .\etsd\msgs\forms.py:60
+msgid ""
+"Add a related message by typing its protocol/protocol year and selecting "
+"them. "
+msgstr ""
+
+#: .\etsd\msgs\forms.py:76
+msgid "Your authority does not have an active public key!"
+msgstr ""
+
+#: .\etsd\msgs\forms.py:84
+msgid "You cannot add a related message when message kind is New!"
+msgstr ""
+
+#: .\etsd\msgs\forms.py:89
+msgid "You must provide a related message when message kind is not New!"
 msgstr ""
 
 #: .\etsd\msgs\models.py:13
-msgid "Reply"
+msgid "New"
 msgstr ""
 
 #: .\etsd\msgs\models.py:14
+msgid "Reply"
+msgstr ""
+
+#: .\etsd\msgs\models.py:15
 msgid "Fix"
 msgstr ""
 
-#: .\etsd\msgs\models.py:18
+#: .\etsd\msgs\models.py:19
 msgid "Draft"
 msgstr ""
 
-#: .\etsd\msgs\models.py:19
+#: .\etsd\msgs\models.py:20
 msgid "Sent"
 msgstr ""
 
-#: .\etsd\msgs\models.py:20
-msgid "Read"
-msgstr ""
-
-#: .\etsd\msgs\models.py:21
-msgid "Archived"
-msgstr ""
-
-#: .\etsd\msgs\models.py:22
-msgid "Deleted"
-msgstr ""
-
-#: .\etsd\msgs\models.py:28 .\templates\authorities\authority_detail.html:8
+#: .\etsd\msgs\models.py:26 .\templates\authorities\authority_detail.html:8
 msgid "Name"
 msgstr ""
 
-#: .\etsd\msgs\models.py:29
+#: .\etsd\msgs\models.py:27
 msgid "Is active"
 msgstr ""
 
-#: .\etsd\msgs\models.py:60
+#: .\etsd\msgs\models.py:30
+msgid "Message Category"
+msgstr ""
+
+#: .\etsd\msgs\models.py:31
+msgid "Message Categories"
+msgstr ""
+
+#: .\etsd\msgs\models.py:62
 msgid "Message is available to sender"
 msgstr ""
 
-#: .\etsd\msgs\models.py:61
-msgid "The message is also encrtypted with the sender's public key"
+#: .\etsd\msgs\models.py:64
+msgid ""
+"The message is also encrypted with the sender's public key. \n"
+"            You need to select this to be able to see the data of your "
+"message."
 msgstr ""
 
-#: .\etsd\msgs\models.py:66
+#: .\etsd\msgs\models.py:72
+msgid ""
+"If you select Reply or Fix you must also select the related message to which "
+"you reply or fix"
+msgstr ""
+
+#: .\etsd\msgs\models.py:80 .\etsd\msgs\templates\msgs\message_detail.html:38
 msgid "Category"
 msgstr ""
 
-#: .\etsd\msgs\models.py:73
+#: .\etsd\msgs\models.py:90 .\etsd\msgs\tables.py:91
+#: .\etsd\msgs\templates\msgs\message_detail.html:33
 msgid "Related message"
 msgstr ""
 
-#: .\etsd\msgs\models.py:76
+#: .\etsd\msgs\models.py:91
+msgid "Please select a related message if needed"
+msgstr ""
+
+#: .\etsd\msgs\models.py:94 .\etsd\msgs\templates\msgs\message_detail.html:39
 msgid "Sent on"
 msgstr ""
 
-#: .\etsd\msgs\models.py:85 .\etsd\msgs\models.py:120 .\etsd\msgs\models.py:166
+#: .\etsd\msgs\models.py:103 .\etsd\msgs\models.py:167
+#: .\etsd\msgs\models.py:220
 msgid "Message"
 msgstr ""
 
-#: .\etsd\msgs\models.py:86
+#: .\etsd\msgs\models.py:104 .\templates\partials\_nav.html:16
 msgid "Messages"
 msgstr ""
 
-#: .\etsd\msgs\models.py:125
-msgid "Message participant"
+#: .\etsd\msgs\models.py:142
+msgid "Recipient (to)"
 msgstr ""
 
-#: .\etsd\msgs\models.py:126
-msgid "Message participants"
+#: .\etsd\msgs\models.py:143
+msgid "Carbon Copy (cc)"
+msgstr ""
+
+#: .\etsd\msgs\models.py:144
+msgid "Sender"
+msgstr ""
+
+#: .\etsd\msgs\models.py:148
+msgid "Unread"
 msgstr ""
 
 #: .\etsd\msgs\models.py:149
-msgid "Participant key"
+msgid "Read"
 msgstr ""
 
 #: .\etsd\msgs\models.py:150
+msgid "Archived"
+msgstr ""
+
+#: .\etsd\msgs\models.py:179
+msgid "Message participant"
+msgstr ""
+
+#: .\etsd\msgs\models.py:180
+msgid "Message participants"
+msgstr ""
+
+#: .\etsd\msgs\models.py:203
+msgid "Participant key"
+msgstr ""
+
+#: .\etsd\msgs\models.py:204
 msgid "Participant keys"
 msgstr ""
 
-#: .\etsd\msgs\models.py:173 .\etsd\msgs\models.py:174
-#: .\etsd\msgs\models.py:215
+#: .\etsd\msgs\models.py:229 .\etsd\msgs\models.py:230
+#: .\etsd\msgs\models.py:283
 msgid "Message data"
 msgstr ""
 
-#: .\etsd\msgs\models.py:197
+#: .\etsd\msgs\models.py:265
 msgid "Encrypted data"
 msgstr ""
 
-#: .\etsd\msgs\models.py:204 .\etsd\msgs\models.py:205
+#: .\etsd\msgs\models.py:272 .\etsd\msgs\models.py:273
 msgid "Cipher data"
 msgstr ""
 
-#: .\etsd\msgs\models.py:220
+#: .\etsd\msgs\models.py:288
 msgid "Message data access"
 msgstr ""
 
-#: .\etsd\msgs\models.py:221
+#: .\etsd\msgs\models.py:289
 msgid "Message data accesses"
+msgstr ""
+
+#: .\etsd\msgs\tables.py:18 .\etsd\msgs\tables.py:70
+msgid "Draft message"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\emails\new_message.txt:4
+#, python-format
+msgid ""
+" \n"
+" Authority %(sender)s has sent you a new encrypted message.\n"
+" "
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_add_data.html:5
+#: .\etsd\msgs\templates\msgs\message_add_data.html:6
+msgid "Add Data to Message"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:4
+#: .\etsd\msgs\templates\msgs\message_detail.html:5
+msgid "Message detail"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:10
+msgid ""
+"\n"
+"  <p>\n"
+"    Message is a Draft. You need to add some data (files) to the message by "
+"using the \"Add data\"\n"
+"    button and then send it by pressing the \"Send\" button. Sending a "
+"message is possible only\n"
+"    after you have added some data. You can use the add data functionality "
+"as many times as you want.\n"
+"  </p>\n"
+"  <p>\n"
+"    If you have made some mistake you can delete the message completely by "
+"clicking the \"Delete\"\n"
+"    button. However please keep in mind that this is only possible "
+"<b>before</b> sending the message. After \n"
+"    the message has been send there's no way to alter it or its contents; "
+"you need to send a \"Fix\" message\n"
+"    and refer this one.\n"
+"  \n"
+"  </p>\n"
+"  "
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:30
+msgid "Message status"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:31
+#: .\etsd\msgs\templates\msgs\message_detail.html:49
+#: .\templates\authorities\authority_detail.html:7
+msgid "Kind"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:40
+msgid "Protocol"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:44
+msgid "Participants"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:50
+msgid "Public Key Fingerprint"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:64
+msgid "Data will not be encrypted"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:79
+msgid "Data"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:83
+msgid "Number"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:84
+msgid "Extension"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:86
+msgid "Decrypt"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:87
+#: .\etsd\msgs\templates\msgs\message_detail.html:117
+msgid "Delete"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:111
+msgid "Add data"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:123
+msgid "Send"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:129
+msgid "Archive"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:135
+msgid "Unarchive"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_form.html:31
+#: .\etsd\msgs\templates\msgs\message_form.html:32
+msgid "New Message"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_list.html:6
+#: .\etsd\msgs\templates\msgs\message_list.html:8
+#: .\etsd\msgs\templates\msgs\participant_list.html:6
+#: .\etsd\msgs\templates\msgs\participant_list.html:8
+msgid "Message list"
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_list.html:13
+#: .\etsd\msgs\templates\msgs\participant_list.html:13
+msgid "New message"
+msgstr ""
+
+#: .\etsd\msgs\views.py:174
+msgid "Other participants may only be included once!"
+msgstr ""
+
+#: .\etsd\msgs\views.py:176
+msgid "At least one participant is required"
+msgstr ""
+
+#: .\etsd\msgs\views.py:180
+msgid "Please don't add empty rows"
+msgstr ""
+
+#: .\etsd\msgs\views.py:206
+msgid "Draft message created"
+msgstr ""
+
+#: .\etsd\msgs\views.py:350
+msgid "Message send"
+msgstr ""
+
+#: .\etsd\msgs\views.py:369
+msgid "Message deleted"
+msgstr ""
+
+#: .\etsd\msgs\views.py:413
+msgid "Message archived"
+msgstr ""
+
+#: .\etsd\msgs\views.py:432
+msgid "Message unarchived"
 msgstr ""
 
 #: .\templates\authorities\authority_detail.html:4
 msgid "Authority detail"
-msgstr ""
-
-#: .\templates\authorities\authority_detail.html:7
-msgid "Kind"
 msgstr ""
 
 #: .\templates\authorities\authority_detail.html:9
@@ -447,4 +1049,115 @@ msgstr ""
 #: .\templates\home.html:17
 msgid ""
 "You can use this app to transmit sensitive data across your organization"
+msgstr ""
+
+#: .\templates\home.html:24
+msgid ""
+"\n"
+"          <p>\n"
+"            This app can be used to transmit messages containing encrypted "
+"data between authorities.\n"
+"            The OpenPGP standard is used to encrypt the data using the fully "
+"client-side OpenPGPjs implementation.\n"
+"            This means that the encryption and decryption of the data is "
+"performed only in the user's computer so\n"
+"            no plaintext ever reaches the server.\n"
+"          </p>\n"
+"          <p>\n"
+"            Following the principles of Public Key Cryptography, any "
+"Authority can send encrypted messages however \n"
+"            only Authorities that do have an approved private/public key "
+"pair can receive these encrypted messages.\n"
+"            This is required because the public key of the receiving "
+"Authority must be used to encrypt the message\n"
+"            so only this Authority will be able to decrypt it using its "
+"private part of the key.\n"
+"          </p>\n"
+"        "
+msgstr ""
+
+#: .\templates\home.html:43
+msgid ""
+"\n"
+"          <p>\n"
+"            Using this app you can generate a private/public key pair of "
+"your Authority. The private key will be encrypted with a passphrase.\n"
+"            Both the private key and the passphrase must be saved by the "
+"user in a safe place. Neither of them is ever send to\n"
+"            the server. The public key will be submitted to the server and "
+"must be approved from the app administrators in\n"
+"            order to be used. After the public key of an authority has been "
+"approved, the authority can receive messages with encrypted \n"
+"            data.\n"
+"          </p>\n"
+"          <p>\n"
+"            In order to quickly decrypt the data of his Authority, the user "
+"can \"load\" the private key to his session. This means that \n"
+"            this key will be decrypted with its passphrase and saved in the "
+"user's browser for as long as the user is logged in to the app.\n"
+"            That key will be then used to decrypt the encrypted data of the "
+"users' Authority.\n"
+"            \n"
+"          </p>\n"
+"        "
+msgstr ""
+
+#: .\templates\home.html:66
+msgid "Welcome,"
+msgstr ""
+
+#: .\templates\home.html:68
+msgid "No user authority"
+msgstr ""
+
+#: .\templates\home.html:71
+msgid "Admin and user access"
+msgstr ""
+
+#: .\templates\home.html:73
+msgid "Admin access"
+msgstr ""
+
+#: .\templates\home.html:75
+msgid "User access"
+msgstr ""
+
+#: .\templates\home.html:77
+msgid "No access!"
+msgstr ""
+
+#: .\templates\home.html:94
+msgid "Authorities"
+msgstr ""
+
+#: .\templates\home.html:101
+msgid "Log in"
+msgstr ""
+
+#: .\templates\partials\_filter.html:10
+msgid "Filter"
+msgstr ""
+
+#: .\templates\partials\_filter.html:11
+msgid "Reset"
+msgstr ""
+
+#: .\templates\partials\_nav.html:21
+msgid "Keys"
+msgstr ""
+
+#: .\templates\partials\_nav.html:28
+msgid "Public key List"
+msgstr ""
+
+#: .\templates\partials\_nav.html:51
+msgid "Private key loaded"
+msgstr ""
+
+#: .\templates\partials\_nav.html:56
+msgid "Disconnect"
+msgstr ""
+
+#: .\templates\partials\_nav.html:60
+msgid "Please login"
 msgstr ""

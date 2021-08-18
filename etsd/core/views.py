@@ -39,7 +39,7 @@ class AuthorityEditUsersView(
 
         form.save()
         messages.add_message(
-            self.request, messages.INFO, _("Authority Data succesfully updated!")
+            self.request, messages.INFO, _("Authority Data successfully updated!")
         )
         return HttpResponseRedirect(self.request.path)
 

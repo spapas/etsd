@@ -111,7 +111,7 @@ LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGIN_URL = "/login/"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "el"
 TIME_ZONE = "Europe/Athens"
 USE_I18N = True
 USE_L10N = True

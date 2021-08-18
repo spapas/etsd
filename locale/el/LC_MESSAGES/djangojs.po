@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-10 11:27+0300\n"
+"POT-Creation-Date: 2021-08-18 13:29+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,142 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\templates\home.html:62
-#, javascript-format
-msgid "Hello %s!"
-msgstr "Καλημέρα %s!"
+#: .\etsd\keys\templates\keys\key_pair_create.html:143
+msgid "Please enter a passphrase"
+msgstr "Παρακαλούμε συμπληρώστε μια κωδική φράση"
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:143
+#: .\etsd\keys\templates\keys\key_pair_create.html:147
+#: .\etsd\keys\templates\keys\key_pair_create.html:151
+#: .\etsd\keys\templates\keys\key_pair_create.html:156
+#: .\etsd\keys\templates\keys\load_private_key.html:109
+#: .\etsd\keys\templates\keys\load_private_key.html:115
+#: .\etsd\keys\templates\keys\load_private_key.html:139
+#: .\etsd\keys\templates\keys\publickey_form.html:91
+#: .\etsd\keys\templates\keys\publickey_form.html:96
+#: .\etsd\msgs\templates\msgs\message_add_data.html:71
+#: .\etsd\msgs\templates\msgs\message_add_data.html:139
+#: .\etsd\msgs\templates\msgs\message_add_data.html:148
+msgid "ERROR"
+msgstr "ΣΦΑΛΜΑ"
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:147
+msgid "Minimum passphrase length: "
+msgstr "Το ελάχιστο μήκος της κωδικής φράσης είναι: "
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:151
+msgid ""
+"Please make sure that the passphrase contains at least a lower case "
+"character, an upercase character a number and a symbol!"
+msgstr ""
+"Παρακαλούμε επιβεβαιώστε οτι η κωδική φράση επιβεβαίωσης περιέχει "
+"τουλάχιστον ένα πεζό χαρακτήρα, ένα κεφαλαίο χαρακτήρα, έναν αριθμό και ένα "
+"σύμβολο!"
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:156
+msgid "The confirm passphrase is not the same with the passphrase"
+msgstr "Η κωδική φράση επιβεβαίωσης δεν είναι ίδια με την κωδική φράση"
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:194
+msgid "Warning"
+msgstr "Προσοχή"
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:195
+msgid ""
+"Are you sure you want to continue?<br />\n"
+"    Please make sure that:\n"
+"    <ul>\n"
+"      <li>You remember the private key encryption passphrase</li>\n"
+"      <li>You have saved the private key in a safe place</li>\n"
+"    </ul>\n"
+"    <b>If you lose access to your private key or its encryption password\n"
+"    you won't be able to use it anymore and you'll need to create a new one!"
+"</b>"
+msgstr ""
+"Θέλετε να συνεχίσετε?<br />\n"
+"    Παρακαλούμε επιβεβαιώσατε ότι:\n"
+"    <ul>\n"
+"      <li>Θυμάστε την κωδική φράση κωδικοποίησης του ιδιωτικού σας κλειδιού</li>\n"
+"      <li>Έχετε αποθηκεύσει το ιδιωτικό σας κλειδί σε ένα ασφαλές μέρος</li>\n"
+"    </ul>\n"
+"    <b>Αν χάσετε το ιδιωτικό σας κλειδί ή την κωδική φράση του\n"
+"    δε θα μπορείτε πλέον να το χρησιμοποιήσετε και θα πρέπει να δημιουργήσετε ένα άλλο!"
+"</b>"
+
+#: .\etsd\keys\templates\keys\load_private_key.html:109
+msgid "Please select a private key file"
+msgstr "Παρακαλούμε επιλέξατε ένα ιδιωτικό κλειδί"
+
+#: .\etsd\keys\templates\keys\load_private_key.html:115
+msgid "Please fill the passphrase"
+msgstr "Παρακαλούμε συμπληρώστε μια κωδική φράση"
+
+#: .\etsd\keys\templates\keys\load_private_key.html:129
+msgid ""
+"Private key successfully validated! Please press the Load private key button "
+"to load it in your browser session."
+msgstr "Το ιδιωτικό κλειδί είναι έγκυρο! Παρακαλούμε πατήστε το κουμπί "
+"Φόρτωση ιδιωτικού κλειδιού για να το χρησιμοποιήσετε"
+
+#: .\etsd\keys\templates\keys\load_private_key.html:130
+msgid "Success"
+msgstr "Επιτυχία"
+
+#: .\etsd\keys\templates\keys\publickey_form.html:91
+#: .\etsd\msgs\templates\msgs\message_add_data.html:71
+msgid "File can be up to "
+msgstr "Το αρχείο μπορεί να είναι μέχρι "
+
+#: .\etsd\keys\templates\keys\publickey_form.html:96
+msgid "Confirmation document must be a properly signed PDF"
+msgstr "Το έγγραφο επιβεβαίωσης πρέπει να είναι ένα ορθά υπογεγραμμένο PDF"
+
+#: .\etsd\msgs\templates\msgs\message_add_data.html:133
+msgid ""
+"Data successfully added to message!<br />You can add more data if you want."
+"<br /><br />Please press Return when you are finished to send your message."
+msgstr ""
+"Τα δεδομένα προστέθηκαν στο μήνυμα με επιτυχία!<br />Μπορείτε να προσθέσετε "
+"επιπλέον δεδομένα.<br /><br />Παρακαλούμε πατήστε το κουμπί επιστροφή όταν "
+"ολοκληρώσετε την προσθήκη δεδομένων."
+
+#: .\etsd\msgs\templates\msgs\message_add_data.html:134
+msgid "SUCCESS"
+msgstr "ΕΠΙΤΥΧΙΑ"
+
+#: .\etsd\msgs\templates\msgs\message_add_data.html:139
+msgid "Error while trying to upload!"
+msgstr "Σφάλμα κατά το ανέβασμα!"
+
+#: .\etsd\msgs\templates\msgs\message_add_data.html:147
+msgid "Error while trying to add the data: <br /> "
+msgstr "Σφάλμα κατά την προσθήκη δεδομένων: <br /> "
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:238
+msgid "Decrypt and download"
+msgstr "Αποκρυπτογράφηση και λήψη"
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:241
+msgid ""
+"Not possible to decrypt. Please make sure you have loaded the proper private "
+"key"
+msgstr "Δεν είναι δυνατή η αποκρυπτογράφηση. Παρακαλούμε επιβεβαιώστε ότι έχετε φορτώσει το σωστό ιδιωτικό κλειδί"
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:243
+msgid "Cipher data not available"
+msgstr "Τα κρυπτογραφημένα δεδομένα δεν είναι διαθέσιμα"
+
+#: .\static\bootstrapalert.js:80
+msgid "Are you sure you want to delete this?"
+msgstr "Θέλετε προχωρήσετε στη διαγραφή;"
+
+#: .\static\bootstrapalert.js:81 .\static\bootstrapalert.js:82
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: .\static\bootstrapalert.js:99
+msgid "Yes"
+msgstr "Ναι"
+
+#~ msgid "Hello %s!"
+#~ msgstr "Καλημέρα %s!"
