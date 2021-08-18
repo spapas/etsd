@@ -34,7 +34,7 @@ def work():
         requirements_txt = "requirements/" + env.env + ".txt"
         if os.stat(requirements_txt).st_size > 0:
             virtualenv(
-                "http_proxy={0} pip install -r {1}".format(FAB_PROXY, requirements_txt)
+                "https_proxy={0} pip install -r {1}".format(FAB_PROXY, requirements_txt)
             )
         virtualenv("python manage.py migrate")
         virtualenv("python manage.py update_permissions")
