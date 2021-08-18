@@ -106,13 +106,8 @@ gtools.signAndVerify = async (publicKey, privateKey) => {
         message: signedMessage,
         verificationKeys: publicKey
     });
-    const { verified, keyID } = verificationResult.signatures[0];
+    const { verified, _keyID } = verificationResult.signatures[0];
     return verified
-    try {
-        await verified; // throws on invalid signature
-    } catch (e) {
-        throw new Error('Signature could not be verified: ' + e.message);
-    }
 }
 
 gtools.encrypt = async (publicKey, binMessage) => {

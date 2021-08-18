@@ -195,11 +195,3 @@ AUTHORITY_KIND_STR_FUNCTION = "etsd.core.utils.authority_kind_str"
 
 MAX_FILE_SIZE = 2 * 1024 * 1024  # 2MB
 MAX_FILE_SIZE_STR = "2MB"
-
-
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {"console": {"class": "logging.StreamHandler"}},
-    "loggers": {"django_auth_ldap": {"level": "DEBUG", "handlers": ["console"]}},
-}

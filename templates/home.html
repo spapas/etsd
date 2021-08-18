@@ -98,8 +98,12 @@
         <p>
           Please login to use this site!
         </p>
-        <a class="btn btn-primary" href="{% url "auth_login" %}" role="button">{% translate "Log in" %}</a></p>
+        <a class="btn btn-primary" href="{% url 'auth_login' %}" role="button">{% translate "Log in" %}</a></p>
       {% endif %}
+      <div class='alert alert-warning'>
+        To use this app you need to have a <u>recent browser version, preferably Chrome or Firefox</u>. The app may work
+        in other Browsers but it is not guaranteed.
+      </div>
     </div>
   </div>
     
@@ -107,7 +111,7 @@
 
 {% block extra_script %}
 <script>
-  let who = 'world'
-  console.log(interpolate(gettext('Hello %s!'), [who]))
+  //let who = 'world'
+  //console.log(interpolate(gettext('Hello %s!'), [who]))
 </script>
 {% endblock %}
