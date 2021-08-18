@@ -56,7 +56,7 @@ def full_deploy():
 
 
 def virtualenv(command):
-    run(env.activate + "&&" + command)
+    run(env.activate + " && " + command)
 
 
 def uat():
