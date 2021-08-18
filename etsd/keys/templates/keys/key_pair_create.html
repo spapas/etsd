@@ -191,15 +191,15 @@ $(function() {
 
   confirmFormAction({
     'sel': '#keyform',
-    'title': 'Warning',
-    'message': `Are you sure you want to continue?<br />
+    'title': gettext('Warning'),
+    'message': gettext(`Are you sure you want to continue?<br />
     Please make sure that:
     <ul>
       <li>You remember the private key encryption passphrase</li>
       <li>You have saved the private key in a safe place</li>
     </ul>
     <b>If you lose access to your private key or its encryption password
-    you won't be able to use it anymore and you'll need to create a new one!</b>`,
+    you won't be able to use it anymore and you'll need to create a new one!</b>`),
   })
 })
 </script>

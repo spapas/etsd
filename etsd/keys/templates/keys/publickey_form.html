@@ -79,6 +79,17 @@ User id: {{ form.instance.user_id }}
 <script>
 
 $(function() {
+  document.getElementById('id_confirmation_document').addEventListener("change", function() {
+    if (this.files && this.files[0]) {
+        let theFile = this.files[0];
+        
+        if (theFile.size > 1024*1024*4) {
+          bootstrap5Alert({'message': gettext("File can be up to 4 MB!"), 'title': gettext("ERROR")})
+          document.getElementById('id_confirmation_document').value=''
+          return 
+        }
+    }
+  })
 
   $('#validateButton').click(function() { 
     
@@ -86,8 +97,7 @@ $(function() {
     const privatePromise = gtools.loadPrivateKeyLocal()
 
     Promise.all([publicPromise, privatePromise]).then( ([publicKey, privateKey]) => {
-      console.log(publicKey)
-      console.log(privateKey)
+      
       gtools.signAndVerify(publicKey, privateKey).then( verified => {
         if(verified) {
           $('#validateButton').prop('disabled', true)

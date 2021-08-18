@@ -119,10 +119,12 @@ USE_TZ = True
 
 STATIC_ROOT = "/home/serafeim/etsd/static"
 STATIC_URL = "/static_etsd/"
-MEDIA_URL = "/media_etsd/"
 
+MEDIA_URL = "/media_etsd/"
 MEDIA_ROOT = "/home/serafeim/etsd/media"
+
 SENDFILE_ROOT = "/home/serafeim/etsd/media/protected"
+SENDFILE_URL = "/media_etsd/protected"
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
