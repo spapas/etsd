@@ -70,6 +70,7 @@ different files for dev/uat/prod).
 
 Here's how I would install this for a dev environment:
 
+```
 E:\>mkdir etsd
 E:\>cd etsd
 E:\etsd>py -3 -m venv venv
@@ -77,7 +78,7 @@ E:\etsd>venv\Scripts\activate
 (venv) E:\etsd>git clone https://github.com/spapas/etsd
 (venv) E:\etsd\etsd>pip install c:\Users\serafeim\Downloads\python_ldap-3.3.1-cp38-cp38-win32.whl
     Processing c:\users\serafeim\downloads\python_ldap-3.3.1-cp38-cp38-win32.whl
-[...]
+    [...]
 (venv) E:\etsd\etsd>pip install -r requirements\dev.txt
     Collecting crispy-bootstrap5==0.4 (from -r requirements\base.txt (line 1))
     [...]
@@ -89,6 +90,7 @@ dj migrate
 dj createsuperuser
     [...]
 rsp
+```
 
 Now you can visit http://127.0.0.1:8000 and login with the superuser credentials.
 
