@@ -2,6 +2,8 @@ from __future__ import with_statement
 from fabric.api import env, cd, run, local, settings
 import os
 
+from etsd.settings.local import FAB_PROXY, UAT_HOSTS, PROD_HOSTS
+
 
 def black():
     "Run black"
@@ -21,7 +23,7 @@ def commit():
 
 def pull():
     with cd(env.directory):
-        run("https_proxy=http://proxy.hcg.gr:8080 git fetch origin")
+        run("https_proxy={0} git fetch origin".format(FAB_PROXY))
         run("git merge origin/master")
     print("fetch / merge ok")
 
@@ -31,11 +33,7 @@ def work():
     with cd(env.directory):
         requirements_txt = "requirements/" + env.env + ".txt"
         if os.stat(requirements_txt).st_size > 0:
-            virtualenv(
-                "https_proxy=http://proxy.hcg.gr:8080 pip install -r {0}".format(
-                    requirements_txt
-                )
-            )
+            virtualenv("{0} pip install -r {1}".format(FAB_PROXY, requirements_txt))
         virtualenv("python manage.py migrate")
         virtualenv("python manage.py update_permissions")
         virtualenv("python manage.py collectstatic --noinput")
@@ -65,7 +63,7 @@ def uat():
     "UAT settings"
     env.env = "uat"
     env.user = "serafeim"
-    env.hosts = ["172.19.130.84"]
+    env.hosts = UAT_HOSTS
     env.directory = "/home/serafeim/etsd/etsd"
     env.activate = "source /home/serafeim/etsd/venv/bin/activate"
 
@@ -74,6 +72,6 @@ def prod():
     "PROD settings"
     env.env = "prod"
     env.user = "serafeim"
-    env.hosts = [""]
+    env.hosts = PROD_HOSTS
     env.directory = "/home/serafeim/etsd/etsd"
     env.activate = "source /home/serafeim/etsd/venv/bin/activate"
