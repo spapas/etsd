@@ -52,8 +52,8 @@
       </label>
       <input type="password" name="passphrase" maxlength="512" class="textinput textInput form-control" required="" id="passphrase"> 
       <small class="form-text text-muted">
-        Please use a secure enough passphrase to enrypt your private key. Rules: Must be > <b id='passphraseLength'>16</b> characters. Should be a passphrase 
-        ie a combination of multiple words and contain lower and capital letters, numbers, punctuation and special characters.
+        Please use a secure enough passphrase to enrypt your private key. Rules: Must be > <b id='passphraseLength'>16</b> characters. 
+        Should be a passphrase ie a combination of multiple words and contain lower and capital letters, numbers and special characters.
       </small>
     
   </div>
@@ -119,6 +119,20 @@
 {% block extra_script %}
 <script>
 
+const validatePassphrase = (passphrase) => {
+  // Check if passphrase contains a lower case character, an upercase character a number and a symbol
+  const lowerCase = /[a-z]/g;
+  const upperCase = /[A-Z]/g;
+  const number = /[0-9]/g;
+  const symbol = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+  const passphraseLength = passphrase.length;
+  
+  if (passphrase.match(lowerCase) && passphrase.match(upperCase) && passphrase.match(number) && passphrase.match(symbol)) {
+    return true;
+  }
+  return false 
+}
+
 $(function() { 
   $('#passphraseLength').html(passphraseLength)
   $('#generateButton').click(function() { 
@@ -133,6 +147,11 @@ $(function() {
       bootstrap5Alert({'message': gettext('Minimum passphrase length: ' ) + passphraseLength, 'title': gettext("ERROR")})
       return 
     }
+    if (!validatePassphrase(passphrase)) {
+      bootstrap5Alert({'message': gettext('Please make sure that the passphrase contains at least a lower case character, an upercase character a number and a symbol!'), 'title': gettext("ERROR")})
+      return 
+    }
+
     if(passphrase!=passphraseConfirm) {
       bootstrap5Alert({'message': gettext("The confirm passphrase is not the same with the passphrase"), 'title': gettext("ERROR")})
       return 
