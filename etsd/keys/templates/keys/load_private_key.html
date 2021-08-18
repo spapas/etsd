@@ -107,29 +107,39 @@ $(function() {
 
     let files = $('#file').prop('files');
     if(files.length == 0) {
-      bootstrap5Alert({'message': "Please select a private key file", 'title': "ERROR"})
+      bootstrap5Alert({'message': gettext("Please select a private key file"), 'title': gettext("ERROR")})
       return 
     }
 
     passphrase = $("#passphrase").val()
     if(!passphrase) {
-      bootstrap5Alert({'message': "Please fill the passphrase", 'title': "ERROR"})
+      bootstrap5Alert({'message': gettext("Please fill the passphrase"), 'title': gettext("ERROR")})
       return 
     }
 
     const fileReader = new FileReader()
     
-    fileReader.onload = function () {
+    fileReader.onload = () => {
       privateKeyArmored = fileReader.result;
       gtools.loadPrivateKey(privateKeyArmored, passphrase).then( key => {        
         $('#id_fingerprint').val(key.getFingerprint())
         $('#id_user_id').val(key.getUserIDs().join(','))
         $('#id_creation_time').val(key.getCreationTime().toLocaleString('el'))
         $('#submitButton').prop('disabled', false)
-
-      }).catch(err => bootstrap5Alert({'message': err, 'title': "ERROR"}))
-      
-    };
+        bootstrap5Alert({
+          'message': gettext("Private key succesfully validated! Please press the Load private key button to load it in your browser session."), 
+          'title': gettext("Success"),
+          'color': 'success'
+        })
+      }).catch(err => {
+        $('#id_fingerprint').val('')
+        $('#id_user_id').val('')
+        $('#id_creation_time').val('')
+        $('#submitButton').prop('disabled', true)
+        
+        bootstrap5Alert({'message': err, 'title': gettext("ERROR")})
+      })
+    }
     fileReader.readAsText(files[0])
     
     return 
