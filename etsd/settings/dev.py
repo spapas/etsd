@@ -21,7 +21,7 @@ TEMPLATES[0]["OPTIONS"]["loaders"] = (
 )
 
 
-AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+AUTHENTICATION_BACKENDS += ("django.contrib.auth.backends.ModelBackend",)
 
 CSRF_COOKIE_SECURE = False  # Override CSRF to work also with http
 SESSION_COOKIE_SECURE = False  # Override session to work also with http

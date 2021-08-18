@@ -4,12 +4,12 @@ from django.utils.translation import ugettext_lazy as _
 from authorities.models import Authority
 from dal import autocomplete
 from django.utils.translation import ugettext as _
-from etsd.settings.ldap_conf import AUTH_LDAP_SERVER_URI
+from django.conf import settings
 import ldap
 
 
 def init_ldap_con():
-    con = ldap.initialize(AUTH_LDAP_SERVER_URI)
+    con = ldap.initialize(settings.AUTH_LDAP_SERVER_URI)
     con.simple_bind_s()
     return con
 
