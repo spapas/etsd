@@ -22,9 +22,7 @@ def check_signatures(file, arr_of_number_of_signatures):
         if len(sinfo) in arr_of_number_of_signatures:
             for info in sinfo:
                 if not info["signatureVerified"] == "YES" or info["isSelfSigned"]:
-                    return _(
-                        "The signature is invalid!"
-                    )
+                    return _("The signature is invalid!")
         else:
             return _(
                 "The file you are uploading does not ave the correct number of signatures. It must have {0} signatures but it has {1}."
