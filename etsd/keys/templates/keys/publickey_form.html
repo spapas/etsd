@@ -70,8 +70,12 @@ User id: {{ form.instance.user_id }}
 {% endblock %}
 
 {% block extra_script_no_compress %}
+  {% get_setting_value "MAX_FILE_SIZE" as MAX_FILE_SIZE %}
+  {% get_setting_value "MAX_FILE_SIZE_STR" as MAX_FILE_SIZE_STR %}
   <script> 
     const publicKeyArmored = `{{ publickey.key }}`;
+    const maxFileSize = {{ MAX_FILE_SIZE }};
+    const maxFileSizeStr = '{{ MAX_FILE_SIZE_STR }}';
 
   </script> 
 {% endblock %}
@@ -83,10 +87,13 @@ $(function() {
     if (this.files && this.files[0]) {
         let theFile = this.files[0];
         
-        if (theFile.size > 1024*1024*4) {
-          bootstrap5Alert({'message': gettext("File can be up to 4 MB!"), 'title': gettext("ERROR")})
+        if (theFile.size > maxFileSize) {
+          bootstrap5Alert({'message': gettext("File can be up to ") + maxFileSizeStr, 'title': gettext("ERROR")})
           document.getElementById('id_confirmation_document').value=''
           return 
+        }
+        if (theFile.type != 'application/pdf') { 
+          bootstrap5Alert({'message': gettext("Confirmation document must be a properly signed PDF"), 'title': gettext("ERROR")})
         }
     }
   })

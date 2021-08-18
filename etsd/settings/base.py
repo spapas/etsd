@@ -191,3 +191,6 @@ SIGNATURE_CHECKER_URL = ""
 
 AUTHORITY_STR_FUNCTION = "etsd.core.utils.authority_str"
 AUTHORITY_KIND_STR_FUNCTION = "etsd.core.utils.authority_kind_str"
+
+MAX_FILE_SIZE = 2 * 1024 * 1024  # 2MB
+MAX_FILE_SIZE_STR = "2MB"
