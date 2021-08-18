@@ -12,111 +12,137 @@
 {% url "public_key_list" as public_key_list %}
 {% url "key_pair_create" as key_pair_create %}
 {% url "privatekey_load" as privatekey_load %}
+<p>
+{% trans "If your Authority needs to receive data then you must generate a new private/public key pair and submit it for approval." %}
+</p>
+<h4>{% trans "Key pair generation" %}</h4>
+<p>
 {% blocktrans %}
-<p>
-If your Authority needs to receive data then you must generate a new private/public key pair and submit it for approval.
-</p>
-<h4>Key pair generation</h4>
-<p>
-To do this, 
-go to the <a href='{{ public_key_list }}'>Public Key list</a> page and click the 
+To generate your key pair,  go to the <a href='{{ public_key_list }}'>Public Key list</a> page and click the 
 <a href='{{ key_pair_create }}'>New key pair</a> button.
+{% endblocktrans %}
 </p>
 <p>
+{% blocktrans %}
 In this form you need to first enter a proper passphrase that will be used to encrypt your private key. Just follow
 the on-screen instructions. Then you have to press the <strong>Generate Key Pair</strong> button to actually generate 
 the key pair in your browser. Then you'll see that the <strong>"Download Private Key"</strong> button will be enabled
 and you can download the private key using this. The downloaded private key will be encrypted using the passphrase you 
 entered so you need both of them. If you miss one of them, you'll need to generate a new key pair. 
+{% endblocktrans %}
 </p>
 <p>
+{% blocktrans %}
 Please be extra careful when downloading the private key. It is a file that contains your private key and should
 only be used to decrypt your data. If someone gets hold of this file and its passphrase, they can decrypt your data.
 It is recommended that you store the private key in a safe place and also write down the passphrase and keep it in a 
 *different* place or even better just try to remember it without writing it anywhere.
+{% endblocktrans %}
 </p>
 <p>
+{% blocktrans %}
 After you have downloaded the private key you must press the <strong>Submit</strong> button to save the public key 
 that will be used to encrypt your Authority data in the server.
+{% endblocktrans %}
 </p>
-<h4>Key pair approval </h4>
+<h4>{% trans "Key pair approval" %}</h4>
 <p>
+{% blocktrans %}
 The key pair you just generated must be approved for usage. To start the approval process you first need to 
 <a href='{{ privatekey_load }}'>load the private key</a> in your browser. To load the key, select the private key 
 file and enter the passphrase to the field. Then press the <strong>Validate</strong> button to make sure that the 
 private key is properly decrypted. Finally, press the <strong>Load private key</strong> button to actually load the 
 key to your browser's session.
+{% endblocktrans %}
 </p>
 <p> 
+{% blocktrans %}
 After you have loaded the private key you can submit the public key to the server for approval. To do this,
 go to the <a href='{{ public_key_list }}'>Public Key list</a> page, find the key you just generated and click the
 <strong>Submit for approval</strong> button (notice that this button will be enabled only if the private key is
 loaded). In the next screen, you need to upload a properly signed document that declares that this is 
 the key you want to use for your Authority. After you have selected the document just press submit.
+{% endblocktrans %}
 </p>
 <p>
+{% blocktrans %}
 Your approval request will be submitted to the administrators of the application; after they approve this your 
 authority will be able to receive encrypted data.
-</p>
 {% endblocktrans %}
+</p>
 
 
 <h2>{% trans "Encrypted messaging" %}</h2>
 {% url "participant_list" as participant_list %}
 {% url "message_create" as message_create %}
 {% url "privatekey_load" as privatekey_load %}
+<p>
 {% blocktrans %}
-<p>Using this app you can transmit messages between Authorities. 
+Using this app you can transmit messages between Authorities. 
 All message data is encrypted using public key cryptography: The public key of the receiving 
 authority is used to encrypt the message. This authority will then use its private key to 
 decrypt it. All the encrypting/decrypting is done on the browser-side meaning that the private
 keys of the authorities and the plaintext (non-encrypted) data files always stay in the 
-user's computer and never reach the server.</p>
-<h4>Sending messages</h4>
+user's computer and never reach the server.
+{% endblocktrans %}
+</p>
+<h4>{% trans "Sending messages" %}</h4>
 <p>
+{% blocktrans %}
 To send an encrypted message you need to go to the <a href='{{ participant_list }}'>Message list</a> page and click the 
 <a href='{{ message_create }}'>New message</a> button. The message can be a New one (not related to another message),
 a Reply to an existing message or a Fix to an existing message. If you select Reply or Fix you also need to select the
 related message. If "Message is available to sender" checkbox is selected the data of the message will also be encrypted 
 with the sender's public key so it will be saved to the server and be available to the sender to decrypt it. This checkbox 
 cannot be selected if the sender does not have an approved public key.
+{% endblocktrans %}
 </p>
-<p>To add the message recipients, click the <strong>Add</strong> button and select if the recipient is 
+<p>
+{% blocktrans %}
+To add the message recipients, click the <strong>Add</strong> button and select if the recipient is 
 a To or a Carbon Copy (cc) and receiving Authority from the autocomplete list. 
 Notice that only Authorities that have an approved 
 public key can be selected here.
 You can add as many recipients as you want.
 When you are finished press the <strong>Submit</strong> button. 
+{% endblocktrans %}
 </p>
 <p>
+{% blocktrans %}
 Now you need to add the data to the email. To do that press the <strong>Add Data</strong> button. In this form, just 
 select (or drag n drop) the file you want and press the <strong>Submit</strong> button. You will see a popup informing 
 you that the file has been uploaded. You can the add another file or press the <strong>Return</strong> button to close
 this form and return to the main message screen.
+{% endblocktrans %}
 </p>
 <p>
+{% blocktrans %}
 After you have added the data to the email, you can then press the <strong>Send</strong> button to send the message.
 Sending the message is only possible after you have added some data. Also, before the mail is sent you can delete 
 it completely along with any data it has using the <strong>Delete</strong> button. Keep in mind that deleting a 
 message is not possible after it has been sent.
+{% endblocktrans %}
 </p>
-<h4>Viewing messages</h4>
+<h4>{% trans "Viewing messages" %}</h4>
 <p>
+{% blocktrans %}
 By visting the  <a href='{{ participant_list }}'>Message list</a> page you will see all the message that 
 concern your Authority (either as a sender or a recipient). The messages are by default sorted by their 
 status: First the unread (or non-sent), then the read and then the archived messages. You can filter/search 
 the messages using the filter in this page. Messages with the same status will be sorted by their sent date.
+{% endblocktrans %}
 </p>
 <p>
+{% blocktrans %}
 You can then click to the blue id button to see the message details. However notice that you will not be 
 able to see the message data until you <a href='{{ privatekey_load }}'>load the private key</a> for your Authority.
 After you have loaded the correct private key you will be able to donwload and decrypt the data of this message.
 When all the data has been downloaded and decrypted the status of the message will be changed to "Read". 
 A "Read" message can be archived by pressing the <strong>Archive</strong> button. An "archived" message will just be 
 moved to the end of the list of messages. You can also unarchive a message so it will be changed to "Read" again.
+{% endblocktrans %}
 </p>
 
-{% endblocktrans %}
 
 {% endblock %}
 

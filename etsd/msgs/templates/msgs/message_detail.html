@@ -7,20 +7,21 @@
 
 {% if message.status == 'DRAFT' %}
   <div class='alert alert-warning'> 
-  {% blocktrans %}
   <p>
+  {% blocktrans %}
     Message is a Draft. You need to add some data (files) to the message by using the "Add data"
     button and then send it by pressing the "Send" button. Sending a message is possible only
     after you have added some data. You can use the add data functionality as many times as you want.
+  {% endblocktrans %}
   </p>
   <p>
+  {% blocktrans %}
     If you have made some mistake you can delete the message completely by clicking the "Delete"
     button. However please keep in mind that this is only possible <b>before</b> sending the message. After 
     the message has been send there's no way to alter it or its contents; you need to send a "Fix" message
     and refer this one.
-  
-  </p>
   {% endblocktrans %}
+  </p>
   </div>
 {% endif %}
 

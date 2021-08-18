@@ -15,31 +15,39 @@
   <div class="col-md-12">
     <div class='alert alert-info'> 
       
-      {% blocktrans  %}
         <p>
+      {% blocktrans  %}
         You can generate a ney key pair through this form. The key pair is a pair of a private key and a public key. 
         The private key is encrypted with a passphrase that you need to define here.
+      {% endblocktrans  %}
         </p>
         <p> 
+      {% blocktrans  %}
           The public key of the key pair is used to encrypt data that other people want to send to you. This public key will be 
           saved to the server so others will be able to easily encrypt the data. The private key is used to decrypt that data
           so it must remain absolutely secret and safe. 
+      {% endblocktrans  %}
         </p>
         <p>
+      {% blocktrans  %}
           Neither your passphrase nor your private key will be stored on the server. It is your responsibility to 
           properly store them in a safe place. If the private key or its decryption passphrase are lost, you will not be able to
           decrypt the data that was encrypted with the public key of that particular key pair.
+      {% endblocktrans %}
         </p>
         <p>
+      {% blocktrans  %}
           After you enter the passphrase, click on the "Generate key pair" button. The key pair will be generated in your browser and
           the key information fields will be filled. Then you must download the private key using the "Download private key button". After
           you have downloaded the private key and saved it to a safe place, you need to press the "Submit" button to save the public 
           key to the server so it can be approved and then used to encrypt your data.
-        <p>
-        <p>
-          Notice that in order to submit an approval request for your new key you need to first load your private key using the "Load private key" button.
-        </p>
       {% endblocktrans %}
+        </p>
+        <p>
+      {% blocktrans  %}
+          Notice that in order to submit an approval request for your new key you need to first load your private key using the "Load private key" button.
+      {% endblocktrans %}
+        </p>
     </div>
   </div>
 </div>
@@ -52,8 +60,10 @@
       </label>
       <input type="password" name="passphrase" maxlength="512" class="textinput textInput form-control" required="" id="passphrase"> 
       <small class="form-text text-muted">
+        {% blocktrans %}
         Please use a secure enough passphrase to enrypt your private key. Rules: Must be > <b id='passphraseLength'>16</b> characters. 
         Should be a passphrase ie a combination of multiple words and contain lower and capital letters, numbers and special characters.
+        {% endblocktrans %}
       </small>
     
   </div>
@@ -65,7 +75,7 @@
       </label>
       <input type="password" name="passphrase" maxlength="512" class="textinput textInput form-control" required="" id="passphraseConfirm"> 
       <small class="form-text text-muted">
-        Please confirm your passphrase.
+        {% trans "Please confirm your passphrase." %}
       </small>
     
   </div>

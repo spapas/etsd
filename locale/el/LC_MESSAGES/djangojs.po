@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-18 13:29+0300\n"
+"POT-Creation-Date: 2021-08-18 15:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:143
+#: .\etsd\keys\templates\keys\key_pair_create.html:153
 msgid "Please enter a passphrase"
 msgstr "Παρακαλούμε συμπληρώστε μια κωδική φράση"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:143
-#: .\etsd\keys\templates\keys\key_pair_create.html:147
-#: .\etsd\keys\templates\keys\key_pair_create.html:151
-#: .\etsd\keys\templates\keys\key_pair_create.html:156
+#: .\etsd\keys\templates\keys\key_pair_create.html:153
+#: .\etsd\keys\templates\keys\key_pair_create.html:157
+#: .\etsd\keys\templates\keys\key_pair_create.html:161
+#: .\etsd\keys\templates\keys\key_pair_create.html:166
 #: .\etsd\keys\templates\keys\load_private_key.html:109
 #: .\etsd\keys\templates\keys\load_private_key.html:115
 #: .\etsd\keys\templates\keys\load_private_key.html:139
@@ -37,11 +37,11 @@ msgstr "Παρακαλούμε συμπληρώστε μια κωδική φρά
 msgid "ERROR"
 msgstr "ΣΦΑΛΜΑ"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:147
+#: .\etsd\keys\templates\keys\key_pair_create.html:157
 msgid "Minimum passphrase length: "
 msgstr "Το ελάχιστο μήκος της κωδικής φράσης είναι: "
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:151
+#: .\etsd\keys\templates\keys\key_pair_create.html:161
 msgid ""
 "Please make sure that the passphrase contains at least a lower case "
 "character, an upercase character a number and a symbol!"
@@ -50,15 +50,15 @@ msgstr ""
 "τουλάχιστον ένα πεζό χαρακτήρα, ένα κεφαλαίο χαρακτήρα, έναν αριθμό και ένα "
 "σύμβολο!"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:156
+#: .\etsd\keys\templates\keys\key_pair_create.html:166
 msgid "The confirm passphrase is not the same with the passphrase"
 msgstr "Η κωδική φράση επιβεβαίωσης δεν είναι ίδια με την κωδική φράση"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:194
+#: .\etsd\keys\templates\keys\key_pair_create.html:204
 msgid "Warning"
 msgstr "Προσοχή"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:195
+#: .\etsd\keys\templates\keys\key_pair_create.html:205
 msgid ""
 "Are you sure you want to continue?<br />\n"
 "    Please make sure that:\n"
@@ -73,12 +73,14 @@ msgstr ""
 "Θέλετε να συνεχίσετε?<br />\n"
 "    Παρακαλούμε επιβεβαιώσατε ότι:\n"
 "    <ul>\n"
-"      <li>Θυμάστε την κωδική φράση κωδικοποίησης του ιδιωτικού σας κλειδιού</li>\n"
-"      <li>Έχετε αποθηκεύσει το ιδιωτικό σας κλειδί σε ένα ασφαλές μέρος</li>\n"
+"      <li>Θυμάστε την κωδική φράση κωδικοποίησης του ιδιωτικού σας κλειδιού</"
+"li>\n"
+"      <li>Έχετε αποθηκεύσει το ιδιωτικό σας κλειδί σε ένα ασφαλές μέρος</"
+"li>\n"
 "    </ul>\n"
 "    <b>Αν χάσετε το ιδιωτικό σας κλειδί ή την κωδική φράση του\n"
-"    δε θα μπορείτε πλέον να το χρησιμοποιήσετε και θα πρέπει να δημιουργήσετε ένα άλλο!"
-"</b>"
+"    δε θα μπορείτε πλέον να το χρησιμοποιήσετε και θα πρέπει να "
+"δημιουργήσετε ένα άλλο!</b>"
 
 #: .\etsd\keys\templates\keys\load_private_key.html:109
 msgid "Please select a private key file"
@@ -92,8 +94,9 @@ msgstr "Παρακαλούμε συμπληρώστε μια κωδική φρά
 msgid ""
 "Private key successfully validated! Please press the Load private key button "
 "to load it in your browser session."
-msgstr "Το ιδιωτικό κλειδί είναι έγκυρο! Παρακαλούμε πατήστε το κουμπί "
-"Φόρτωση ιδιωτικού κλειδιού για να το χρησιμοποιήσετε"
+msgstr ""
+"Το ιδιωτικό κλειδί είναι έγκυρο! Παρακαλούμε πατήστε το κουμπί Φόρτωση "
+"ιδιωτικού κλειδιού για να το χρησιμοποιήσετε"
 
 #: .\etsd\keys\templates\keys\load_private_key.html:130
 msgid "Success"
@@ -129,17 +132,19 @@ msgstr "Σφάλμα κατά το ανέβασμα!"
 msgid "Error while trying to add the data: <br /> "
 msgstr "Σφάλμα κατά την προσθήκη δεδομένων: <br /> "
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:238
+#: .\etsd\msgs\templates\msgs\message_detail.html:239
 msgid "Decrypt and download"
 msgstr "Αποκρυπτογράφηση και λήψη"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:241
+#: .\etsd\msgs\templates\msgs\message_detail.html:242
 msgid ""
 "Not possible to decrypt. Please make sure you have loaded the proper private "
 "key"
-msgstr "Δεν είναι δυνατή η αποκρυπτογράφηση. Παρακαλούμε επιβεβαιώστε ότι έχετε φορτώσει το σωστό ιδιωτικό κλειδί"
+msgstr ""
+"Δεν είναι δυνατή η αποκρυπτογράφηση. Παρακαλούμε επιβεβαιώστε ότι έχετε "
+"φορτώσει το σωστό ιδιωτικό κλειδί"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:243
+#: .\etsd\msgs\templates\msgs\message_detail.html:244
 msgid "Cipher data not available"
 msgstr "Τα κρυπτογραφημένα δεδομένα δεν είναι διαθέσιμα"
 

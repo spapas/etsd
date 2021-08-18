@@ -8,123 +8,142 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-18 13:10+0300\n"
+"POT-Creation-Date: 2021-08-18 15:02+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\etsd\core\forms.py:34
+#, python-brace-format
 msgid "User {0} cannot be added! No such ldap user."
-msgstr ""
+msgstr "Ο χρήστης {0} δε μπορεί να χρησιμοποιηθεί!"
 
 #: .\etsd\core\forms.py:40
+#, python-brace-format
 msgid "{0} is an authority and cannot be added as a user!"
-msgstr ""
+msgstr "Το {0} δε μπορεί να χρησιμοποιηθεί σαν χρήστης!"
 
 #: .\etsd\core\forms.py:52
 msgid "Select users"
-msgstr ""
+msgstr "Επιλογή χρηστών"
 
 #: .\etsd\core\forms.py:55
 msgid ""
 " You can remove users by pressing the \"x\" next to their name or add more "
 "by typing their username/last name/email and selecting them. "
 msgstr ""
+" Μπορείτε να αφαιρέσετε χρήστες με το \"x\" δίπλα στο όνομα τους ή να  "
+"προσθέσετε περισσότερους αναζητώντας τους με το username/επιθέτο/email τους."
 
 #: .\etsd\core\forms.py:83
+#, python-brace-format
 msgid ""
 "User {0} belongs to authority {1} and cannot be added! \n"
 "                      Remove {0} from {1} and try again."
 msgstr ""
+"Ο χρήστης {0} ανήκει στην Υπηρεσία {1} και δε μπορεί να προστεθεί! \n"
+"                      Αφαιρέστε τον {0} από την Υπηρεσία {1} και δοκιμάστε "
+"ξανά."
 
 #: .\etsd\core\forms.py:92
 msgid "You cant remove yourself!"
-msgstr ""
+msgstr "Δε μπορείτε να αφαιρέσετε τον εαυτό σας!"
 
-#: .\etsd\core\models.py:17
-#: .\etsd\keys\templates\keys\publickey_detail.html:16
+#: .\etsd\core\models.py:17 .\etsd\keys\templates\keys\publickey_detail.html:16
 msgid "Created on"
-msgstr ""
+msgstr "Δημιουργία στις"
 
 #: .\etsd\core\models.py:20
 msgid "Modified on"
-msgstr ""
+msgstr "Επεξεργασία στις"
 
 #: .\etsd\core\models.py:26
 msgid "Created by"
-msgstr ""
+msgstr "Δημιουργία από"
 
 #: .\etsd\core\models.py:33
 msgid "Modified by"
-msgstr ""
+msgstr "Επεξεργασία από"
 
 #: .\etsd\core\templates\core\edit_authority_data.html:14
 #: .\etsd\core\templates\core\edit_authority_data.html:15
-#: .\templates\home.html:85
+#: .\templates\home.html:89
 msgid "Edit Authority Data"
-msgstr ""
+msgstr "Επεξεργασία δεδομένων Υπηρεσίας"
 
 #: .\etsd\core\templates\core\edit_authority_data.html:19
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "  <b>Here you can update Authority's %(auth)s active users and email. </"
+#| "b>\n"
 msgid ""
 "\n"
 "  <b>Here you can update Authority's %(auth)s active users and email. </b>\n"
 "  "
 msgstr ""
+"\n"
+"<b>Εδώ μπορείτε να επεξεργαστείτε τους ενεργούς χρήστες και το email της "
+"Υπηρεσίας %(auth)s.</b>\n"
 
 #: .\etsd\core\templates\core\edit_authority_data.html:27
-#: .\etsd\keys\templates\keys\key_pair_create.html:101
+#: .\etsd\keys\templates\keys\key_pair_create.html:111
 #: .\etsd\keys\templates\keys\publickey_form.html:64
 #: .\etsd\msgs\templates\msgs\message_add_data.html:25
 #: .\etsd\msgs\templates\msgs\message_form.html:56
 #: .\templates\authorities\authority_form.html:11
 msgid "Submit"
-msgstr ""
+msgstr "Υποβολή"
 
 #: .\etsd\core\templates\core\edit_authority_data.html:28
-#: .\etsd\keys\templates\keys\key_pair_create.html:102
+#: .\etsd\keys\templates\keys\key_pair_create.html:112
 #: .\etsd\keys\templates\keys\load_private_key.html:86
 #: .\etsd\keys\templates\keys\publickey_detail.html:69
 #: .\etsd\keys\templates\keys\publickey_form.html:65
 #: .\etsd\msgs\templates\msgs\message_add_data.html:27
-#: .\etsd\msgs\templates\msgs\message_detail.html:108
+#: .\etsd\msgs\templates\msgs\message_detail.html:109
 #: .\etsd\msgs\templates\msgs\message_form.html:57
 #: .\templates\authorities\authority_detail.html:19
 #: .\templates\authorities\authority_form.html:12
 msgid "Return"
-msgstr ""
+msgstr "Επιστροφή"
 
 #: .\etsd\core\templates\core\help.html:7
 #: .\etsd\core\templates\core\help.html:8 .\templates\partials\_nav.html:35
 msgid "Help"
-msgstr ""
+msgstr "Βοήθεια"
 
-#: .\etsd\core\templates\core\help.html:11 .\templates\home.html:41
+#: .\etsd\core\templates\core\help.html:11 .\templates\home.html:43
 msgid "Key management"
+msgstr "Διαχείριση κλειδιών"
+
+#: .\etsd\core\templates\core\help.html:16
+msgid ""
+"If your Authority needs to receive data then you must generate a new private/"
+"public key pair and submit it for approval."
 msgstr ""
 
-#: .\etsd\core\templates\core\help.html:15
+#: .\etsd\core\templates\core\help.html:18
+msgid "Key pair generation"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:20
 #, python-format
 msgid ""
 "\n"
-"<p>\n"
-"If your Authority needs to receive data then you must generate a new private/"
-"public key pair and submit\n"
-"it for approval.\n"
-"</p>\n"
-"<h4>Key pair generation</h4>\n"
-"<p>\n"
-"To do this, \n"
-"go to the <a href='%(public_key_list)s'>Public Key list</a> page and click "
-"the \n"
+"To generate your key pair,  go to the <a href='%(public_key_list)s'>Public "
+"Key list</a> page and click the \n"
 "<a href='%(key_pair_create)s'>New key pair</a> button.\n"
-"</p>\n"
-"<p>\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:26
+msgid ""
+"\n"
 "In this form you need to first enter a proper passphrase that will be used "
 "to encrypt your private key. Just follow\n"
 "the on-screen instructions. Then you have to press the <strong>Generate Key "
@@ -135,8 +154,11 @@ msgid ""
 "will be encrypted using the passphrase you \n"
 "entered so you need both of them. If you miss one of them, you'll need to "
 "generate a new key pair. \n"
-"</p>\n"
-"<p>\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:35
+msgid ""
+"\n"
 "Please be extra careful when downloading the private key. It is a file that "
 "contains your private key and should\n"
 "only be used to decrypt your data. If someone gets hold of this file and its "
@@ -145,14 +167,24 @@ msgid ""
 "write down the passphrase and keep it in a \n"
 "*different* place or even better just try to remember it without writing it "
 "anywhere.\n"
-"</p>\n"
-"<p>\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:43
+msgid ""
+"\n"
 "After you have downloaded the private key you must press the <strong>Submit</"
 "strong> button to save the public key \n"
 "that will be used to encrypt your Authority data in the server.\n"
-"</p>\n"
-"<h4>Key pair approval </h4>\n"
-"<p>\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:48
+msgid "Key pair approval"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:50
+#, python-format
+msgid ""
+"\n"
 "The key pair you just generated must be approved for usage. To start the "
 "approval process you first need to \n"
 "<a href='%(privatekey_load)s'>load the private key</a> in your browser. To "
@@ -162,8 +194,12 @@ msgid ""
 "private key is properly decrypted. Finally, press the <strong>Load private "
 "key</strong> button to actually load the \n"
 "key to your browser's session.\n"
-"</p>\n"
-"<p> \n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:59
+#, python-format
+msgid ""
+"\n"
 "After you have loaded the private key you can submit the public key to the "
 "server for approval. To do this,\n"
 "go to the <a href='%(public_key_list)s'>Public Key list</a> page, find the "
@@ -174,23 +210,24 @@ msgid ""
 "that declares that this is \n"
 "the key you want to use for your Authority. After you have selected the "
 "document just press submit.\n"
-"</p>\n"
-"<p>\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:68
+msgid ""
+"\n"
 "Your approval request will be submitted to the administrators of the "
 "application; after they approve this your \n"
 "authority will be able to receive encrypted data.\n"
-"</p>\n"
 msgstr ""
 
-#: .\etsd\core\templates\core\help.html:65 .\templates\home.html:22
+#: .\etsd\core\templates\core\help.html:75 .\templates\home.html:22
 msgid "Encrypted messaging"
 msgstr ""
 
-#: .\etsd\core\templates\core\help.html:69
-#, python-format
+#: .\etsd\core\templates\core\help.html:80
 msgid ""
 "\n"
-"<p>Using this app you can transmit messages between Authorities. \n"
+"Using this app you can transmit messages between Authorities. \n"
 "All message data is encrypted using public key cryptography: The public key "
 "of the receiving \n"
 "authority is used to encrypt the message. This authority will then use its "
@@ -199,11 +236,21 @@ msgid ""
 "meaning that the private\n"
 "keys of the authorities and the plaintext (non-encrypted) data files always "
 "stay in the \n"
-"user's computer and never reach the server.</p>\n"
-"<h4>Sending messages</h4>\n"
-"<p>\n"
-"To send an encrypted message you need to go to the <a href='%"
-"(participant_list)s'>Message list</a> page and click the \n"
+"user's computer and never reach the server.\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:89
+#, fuzzy
+#| msgid "New message"
+msgid "Sending messages"
+msgstr "Νέο μήνυμα"
+
+#: .\etsd\core\templates\core\help.html:91
+#, python-format
+msgid ""
+"\n"
+"To send an encrypted message you need to go to the <a "
+"href='%(participant_list)s'>Message list</a> page and click the \n"
 "<a href='%(message_create)s'>New message</a> button. The message can be a "
 "New one (not related to another message),\n"
 "a Reply to an existing message or a Fix to an existing message. If you "
@@ -213,8 +260,12 @@ msgid ""
 "with the sender's public key so it will be saved to the server and be "
 "available to the sender to decrypt it. This checkbox \n"
 "cannot be selected if the sender does not have an approved public key.\n"
-"</p>\n"
-"<p>To add the message recipients, click the <strong>Add</strong> button and "
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:101
+msgid ""
+"\n"
+"To add the message recipients, click the <strong>Add</strong> button and "
 "select if the recipient is \n"
 "a To or a Carbon Copy (cc) and receiving Authority from the autocomplete "
 "list. \n"
@@ -222,8 +273,11 @@ msgid ""
 "public key can be selected here.\n"
 "You can add as many recipients as you want.\n"
 "When you are finished press the <strong>Submit</strong> button. \n"
-"</p>\n"
-"<p>\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:111
+msgid ""
+"\n"
 "Now you need to add the data to the email. To do that press the <strong>Add "
 "Data</strong> button. In this form, just \n"
 "select (or drag n drop) the file you want and press the <strong>Submit</"
@@ -231,8 +285,11 @@ msgid ""
 "you that the file has been uploaded. You can the add another file or press "
 "the <strong>Return</strong> button to close\n"
 "this form and return to the main message screen.\n"
-"</p>\n"
-"<p>\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:119
+msgid ""
+"\n"
 "After you have added the data to the email, you can then press the "
 "<strong>Send</strong> button to send the message.\n"
 "Sending the message is only possible after you have added some data. Also, "
@@ -240,9 +297,18 @@ msgid ""
 "it completely along with any data it has using the <strong>Delete</strong> "
 "button. Keep in mind that deleting a \n"
 "message is not possible after it has been sent.\n"
-"</p>\n"
-"<h4>Viewing messages</h4>\n"
-"<p>\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:126
+#, fuzzy
+#| msgid "New message"
+msgid "Viewing messages"
+msgstr "Νέο μήνυμα"
+
+#: .\etsd\core\templates\core\help.html:128
+#, python-format
+msgid ""
+"\n"
 "By visting the  <a href='%(participant_list)s'>Message list</a> page you "
 "will see all the message that \n"
 "concern your Authority (either as a sender or a recipient). The messages are "
@@ -251,8 +317,12 @@ msgid ""
 "messages. You can filter/search \n"
 "the messages using the filter in this page. Messages with the same status "
 "will be sorted by their sent date.\n"
-"</p>\n"
-"<p>\n"
+msgstr ""
+
+#: .\etsd\core\templates\core\help.html:136
+#, python-format
+msgid ""
+"\n"
 "You can then click to the blue id button to see the message details. However "
 "notice that you will not be \n"
 "able to see the message data until you <a href='%(privatekey_load)s'>load "
@@ -265,12 +335,10 @@ msgid ""
 "button. An \"archived\" message will just be \n"
 "moved to the end of the list of messages. You can also unarchive a message "
 "so it will be changed to \"Read\" again.\n"
-"</p>\n"
-"\n"
 msgstr ""
 
 #: .\etsd\core\views.py:42
-msgid "Authority Data succesfully updated!"
+msgid "Authority Data successfully updated!"
 msgstr ""
 
 #: .\etsd\keys\forms.py:12 .\etsd\keys\models.py:55
@@ -310,9 +378,8 @@ msgstr ""
 msgid "The description (user id) of the key"
 msgstr ""
 
-#: .\etsd\keys\models.py:47
-#: .\etsd\keys\templates\keys\publickey_detail.html:15
-#: .\etsd\msgs\templates\msgs\message_detail.html:29
+#: .\etsd\keys\models.py:47 .\etsd\keys\templates\keys\publickey_detail.html:15
+#: .\etsd\msgs\templates\msgs\message_detail.html:30
 msgid "Status"
 msgstr ""
 
@@ -366,33 +433,44 @@ msgstr ""
 
 #: .\etsd\keys\templates\keys\key_pair_create.html:13
 msgid "Authority:"
-msgstr ""
+msgstr "Υπηρεσία"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:18
+#: .\etsd\keys\templates\keys\key_pair_create.html:19
 msgid ""
 "\n"
-"        <p>\n"
 "        You can generate a ney key pair through this form. The key pair is a "
 "pair of a private key and a public key. \n"
 "        The private key is encrypted with a passphrase that you need to "
 "define here.\n"
-"        </p>\n"
-"        <p> \n"
+"      "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:25
+msgid ""
+"\n"
 "          The public key of the key pair is used to encrypt data that other "
 "people want to send to you. This public key will be \n"
 "          saved to the server so others will be able to easily encrypt the "
 "data. The private key is used to decrypt that data\n"
 "          so it must remain absolutely secret and safe. \n"
-"        </p>\n"
-"        <p>\n"
+"      "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:32
+msgid ""
+"\n"
 "          Neither your passphrase nor your private key will be stored on the "
 "server. It is your responsibility to \n"
 "          properly store them in a safe place. If the private key or its "
 "decryption passphrase are lost, you will not be able to\n"
 "          decrypt the data that was encrypted with the public key of that "
 "particular key pair.\n"
-"        </p>\n"
-"        <p>\n"
+"      "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:39
+msgid ""
+"\n"
 "          After you enter the passphrase, click on the \"Generate key pair\" "
 "button. The key pair will be generated in your browser and\n"
 "          the key information fields will be filled. Then you must download "
@@ -401,32 +479,49 @@ msgid ""
 "you need to press the \"Submit\" button to save the public \n"
 "          key to the server so it can be approved and then used to encrypt "
 "your data.\n"
-"        <p>\n"
-"        <p>\n"
-"          Notice that in order to submit an approval request for your new "
-"key you need to first load your private key using the \"Load private key\" "
-"button.\n"
-"        </p>\n"
 "      "
 msgstr ""
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:51
+#: .\etsd\keys\templates\keys\key_pair_create.html:47
+msgid ""
+"\n"
+"          Notice that in order to submit an approval request for your new "
+"key you need to first load your private key using the \"Load private key\" "
+"button.\n"
+"      "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:59
 msgid "Passphrase"
 msgstr ""
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:64
+#: .\etsd\keys\templates\keys\key_pair_create.html:63
+msgid ""
+"\n"
+"        Please use a secure enough passphrase to enrypt your private key. "
+"Rules: Must be > <b id='passphraseLength'>16</b> characters. \n"
+"        Should be a passphrase ie a combination of multiple words and "
+"contain lower and capital letters, numbers and special characters.\n"
+"        "
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:74
 msgid "Passphrase confirmation"
 msgstr ""
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:79
+#: .\etsd\keys\templates\keys\key_pair_create.html:78
+msgid "Please confirm your passphrase."
+msgstr ""
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:89
 msgid "Generated key info"
 msgstr ""
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:99
+#: .\etsd\keys\templates\keys\key_pair_create.html:109
 msgid "Generate Key Pair"
 msgstr ""
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:100
+#: .\etsd\keys\templates\keys\key_pair_create.html:110
 msgid "Download Private Key"
 msgstr ""
 
@@ -506,8 +601,8 @@ msgid "ID"
 msgstr ""
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:14
-#: .\etsd\msgs\models.py:164 .\etsd\msgs\templates\msgs\message_detail.html:48
-#: .\etsd\msgs\templates\msgs\message_detail.html:85
+#: .\etsd\msgs\models.py:164 .\etsd\msgs\templates\msgs\message_detail.html:49
+#: .\etsd\msgs\templates\msgs\message_detail.html:86
 msgid "Authority"
 msgstr ""
 
@@ -592,6 +687,7 @@ msgid "Το αρχείο περιέχει εσφαλμένη υπογραφή! �
 msgstr ""
 
 #: .\etsd\keys\util.py:30
+#, python-brace-format
 msgid ""
 "Το αρχείο που ανεβάζετε δεν έχει τον κατάλληλο αριθμό υπογραφών. Το αρχείο "
 "πρέπει να έχει {0} υπογραφές και έχει {1}."
@@ -633,6 +729,7 @@ msgid ""
 msgstr ""
 
 #: .\etsd\keys\views.py:117
+#, python-brace-format
 msgid ""
 "You must load the private key for the corresponding public key\n"
 "                you want to submit for approval so that the system can make "
@@ -659,6 +756,7 @@ msgid "Public Key Confirmation"
 msgstr ""
 
 #: .\etsd\keys\views.py:219
+#, python-brace-format
 msgid "Private Key has been loaded. User id: {0}, fingerprint {1}"
 msgstr ""
 
@@ -751,12 +849,12 @@ msgid ""
 "you reply or fix"
 msgstr ""
 
-#: .\etsd\msgs\models.py:80 .\etsd\msgs\templates\msgs\message_detail.html:38
+#: .\etsd\msgs\models.py:80 .\etsd\msgs\templates\msgs\message_detail.html:39
 msgid "Category"
 msgstr ""
 
 #: .\etsd\msgs\models.py:90 .\etsd\msgs\tables.py:91
-#: .\etsd\msgs\templates\msgs\message_detail.html:33
+#: .\etsd\msgs\templates\msgs\message_detail.html:34
 msgid "Related message"
 msgstr ""
 
@@ -764,7 +862,7 @@ msgstr ""
 msgid "Please select a related message if needed"
 msgstr ""
 
-#: .\etsd\msgs\models.py:94 .\etsd\msgs\templates\msgs\message_detail.html:39
+#: .\etsd\msgs\models.py:94 .\etsd\msgs\templates\msgs\message_detail.html:40
 msgid "Sent on"
 msgstr ""
 
@@ -853,25 +951,28 @@ msgstr ""
 #: .\etsd\msgs\templates\msgs\message_add_data.html:5
 #: .\etsd\msgs\templates\msgs\message_add_data.html:6
 msgid "Add Data to Message"
-msgstr ""
+msgstr "Προσθήκη δεδομένων στο μήνυμα"
 
 #: .\etsd\msgs\templates\msgs\message_detail.html:4
 #: .\etsd\msgs\templates\msgs\message_detail.html:5
 msgid "Message detail"
-msgstr ""
+msgstr "Στοιχεία μηνύματος"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:10
+#: .\etsd\msgs\templates\msgs\message_detail.html:11
 msgid ""
 "\n"
-"  <p>\n"
 "    Message is a Draft. You need to add some data (files) to the message by "
 "using the \"Add data\"\n"
 "    button and then send it by pressing the \"Send\" button. Sending a "
 "message is possible only\n"
 "    after you have added some data. You can use the add data functionality "
 "as many times as you want.\n"
-"  </p>\n"
-"  <p>\n"
+"  "
+msgstr ""
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:18
+msgid ""
+"\n"
 "    If you have made some mistake you can delete the message completely by "
 "clicking the \"Delete\"\n"
 "    button. However please keep in mind that this is only possible "
@@ -879,182 +980,179 @@ msgid ""
 "    the message has been send there's no way to alter it or its contents; "
 "you need to send a \"Fix\" message\n"
 "    and refer this one.\n"
-"  \n"
-"  </p>\n"
 "  "
 msgstr ""
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:30
-msgid "Message status"
-msgstr ""
-
 #: .\etsd\msgs\templates\msgs\message_detail.html:31
-#: .\etsd\msgs\templates\msgs\message_detail.html:49
+msgid "Message status"
+msgstr "Κατάσταση μηνύματος"
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:32
+#: .\etsd\msgs\templates\msgs\message_detail.html:50
 #: .\templates\authorities\authority_detail.html:7
 msgid "Kind"
-msgstr ""
+msgstr "Είδος"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:40
+#: .\etsd\msgs\templates\msgs\message_detail.html:41
 msgid "Protocol"
-msgstr ""
+msgstr "Πρωτόκολλο"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:44
+#: .\etsd\msgs\templates\msgs\message_detail.html:45
 msgid "Participants"
-msgstr ""
+msgstr "Συμμετέχοντες"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:50
+#: .\etsd\msgs\templates\msgs\message_detail.html:51
 msgid "Public Key Fingerprint"
-msgstr ""
+msgstr "Αποτύπωμα δημοσίου κλειδιού"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:64
+#: .\etsd\msgs\templates\msgs\message_detail.html:65
 msgid "Data will not be encrypted"
-msgstr ""
+msgstr "Τα δεδομένα δε θα κρυπτογραφηθούν"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:79
+#: .\etsd\msgs\templates\msgs\message_detail.html:80
 msgid "Data"
-msgstr ""
-
-#: .\etsd\msgs\templates\msgs\message_detail.html:83
-msgid "Number"
-msgstr ""
+msgstr "Δεδομένο"
 
 #: .\etsd\msgs\templates\msgs\message_detail.html:84
-msgid "Extension"
-msgstr ""
+msgid "Number"
+msgstr "Αριθμός"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:86
-msgid "Decrypt"
-msgstr ""
+#: .\etsd\msgs\templates\msgs\message_detail.html:85
+msgid "Extension"
+msgstr "Κατάληξη"
 
 #: .\etsd\msgs\templates\msgs\message_detail.html:87
-#: .\etsd\msgs\templates\msgs\message_detail.html:117
+msgid "Decrypt"
+msgstr "Αποκρυπτογράφηση"
+
+#: .\etsd\msgs\templates\msgs\message_detail.html:88
+#: .\etsd\msgs\templates\msgs\message_detail.html:118
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:111
+#: .\etsd\msgs\templates\msgs\message_detail.html:112
 msgid "Add data"
-msgstr ""
+msgstr "Προσθήκη δεδομένων"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:123
+#: .\etsd\msgs\templates\msgs\message_detail.html:124
 msgid "Send"
-msgstr ""
+msgstr "Αποστολή"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:129
+#: .\etsd\msgs\templates\msgs\message_detail.html:130
 msgid "Archive"
-msgstr ""
+msgstr "Αρχειοθέτηση"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:135
+#: .\etsd\msgs\templates\msgs\message_detail.html:136
 msgid "Unarchive"
-msgstr ""
+msgstr "Απο-αρχειοθέτηση"
 
 #: .\etsd\msgs\templates\msgs\message_form.html:31
 #: .\etsd\msgs\templates\msgs\message_form.html:32
 msgid "New Message"
-msgstr ""
+msgstr "Νέο μήνυμα"
 
 #: .\etsd\msgs\templates\msgs\message_list.html:6
 #: .\etsd\msgs\templates\msgs\message_list.html:8
 #: .\etsd\msgs\templates\msgs\participant_list.html:6
 #: .\etsd\msgs\templates\msgs\participant_list.html:8
 msgid "Message list"
-msgstr ""
+msgstr "Κατάλογος μηνυμάτων"
 
 #: .\etsd\msgs\templates\msgs\message_list.html:13
 #: .\etsd\msgs\templates\msgs\participant_list.html:13
 msgid "New message"
-msgstr ""
+msgstr "Νέο μήνυμα"
 
 #: .\etsd\msgs\views.py:174
 msgid "Other participants may only be included once!"
-msgstr ""
+msgstr "Οι συμμετέχοντες μπορούν να περιληφθούν μία φορά"
 
 #: .\etsd\msgs\views.py:176
 msgid "At least one participant is required"
-msgstr ""
+msgstr "Χρειάζεται ένας συμμετέχων"
 
 #: .\etsd\msgs\views.py:180
 msgid "Please don't add empty rows"
-msgstr ""
+msgstr "Μην προσθέτετε κενές γραμμές"
 
 #: .\etsd\msgs\views.py:206
 msgid "Draft message created"
-msgstr ""
+msgstr "Το μήνυμα δημιουργήθηκε"
 
 #: .\etsd\msgs\views.py:350
 msgid "Message send"
-msgstr ""
+msgstr "Το μήνυμα στάλθηκε"
 
 #: .\etsd\msgs\views.py:369
 msgid "Message deleted"
-msgstr ""
+msgstr "Το μήνυμα διαγράφηκε"
 
 #: .\etsd\msgs\views.py:413
 msgid "Message archived"
-msgstr ""
+msgstr "Το μήνυμα αρχειοθετήθηκε"
 
 #: .\etsd\msgs\views.py:432
 msgid "Message unarchived"
-msgstr ""
+msgstr "Το μήνυμα απο-αρχειοθετήθηκε"
 
 #: .\templates\authorities\authority_detail.html:4
 msgid "Authority detail"
-msgstr ""
+msgstr "Στοιχεία Υπηρεσίας"
 
 #: .\templates\authorities\authority_detail.html:9
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: .\templates\authorities\authority_detail.html:10
 msgid "Users"
-msgstr ""
+msgstr "Χρήστες"
 
 #: .\templates\authorities\authority_detail.html:14
 msgid "No users"
-msgstr ""
+msgstr "Δεν υπάρχουν"
 
 #: .\templates\authorities\authority_detail.html:17
 #: .\templates\authorities\authority_list.html:11
 msgid "Edit"
-msgstr ""
+msgstr "Επεξεργασία"
 
 #: .\templates\authorities\authority_detail.html:18
 #: .\templates\authorities\authority_list.html:12
 msgid "Edit users"
-msgstr ""
+msgstr "Επεξεργασία χρηστών"
 
 #: .\templates\authorities\authority_form.html:5
 msgid "Authority form"
-msgstr ""
+msgstr "Επεξεργασία Υπηρεσίας"
 
 #: .\templates\authorities\authority_list.html:4
 msgid "Authority List"
-msgstr ""
+msgstr "Κατάλογος Υπηρεσίών"
 
 #: .\templates\authorities\authority_list.html:10
 msgid "View"
-msgstr ""
+msgstr "Εμφάνιση"
 
 #: .\templates\authorities\authority_list.html:15
 msgid "No authorities"
-msgstr ""
+msgstr "Δεν υπάρχουν"
 
 #: .\templates\authorities\authority_list.html:18
 msgid "Create"
-msgstr ""
+msgstr "Δημιουργία"
 
 #: .\templates\home.html:16
 msgid "Electronic Transmission of Sensitive Data"
-msgstr ""
+msgstr "Ηλεκτρονική διαβίβαση ευαισθητης πληροφορίας"
 
 #: .\templates\home.html:17
 msgid ""
 "You can use this app to transmit sensitive data across your organization"
-msgstr ""
+msgstr "Η εφαρμογή χρησιμοποιείται για τη διαβίβαση ευαίσθητης πληροφορίας"
 
-#: .\templates\home.html:24
+#: .\templates\home.html:25
 msgid ""
 "\n"
-"          <p>\n"
 "            This app can be used to transmit messages containing encrypted "
 "data between authorities.\n"
 "            The OpenPGP standard is used to encrypt the data using the fully "
@@ -1062,8 +1160,12 @@ msgid ""
 "            This means that the encryption and decryption of the data is "
 "performed only in the user's computer so\n"
 "            no plaintext ever reaches the server.\n"
-"          </p>\n"
-"          <p>\n"
+"        "
+msgstr ""
+
+#: .\templates\home.html:33
+msgid ""
+"\n"
 "            Following the principles of Public Key Cryptography, any "
 "Authority can send encrypted messages however \n"
 "            only Authorities that do have an approved private/public key "
@@ -1072,15 +1174,13 @@ msgid ""
 "Authority must be used to encrypt the message\n"
 "            so only this Authority will be able to decrypt it using its "
 "private part of the key.\n"
-"          </p>\n"
 "        "
 msgstr ""
 
-#: .\templates\home.html:43
+#: .\templates\home.html:46
 msgid ""
 "\n"
-"          <p>\n"
-"            Using this app you can generate a private/public key pair of "
+"            Using this app you can generate a private/public key pair for "
 "your Authority. The private key will be encrypted with a passphrase.\n"
 "            Both the private key and the passphrase must be saved by the "
 "user in a safe place. Neither of them is ever send to\n"
@@ -1089,75 +1189,77 @@ msgid ""
 "            order to be used. After the public key of an authority has been "
 "approved, the authority can receive messages with encrypted \n"
 "            data.\n"
-"          </p>\n"
-"          <p>\n"
+"        "
+msgstr ""
+
+#: .\templates\home.html:55
+msgid ""
+"\n"
 "            In order to quickly decrypt the data of his Authority, the user "
 "can \"load\" the private key to his session. This means that \n"
 "            this key will be decrypted with its passphrase and saved in the "
 "user's browser for as long as the user is logged in to the app.\n"
 "            That key will be then used to decrypt the encrypted data of the "
 "users' Authority.\n"
-"            \n"
-"          </p>\n"
 "        "
 msgstr ""
 
-#: .\templates\home.html:66
+#: .\templates\home.html:70
 msgid "Welcome,"
-msgstr ""
+msgstr "Καλώς ήρθατε,"
 
-#: .\templates\home.html:68
+#: .\templates\home.html:72
 msgid "No user authority"
-msgstr ""
-
-#: .\templates\home.html:71
-msgid "Admin and user access"
-msgstr ""
-
-#: .\templates\home.html:73
-msgid "Admin access"
-msgstr ""
+msgstr "Δεν έχετε Υπηρεσία"
 
 #: .\templates\home.html:75
-msgid "User access"
-msgstr ""
+msgid "Admin and user access"
+msgstr "Πρόσβαση διαχειριστή και χρήστη"
 
 #: .\templates\home.html:77
-msgid "No access!"
-msgstr ""
+msgid "Admin access"
+msgstr "Πρόσβαση διαχειριστή"
 
-#: .\templates\home.html:94
+#: .\templates\home.html:79
+msgid "User access"
+msgstr "Πρόσβαση χρήστη"
+
+#: .\templates\home.html:81
+msgid "No access!"
+msgstr "Χωρίς πρόσβαση!"
+
+#: .\templates\home.html:98
 msgid "Authorities"
 msgstr ""
 
-#: .\templates\home.html:101
+#: .\templates\home.html:105
 msgid "Log in"
-msgstr ""
+msgstr "Σύνδεση"
 
 #: .\templates\partials\_filter.html:10
 msgid "Filter"
-msgstr ""
+msgstr "Φίλτρο"
 
 #: .\templates\partials\_filter.html:11
 msgid "Reset"
-msgstr ""
+msgstr "Επαναφορά"
 
 #: .\templates\partials\_nav.html:21
 msgid "Keys"
-msgstr ""
+msgstr "Κλειδιά"
 
 #: .\templates\partials\_nav.html:28
 msgid "Public key List"
-msgstr ""
+msgstr "Κατάλογος δημοσίων κλειδιών"
 
 #: .\templates\partials\_nav.html:51
 msgid "Private key loaded"
-msgstr ""
+msgstr "Φορτωμένο ιδιωτικό κλειδί"
 
 #: .\templates\partials\_nav.html:56
 msgid "Disconnect"
-msgstr ""
+msgstr "Αποσύνδεση"
 
 #: .\templates\partials\_nav.html:60
 msgid "Please login"
-msgstr ""
+msgstr "Παρακαλούμε συνδεθείτε"
