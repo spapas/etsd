@@ -33,7 +33,9 @@ def work():
     with cd(env.directory):
         requirements_txt = "requirements/" + env.env + ".txt"
         if os.stat(requirements_txt).st_size > 0:
-            virtualenv("{0} pip install -r {1}".format(FAB_PROXY, requirements_txt))
+            virtualenv(
+                "http_proxy={0} pip install -r {1}".format(FAB_PROXY, requirements_txt)
+            )
         virtualenv("python manage.py migrate")
         virtualenv("python manage.py update_permissions")
         virtualenv("python manage.py collectstatic --noinput")
@@ -56,7 +58,7 @@ def full_deploy():
 
 
 def virtualenv(command):
-    run(env.activate + " && " + command)
+    run(env.activate + "&&" + command)
 
 
 def uat():
