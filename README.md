@@ -67,3 +67,33 @@ beyond Django and a database. You can even use sqlite3 if you wanted but I'd
 recommend something like Postgresql. All other dependencies are django
 packages that can be installed through the requirements/*.txt (there are 
 different files for dev/uat/prod).
+
+Here's how I would install this for a dev environment:
+
+E:\>mkdir etsd
+E:\>cd etsd
+E:\etsd>py -3 -m venv venv
+E:\etsd>venv\Scripts\activate
+(venv) E:\etsd>git clone https://github.com/spapas/etsd
+(venv) E:\etsd\etsd>pip install c:\Users\serafeim\Downloads\python_ldap-3.3.1-cp38-cp38-win32.whl
+    Processing c:\users\serafeim\downloads\python_ldap-3.3.1-cp38-cp38-win32.whl
+[...]
+(venv) E:\etsd\etsd>pip install -r requirements\dev.txt
+    Collecting crispy-bootstrap5==0.4 (from -r requirements\base.txt (line 1))
+    [...]
+set DJANGO_SETTINGS_MODULE=etsd.settings.dev
+copy local.py.template local.py
+    [Edit the local.py file and ldap_conf.py with your preferences]
+E:\etsd\etsd>cd etsd\settings
+dj migrate
+dj createsuperuser
+    [...]
+rsp
+
+Now you can visit http://127.0.0.1:8000 and login with the superuser credentials.
+
+If you see any errors during the requirements installation make sure that you are
+using the latest version of pip.
+
+To install it for a production environment you can follow the instructions for 
+any python/django web app.
