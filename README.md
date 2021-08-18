@@ -49,9 +49,8 @@ key and its encryption passphrase are saved only client side.
 After the public key is approved the authority
 can receive data. The data is encrypted with
 its public key using
-OpenPGP.js *on the client side" and only the cipher
-(not the original data)
-is saved to the server. Since the original data
+OpenPGP.js *on the client side* and only the cipher
+(not the original data) is saved to the server. Since the original data
 never reaches the server we can be sure that
 even if the server was compromised somehow
 no sensitive data would be breached.
