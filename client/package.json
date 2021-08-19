@@ -10,7 +10,7 @@
     "make": "electron-forge make"
   },
   "author": "Serafeim Papastefanos",
-  "license": "AGPL",
+  "license": "AGPL-1.0-or-later",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.57",
     "@electron-forge/maker-deb": "^6.0.0-beta.57",
