@@ -106,22 +106,30 @@ The home screen after a user has logged in is this:
 
 ![01 home](https://user-images.githubusercontent.com/3911074/130051873-13d41917-9c17-44d4-aba2-580eb9ece79b.png)
 
+
 He picks Public Key list:
 ![02 key_list](https://user-images.githubusercontent.com/3911074/130051943-751ff648-ea7a-4a8f-83f8-5952bdcf1a57.png)
+
 
 And then Generate Key pair:
 ![03 generate_key_pair](https://user-images.githubusercontent.com/3911074/130051985-b84513c2-74ca-416b-b557-6f9cb61f04ef.png)
 
-He submits his keyphrase, downloads the private key and presses submit to save the public key to the server:
+
+He enters his keyphrase, downloads the private key and presses submit to save the public key to the server. Only the 
+public key will be saved to the server. The keyphrase is needed to encrypt the generated private key that he must 
+then download to his computer:
 ![03a key_info](https://user-images.githubusercontent.com/3911074/130052046-afe11989-d24a-4ecb-b191-b2a3acbf3c16.png)
+
 
 He loads the private key to his session by using the Load Private Key option:
 ![04 load_private_key](https://user-images.githubusercontent.com/3911074/130052180-d7485903-421d-4ecd-8273-89b551a191ba.png)
 
-After submitting the private key file and passphrase both are saved to the session:
+
+After submitting the private key file and passphrase both are saved to his browser (using local storage, they are not submitted to the server):
 ![04a key_loaded](https://user-images.githubusercontent.com/3911074/130052223-48553e87-be5f-4dbc-92dd-ffb4002e0f69.png)
 
-Now he can submit his key for approval to the administrators along with a proper document (the public key that is submitted is validated with the loaded private key before sending it):
+
+Now he can submit his key for approval to the administrators along with a proper document (the public key that will be submitted is validated with the loaded private key before sending it to make sure that the user has not made some mistake):
 ![05_key_approval](https://user-images.githubusercontent.com/3911074/130052315-244669eb-a788-4f2c-a1cc-97fa2aceab46.png)
 
 ## Sending the data:
