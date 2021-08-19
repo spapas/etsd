@@ -25,7 +25,7 @@ def ldap_check(usernames):
 
     con = init_ldap_con()
     for un in usernames:
-        if un.username in ["root", "pir", "raf", "lav"]:
+        if un.username in ["root", "pir", "raf", "lav", "hr_user", "mark_user"]:
             # TEST
             return None
         lu = get_ldap_user(con, un.username)
@@ -72,9 +72,10 @@ class AuthorityUsersModelForm(forms.ModelForm):
         auth = self.instance
         initial_users = auth.users.all()
         added_users = set(new_users).difference(set(initial_users))
-        user_errors = ldap_check(new_users)
-        if user_errors:
-            self.add_error("users", _(user_errors))
+        if settings.CHECK_LDAP_USERS:
+            user_errors = ldap_check(new_users)
+            if user_errors:
+                self.add_error("users", _(user_errors))
         for usr in added_users:
             if usr.authorities.exists():
                 self.add_error(

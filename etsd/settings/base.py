@@ -111,7 +111,7 @@ LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGIN_URL = "/login/"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-LANGUAGE_CODE = "el"
+LANGUAGE_CODE = "en"
 TIME_ZONE = "Europe/Athens"
 USE_I18N = True
 USE_L10N = True
@@ -195,3 +195,5 @@ AUTHORITY_KIND_STR_FUNCTION = "etsd.core.utils.authority_kind_str"
 
 MAX_FILE_SIZE = 2 * 1024 * 1024  # 2MB
 MAX_FILE_SIZE_STR = "2MB"
+
+CHECK_LDAP_USERS = True
