@@ -46,8 +46,11 @@
           </div>
         </div>
          <div class='row'>
-          <div class='col-md-12'>
+          <div class='col-md-6'>
             {{ form.available_to_sender|as_crispy_field }}
+          </div>
+          <div class='col-md-6'>
+            {{ form.local_identifier|as_crispy_field }}
           </div>
         </div>
 

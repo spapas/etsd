@@ -3,7 +3,7 @@ from django.db.models import Max
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-
+from django.core.validators import RegexValidator
 import reversion
 
 from etsd.core.models import UserDateAbstractModel
@@ -89,6 +89,13 @@ class Message(UserDateAbstractModel):
         on_delete=models.PROTECT,
         verbose_name=_("Related message"),
         help_text=_("Please select a related message if needed"),
+    )
+    local_identifier = models.CharField(
+        max_length=50,
+        blank=True, 
+        verbose_name=_("Local identifier"),
+        help_text=_("Please provide a local identifier (local authority protocol) if needed."),
+        validators=[RegexValidator(r'^[0-9.\-/]*$', 'Valid characters are 0-9 . - /')],
     )
 
     sent_on = models.DateTimeField(blank=True, null=True, verbose_name=_("Sent on"))
