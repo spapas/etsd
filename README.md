@@ -95,3 +95,33 @@ using the latest version of pip.
 
 To install it for a production environment you can follow the instructions for 
 any python/django web app.
+
+# User scenarios
+
+Let's see how this works in practice. Suppose you have two deparments, HR and Marketing. Marketing would like to send some encrypted data to HR. For starters, the HR must generate his key pair in order to be able to receive data:
+
+## To create a new key pair and submit the public key for approval:
+
+The home screen after a user has logged in is this: 
+
+![01 home](https://user-images.githubusercontent.com/3911074/130051873-13d41917-9c17-44d4-aba2-580eb9ece79b.png)
+
+He picks Public Key list:
+![02 key_list](https://user-images.githubusercontent.com/3911074/130051943-751ff648-ea7a-4a8f-83f8-5952bdcf1a57.png)
+
+And then Generate Key pair:
+![03 generate_key_pair](https://user-images.githubusercontent.com/3911074/130051985-b84513c2-74ca-416b-b557-6f9cb61f04ef.png)
+
+He submits his keyphrase, downloads the private key and presses submit to save the public key to the server:
+![03a key_info](https://user-images.githubusercontent.com/3911074/130052046-afe11989-d24a-4ecb-b191-b2a3acbf3c16.png)
+
+Now he loads the private key to his session by using the Load Private Key optionL:
+![04 load_private_key](https://user-images.githubusercontent.com/3911074/130052180-d7485903-421d-4ecd-8273-89b551a191ba.png)
+
+After submitting the private key file and passphrase both are saved to the session:
+![04a key_loaded](https://user-images.githubusercontent.com/3911074/130052223-48553e87-be5f-4dbc-92dd-ffb4002e0f69.png)
+
+Now he can submit his key for approval to the administrators along with a proper document (the public key that is submitted is validated with the loaded private key before sending it):
+![05_key_approval](https://user-images.githubusercontent.com/3911074/130052315-244669eb-a788-4f2c-a1cc-97fa2aceab46.png)
+
+## To create a new key pair and submit the public key for approval:
