@@ -245,7 +245,7 @@
             ):`<span class='text-danger'>${gettext('Cipher data not available')}</span>`
           }</td>
           <td>
-            ${cd?`<a onclick='return deleteCipherData(${cd.id})' class='btn btn-danger' href='#'>DELETE</a>`:'-'}
+            ${cd?`<a onclick='return deleteCipherData(${cd.id})' class='btn btn-danger' href='#'>${gettext('Delete')}</a>`:'-'}
           </td>
         </tr>`
       }).join('')
