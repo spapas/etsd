@@ -125,9 +125,16 @@ Now he can submit his key for approval to the administrators along with a proper
 ![05_key_approval](https://user-images.githubusercontent.com/3911074/130052315-244669eb-a788-4f2c-a1cc-97fa2aceab46.png)
 
 ## Sending the data:
+The public key must be approved by an administrator before it can be used to encrypt data.
 
-Now the marketing user can send his data. First he selects the Messages list:
+After the public key is approved, the marketing user can send his data. First he selects the Messages list:
 ![06_msg_list](https://user-images.githubusercontent.com/3911074/130052785-d0ea03d3-7783-4c61-930d-a5c337a1ed5a.png)
+
+And starts a new Message where he selects the HR department as a recipient:
+![07_new_msg](https://user-images.githubusercontent.com/3911074/130052991-cd9536e9-2c55-481b-ac45-87d75be1e118.png)
+
+The new message is created as a draft:
+![08_message_detail](https://user-images.githubusercontent.com/3911074/130053408-a5410113-1677-4fed-8352-decf140da861.png)
 
 
 
