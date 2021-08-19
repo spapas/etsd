@@ -136,6 +136,24 @@ And starts a new Message where he selects the HR department as a recipient:
 The new message is created as a draft:
 ![08_message_detail](https://user-images.githubusercontent.com/3911074/130053408-a5410113-1677-4fed-8352-decf140da861.png)
 
+In order to send the message, the marketing user must add some data to it. The user just selects the files one by one.
+Each file is encrypted client side and only the cipher is uploaded to the server.
+![09_message_add_data](https://user-images.githubusercontent.com/3911074/130053561-915857d6-6705-4131-8a33-5d04b6b56b00.png)
 
+After the user finished uploading the data he can send the message:
+![10_message_send](https://user-images.githubusercontent.com/3911074/130053802-9eae3b83-b39f-49d8-89b4-0620bb1ceae4.png)
 
+## Retrieving the message data:
+Now the HR user will receive an email informing him that he just got a new encrypted message. He logs in to the app and sees the message in his message list:
+![11_message_list2](https://user-images.githubusercontent.com/3911074/130054028-05786d6c-6b32-433b-b395-db21e9712073.png)
 
+He clicks the message id to see its data but he is not able because he has not loaded his private key:
+![12_message_detail_no_pk](https://user-images.githubusercontent.com/3911074/130054160-85191c44-c48a-4537-9993-a482cd921585.png)
+
+He then loads his private key following tyhe same procedure as before and now he is able to actually see the data:
+![13_message_detail_pk](https://user-images.githubusercontent.com/3911074/130054323-c8711bfc-ded2-4672-ad32-d8e285d25f8f.png)
+
+After he has downloaded  and decrypted  all the message data the message status is changet to Read and he can archive it:
+![14_message_detail_read](https://user-images.githubusercontent.com/3911074/130054470-34e82d8b-6e20-46fc-8739-911b32428547.png)
+
+He can also delete the cipher data from the server completely if he choses. The message will not be deleted but the data that was encrypted with his public key will be completely removed.
