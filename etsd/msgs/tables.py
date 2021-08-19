@@ -45,13 +45,18 @@ class MessageTable(ColumnShiftTable):
             "status",
             "category",
             "rel_message",
+            "local_identifier",
             "sender",
         )
         attrs = {"class": "table table-sm table-stripped"}
         empty_text = "No entries"
 
     def render_sender(self, record):
-        return record.participant_set.filter(kind="SENDER").first().authority.name
+        snder=record.participant_set.filter(kind="SENDER")
+        if snder:
+            return snder.first().authority.name
+        else:
+            return None
 
     def render_recipients(self, record):
         return ", ".join(
@@ -107,6 +112,7 @@ class ParticipantTable(ColumnShiftTable):
             "kind",
             A("message.sent_on"),
             A("message.kind"),
+            A("message.local_identifier"),
         )
         empty_text = "No entries"
 

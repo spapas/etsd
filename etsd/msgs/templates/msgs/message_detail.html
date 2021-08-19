@@ -38,6 +38,7 @@
     
     {% trans "Category" %}: {{ message.category|default:"-" }}<br />
     {% trans "Sent on" %}: {{ message.sent_on|default:"-" }}<br />
+    {% trans "Local identifier" %}: {{ message.local_identifier|default:"-" }}<br />
     {% trans "Protocol" %}: {% if message.protocol %}{{ message.protocol }} / {{ message.protocol_year }}{% endif %}<br />
 
   </div>

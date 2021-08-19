@@ -455,7 +455,9 @@ class MessageAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(
-                Q(protocol__icontains=self.q) | Q(protocol_year__icontains=self.q)
+                Q(protocol__icontains=self.q) 
+                | Q(protocol_year__icontains=self.q)
+                | Q(local_identifier__icontains=self.q)
             )
 
         return qs

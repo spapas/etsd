@@ -57,13 +57,13 @@ class MessageCreateForm(forms.ModelForm):
         label=_("Select related message"),
         required=False,
         help_text=_(
-            "Add a related message by typing its protocol/protocol year and selecting them. "
+            "Add a related message by typing its protocol/protocol year/local identifier and selecting them. "
         ),
     )
 
     class Meta:
         model = models.Message
-        fields = ["kind", "available_to_sender", "rel_message"]
+        fields = ["kind", "available_to_sender", "rel_message", "local_identifier",]
 
     def clean(self):
         user = ThreadLocal.get_current_user()
