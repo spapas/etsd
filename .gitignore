@@ -20,3 +20,4 @@ node_modules
 dovenv2
 etsd/branding/templates/*
 !etsd/branding/templates/.gitkeep
+client/node_modules
