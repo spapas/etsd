@@ -98,7 +98,13 @@ any python/django web app.
 
 # User scenarios
 
-Let's see how this works in practice. Suppose you have two deparments, HR and Marketing. Marketing would like to send some encrypted data to HR. For starters, the HR must generate his key pair in order to be able to receive data:
+Let's see how this works in practice. *Please notice that all the following screens have much helpful text
+for the end user that should guide him properly in his actions. I am not including it here to keep the 
+images a little smaller*.
+
+Suppose you have two deparments, HR and Marketing. Marketing would like to send some encrypted data to HR. 
+
+For starters, the HR must generate his key pair in order to be able to receive data:
 
 ## To create a new key pair and submit the public key for approval:
 
