@@ -115,7 +115,7 @@ And then Generate Key pair:
 He submits his keyphrase, downloads the private key and presses submit to save the public key to the server:
 ![03a key_info](https://user-images.githubusercontent.com/3911074/130052046-afe11989-d24a-4ecb-b191-b2a3acbf3c16.png)
 
-Now he loads the private key to his session by using the Load Private Key optionL:
+He loads the private key to his session by using the Load Private Key option:
 ![04 load_private_key](https://user-images.githubusercontent.com/3911074/130052180-d7485903-421d-4ecd-8273-89b551a191ba.png)
 
 After submitting the private key file and passphrase both are saved to the session:
@@ -124,4 +124,11 @@ After submitting the private key file and passphrase both are saved to the sessi
 Now he can submit his key for approval to the administrators along with a proper document (the public key that is submitted is validated with the loaded private key before sending it):
 ![05_key_approval](https://user-images.githubusercontent.com/3911074/130052315-244669eb-a788-4f2c-a1cc-97fa2aceab46.png)
 
-## To create a new key pair and submit the public key for approval:
+## Sending the data:
+
+Now the marketing user can send his data. First he selects the Messages list:
+![06_msg_list](https://user-images.githubusercontent.com/3911074/130052785-d0ea03d3-7783-4c61-930d-a5c337a1ed5a.png)
+
+
+
+
