@@ -39,7 +39,7 @@ const warningIcon = `<b>
 
 const bootstrap5Alert = ({ message, title, actionText, cb, color }) => {
   let modalId = makeId(12)
-  icon = dangerIcon
+  let icon = dangerIcon
   if(color === undefined) {
     color = 'danger';
 
@@ -62,15 +62,16 @@ const bootstrap5Alert = ({ message, title, actionText, cb, color }) => {
         </div>
         <div class="modal-body">
           <div class="alert alert-${color} d-flex align-items-center" role="alert">
-          ${icon} 
-          <div>
-            ${message}
-          </div>
-        </div>
+            ${icon} 
+            <div>
+              ${message}
+            </div>
+          </div><!-- alert -->
+        </div> <!-- modal body -->
         
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${gettext('Close')}</button>
-          ${cb ? `<button id='${modalId + 'ok'}' type="button" class=${'"btn btn-'+color+'"'} >${actionText}</button>`: ''}
+          ${cb ? `<button id='${modalId + 'ok'}' data-bs-dismiss="modal" type="button" class=${'"btn btn-'+color+'"'} >${actionText?actionText:'Ok'}</button>`: ''}
         </div>
       </div>
     </div>
