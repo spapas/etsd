@@ -95,3 +95,85 @@ using the latest version of pip.
 
 To install it for a production environment you can follow the instructions for 
 any python/django web app.
+
+# User scenarios
+
+Let's see how this works in practice. *Please notice that all the following screens have much helpful text
+for the end user that should guide him properly in his actions. I am not including it here to keep the 
+images a little smaller*.
+
+Suppose you have two deparments, HR and Marketing. Marketing would like to send some encrypted data to HR. 
+
+For starters, the HR must generate his key pair in order to be able to receive data:
+
+## To create a new key pair and submit the public key for approval:
+
+**The home screen after a user has logged in is this:**
+
+![01 home](https://user-images.githubusercontent.com/3911074/130051873-13d41917-9c17-44d4-aba2-580eb9ece79b.png)
+
+
+**He picks Public Key list:**
+![02 key_list](https://user-images.githubusercontent.com/3911074/130051943-751ff648-ea7a-4a8f-83f8-5952bdcf1a57.png)
+
+
+**And then Generate Key pair:**
+![03 generate_key_pair](https://user-images.githubusercontent.com/3911074/130051985-b84513c2-74ca-416b-b557-6f9cb61f04ef.png)
+
+
+**He enters his keyphrase, downloads the private key and presses submit to save the public key to the server. Only the 
+public key will be saved to the server. The keyphrase is needed to encrypt the generated private key that he must 
+then download to his computer:**
+![03a key_info](https://user-images.githubusercontent.com/3911074/130052046-afe11989-d24a-4ecb-b191-b2a3acbf3c16.png)
+
+
+**He loads the private key to his session by using the Load Private Key option:**
+![04 load_private_key](https://user-images.githubusercontent.com/3911074/130052180-d7485903-421d-4ecd-8273-89b551a191ba.png)
+
+
+**After submitting the private key file and passphrase both are saved to his browser (using local storage, they are not submitted to the server):**
+![04a key_loaded](https://user-images.githubusercontent.com/3911074/130052223-48553e87-be5f-4dbc-92dd-ffb4002e0f69.png)
+
+
+**Now he can submit his key for approval to the administrators along with a proper document (the public key that will be submitted is validated with the loaded private key before sending it to make sure that the user has not made some mistake):**
+![05_key_approval](https://user-images.githubusercontent.com/3911074/130052315-244669eb-a788-4f2c-a1cc-97fa2aceab46.png)
+
+## Sending the data:
+The public key must be approved by an administrator before it can be used to encrypt data.
+
+**After the public key is approved, the marketing user can send his data. First he selects the Messages list:**
+![06_msg_list](https://user-images.githubusercontent.com/3911074/130052785-d0ea03d3-7783-4c61-930d-a5c337a1ed5a.png)
+
+**And starts a new Message where he selects the HR department as a recipient:**
+![07_new_msg](https://user-images.githubusercontent.com/3911074/130052991-cd9536e9-2c55-481b-ac45-87d75be1e118.png)
+
+**The new message is created as a draft (which can be deleted is something was wrong):**
+![08_message_detail](https://user-images.githubusercontent.com/3911074/130053408-a5410113-1677-4fed-8352-decf140da861.png)
+
+**In order to send the message, the marketing user must add some data to it. The user just selects the files one by one.
+Each file is encrypted client-side and only the cipher is uploaded to the server. If there are mutliple receivers the 
+message will be encrypted mutliple times, once for each receiver's public key.**
+![09_message_add_data](https://user-images.githubusercontent.com/3911074/130053561-915857d6-6705-4131-8a33-5d04b6b56b00.png)
+
+**After the user finished uploading the data he can send the message:**
+![10_message_send](https://user-images.githubusercontent.com/3911074/130053802-9eae3b83-b39f-49d8-89b4-0620bb1ceae4.png)
+
+## Retrieving the message data:
+
+Now the HR user will receive an email informing him that he just got a new encrypted message. 
+
+**He logs in to the app and sees the message in his message list:**
+![11_message_list2](https://user-images.githubusercontent.com/3911074/130054028-05786d6c-6b32-433b-b395-db21e9712073.png)
+
+**He clicks the message id to see its data but he is not able because he has not loaded his private key:**
+![12_message_detail_no_pk](https://user-images.githubusercontent.com/3911074/130054160-85191c44-c48a-4537-9993-a482cd921585.png)
+
+**He then loads his private key to his browser following the same procedure as before and now he is able to actually decrypt the data.
+Once again, the data is downloaded as a cipher and it is decrypted in his computer using his private key locally**:
+![13_message_detail_pk](https://user-images.githubusercontent.com/3911074/130054323-c8711bfc-ded2-4672-ad32-d8e285d25f8f.png)
+
+**After he has downloaded  and decrypted  all the message data the message status is changed to Read and he can archive it:**
+![14_message_detail_read](https://user-images.githubusercontent.com/3911074/130054470-34e82d8b-6e20-46fc-8739-911b32428547.png)
+
+He could also delete the cipher data from the server completely if he choses. The message will not be deleted but the data that was 
+encrypted with his public key will be completely removed.
