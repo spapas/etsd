@@ -10,7 +10,7 @@
     "make": "electron-forge make"
   },
   "author": "Serafeim Papastefanos",
-  "license": "ISC",
+  "license": "AGPL",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.57",
     "@electron-forge/maker-deb": "^6.0.0-beta.57",
@@ -29,7 +29,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "lifeguards_app"
+            "name": "etsd_app"
           }
         },
         {
