@@ -1,0 +1,28 @@
+
+  
+  body {
+    color:#011f4b;
+  }
+
+  .main-container {
+    margin-top: 5rem;
+  }
+
+  .tooltip-inner {
+    max-width: 350px;
+    /* If max-width does not work, try using width instead */
+    width: 350px; 
+}
+
+.spinner-overlay {
+    background-color: gray;
+    position: absolute;
+    width: 100%;
+    height: 80%;
+    z-index: 1000;
+    top: 10%;
+    left: 00%;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+ 
+}
