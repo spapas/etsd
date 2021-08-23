@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-18 15:02+0300\n"
-"PO-Revision-Date: 2021-08-23 08:27+0300\n"
+"PO-Revision-Date: 2021-08-23 09:29+0300\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -793,57 +793,59 @@ msgstr "Κωδική Φράση"
 
 #: .\etsd\keys\templates\keys\load_private_key.html:84
 msgid "Validate private key"
-msgstr ""
+msgstr "Επιβεβαίωση ιδιωτικού κλειδιού"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:7
 #: .\etsd\keys\templates\keys\publickey_detail.html:8
 #, python-format
 msgid "Public key %(pid)s detail"
-msgstr ""
+msgstr "Λεπτομέρειες ιδιωτικού κλειδιού %(pid)s"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:13
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:14 .\etsd\msgs\models.py:164
 #: .\etsd\msgs\templates\msgs\message_detail.html:49
 #: .\etsd\msgs\templates\msgs\message_detail.html:86
 msgid "Authority"
-msgstr ""
+msgstr "Υπηρεσία"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:17
 msgid "Fingerprint"
-msgstr ""
+msgstr "Αποτύπωμα"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:18
 msgid "Description (user id)"
-msgstr ""
+msgstr "Περιγραφή (id χρήστη)"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:20
 msgid "Download"
-msgstr ""
+msgstr "Λήψη"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:25
 msgid "Approved on"
-msgstr ""
+msgstr "Εγκρίθηκε στις"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:30
 msgid "The key cannot be used until it has been submitted for approval"
-msgstr ""
+msgstr "Το κλειδί δεν μπορεί να χρησιμοποιηθεί μέχρι να υποβληθεί προς έγκριση"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:37
 msgid ""
 "You must load the private key of the key pair in order to be able to submit this public "
 "key for approval!"
 msgstr ""
+"Πρέπει να φορτώσετε το ιδιωτικό κλειδί του ζεύγους κλειδιών για να μπορέσετε να "
+"υποβάλλετε το δημόσιο κλειδί προς έγκριση!"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:50
 msgid "Accept"
-msgstr ""
+msgstr "Αποδοχή"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:51
 msgid "Reject"
-msgstr ""
+msgstr "Απόρριψη"
 
 #: .\etsd\keys\templates\keys\publickey_form.html:18
 #, python-format
@@ -872,6 +874,31 @@ msgid ""
 "        </p>\n"
 "      "
 msgstr ""
+"\n"
+"        <p>\n"
+"        Μέσω αυτής της φόρμας μπορείτε να υποβάλλετε ένα νέο δημόσιο κλειδί προς "
+"έγκριση. Κατόπιν πρέπει να δημιουργήσετε \n"
+"        ένα έγγραφο επιβεβαίωσης. Αυτό θα πρέπει να είναι ένα κατάλληλα υπογεγραμμένο "
+"έγγραφο που θα δηλώνει ότι:\n"
+"        </p>\n"
+"        <p>\n"
+"        <em>Το δημόσιο κλειδί για την Υπηρεσία <b>%(auth_name)s</b> έχει το αποτύπωμα \n"
+"        <b>%(fingerprint)s</b></em>.\n"
+"        </p>\n"
+"        <p>\n"
+"         και να το μεταφορτώσετε στο αντίστοιχο πεδίο αρχείου.\n"
+"\n"
+"        Στη συνέχεια θα πρέπει να επιλέξετε Επιβεβαίωση για να επιβεβαιώσετε ότι το "
+"ιδιωτικό κλειδί που  \n"
+"        έχετε φορτώσει είναι το ζεύγος του δημόσιου κλειδιού που υποβάλλετε προς "
+"έγκριση.\n"
+"        </p>\n"
+"        <p>\n"
+"        Το κλειδί θα χρησιμοποιηθεί μόνο αφού εγκριθεί από τους διαχειριστές και <b>θα "
+"αντικαταστήσει\n"
+"        το τρέχον κλειδί της Υπηρεσίας σας</b> (αν διαθέτετε).\n"
+"        </p>\n"
+"      "
 
 #: .\etsd\keys\templates\keys\publickey_form.html:63
 msgid "Validate"
@@ -900,6 +927,10 @@ msgid ""
 "                you want to submit for approval so that the system can make sure \n"
 "                that you have proper access to the private key!"
 msgstr ""
+"Πρέπει να φορτώσετε το ιδιωτικό κλειδί για το αντίστοιχο δημόσιο κλειδί\n"
+"                που θέλετε να υποβάλλετε προς έγκριση, ώστε το σύστημα να "
+"επιβεβαιώσει \n"
+"                ότι έχετε κατάλληλη πρόσβαση στο ιδιωτικό κλειδί!"
 
 #: .\etsd\keys\views.py:106
 msgid "Public key approval submit is not allowed from users without an authority!"
@@ -915,6 +946,12 @@ msgid ""
 "                want to submit has the fingerprint {0} while the private key \n"
 "                you have loaded has the fingerprint {1}"
 msgstr ""
+"Πρέπει να φορτώσετε το ιδιωτικό κλειδί για το αντίστοιχο δημόσιο κλειδί\n"
+"                που θέλετε να υποβάλλετε προς έγκριση, ώστε το σύστημα να "
+"επιβεβαιώσει \n"
+"                ότι έχετε κατάλληλη πρόσβαση στο ιδιωτικό κλειδί! Το κλειδί που \n"
+"                θέλετε να υποβάλλετε έχει το αποτύπωμα {0} ενώ το ιδιωτικό κλειδί\n"
+"                που έχετε φορτώσει έχει το αποτύπωμα {1}"
 
 #: .\etsd\keys\views.py:143
 msgid "Public Key awaiting approval"
@@ -925,6 +962,8 @@ msgid ""
 "Public key submitted for approval. This key will be used after it has been approved by "
 "the administrators."
 msgstr ""
+"Το δημόσιο κλειδί υποβλήθηκε προς έγκριση. Αυτό το κλειδί θα χρησιμοποιηθεί αφού "
+"εγκριθεί από τους διαχειριστές."
 
 #: .\etsd\keys\views.py:191
 msgid "Public Key Confirmation"
@@ -1142,6 +1181,14 @@ msgid ""
 "times as you want.\n"
 "  "
 msgstr ""
+"\n"
+"    Το μήνυμα είναι Προσχέδιο. Θα πρέπει να προσθέσετε δεδομένα (αρχεία) επιλέγοντας "
+"\"Προσθήκη δεδομένων\"\n"
+"    και στη συνέχεια να το στείλετε επιλέγοντας \"Αποστολή\". Η αποστολή μηνυμάτων "
+"επιτρέπεται μόνο\n"
+"    αφού προσθέσετε κάποια δεδομένα. Μπορείτε να προσθέσετε δεδομένα όσες φορές "
+"επιθυμείτε.\n"
+"  "
 
 #: .\etsd\msgs\templates\msgs\message_detail.html:18
 msgid ""
@@ -1155,6 +1202,15 @@ msgid ""
 "    and refer this one.\n"
 "  "
 msgstr ""
+"\n"
+"    Αν κάνατε κάποιο λάθος, μπορείτε να διαγράψετε εντελώς το μήνυμα επιλέγοντας "
+"\"Διαγραφή\".\n"
+"    Ωστόσο λάβετε υπόψη ότι αυτό είναι εφικτό μόνο <b>πρίν</b> στείλετε το μήνυμα. Αφού "
+"σταλεί \n"
+"    ένα μήνυμα, δεν υπάρχει τρόπος να αλλάξετε το περιεχόμενό του. Θα πρέπει να "
+"υποβάλλετε Ορθή\n"
+"    Επανάληψη και να την συσχετίσετε με το προηγούμενο μήνυμα.\n"
+"  "
 
 #: .\etsd\msgs\templates\msgs\message_detail.html:31
 msgid "Message status"
@@ -1334,6 +1390,16 @@ msgid ""
 "            no plaintext ever reaches the server.\n"
 "        "
 msgstr ""
+"\n"
+"            Η παρούσα εφαρμογή μπορεί να χρησιμοποιηθεί για τη μετάδοση μηνυμάτων που "
+"περιέχουν κρυπτογραφημένα δεδομένα μεταξύ Υπηρεσιών.\n"
+"            Το πρότυπο OpenPGP χρησιμοποιείται για την κρυπτογράφηση των δεδομένων "
+"client-side μέσω της υλοποίησης OpenPGPjs .\n"
+"            Αυτό σημαίνει ότι η κρυπτογράφηση και η αποκρυπτογράφηση των δεδομένων "
+"πραγματοποιείται αποκλειστικά στους υπολογιστές των χρηστών\n"
+"            και τα αποκρυπτογραφημένα δεδομένα δεν υποβάλλονται σε κανένα στάδιο στον "
+"server.\n"
+"        "
 
 #: .\templates\home.html:33
 msgid ""
@@ -1348,6 +1414,16 @@ msgid ""
 "the key.\n"
 "        "
 msgstr ""
+"\n"
+"            Σύμφωνα με τις αρχές της κρυπτογράφησης δημόσιου κλειδιού, οποιαδήποτε "
+"Υπηρεσία μπορεί να στείλει κρυπτογραφημένα μηνύματα, ωστόσο \n"
+"            μόνο οι Υπηρεσίες που διαθέτουν εγκεκριμένο ζεύγος ιδιωτικού/δημόσιου "
+"κλειδιού μπορούν να λαμβάνουν αυτά τα κρυπτογραφημένα μηνύματα.\n"
+"            Αυτό απαιτείται επειδή το δημόσιο κλειδί της Υπηρεσίες που δέχεται το "
+"μήνυμα πρέπει να χρησιμοποιηθεί για την κρυπτογράφηση του μηνύματος\n"
+"            έτσι, μόνο αυτή η Υπηρεσία θα είναι σε θέση να το αποκρυπτογραφήσει "
+"χρησιμοποιώντας το ιδιωτικό τμήμα του κλειδιού.\n"
+"        "
 
 #: .\templates\home.html:46
 msgid ""
@@ -1363,6 +1439,17 @@ msgid ""
 "            data.\n"
 "        "
 msgstr ""
+"\n"
+"            Χρησιμοποιώντας αυτήν την εφαρμογή, μπορείτε να δημιουργήσετε ένα ζεύγος "
+"ιδιωτικού/δημόσιου κλειδιού για την Υπηρεσία σας. \n"
+"            Το ιδιωτικό κλειδί θα κρυπτογραφηθεί με μια κωδική φράση. Τόσο το ιδιωτικό "
+"κλειδί όσο και η λέξη-κλειδί πρέπει να αποθηκεύονται \n"
+"            από το χρήστη σε ασφαλές περιβάλλον. Κανένα από αυτά δεν στέλνεται ποτέ "
+"στον server. Το δημόσιο κλειδί θα υποβληθεί στο server και \n"
+"            πρέπει να εγκριθεί από τους διαχειριστές της εφαρμογής για χρήση. Μετά την "
+"έγκριση του δημόσιου κλειδιού μιας Υπηρεσίας, αυτή μπορεί \n"
+"            να λαμβάνει μηνύματα με κρυπτογραφημένα δεδομένα.\n"
+"        "
 
 #: .\templates\home.html:55
 msgid ""
@@ -1375,6 +1462,15 @@ msgid ""
 "Authority.\n"
 "        "
 msgstr ""
+"\n"
+"            Για να αποκρυπτογραφήσει γρήγορα τα δεδομένα της Υπηρεσίας του, ο χρήστης "
+"μπορεί να «φορτώσει» το ιδιωτικό κλειδί της συνεδρίας του. \n"
+"            Αυτό σημαίνει ότι αυτό το κλειδί θα αποκρυπτογραφηθεί με τη κωδική φράση "
+"του και θα αποθηκευτεί στον browser του χρήστη για όσο διάστημα \n"
+"            ο χρήστης είναι συνδεδεμένος στην εφαρμογή. Στη συνέχεια, το κλειδί αυτό θα "
+"χρησιμοποιηθεί για την αποκρυπτογράφηση των κρυπτογραφημένων \n"
+"            δεδομένων της Υπηρεσίας του χρήστη.\n"
+"        "
 
 #: .\templates\home.html:70
 msgid "Welcome,"
