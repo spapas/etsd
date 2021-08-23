@@ -42,7 +42,7 @@ const  Login = {
     <div class='alert alert-danger' v-if='error'>
         {{ error }}
     </div>
-    <button @click='login'>Login</button>
+    <button class='btn btn-outline-info btn-sm' @click='login'>Login</button>
     
 </form>
   

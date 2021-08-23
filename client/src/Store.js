@@ -1,9 +1,15 @@
 import { createStore } from 'vuex'
 
+let userData = undefined
+try {
+  userData = JSON.parse(localStorage.getItem('userData'))
+} catch {}
+
+
 const Store = createStore({
   state () {
     return {
-      user: undefined,
+      user: userData,
       pkdata: undefined,
       loading: false
     }
@@ -11,6 +17,10 @@ const Store = createStore({
   mutations: {
     setLoading (state, status) {
       state.loading = status
+    },
+    setUserData (state, data) {
+      state.user = data
+      
     }
   },
   actions: {
@@ -19,26 +29,56 @@ const Store = createStore({
       context.commit('setLoading', true)
       return new Promise(async (resolve, reject) => {
         try { 
-          let get = await fetch('http://127.0.0.1:8000/users/user-view/', {
-            method: 'GET',
-            credentials: 'same-origin',
-          })
-          console.log('ok')
 
-          console.log(get)
-          console.log(get.headers)
-          window.gt = get
-
-          let koko = await fetch('http://127.0.0.1:8000/users/user-view/', {
+          await fetch('http://127.0.0.1:8000/api/login/', {
             method: 'POST',
             headers: {
-              'X-CSRFToken': csrf_token
-              
+              'Content-Type': 'application/json'
             },
-            credentials: 'include',
             body: JSON.stringify({
               username: username,
               password: password
+            })
+          }).then(res => {
+            console.log(res)
+            if(res.status !== 200) {
+              throw new Error('Error')
+            }
+            res.json().then(data => {
+              context.commit('setLoading', false)
+              context.commit('setUserData', data)
+              localStorage.setItem('userData', JSON.stringify(data))
+              resolve()
+            })
+          })
+        } catch(err) {
+          console.log(err)
+          context.commit('setLoading', false)
+          reject(err)
+        }
+
+      })
+    },
+    logout (context) {
+      context.commit('setLoading', true)
+      return new Promise(async (resolve, reject) => {
+        try { 
+
+          await fetch('http://127.0.0.1:8000/api/logout/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(res => {
+            console.log(res)
+            if(res.status !== 200) {
+              throw new Error('Error')
+            }
+            res.json().then(data => {
+              context.commit('setLoading', false)
+              context.commit('setUserData', undefined)
+              localStorage.setItem('userData', undefined)
+              resolve()
             })
           })
         } catch(err) {

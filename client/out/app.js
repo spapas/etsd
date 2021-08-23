@@ -33816,10 +33816,15 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   } = import_vuex_cjs.default;
 
   // src/Store.js
+  var userData = void 0;
+  try {
+    userData = JSON.parse(localStorage.getItem("userData"));
+  } catch {
+  }
   var Store2 = createStore({
     state() {
       return {
-        user: void 0,
+        user: userData,
         pkdata: void 0,
         loading: false
       };
@@ -33827,6 +33832,9 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     mutations: {
       setLoading(state, status) {
         state.loading = status;
+      },
+      setUserData(state, data) {
+        state.user = data;
       }
     },
     actions: {
@@ -33834,24 +33842,54 @@ ${JSON.stringify(newTargetLocation, null, 2)}
         context.commit("setLoading", true);
         return new Promise(async (resolve, reject) => {
           try {
-            let get = await fetch("http://127.0.0.1:8000/users/user-view/", {
-              method: "GET",
-              credentials: "same-origin"
-            });
-            console.log("ok");
-            console.log(get);
-            console.log(get.headers);
-            window.gt = get;
-            let koko = await fetch("http://127.0.0.1:8000/users/user-view/", {
+            await fetch("http://127.0.0.1:8000/api/login/", {
               method: "POST",
               headers: {
-                "X-CSRFToken": csrf_token
+                "Content-Type": "application/json"
               },
-              credentials: "include",
               body: JSON.stringify({
                 username,
                 password
               })
+            }).then((res) => {
+              console.log(res);
+              if (res.status !== 200) {
+                throw new Error("Error");
+              }
+              res.json().then((data) => {
+                context.commit("setLoading", false);
+                context.commit("setUserData", data);
+                localStorage.setItem("userData", JSON.stringify(data));
+                resolve();
+              });
+            });
+          } catch (err) {
+            console.log(err);
+            context.commit("setLoading", false);
+            reject(err);
+          }
+        });
+      },
+      logout(context) {
+        context.commit("setLoading", true);
+        return new Promise(async (resolve, reject) => {
+          try {
+            await fetch("http://127.0.0.1:8000/api/logout/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              }
+            }).then((res) => {
+              console.log(res);
+              if (res.status !== 200) {
+                throw new Error("Error");
+              }
+              res.json().then((data) => {
+                context.commit("setLoading", false);
+                context.commit("setUserData", void 0);
+                localStorage.setItem("userData", void 0);
+                resolve();
+              });
             });
           } catch (err) {
             console.log(err);
@@ -33867,7 +33905,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   // src/components/Home.js
   var Home = {
     template: `
-        <p>Greetings</p>
+        <p>Greetings {{ $store.user }} </p>
     `
   };
   var Home_default = Home;
@@ -33875,6 +33913,14 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   // src/components/Nav.js
   var Nav = {
     props: ["user", "pkdata"],
+    methods: {
+      logout: function(event) {
+        event.preventDefault();
+        console.log("LOGOUT");
+        this.$store.dispatch("logout");
+        return false;
+      }
+    },
     template: `
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
@@ -33918,9 +33964,8 @@ ${JSON.stringify(newTargetLocation, null, 2)}
                     <b>{% trans "Private key loaded" %} <span id='countdowntimer'>15:00</span></b>
                 </a>
                 
-                <router-link class="btn btn-outline-info btn-sm" to="/logout">
-                  ({{ user }}) | Disconnect
-                </router-link>
+                <button class="btn btn-outline-info btn-sm" @click='logout'>({{ user.username }}) | Disconnect</button>
+                
             </li>
             <li class="nav-item" v-if='!user'>
                 <router-link class="btn btn-outline-info btn-sm" to="/login">
@@ -33978,7 +34023,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     <div class='alert alert-danger' v-if='error'>
         {{ error }}
     </div>
-    <button @click='login'>Login</button>
+    <button class='btn btn-outline-info btn-sm' @click='login'>Login</button>
     
 </form>
   
