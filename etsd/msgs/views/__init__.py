@@ -139,6 +139,7 @@ class ParticipantQuerysetMixin:
             .order_by("status_order", "-send_order")
         )
 
+
 class ParticipantListView(ParticipantQuerysetMixin, ExportMixin, ListView):
     model = models.Participant
 
@@ -147,8 +148,6 @@ class ParticipantListView(ParticipantQuerysetMixin, ExportMixin, ListView):
 
     def get_table_kwargs(self):
         return {}
-
-    
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
