@@ -7,13 +7,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('msgs', '0010_alter_message_available_to_sender'),
+        ("msgs", "0010_alter_message_available_to_sender"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='message',
-            name='local_protocol',
-            field=models.CharField(blank=True, help_text='Please provide a local identifier (local authority protocol) if needed.', max_length=50, validators=[django.core.validators.RegexValidator(message='You can only use 0-9,.,-,/', regex='^[#](\\w+)$')], verbose_name='Local identifiers'),
+            model_name="message",
+            name="local_protocol",
+            field=models.CharField(
+                blank=True,
+                help_text="Please provide a local identifier (local authority protocol) if needed.",
+                max_length=50,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        message="You can only use 0-9,.,-,/", regex="^[#](\\w+)$"
+                    )
+                ],
+                verbose_name="Local identifiers",
+            ),
         ),
     ]

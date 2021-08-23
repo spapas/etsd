@@ -11,6 +11,7 @@ CACHES = {
 }
 
 INSTALLED_APPS += ("debug_toolbar",)
+LANGUAGE_CODE = "el"
 
 EMAIL_LOG_BACKEND = "django.core.mail.backends.console.EmailBackend"
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
