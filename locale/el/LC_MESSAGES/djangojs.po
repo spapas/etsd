@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 10:37+0300\n"
+"POT-Creation-Date: 2021-08-23 10:44+0300\n"
 "PO-Revision-Date: 2021-08-23 10:32+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,14 +18,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0\n"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:153
+#: .\etsd\keys\static\key_pair_create.js:23
 msgid "Please enter a passphrase"
 msgstr "Παρακαλούμε συμπληρώστε μια κωδική φράση"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:153
-#: .\etsd\keys\templates\keys\key_pair_create.html:157
-#: .\etsd\keys\templates\keys\key_pair_create.html:161
-#: .\etsd\keys\templates\keys\key_pair_create.html:166
+#: .\etsd\keys\static\key_pair_create.js:23
+#: .\etsd\keys\static\key_pair_create.js:27
+#: .\etsd\keys\static\key_pair_create.js:31
+#: .\etsd\keys\static\key_pair_create.js:36
 #: .\etsd\keys\templates\keys\load_private_key.html:109
 #: .\etsd\keys\templates\keys\load_private_key.html:115
 #: .\etsd\keys\templates\keys\load_private_key.html:139
@@ -38,11 +38,11 @@ msgstr "Παρακαλούμε συμπληρώστε μια κωδική φρά
 msgid "ERROR"
 msgstr "ΣΦΑΛΜΑ"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:157
+#: .\etsd\keys\static\key_pair_create.js:27
 msgid "Minimum passphrase length: "
 msgstr "Το ελάχιστο μήκος της κωδικής φράσης είναι: "
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:161
+#: .\etsd\keys\static\key_pair_create.js:31
 msgid ""
 "Please make sure that the passphrase contains at least a lower case "
 "character, an upercase character a number and a symbol!"
@@ -51,15 +51,15 @@ msgstr ""
 "τουλάχιστον ένα πεζό χαρακτήρα, ένα κεφαλαίο χαρακτήρα, έναν αριθμό και ένα "
 "σύμβολο!"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:166
+#: .\etsd\keys\static\key_pair_create.js:36
 msgid "The confirm passphrase is not the same with the passphrase"
 msgstr "Η κωδική φράση επιβεβαίωσης δεν είναι ίδια με την κωδική φράση"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:204
+#: .\etsd\keys\static\key_pair_create.js:74
 msgid "Warning"
 msgstr "Προσοχή"
 
-#: .\etsd\keys\templates\keys\key_pair_create.html:205
+#: .\etsd\keys\static\key_pair_create.js:75
 msgid ""
 "Are you sure you want to continue?<br />\n"
 "    Please make sure that:\n"

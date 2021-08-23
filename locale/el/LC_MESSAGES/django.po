@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 10:10+0300\n"
+"POT-Creation-Date: 2021-08-23 10:44+0300\n"
 "PO-Revision-Date: 2021-08-23 10:16+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -108,6 +108,7 @@ msgstr "Υποβολή"
 #: .\etsd\msgs\templates\msgs\message_form.html:60
 #: .\templates\authorities\authority_detail.html:19
 #: .\templates\authorities\authority_form.html:12
+#: .\templates\registration\login.html:26
 msgid "Return"
 msgstr "Επιστροφή"
 
@@ -477,16 +478,16 @@ msgstr ""
 msgid "Authority Data successfully updated!"
 msgstr "Οι Πληροφορίες Υπηρεσίας ενημερώθηκαν επιτυχώς!"
 
-#: .\etsd\keys\forms.py:12 .\etsd\keys\models.py:55
+#: .\etsd\keys\forms.py:13 .\etsd\keys\models.py:55
 #: .\etsd\keys\templates\keys\publickey_detail.html:20
 msgid "Confirmation document"
 msgstr "Έγγραφο Επιβεβαίωσης"
 
-#: .\etsd\keys\forms.py:13
+#: .\etsd\keys\forms.py:14
 msgid "This document will be checked for correct signature."
 msgstr "Αυτό το έγγραφο θα ελεγχθεί για την ορθή υπογραφή του."
 
-#: .\etsd\keys\forms.py:44
+#: .\etsd\keys\forms.py:45
 msgid "Signed confirmation document is required."
 msgstr "Απαιτείται ένα υπογεγραμμένο έγγραφο επιβεβαίωσης."
 
@@ -576,6 +577,11 @@ msgstr ""
 "Το Δημόσιο Κλειδί σας με αποτύπωμα: %(fingerprint)s έχει αλλάξει κατάσταση "
 "σε %(status)s από κάποιον διαχειριστή.\n"
 " "
+
+#: .\etsd\keys\templates\keys\key_pair_create.html:9
+#: .\etsd\keys\templates\keys\key_pair_create.html:10
+msgid "Create new key pair"
+msgstr "Δημιουργία νέου ζεύγους κλειδιών"
 
 #: .\etsd\keys\templates\keys\key_pair_create.html:13
 msgid "Authority:"
@@ -817,6 +823,10 @@ msgstr "Αρχείο Ιδιωτικού Κλειδιού"
 #: .\etsd\keys\templates\keys\load_private_key.html:56
 msgid "Passpharse"
 msgstr "Κωδική Φράση"
+
+#: .\etsd\keys\templates\keys\load_private_key.html:67
+msgid "Private key information"
+msgstr "Φορτωμένο ιδιωτικό κλειδί"
 
 #: .\etsd\keys\templates\keys\load_private_key.html:84
 msgid "Validate private key"
@@ -1645,3 +1655,12 @@ msgstr "Αποσύνδεση"
 #: .\templates\partials\_nav.html:60
 msgid "Please login"
 msgstr "Παρακαλούμε συνδεθείτε"
+
+#: .\templates\registration\login.html:4 .\templates\registration\login.html:5
+#: .\templates\registration\login.html:25
+msgid "Login"
+msgstr ""
+
+#: .\templates\registration\login.html:9
+msgid "Cannot connect please try again"
+msgstr ""
