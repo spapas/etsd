@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-18 15:02+0300\n"
-"PO-Revision-Date: 2021-08-19 15:35+0300\n"
+"PO-Revision-Date: 2021-08-23 08:27+0300\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: .\etsd\core\forms.py:34
 #, python-brace-format
 msgid "User {0} cannot be added! No such ldap user."
-msgstr "Ο χρήστης {0} δε μπορεί να χρησιμοποιηθεί!"
+msgstr "Ο χρήστης {0} δε μπορεί να χρησιμοποιηθεί! Δεν υπάρχει τέτοιος ldap χρήστης."
 
 #: .\etsd\core\forms.py:40
 #, python-brace-format
@@ -38,7 +38,7 @@ msgid ""
 "their username/last name/email and selecting them. "
 msgstr ""
 " Μπορείτε να αφαιρέσετε χρήστες με το \"x\" δίπλα στο όνομα τους ή να  προσθέσετε "
-"περισσότερους αναζητώντας τους με το username/επιθέτο/email τους."
+"περισσότερους αναζητώντας τους με το username/επιθέτο/email τους. "
 
 #: .\etsd\core\forms.py:83
 #, python-brace-format
@@ -75,10 +75,7 @@ msgid "Edit Authority Data"
 msgstr "Επεξεργασία δεδομένων Υπηρεσίας"
 
 #: .\etsd\core\templates\core\edit_authority_data.html:19
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "  <b>Here you can update Authority's %(auth)s active users and email. </b>\n"
+#, python-format
 msgid ""
 "\n"
 "  <b>Here you can update Authority's %(auth)s active users and email. </b>\n"
@@ -87,6 +84,7 @@ msgstr ""
 "\n"
 "<b>Εδώ μπορείτε να επεξεργαστείτε τους ενεργούς χρήστες και το email της Υπηρεσίας "
 "%(auth)s.</b>\n"
+" "
 
 #: .\etsd\core\templates\core\edit_authority_data.html:27
 #: .\etsd\keys\templates\keys\key_pair_create.html:111
@@ -561,11 +559,12 @@ msgid ""
 msgstr ""
 " \n"
 "Το Δημόσιο Κλειδί σας με αποτύπωμα: %(fingerprint)s έχει αλλάξει κατάσταση σε "
-"%(status)s από κάποιον διαχειριστή."
+"%(status)s από κάποιον διαχειριστή.\n"
+" "
 
 #: .\etsd\keys\templates\keys\key_pair_create.html:13
 msgid "Authority:"
-msgstr "Υπηρεσία"
+msgstr "Υπηρεσία:"
 
 #: .\etsd\keys\templates\keys\key_pair_create.html:19
 msgid ""
@@ -598,7 +597,8 @@ msgstr ""
 "          θα αποθηκευτεί στον Server ώστε οι ενδιαφερόμενοι να μπορούν εύκολα να "
 "κρυπτογραφήσουν δεδομένα. Το ιδιωτικό κλειδί \n"
 "          χρησιμοποιείται για να αποκρυπτογραφήσει τα δεδομένα και πρέπει να "
-"διατηρείται απολύτως κρυφό και ασφαλές."
+"διατηρείται απολύτως κρυφό και ασφαλές.\n"
+" "
 
 #: .\etsd\keys\templates\keys\key_pair_create.html:32
 msgid ""
@@ -742,6 +742,46 @@ msgid ""
 "        </p>\n"
 "      "
 msgstr ""
+"\n"
+"        <p>\n"
+"        Μέσω αυτής της φόρμας μπορείτε να φορτώσετε ένα ιδιωτικό κλειδί. Αυτό το "
+"ιδιωτικό κλειδί <u>θα \n"
+"        αποθηκευτεί μόνο στον browser σας</u>, δεν θα υποβληθεί σε κανένα στάδιο της "
+"διαδικασίας στον server.\n"
+"        Πρέπει να φορτώσετε το ιδιωτικό κλειδί για να μπορείτε να αποκρυπτογραφήσετε "
+"και να λάβετε δεδομένα\n"
+"        που έχουν υποβληθεί με το αντίστοιχο δημόσιο κλειδί αυτού του ιδιωτικού "
+"κλειδιού.\n"
+"        </p>\n"
+"        <p>\n"
+"          Πρέπει να επιλέξετε  το ιδιωτικό κλειδί το οποίο πρέπει να είναι σε μορφή "
+"armored ASCII\n"
+"          (σε αυτή τη μορφή θα λάβετε το αρχείο εφόσον δημιουργήσετε ζεύγος κλειδιών "
+"μέσω\n"
+"          της παρούσας εφαρμογής).\n"
+"          Κατόπιν εισάγετε την κωδική φράση αποκρυπτογράφησης. Επιλέγοντας \n"
+"          \"Επιβεβαίωση\" θα επιβεβαιώσετε ότι το κλειδί και η κωδική φράση είναι "
+"ορθά. \n"
+"          Αν  όλα είναι εντάξει, θα εμφανιστούν κάποια δεδομένα στο τμήμα που αφορά το\n"
+"          ιδιωτικό κλειδί ή θα εμφανιστεί κάποιο μήνυμα σφάλματος. Τέλος, επιλέξετε "
+"\"Φόρτωση,\n"
+"          για να φορτώσετε το κλειδί σας στον browser σας και να μπορείτε να το "
+"χρησιμοποιήσετε\n"
+"          για να αποκρυπτογραφήσετε δεδομένα.\n"
+"\n"
+"        </p>\n"
+"        <p>\n"
+"          <u>\n"
+"            Δείξτε ιδιαίτερη προσοχή για όσο διάστημα το ιδιωτικό κλειδί είναι "
+"φορτωμένο στον browser. </u> \n"
+"            Για λόγους ασφαλείας, θα αποσυνδεθείτε αυτόματα μετά από 15 λεπτά μη "
+"χρήσης, ωστόσο\n"
+"            συνίσταται να <b>αποσυνδέεστε</b> άμεσα μόλις τελειώσετε την εργασία σας "
+"ώστε να μην \n"
+"            παραμένει ενεργό το ιδιωτικό κλειδί που φορτώσατε.\n"
+"          \n"
+"        </p>\n"
+"      "
 
 #: .\etsd\keys\templates\keys\load_private_key.html:52
 msgid "Private Key File"
@@ -901,11 +941,11 @@ msgstr "Επιλογή Υπηρεσίας"
 
 #: .\etsd\msgs\forms.py:24
 msgid " Add authorities by typing their full name/short name/email and selecting them. "
-msgstr "Προσθέστε Υπηρεσίες αναζητώντας τες με το όνομα/email τους"
+msgstr " Προσθέστε Υπηρεσίες αναζητώντας τες με το όνομα/email τους. "
 
 #: .\etsd\msgs\forms.py:47
 msgid "This authority does not have an active public key!"
-msgstr "Η Υπηρεσία αυτή δεν έχει ενεργό δημόσιο κλειδί"
+msgstr "Η Υπηρεσία αυτή δεν έχει ενεργό δημόσιο κλειδί!"
 
 #: .\etsd\msgs\forms.py:57
 msgid "Select related message"
@@ -1362,7 +1402,7 @@ msgstr "Χωρίς πρόσβαση!"
 
 #: .\templates\home.html:98
 msgid "Authorities"
-msgstr ""
+msgstr "Υπηρεσίες"
 
 #: .\templates\home.html:105
 msgid "Log in"
