@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 10:04+0300\n"
-"PO-Revision-Date: 2021-08-23 10:02+0300\n"
+"POT-Creation-Date: 2021-08-23 10:28+0300\n"
+"PO-Revision-Date: 2021-08-23 10:32+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: el\n"
@@ -31,6 +31,7 @@ msgstr "Παρακαλούμε συμπληρώστε μια κωδική φρά
 #: .\etsd\keys\templates\keys\load_private_key.html:139
 #: .\etsd\keys\templates\keys\publickey_form.html:91
 #: .\etsd\keys\templates\keys\publickey_form.html:96
+#: .\etsd\msgs\static\message_detail.js:54
 #: .\etsd\msgs\templates\msgs\message_add_data.html:71
 #: .\etsd\msgs\templates\msgs\message_add_data.html:139
 #: .\etsd\msgs\templates\msgs\message_add_data.html:148
@@ -111,6 +112,52 @@ msgstr "Το αρχείο μπορεί να είναι μέχρι "
 msgid "Confirmation document must be a properly signed PDF"
 msgstr "Το έγγραφο επιβεβαίωσης πρέπει να είναι ένα ορθά υπογεγραμμένο PDF"
 
+#: .\etsd\msgs\static\message_detail.js:53
+msgid ""
+"You cannot delete this file. Please make sure that you have read all the "
+"message files first."
+msgstr ""
+"Δε μπορείτε να διαγράψετε το αρχείο. Παρακαλούμε επιβεβαιώσατε ότι έχετε "
+"διαβάσει το μήνυμα."
+
+#: .\etsd\msgs\static\message_detail.js:62
+msgid "Are you sure you want to delete this file?"
+msgstr "Θέλετε προχωρήσετε στη διαγραφή;"
+
+#: .\etsd\msgs\static\message_detail.js:63
+msgid "Confirm"
+msgstr "Επιβεβαίωση"
+
+#: .\etsd\msgs\static\message_detail.js:64
+#: .\etsd\msgs\static\message_detail.js:91 .\static\bootstrapalert.js:99
+#: .\static\bootstrapalert.js:100
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: .\etsd\msgs\static\message_detail.js:83
+msgid "Decrypt and download"
+msgstr "Αποκρυπτογράφηση και λήψη"
+
+#: .\etsd\msgs\static\message_detail.js:86
+msgid ""
+"Not possible to decrypt. Please make sure you have loaded the proper private "
+"key"
+msgstr ""
+"Δεν είναι δυνατή η αποκρυπτογράφηση. Παρακαλούμε επιβεβαιώστε ότι έχετε "
+"φορτώσει το σωστό ιδιωτικό κλειδί"
+
+#: .\etsd\msgs\static\message_detail.js:88
+msgid "Cipher data not available"
+msgstr "Τα κρυπτογραφημένα δεδομένα δεν είναι διαθέσιμα"
+
+#: .\etsd\msgs\static\message_detail.js:101
+msgid "Are you sure you want to send the message?"
+msgstr "Θέλετε προχωρήσετε στη διαγραφή;"
+
+#: .\etsd\msgs\static\message_detail.js:102
+msgid "Send message"
+msgstr "Αποστολή μηνύματος"
+
 #: .\etsd\msgs\templates\msgs\message_add_data.html:133
 msgid ""
 "Data successfully added to message!<br />You can add more data if you want."
@@ -132,30 +179,9 @@ msgstr "Σφάλμα κατά το ανέβασμα!"
 msgid "Error while trying to add the data: <br /> "
 msgstr "Σφάλμα κατά την προσθήκη δεδομένων: <br /> "
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:240
-msgid "Decrypt and download"
-msgstr "Αποκρυπτογράφηση και λήψη"
-
-#: .\etsd\msgs\templates\msgs\message_detail.html:243
-msgid ""
-"Not possible to decrypt. Please make sure you have loaded the proper private "
-"key"
-msgstr ""
-"Δεν είναι δυνατή η αποκρυπτογράφηση. Παρακαλούμε επιβεβαιώστε ότι έχετε "
-"φορτώσει το σωστό ιδιωτικό κλειδί"
-
-#: .\etsd\msgs\templates\msgs\message_detail.html:245
-msgid "Cipher data not available"
-msgstr "Τα κρυπτογραφημένα δεδομένα δεν είναι διαθέσιμα"
-
-#: .\etsd\msgs\templates\msgs\message_detail.html:248
-#: .\static\bootstrapalert.js:99 .\static\bootstrapalert.js:100
-msgid "Delete"
-msgstr "Διαγραφή"
-
 #: .\static\bootstrapalert.js:73
 msgid "Close"
-msgstr ""
+msgstr "Κλείσιμο"
 
 #: .\static\bootstrapalert.js:98
 msgid "Are you sure you want to delete this?"

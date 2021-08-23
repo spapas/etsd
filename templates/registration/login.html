@@ -1,12 +1,12 @@
 ﻿{% extends "site_base.html" %}
-{% load widget_tweaks %}
+{% load widget_tweaks i18n %}
 
-{% block head_title %}Login{% endblock %}
-{% block page_title %}Login{% endblock %}
+{% block head_title %}{% trans "Login" %}{% endblock %}
+{% block page_title %}{% trans "Login" %}{% endblock %}
 {% block page_content %}
 {% if form.errors %}
 <div class='alert alert-danger'>
-  Cannot connect please try again
+  {% trans "Cannot connect please try again" %}
   {{ form.non_field_errors }}
 </div>
 {% endif %}
@@ -22,8 +22,8 @@
     {{ form.password|add_class:"form-control" }}
   </div>
 
-  <input type="submit" class='btn btn-primary' value="Login" />
-  <a href='{% url "home" %}' class='btn btn-secondary'>Return</a>
+  <input type="submit" class='btn btn-primary' value="{% trans 'Login' %}" />
+  <a href='{% url "home" %}' class='btn btn-secondary'>{% trans "Return" %}</a>
   <input type="hidden" name="next" value="{{ next }}" />
 </form>
 

@@ -64,7 +64,7 @@
         {% csrf_token %}
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Private key information</h5>
+            <h5 class="card-title">{% trans "Private key information" %}</h5>
             <div class='row'>
               <div class='col'>
                 {{ form.fingerprint|as_crispy_field }}
