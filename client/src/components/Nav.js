@@ -3,7 +3,6 @@ const Nav = {
     methods: {
       logout: function(event) {
           event.preventDefault();
-          console.log("LOGOUT")
           this.$store.dispatch('logout')
           
           return false;

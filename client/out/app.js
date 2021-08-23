@@ -33825,6 +33825,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     state() {
       return {
         user: userData,
+        messages: void 0,
         pkdata: void 0,
         loading: false
       };
@@ -33835,6 +33836,9 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       },
       setUserData(state, data) {
         state.user = data;
+      },
+      setMessages(state, data) {
+        state.messages = data;
       }
     },
     actions: {
@@ -33877,7 +33881,8 @@ ${JSON.stringify(newTargetLocation, null, 2)}
             await fetch("http://127.0.0.1:8000/api/logout/", {
               method: "POST",
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Token ${context.state.user.token}`
               }
             }).then((res) => {
               console.log(res);
@@ -33887,7 +33892,6 @@ ${JSON.stringify(newTargetLocation, null, 2)}
               res.json().then((data) => {
                 context.commit("setLoading", false);
                 context.commit("setUserData", void 0);
-                localStorage.setItem("userData", void 0);
                 resolve();
               });
             });
@@ -33896,6 +33900,29 @@ ${JSON.stringify(newTargetLocation, null, 2)}
             context.commit("setLoading", false);
             reject(err);
           }
+        });
+      },
+      fetchMessages(context) {
+        context.commit("setLoading", true);
+        console.log("Fetch messages");
+        return new Promise(async (resolve, reject) => {
+          await fetch("http://127.0.0.1:8000/messages/api/messages/", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Token ${context.state.user.token}`
+            }
+          }).then((res) => {
+            console.log(res);
+            if (res.status !== 200) {
+              throw new Error("Error");
+            }
+            res.json().then((data) => {
+              context.commit("setLoading", false);
+              console.log("GOT MESSAGES", data);
+              context.commit("setMessages", data);
+            });
+          });
         });
       }
     }
@@ -33916,7 +33943,6 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     methods: {
       logout: function(event) {
         event.preventDefault();
-        console.log("LOGOUT");
         this.$store.dispatch("logout");
         return false;
       }
@@ -34031,17 +34057,30 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   };
   var Login_default = Login;
 
+  // src/components/Messages.js
+  var Messages_default = {
+    computed: mapState([
+      "messages",
+      "loading"
+    ]),
+    created() {
+      if (this.messages == void 0) {
+        this.$store.dispatch("fetchMessages");
+      }
+    },
+    template: `
+        <p>Messages {{ messages }} </p>
+    `
+  };
+
   // src/app.js
-  var Logout = { template: "<div>Logout</div>" };
-  var Messages = { template: "<div>Messages</div>" };
   var Help = { template: "<div>Help</div>" };
   var PublicKeyList = { template: "<div>PublicKeyList</div>" };
   var PrivateKeyLoad = { template: "<div>PrivateKeyLoad</div>" };
   var routes = [
     { path: "/", component: Home_default },
     { path: "/login", component: Login_default },
-    { path: "/logout", component: Logout },
-    { path: "/messages", component: Messages },
+    { path: "/messages", component: Messages_default },
     { path: "/help", component: Help },
     { path: "/public_key_list", component: PublicKeyList },
     { path: "/privatekey_load", component: PrivateKeyLoad }
@@ -34054,7 +34093,8 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     computed: mapState([
       "user",
       "pkdata",
-      "loading"
+      "loading",
+      "messages"
     ])
   });
   app.use(router);

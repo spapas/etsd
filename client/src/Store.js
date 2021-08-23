@@ -10,6 +10,7 @@ const Store = createStore({
   state () {
     return {
       user: userData,
+      messages: undefined,
       pkdata: undefined,
       loading: false
     }
@@ -20,11 +21,12 @@ const Store = createStore({
     },
     setUserData (state, data) {
       state.user = data
-      
+    },
+    setMessages(state, data) {
+      state.messages = data 
     }
   },
   actions: {
-    
     login (context, {username, password}) {
       context.commit('setLoading', true)
       return new Promise(async (resolve, reject) => {
@@ -67,7 +69,8 @@ const Store = createStore({
           await fetch('http://127.0.0.1:8000/api/logout/', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${context.state.user.token}`
             }
           }).then(res => {
             console.log(res)
@@ -77,7 +80,7 @@ const Store = createStore({
             res.json().then(data => {
               context.commit('setLoading', false)
               context.commit('setUserData', undefined)
-              localStorage.setItem('userData', undefined)
+              //localStorage.setItem('userData', undefined)
               resolve()
             })
           })
@@ -86,6 +89,29 @@ const Store = createStore({
           context.commit('setLoading', false)
           reject(err)
         }
+
+      })
+    },
+    fetchMessages (context) {
+      context.commit('setLoading', true)
+      console.log("Fetch messages")
+      return new Promise(async (resolve, reject) => {
+        await fetch('http://127.0.0.1:8000/messages/api/messages/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${context.state.user.token}`
+          }}).then(res => {
+            console.log(res)
+            if(res.status !== 200) {
+              throw new Error('Error')
+            }
+            res.json().then(data => {
+              context.commit('setLoading', false)
+              console.log("GOT MESSAGES", data)
+              context.commit('setMessages', data)
+            })
+          })
 
       })
     }
