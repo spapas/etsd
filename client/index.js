@@ -15,7 +15,7 @@ function createWindow() {
         }
     })
     
-    win.loadURL('https://news.ycombinator.com')
+    win.loadFile('index.html')
     
 }
 

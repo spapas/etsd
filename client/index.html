@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" class='h-100'>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="">
+
+  <title>E T S D </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/appstyles.css" rel="stylesheet">
+
+</head>
+
+<body class="d-flex flex-column h-100 {% block body_class %}{% endblock %}" id="{% block body_id %}{% endblock %}">
+    <main class="flex-shrink-0" role="main" id='app'>
+      <etsd-nav v-bind:user='user' v-bind:pkdata='pkdata'></etsd-nav>
+      
+      
+      
+      <div class='container main-container'>
+        
+        <div class='spinner-overlay d-flex justify-content-center' v-if='loading'>
+          <div class="spinner-border mt-5" style="width: 5rem; height: 5rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        
+        <router-view></router-view>
+      </div>
+    </main>
+
+
+    <footer class='footer mt-auto py-3 text-center bg-dark text-light container-fluid'>
+      <div class='row pl-0 pr-0 ml-0 mr-0'>
+        <div class="col-md-12">
+          <div>Copyright &copy; 2021 &lt;SP&gt;</div>
+        </div>
+      </div>
+    </footer>
+    
+  <script src='out/app.js'></script>
+</body>
+
+</html>
