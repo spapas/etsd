@@ -33821,9 +33821,12 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     userData = JSON.parse(localStorage.getItem("userData"));
   } catch {
   }
+  server = localStorage.getItem("server");
+  console.log("SERVER IS ", server);
   var Store2 = createStore({
     state() {
       return {
+        server,
         user: userData,
         messages: void 0,
         pkdata: void 0,
@@ -33839,14 +33842,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       },
       setMessages(state, data) {
         state.messages = data;
+      },
+      setServer(state, data) {
+        state.server = data;
       }
     },
     actions: {
-      login(context, { username, password }) {
+      login(context, { server: server2, username, password }) {
+        console.log("LIGIN ", server2, context.state);
         context.commit("setLoading", true);
+        context.commit("setServer", server2);
+        localStorage.setItem("server", server2);
         return new Promise(async (resolve, reject) => {
           try {
-            await fetch("http://127.0.0.1:8000/api/login/", {
+            await fetch(server2 + "/api/login/", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
@@ -33876,9 +33885,10 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       },
       logout(context) {
         context.commit("setLoading", true);
+        console.log("LOGOUT ", context.state);
         return new Promise(async (resolve, reject) => {
           try {
-            await fetch("http://127.0.0.1:8000/api/logout/", {
+            await fetch(context.state.server + "/api/logout/", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -33890,8 +33900,10 @@ ${JSON.stringify(newTargetLocation, null, 2)}
                 throw new Error("Error");
               }
               res.json().then((data) => {
+                localStorage.setItem("userData", void 0);
                 context.commit("setLoading", false);
                 context.commit("setUserData", void 0);
+                context.commit("setMessages", void 0);
                 resolve();
               });
             });
@@ -33903,10 +33915,11 @@ ${JSON.stringify(newTargetLocation, null, 2)}
         });
       },
       fetchMessages(context) {
+        console.log("MESSAGEs ", context.state);
         context.commit("setLoading", true);
         console.log("Fetch messages");
         return new Promise(async (resolve, reject) => {
-          await fetch("http://127.0.0.1:8000/messages/api/messages/", {
+          await fetch(context.state.server + "/messages/api/messages/", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -33919,7 +33932,6 @@ ${JSON.stringify(newTargetLocation, null, 2)}
             }
             res.json().then((data) => {
               context.commit("setLoading", false);
-              console.log("GOT MESSAGES", data);
               context.commit("setMessages", data);
             });
           });
@@ -34011,8 +34023,9 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   var Login = {
     data: function() {
       return {
-        username: "x",
-        password: "y",
+        server: "http://127.0.0.1:8000",
+        username: "",
+        password: "",
         error: ""
       };
     },
@@ -34021,6 +34034,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
         event.preventDefault();
         if (this.username && this.password) {
           this.$store.dispatch("login", {
+            server: this.server,
             username: this.username,
             password: this.password
           }).then(() => {
@@ -34036,6 +34050,10 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     
 <h3>Login</h3>
 <form class='login' method="post" action="" >
+    <div class="mb-3 mt-3">
+      <label class='control-label'>Server</label>
+      <input type='text' class='form-control' name='server' v-model='server' required>
+    </div>
     <div class="mb-3 mt-3">
       <label class='control-label'>Username</label>
       <input type='text' class='form-control' name='username' v-model='username' required>
@@ -34069,7 +34087,12 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       }
     },
     template: `
-        <p>Messages {{ messages }} </p>
+    
+        <ul>
+            <li v-for='message in messages' :key="message.id">
+                {{ message }}
+            </li>
+        </ul>
     `
   };
 

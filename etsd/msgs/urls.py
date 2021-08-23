@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.urls import path
 from django.contrib.auth.decorators import (
     permission_required,
@@ -6,6 +7,7 @@ from django.contrib.auth.decorators import (
 )
 import rules_light
 from . import views
+from .views import api
 
 rules_light.autodiscover()
 
@@ -82,4 +84,15 @@ urlpatterns = [
         ),
         name="message-autocomplete",
     ),
+]
+
+
+from rest_framework.routers import DefaultRouter
+from django.urls import path, include
+
+router = DefaultRouter()
+router.register(r"messages", api.MessageViewSet)
+
+urlpatterns += [
+    path("api/", include(router.urls)),
 ]

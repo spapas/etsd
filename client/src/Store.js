@@ -5,10 +5,13 @@ try {
   userData = JSON.parse(localStorage.getItem('userData'))
 } catch {}
 
+server = localStorage.getItem('server')
+console.log("SERVER IS " , server)
 
 const Store = createStore({
   state () {
     return {
+      server,
       user: userData,
       messages: undefined,
       pkdata: undefined,
@@ -24,15 +27,22 @@ const Store = createStore({
     },
     setMessages(state, data) {
       state.messages = data 
+    },
+    setServer(state, data) {
+      state.server = data 
     }
   },
   actions: {
-    login (context, {username, password}) {
+    login (context, {server, username, password}) {
+      console.log("LIGIN ", server, context.state)
       context.commit('setLoading', true)
+      context.commit('setServer', server)
+      localStorage.setItem('server', server)
+
       return new Promise(async (resolve, reject) => {
         try { 
-
-          await fetch('http://127.0.0.1:8000/api/login/', {
+          
+          await fetch(server + '/api/login/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -50,6 +60,7 @@ const Store = createStore({
               context.commit('setLoading', false)
               context.commit('setUserData', data)
               localStorage.setItem('userData', JSON.stringify(data))
+              
               resolve()
             })
           })
@@ -63,10 +74,11 @@ const Store = createStore({
     },
     logout (context) {
       context.commit('setLoading', true)
+      console.log("LOGOUT ", context.state)
       return new Promise(async (resolve, reject) => {
         try { 
 
-          await fetch('http://127.0.0.1:8000/api/logout/', {
+          await fetch(context.state.server + '/api/logout/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -78,9 +90,10 @@ const Store = createStore({
               throw new Error('Error')
             }
             res.json().then(data => {
+              localStorage.setItem('userData', undefined)
               context.commit('setLoading', false)
               context.commit('setUserData', undefined)
-              //localStorage.setItem('userData', undefined)
+              context.commit('setMessages', undefined)
               resolve()
             })
           })
@@ -93,10 +106,11 @@ const Store = createStore({
       })
     },
     fetchMessages (context) {
+      console.log("MESSAGEs ", context.state)
       context.commit('setLoading', true)
       console.log("Fetch messages")
       return new Promise(async (resolve, reject) => {
-        await fetch('http://127.0.0.1:8000/messages/api/messages/', {
+        await fetch(context.state.server + '/messages/api/messages/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -108,7 +122,6 @@ const Store = createStore({
             }
             res.json().then(data => {
               context.commit('setLoading', false)
-              console.log("GOT MESSAGES", data)
               context.commit('setMessages', data)
             })
           })

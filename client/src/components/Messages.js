@@ -6,13 +6,18 @@ export default {
     ]),
     created() {
         
-        if(this.messages == undefined) {
+        if(this.messages== undefined) {
             this.$store.dispatch('fetchMessages')
         }
 
       },
     template: `
-        <p>Messages {{ messages }} </p>
+    
+        <ul>
+            <li v-for='message in messages' :key="message.id">
+                {{ message }}
+            </li>
+        </ul>
     `
 }
 

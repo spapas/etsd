@@ -13,6 +13,7 @@ from rest_framework import status
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 
+
 class AuthorityEditUsersView(
     UpdateView,
 ):
@@ -78,9 +79,7 @@ class RestLoginView(LoginView):
         user = self.token.user
         if not user.get_authority():
             return Response(
-                {
-                    "error": _("This user is not associated with any authority!")
-                },
+                {"error": _("This user is not associated with any authority!")},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -90,6 +89,6 @@ class RestLoginView(LoginView):
                 "authority": str(user.get_authority()),
                 "username": user.username,
                 "email": user.email,
-                
-            }, 
-            status=status.HTTP_200_OK)
+            },
+            status=status.HTTP_200_OK,
+        )
