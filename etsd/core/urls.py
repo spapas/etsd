@@ -31,6 +31,16 @@ urlpatterns = [
         "logout/", LogoutView.as_view(template_name="logout.html"), name="auth_logout"
     ),
     path(
+        "api/logout/",
+        views.RestLogoutView.as_view(),
+        name="api_logout",
+    ),
+    path(
+        "api/login/",
+        views.RestLoginView.as_view(),
+        name="api_login",
+    ),
+    path(
         "jsi18n/",
         last_modified(lambda req, **kw: last_modified_date)(
             JavaScriptCatalog.as_view()

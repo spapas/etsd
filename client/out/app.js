@@ -33816,10 +33816,19 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   } = import_vuex_cjs.default;
 
   // src/Store.js
+  var userData = void 0;
+  try {
+    userData = JSON.parse(localStorage.getItem("userData"));
+  } catch {
+  }
+  server = localStorage.getItem("server");
+  console.log("SERVER IS ", server);
   var Store2 = createStore({
     state() {
       return {
-        user: void 0,
+        server,
+        user: userData,
+        messages: void 0,
         pkdata: void 0,
         loading: false
       };
@@ -33827,37 +33836,105 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     mutations: {
       setLoading(state, status) {
         state.loading = status;
+      },
+      setUserData(state, data) {
+        state.user = data;
+      },
+      setMessages(state, data) {
+        state.messages = data;
+      },
+      setServer(state, data) {
+        state.server = data;
       }
     },
     actions: {
-      login(context, { username, password }) {
+      login(context, { server: server2, username, password }) {
+        console.log("LIGIN ", server2, context.state);
         context.commit("setLoading", true);
+        context.commit("setServer", server2);
+        localStorage.setItem("server", server2);
         return new Promise(async (resolve, reject) => {
           try {
-            let get = await fetch("http://127.0.0.1:8000/users/user-view/", {
-              method: "GET",
-              credentials: "same-origin"
-            });
-            console.log("ok");
-            console.log(get);
-            console.log(get.headers);
-            window.gt = get;
-            let koko = await fetch("http://127.0.0.1:8000/users/user-view/", {
+            await fetch(server2 + "/api/login/", {
               method: "POST",
               headers: {
-                "X-CSRFToken": csrf_token
+                "Content-Type": "application/json"
               },
-              credentials: "include",
               body: JSON.stringify({
                 username,
                 password
               })
+            }).then((res) => {
+              console.log(res);
+              if (res.status !== 200) {
+                throw new Error("Error");
+              }
+              res.json().then((data) => {
+                context.commit("setLoading", false);
+                context.commit("setUserData", data);
+                localStorage.setItem("userData", JSON.stringify(data));
+                resolve();
+              });
             });
           } catch (err) {
             console.log(err);
             context.commit("setLoading", false);
             reject(err);
           }
+        });
+      },
+      logout(context) {
+        context.commit("setLoading", true);
+        console.log("LOGOUT ", context.state);
+        return new Promise(async (resolve, reject) => {
+          try {
+            await fetch(context.state.server + "/api/logout/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${context.state.user.token}`
+              }
+            }).then((res) => {
+              console.log(res);
+              if (res.status !== 200) {
+                throw new Error("Error");
+              }
+              res.json().then((data) => {
+                localStorage.setItem("userData", void 0);
+                context.commit("setLoading", false);
+                context.commit("setUserData", void 0);
+                context.commit("setMessages", void 0);
+                resolve();
+              });
+            });
+          } catch (err) {
+            console.log(err);
+            context.commit("setLoading", false);
+            reject(err);
+          }
+        });
+      },
+      fetchMessages(context) {
+        console.log("MESSAGEs ", context.state);
+        context.commit("setLoading", true);
+        console.log("Fetch messages");
+        return new Promise(async (resolve, reject) => {
+          await fetch(context.state.server + "/messages/api/messages/", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Token ${context.state.user.token}`
+            }
+          }).then((res) => {
+            console.log(res);
+            if (res.status !== 200) {
+              throw new Error("Error");
+            }
+            res.json().then((data) => {
+              context.commit("setLoading", false);
+              context.commit("setMessages", data);
+            });
+          });
         });
       }
     }
@@ -33867,7 +33944,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   // src/components/Home.js
   var Home = {
     template: `
-        <p>Greetings</p>
+        <p>Greetings {{ $store.user }} </p>
     `
   };
   var Home_default = Home;
@@ -33875,6 +33952,13 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   // src/components/Nav.js
   var Nav = {
     props: ["user", "pkdata"],
+    methods: {
+      logout: function(event) {
+        event.preventDefault();
+        this.$store.dispatch("logout");
+        return false;
+      }
+    },
     template: `
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
@@ -33918,9 +34002,8 @@ ${JSON.stringify(newTargetLocation, null, 2)}
                     <b>{% trans "Private key loaded" %} <span id='countdowntimer'>15:00</span></b>
                 </a>
                 
-                <router-link class="btn btn-outline-info btn-sm" to="/logout">
-                  ({{ user }}) | Disconnect
-                </router-link>
+                <button class="btn btn-outline-info btn-sm" @click='logout'>({{ user.username }}) | Disconnect</button>
+                
             </li>
             <li class="nav-item" v-if='!user'>
                 <router-link class="btn btn-outline-info btn-sm" to="/login">
@@ -33940,8 +34023,9 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   var Login = {
     data: function() {
       return {
-        username: "x",
-        password: "y",
+        server: "http://127.0.0.1:8000",
+        username: "",
+        password: "",
         error: ""
       };
     },
@@ -33950,6 +34034,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
         event.preventDefault();
         if (this.username && this.password) {
           this.$store.dispatch("login", {
+            server: this.server,
             username: this.username,
             password: this.password
           }).then(() => {
@@ -33966,6 +34051,10 @@ ${JSON.stringify(newTargetLocation, null, 2)}
 <h3>Login</h3>
 <form class='login' method="post" action="" >
     <div class="mb-3 mt-3">
+      <label class='control-label'>Server</label>
+      <input type='text' class='form-control' name='server' v-model='server' required>
+    </div>
+    <div class="mb-3 mt-3">
       <label class='control-label'>Username</label>
       <input type='text' class='form-control' name='username' v-model='username' required>
     </div>
@@ -33978,7 +34067,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     <div class='alert alert-danger' v-if='error'>
         {{ error }}
     </div>
-    <button @click='login'>Login</button>
+    <button class='btn btn-outline-info btn-sm' @click='login'>Login</button>
     
 </form>
   
@@ -33986,17 +34075,35 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   };
   var Login_default = Login;
 
+  // src/components/Messages.js
+  var Messages_default = {
+    computed: mapState([
+      "messages",
+      "loading"
+    ]),
+    created() {
+      if (this.messages == void 0) {
+        this.$store.dispatch("fetchMessages");
+      }
+    },
+    template: `
+    
+        <ul>
+            <li v-for='message in messages' :key="message.id">
+                {{ message }}
+            </li>
+        </ul>
+    `
+  };
+
   // src/app.js
-  var Logout = { template: "<div>Logout</div>" };
-  var Messages = { template: "<div>Messages</div>" };
   var Help = { template: "<div>Help</div>" };
   var PublicKeyList = { template: "<div>PublicKeyList</div>" };
   var PrivateKeyLoad = { template: "<div>PrivateKeyLoad</div>" };
   var routes = [
     { path: "/", component: Home_default },
     { path: "/login", component: Login_default },
-    { path: "/logout", component: Logout },
-    { path: "/messages", component: Messages },
+    { path: "/messages", component: Messages_default },
     { path: "/help", component: Help },
     { path: "/public_key_list", component: PublicKeyList },
     { path: "/privatekey_load", component: PrivateKeyLoad }
@@ -34009,7 +34116,8 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     computed: mapState([
       "user",
       "pkdata",
-      "loading"
+      "loading",
+      "messages"
     ])
   });
   app.use(router);

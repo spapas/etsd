@@ -12,7 +12,7 @@ SESSION_COOKIE_SECURE = False  # Override session to work also with http
 EMAIL_LOG_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 COMPRESS_OFFLINE = True
-
+LANGUAGE_CODE = "el"
 MEDIA_ROOT = "/home/serafeim/etsd/media"
 SENDFILE_ROOT = "/home/serafeim/etsd/media/protected"
 

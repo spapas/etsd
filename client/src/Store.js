@@ -1,9 +1,19 @@
 import { createStore } from 'vuex'
 
+let userData = undefined
+try {
+  userData = JSON.parse(localStorage.getItem('userData'))
+} catch {}
+
+server = localStorage.getItem('server')
+console.log("SERVER IS " , server)
+
 const Store = createStore({
   state () {
     return {
-      user: undefined,
+      server,
+      user: userData,
+      messages: undefined,
       pkdata: undefined,
       loading: false
     }
@@ -11,34 +21,47 @@ const Store = createStore({
   mutations: {
     setLoading (state, status) {
       state.loading = status
+    },
+    setUserData (state, data) {
+      state.user = data
+    },
+    setMessages(state, data) {
+      state.messages = data 
+    },
+    setServer(state, data) {
+      state.server = data 
     }
   },
   actions: {
-    
-    login (context, {username, password}) {
+    login (context, {server, username, password}) {
+      console.log("LIGIN ", server, context.state)
       context.commit('setLoading', true)
+      context.commit('setServer', server)
+      localStorage.setItem('server', server)
+
       return new Promise(async (resolve, reject) => {
         try { 
-          let get = await fetch('http://127.0.0.1:8000/users/user-view/', {
-            method: 'GET',
-            credentials: 'same-origin',
-          })
-          console.log('ok')
-
-          console.log(get)
-          console.log(get.headers)
-          window.gt = get
-
-          let koko = await fetch('http://127.0.0.1:8000/users/user-view/', {
+          
+          await fetch(server + '/api/login/', {
             method: 'POST',
             headers: {
-              'X-CSRFToken': csrf_token
-              
+              'Content-Type': 'application/json'
             },
-            credentials: 'include',
             body: JSON.stringify({
               username: username,
               password: password
+            })
+          }).then(res => {
+            console.log(res)
+            if(res.status !== 200) {
+              throw new Error('Error')
+            }
+            res.json().then(data => {
+              context.commit('setLoading', false)
+              context.commit('setUserData', data)
+              localStorage.setItem('userData', JSON.stringify(data))
+              
+              resolve()
             })
           })
         } catch(err) {
@@ -46,6 +69,62 @@ const Store = createStore({
           context.commit('setLoading', false)
           reject(err)
         }
+
+      })
+    },
+    logout (context) {
+      context.commit('setLoading', true)
+      console.log("LOGOUT ", context.state)
+      return new Promise(async (resolve, reject) => {
+        try { 
+
+          await fetch(context.state.server + '/api/logout/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${context.state.user.token}`
+            }
+          }).then(res => {
+            console.log(res)
+            if(res.status !== 200) {
+              throw new Error('Error')
+            }
+            res.json().then(data => {
+              localStorage.setItem('userData', undefined)
+              context.commit('setLoading', false)
+              context.commit('setUserData', undefined)
+              context.commit('setMessages', undefined)
+              resolve()
+            })
+          })
+        } catch(err) {
+          console.log(err)
+          context.commit('setLoading', false)
+          reject(err)
+        }
+
+      })
+    },
+    fetchMessages (context) {
+      console.log("MESSAGEs ", context.state)
+      context.commit('setLoading', true)
+      console.log("Fetch messages")
+      return new Promise(async (resolve, reject) => {
+        await fetch(context.state.server + '/messages/api/messages/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${context.state.user.token}`
+          }}).then(res => {
+            console.log(res)
+            if(res.status !== 200) {
+              throw new Error('Error')
+            }
+            res.json().then(data => {
+              context.commit('setLoading', false)
+              context.commit('setMessages', data)
+            })
+          })
 
       })
     }

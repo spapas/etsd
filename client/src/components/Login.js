@@ -1,8 +1,9 @@
 const  Login = {
     data: function() { 
         return {
-            username: 'x',
-            password: 'y',
+            server: 'http://127.0.0.1:8000',
+            username: '',
+            password: '',
             error: '',
         }
     },
@@ -11,6 +12,7 @@ const  Login = {
             event.preventDefault();
             if(this.username && this.password) {
                 this.$store.dispatch('login', {
+                    server: this.server,
                     username: this.username,
                     password: this.password
                 }).then(() => {
@@ -20,8 +22,6 @@ const  Login = {
                     this.error = "Cannot login";
                 });
             }
-            
-
             return false;
         }
     },
@@ -29,6 +29,10 @@ const  Login = {
     
 <h3>Login</h3>
 <form class='login' method="post" action="" >
+    <div class="mb-3 mt-3">
+      <label class='control-label'>Server</label>
+      <input type='text' class='form-control' name='server' v-model='server' required>
+    </div>
     <div class="mb-3 mt-3">
       <label class='control-label'>Username</label>
       <input type='text' class='form-control' name='username' v-model='username' required>
@@ -42,7 +46,7 @@ const  Login = {
     <div class='alert alert-danger' v-if='error'>
         {{ error }}
     </div>
-    <button @click='login'>Login</button>
+    <button class='btn btn-outline-info btn-sm' @click='login'>Login</button>
     
 </form>
   

@@ -25,7 +25,7 @@ from sendfile import sendfile
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 from etsd.keys.models import PublicKey
-from . import models, filters, tables, forms
+from .. import models, filters, tables, forms
 from django.core.mail import send_mail
 from dal import autocomplete
 
@@ -85,15 +85,7 @@ class MessageListView(ExportMixin, ListView):
         return context
 
 
-class ParticipantListView(ExportMixin, ListView):
-    model = models.Participant
-
-    def get_table(self):
-        return self.table
-
-    def get_table_kwargs(self):
-        return {}
-
+class ParticipantQuerysetMixin:
     def get_queryset(self):
         my_authority = self.request.user.get_authority()
         return (
@@ -146,6 +138,16 @@ class ParticipantListView(ExportMixin, ListView):
             )
             .order_by("status_order", "-send_order")
         )
+
+
+class ParticipantListView(ParticipantQuerysetMixin, ExportMixin, ListView):
+    model = models.Participant
+
+    def get_table(self):
+        return self.table
+
+    def get_table_kwargs(self):
+        return {}
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -455,7 +457,7 @@ class MessageAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(
-                Q(protocol__icontains=self.q) 
+                Q(protocol__icontains=self.q)
                 | Q(protocol_year__icontains=self.q)
                 | Q(local_identifier__icontains=self.q)
             )

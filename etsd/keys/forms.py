@@ -2,6 +2,7 @@ from . import models
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as __
 import gnupg
 from .util import check_signatures
 
@@ -57,13 +58,9 @@ class PublicKeyAcceptRejectForm(forms.ModelForm):
 
 
 class LoadPrivateKeyForm(forms.Form):
-    fingerprint = forms.CharField(
-        max_length=128,
-    )
-    user_id = forms.CharField(
-        max_length=512,
-    )
-    creation_time = forms.CharField(max_length=512)
+    fingerprint = forms.CharField(max_length=128, label=__("Fingerprint"))
+    user_id = forms.CharField(max_length=512, label=__("User id"))
+    creation_time = forms.CharField(max_length=512, label=__("Creation time"))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

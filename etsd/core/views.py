@@ -8,6 +8,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from dal import autocomplete
 from django.db.models import Q
+from dj_rest_auth.views import LogoutView, LoginView
+from rest_framework import status
+from rest_framework import authentication, permissions
+from rest_framework.response import Response
 
 
 class AuthorityEditUsersView(
@@ -64,3 +68,27 @@ class AuthorityAutocomplete(autocomplete.Select2QuerySetView):
 
 class HelpTemplateView(TemplateView):
     template_name = "core/help.html"
+
+
+class RestLogoutView(LogoutView):
+    authentication_classes = (authentication.TokenAuthentication,)
+
+
+class RestLoginView(LoginView):
+    def get_response(self):
+        user = self.token.user
+        if not user.get_authority():
+            return Response(
+                {"error": _("This user is not associated with any authority!")},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        return Response(
+            {
+                "token": self.token.key,
+                "authority": str(user.get_authority()),
+                "username": user.username,
+                "email": user.email,
+            },
+            status=status.HTTP_200_OK,
+        )

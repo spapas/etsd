@@ -100,7 +100,7 @@
               
       {% else %}
         <p>
-          Please login to use this site!
+          {% trans "Please login to use this site!" %}
         </p>
         <a class="btn btn-primary" href="{% url 'auth_login' %}" role="button">{% translate "Log in" %}</a></p>
       {% endif %}

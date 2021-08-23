@@ -63,7 +63,12 @@ class MessageCreateForm(forms.ModelForm):
 
     class Meta:
         model = models.Message
-        fields = ["kind", "available_to_sender", "rel_message", "local_identifier",]
+        fields = [
+            "kind",
+            "available_to_sender",
+            "rel_message",
+            "local_identifier",
+        ]
 
     def clean(self):
         user = ThreadLocal.get_current_user()

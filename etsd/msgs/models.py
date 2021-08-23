@@ -92,10 +92,12 @@ class Message(UserDateAbstractModel):
     )
     local_identifier = models.CharField(
         max_length=50,
-        blank=True, 
+        blank=True,
         verbose_name=_("Local identifier"),
-        help_text=_("Please provide a local identifier (local authority protocol) if needed."),
-        validators=[RegexValidator(r'^[0-9.\-/]*$', 'Valid characters are 0-9 . - /')],
+        help_text=_(
+            "Please provide a local identifier (local authority protocol) if needed."
+        ),
+        validators=[RegexValidator(r"^[0-9.\-/]*$", "Valid characters are 0-9 . - /")],
     )
 
     sent_on = models.DateTimeField(blank=True, null=True, verbose_name=_("Sent on"))

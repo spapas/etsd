@@ -1,6 +1,6 @@
 const  Home = {
     template: `
-        <p>Greetings</p>
+        <p>Greetings {{ $store.user }} </p>
     `
 }
 

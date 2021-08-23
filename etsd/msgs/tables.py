@@ -52,7 +52,7 @@ class MessageTable(ColumnShiftTable):
         empty_text = "No entries"
 
     def render_sender(self, record):
-        snder=record.participant_set.filter(kind="SENDER")
+        snder = record.participant_set.filter(kind="SENDER")
         if snder:
             return snder.first().authority.name
         else:
