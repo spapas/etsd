@@ -27,7 +27,7 @@ def confirmation_document_upload_to(instance, filename):
 
 @reversion.register
 class PublicKey(UserDateAbstractModel):
-    authority = models.ForeignKey("authorities.Authority", on_delete=models.PROTECT)
+    authority = models.ForeignKey("authorities.Authority", on_delete=models.PROTECT, verbose_name=_("Authority"))
     key = models.TextField(
         verbose_name=_("Key text"),
         help_text=_("The key text in armored ASCII format"),

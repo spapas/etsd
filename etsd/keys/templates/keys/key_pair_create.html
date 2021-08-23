@@ -6,8 +6,8 @@
 {% load i18n static %}
 
 
-{% block head_title %}Create new key pair{% endblock %}
-{% block page_title %}Create new key pair{% endblock %}
+{% block head_title %}{% trans "Create new key pair" %}{% endblock %}
+{% block page_title %}{% trans "Create new key pair" %}{% endblock %}
 {% block page_content %}
 {% get_user_authority as auth %}
 {% trans "Authority:" %} {{ auth.name }} {{ auth.email }}
