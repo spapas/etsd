@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 10:44+0300\n"
+"POT-Creation-Date: 2021-08-25 08:38+0300\n"
 "PO-Revision-Date: 2021-08-23 10:16+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -474,9 +474,14 @@ msgstr ""
 "μηνυμάτων. Μπορείτε να σημάνετε ένα \"Αρχειοθετημένο\" μήνυμα\n"
 "ξανά ως \"Αναγνωσμένο\".\n"
 
-#: .\etsd\core\views.py:42
+#: .\etsd\core\views.py:46
 msgid "Authority Data successfully updated!"
 msgstr "Οι Πληροφορίες Υπηρεσίας ενημερώθηκαν επιτυχώς!"
+
+#: .\etsd\core\views.py:82
+msgid "This user is not associated with any authority!"
+msgstr "Ο χρήστης δεν έχει Υπηρεσία."
+
 
 #: .\etsd\keys\forms.py:13 .\etsd\keys\models.py:55
 #: .\etsd\keys\templates\keys\publickey_detail.html:20
@@ -1148,8 +1153,7 @@ msgstr ""
 msgid "Category"
 msgstr "Κατηγορία"
 
-#: .\etsd\msgs\models.py:90 .\etsd\msgs\tables.py:96
-#: .\etsd\msgs\templates\msgs\message_detail.html:34
+#: .\etsd\msgs\models.py:90 .\etsd\msgs\templates\msgs\message_detail.html:34
 msgid "Related message"
 msgstr "Σχετικό μήνυμα"
 
@@ -1388,35 +1392,35 @@ msgstr "Κατάλογος μηνυμάτων"
 msgid "New message"
 msgstr "Νέο μήνυμα"
 
-#: .\etsd\msgs\views.py:174
+#: .\etsd\msgs\views\__init__.py:176
 msgid "Other participants may only be included once!"
 msgstr "Οι συμμετέχοντες μπορούν να περιληφθούν μία φορά!"
 
-#: .\etsd\msgs\views.py:176
+#: .\etsd\msgs\views\__init__.py:178
 msgid "At least one participant is required"
 msgstr "Χρειάζεται ένας συμμετέχων"
 
-#: .\etsd\msgs\views.py:180
+#: .\etsd\msgs\views\__init__.py:182
 msgid "Please don't add empty rows"
 msgstr "Μην προσθέτετε κενές γραμμές"
 
-#: .\etsd\msgs\views.py:206
+#: .\etsd\msgs\views\__init__.py:208
 msgid "Draft message created"
 msgstr "Το μήνυμα δημιουργήθηκε"
 
-#: .\etsd\msgs\views.py:350
+#: .\etsd\msgs\views\__init__.py:352
 msgid "Message send"
 msgstr "Το μήνυμα στάλθηκε"
 
-#: .\etsd\msgs\views.py:369
+#: .\etsd\msgs\views\__init__.py:371
 msgid "Message deleted"
 msgstr "Το μήνυμα διαγράφηκε"
 
-#: .\etsd\msgs\views.py:413
+#: .\etsd\msgs\views\__init__.py:415
 msgid "Message archived"
 msgstr "Το μήνυμα αρχειοθετήθηκε"
 
-#: .\etsd\msgs\views.py:432
+#: .\etsd\msgs\views\__init__.py:434
 msgid "Message unarchived"
 msgstr "Το μήνυμα απο-αρχειοθετήθηκε"
 
@@ -1598,7 +1602,7 @@ msgstr "Χωρίς πρόσβαση!"
 
 #: .\templates\home.html:97
 msgid "All Messages"
-msgstr "Μηνύματα"
+msgstr "Όλα τα μηνύματα"
 
 #: .\templates\home.html:98
 msgid "Authorities"
@@ -1659,8 +1663,8 @@ msgstr "Παρακαλούμε συνδεθείτε"
 #: .\templates\registration\login.html:4 .\templates\registration\login.html:5
 #: .\templates\registration\login.html:25
 msgid "Login"
-msgstr ""
+msgstr "Σύνδεση"
 
 #: .\templates\registration\login.html:9
 msgid "Cannot connect please try again"
-msgstr ""
+msgstr "Δεν ήταν δυνατή η σύνδεση"
