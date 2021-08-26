@@ -27,4 +27,5 @@ class PublicKeyTable(ColumnShiftTableBootstrap5):
             "approved_on",
             "deactivated_on",
             "rejected_on",
+            "deleted_on",
         )

@@ -14,6 +14,7 @@ KEY_STATUS_CHOICES = (
     ("ACTIVE", "Active"),
     ("INACTIVE", "Inactive"),
     ("REJECTED", "Rejected"),
+    ("DELETED", "Deleted"),
 )
 
 
@@ -65,6 +66,10 @@ class PublicKey(UserDateAbstractModel):
     rejected_on = models.DateTimeField(
         null=True, blank=True, verbose_name=_("Rejection date")
     )
+    deleted_on = models.DateTimeField(
+        null=True, blank=True, verbose_name=_("Deletion date")
+    )
+
 
     def __str__(self):
         return self.fingerprint

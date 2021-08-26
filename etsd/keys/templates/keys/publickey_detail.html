@@ -31,7 +31,7 @@
       </div>
       {% if request.user.get_authority ==  publickey.authority %}
         {% if request.session.private_key_data %}
-          <a class='btn btn-success' href='{% url "public_key_submit" publickey.id %}'>Submit for approval</a>
+          <a class='btn btn-success' href='{% url "public_key_submit" publickey.id %}'>{% trans "Submit for approval" %|</a>
         {% else %}
           <div class='alert alert-warning'>
             {% trans "You must load the private key of the key pair in order to be able to submit this public key for approval!" %}
@@ -41,7 +41,7 @@
     {% endif %}
     {% if publickey.status == 'PENDING' %}
       <div class="alert alert-warning">
-        The public key needs confirmation by the administration in order to be used. 
+        {% trans "The public key needs confirmation by the administration in order to be used." %}
       </div>
       {% if perms.core.admin %}
       <form action="{% url 'publickey_accept' publickey.id %}" method="POST" style="display:inline">
@@ -79,10 +79,10 @@
       evt.preventDefault();
       document.getElementById("id_status").value = 'ACTIVE';
       bootstrap5Alert({
-        message: 'Are you sure you want to accept this public key?', 
-        title: 'Accept key',
-        actionText:'Accept',
-        color: 'success',
+        'message': gettext('Are you sure you want to accept this public key?'), 
+        'title': gettext('Accept key'),
+        'actionText': gettext('Accept'),
+        'color': 'success',
         cb: () => {
         console.log("Submit form");
         evt.target.closest('form').submit();
@@ -95,10 +95,10 @@
       evt.preventDefault();
       document.getElementById("id_status").value = 'REJECTED';
       bootstrap5Alert({
-        message: 'Are you sure you want to reject this public key?', 
-        title: 'Reject key',
-        actionText:'Reject',
-        color: 'danger',
+        'message': gettext('Are you sure you want to reject this public key?'), 
+        'title': gettext('Reject key'),
+        'actionText': gettext('Reject'),
+        'color': 'danger',
         cb: () => {
         console.log("Submit form");
         evt.target.closest('form').submit();
