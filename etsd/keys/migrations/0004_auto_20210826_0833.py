@@ -7,18 +7,35 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('keys', '0003_alter_publickey_confirmation_document'),
+        ("keys", "0003_alter_publickey_confirmation_document"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='publickey',
-            name='authority',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='authorities.authority', verbose_name='Authority'),
+            model_name="publickey",
+            name="authority",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                to="authorities.authority",
+                verbose_name="Authority",
+            ),
         ),
         migrations.AlterField(
-            model_name='publickey',
-            name='status',
-            field=models.CharField(choices=[('NEW', 'New'), ('PENDING', 'Pending'), ('ACTIVE', 'Active'), ('INACTIVE', 'Inactive'), ('REJECTED', 'Rejected'), ('DELETED', 'Deleted')], default='NEW', help_text='Approval status of key', max_length=10, verbose_name='Status'),
+            model_name="publickey",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("NEW", "New"),
+                    ("PENDING", "Pending"),
+                    ("ACTIVE", "Active"),
+                    ("INACTIVE", "Inactive"),
+                    ("REJECTED", "Rejected"),
+                    ("DELETED", "Deleted"),
+                ],
+                default="NEW",
+                help_text="Approval status of key",
+                max_length=10,
+                verbose_name="Status",
+            ),
         ),
     ]
