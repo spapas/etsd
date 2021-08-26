@@ -14,6 +14,7 @@ KEY_STATUS_CHOICES = (
     ("ACTIVE", "Active"),
     ("INACTIVE", "Inactive"),
     ("REJECTED", "Rejected"),
+    ("DELETED", "Deleted"),
 )
 
 
@@ -27,7 +28,7 @@ def confirmation_document_upload_to(instance, filename):
 
 @reversion.register
 class PublicKey(UserDateAbstractModel):
-    authority = models.ForeignKey("authorities.Authority", on_delete=models.PROTECT)
+    authority = models.ForeignKey("authorities.Authority", on_delete=models.PROTECT, verbose_name=_("Authority"))
     key = models.TextField(
         verbose_name=_("Key text"),
         help_text=_("The key text in armored ASCII format"),
@@ -65,6 +66,10 @@ class PublicKey(UserDateAbstractModel):
     rejected_on = models.DateTimeField(
         null=True, blank=True, verbose_name=_("Rejection date")
     )
+    deleted_on = models.DateTimeField(
+        null=True, blank=True, verbose_name=_("Deletion date")
+    )
+
 
     def __str__(self):
         return self.fingerprint
