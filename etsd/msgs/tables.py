@@ -1,8 +1,8 @@
 import django_tables2 as tables
-from django_tables2_column_shifter.tables import ColumnShiftTable
+from django_tables2_column_shifter.tables import ColumnShiftTableBootstrap5
 from django.utils.html import mark_safe
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy as __
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as __
 
 from django_tables2.utils import A
 
@@ -19,7 +19,7 @@ PROTOCOL = """
 )
 
 
-class MessageTable(ColumnShiftTable):
+class MessageTable(ColumnShiftTableBootstrap5):
     id = tables.LinkColumn(
         "message_detail",
         args=[A("id")],
@@ -76,7 +76,7 @@ PARTICIPANT_PROTOCOL = """
 )
 
 
-class ParticipantTable(ColumnShiftTable):
+class ParticipantTable(ColumnShiftTableBootstrap5):
     message_id = tables.LinkColumn(
         "message_detail",
         args=[A("message_id")],
@@ -93,7 +93,7 @@ class ParticipantTable(ColumnShiftTable):
     rel_message = tables.LinkColumn(
         "message_detail",
         args=[A("message.rel_message_id")],
-        verbose_name=_("Related message"),
+        verbose_name=__("Related message"),
         attrs={"a": {"class": "btn btn-primary btn-sm"}},
     )
 

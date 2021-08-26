@@ -1,11 +1,11 @@
 import django_tables2 as tables
-from django_tables2_column_shifter.tables import ColumnShiftTable
+from django_tables2_column_shifter.tables import ColumnShiftTableBootstrap5
 from . import models
 from django.utils.html import mark_safe
 from django_tables2.utils import A
 
 
-class PublicKeyTable(ColumnShiftTable):
+class PublicKeyTable(ColumnShiftTableBootstrap5):
     id = tables.LinkColumn(
         "publickey_detail",
         args=[A("pk")],
