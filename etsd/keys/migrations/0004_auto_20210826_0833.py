@@ -7,7 +7,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authorities', '0005_auto_20210812_0904'),
         ('keys', '0003_alter_publickey_confirmation_document'),
     ]
 
