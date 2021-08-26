@@ -31,7 +31,7 @@
       </div>
       {% if request.user.get_authority ==  publickey.authority %}
         {% if request.session.private_key_data %}
-          <a class='btn btn-success' href='{% url "public_key_submit" publickey.id %}'>{% trans "Submit for approval" %|</a>
+          <a class='btn btn-success' href='{% url "public_key_submit" publickey.id %}'>{% trans "Submit for approval" %}</a>
         {% else %}
           <div class='alert alert-warning'>
             {% trans "You must load the private key of the key pair in order to be able to submit this public key for approval!" %}
