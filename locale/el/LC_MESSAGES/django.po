@@ -1109,7 +1109,7 @@ msgstr "Πρόχειρο"
 
 #: .\etsd\msgs\models.py:20
 msgid "Sent"
-msgstr "Απεστελμένο"
+msgstr "Απεσταλμένο"
 
 #: .\etsd\msgs\models.py:26 .\templates\authorities\authority_detail.html:8
 msgid "Name"
