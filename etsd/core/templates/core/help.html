@@ -8,6 +8,13 @@
 {% block page_title %}{% blocktrans %}Help{% endblocktrans %}{% endblock %}
 {% block page_content %}
 
+{% get_current_language as LANGUAGE_CODE %}
+{% if LANGUAGE_CODE == 'el' %}
+<h3>
+    <a href='{% static "ETSD manual.pdf" %}'>Εγχειρίδιο χρήσης εφαρμογής (PDF)</a>
+</h3>
+{% endif %}
+
 <h2>{% trans "Key management" %}</h2>
 {% url "public_key_list" as public_key_list %}
 {% url "key_pair_create" as key_pair_create %}
@@ -143,13 +150,8 @@ moved to the end of the list of messages. You can also unarchive a message so it
 {% endblocktrans %}
 </p>
 
-<p>
-{% blocktrans %}
-A more comprehensive manual of the app's basic functionality (in Greek) can be found{% endblocktrans %} <a href='{% static "ETSD manual.pdf" %}'>{% trans "here" %}</a>.
-
-</p>
-
 {% endblock %}
+
 
 {% block extra_script_no_compress %}
 {% endblock %}
