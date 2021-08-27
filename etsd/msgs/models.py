@@ -281,6 +281,9 @@ class CipherData(models.Model):
         verbose_name = _("Cipher data")
         verbose_name_plural = _("Cipher data")
 
+    def __str__(self):
+        return "{0} / {1} ({2})".format(self.data.message, self.data.number, self.id)
+
 
 class DataAccess(UserDateAbstractModel):
     """

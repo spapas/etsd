@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('keys', '0004_auto_20210826_0833'),
+        ("keys", "0004_auto_20210826_0833"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='publickey',
-            name='deleted_on',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='Deletion date'),
+            model_name="publickey",
+            name="deleted_on",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="Deletion date"
+            ),
         ),
     ]
