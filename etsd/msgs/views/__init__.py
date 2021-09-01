@@ -443,7 +443,12 @@ class CipherDataDeletePostView(SingleObjectMixin, View):
 
     def post(self, request, *args, **kwargs):
         cipherdata = self.object = self.get_object()
-        cipherdata.delete()
+        if cipherdata.data.message.status == "DRAFT":
+            for cd in models.CipherData.objects.filter(data=cipherdata.data):
+                cd.delete() #Is this necessary? Maybe cascade deletes it?
+            cipherdata.data.delete()
+        else:
+            cipherdata.delete()
         return HttpResponse("OK")
 
 
