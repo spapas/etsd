@@ -20,12 +20,14 @@
 <div class="row">
   <div class="col-md-12">
 	  
-    <button class='btn btn-success' id='submitButton'>
+    <button class='btn btn-success' id='submitButton' onclick="displayFiles()">
       <span id='spinner' style='display: none' class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      {% trans "Submit" %}
+      {% trans "Add File" %}
     </button>
 	  <a class='btn btn-secondary' href='{% url "message_detail" object.id %}'>{% trans "Return" %}</a>
   </div>
+  
+  <p id="filelist"><br><em>{% trans "Files you have uploaded:" %}</em><br><ul></p>
 </div>
 
 {{ participant_keys|json_script:"participant-keys" }}
@@ -41,6 +43,14 @@
   const maxFileSize = {{ MAX_FILE_SIZE }};
   const maxFileSizeStr = '{{ MAX_FILE_SIZE_STR }}';
 </script>
+
+<script>
+  function displayFiles() {
+    if(document.getElementById("file").value.replace(/.*[\/\\]/, '')) {
+      document.getElementById("filelist").innerHTML += "<li>" + document.getElementById("file").value.replace(/.*[\/\\]/, '') + "</li>";
+    }
+  }
+  </script>
 {% endblock %}
 
 {% block extra_script %}
@@ -135,6 +145,7 @@
               'color': 'success'
             })
             document.getElementById('file').value=''
+            $('#submitButton').prop('disabled', true)
           } else {
             bootstrap5Alert({'message': gettext("Error while trying to upload!" + data), 'title': gettext("ERROR")})
           }

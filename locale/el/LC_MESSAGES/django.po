@@ -1361,7 +1361,7 @@ msgstr "Διαγραφή"
 
 #: .\etsd\msgs\templates\msgs\message_detail.html:113
 msgid "Add data"
-msgstr "Προσθήκη δεδομένων"
+msgstr "Προσθήκη αρχείων"
 
 #: .\etsd\msgs\templates\msgs\message_detail.html:125
 msgid "Send"
