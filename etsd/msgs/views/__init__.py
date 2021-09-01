@@ -445,7 +445,7 @@ class CipherDataDeletePostView(SingleObjectMixin, View):
         cipherdata = self.object = self.get_object()
         if cipherdata.data.message.status == "DRAFT":
             for cd in models.CipherData.objects.filter(data=cipherdata.data):
-                cd.delete() #Is this necessary? Maybe cascade deletes it?
+                cd.delete()  # Is this necessary? Maybe cascade deletes it?
             cipherdata.data.delete()
         else:
             cipherdata.delete()
