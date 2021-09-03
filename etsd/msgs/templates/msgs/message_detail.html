@@ -50,6 +50,9 @@
           <th>{% trans "Authority" %}</th>
           <th>{% trans "Kind" %}</th>
           <th>{% trans "Public Key Fingerprint" %}</th>
+          {% if message.status != "DRAFT" %}
+          <th>{% trans "Has been read" %}</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody>
@@ -66,6 +69,15 @@
                 {% trans "Data will not be encrypted" %}
               {% endif %}
             </td>
+            {% if message.status != "DRAFT" %}
+            <td>
+              {% if mp.status == "UNREAD" %} 
+                &#10008
+              {% else %}
+                &#10004
+              {% endif %} 
+            </td>
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>
