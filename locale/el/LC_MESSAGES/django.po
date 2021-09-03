@@ -1334,6 +1334,10 @@ msgstr "Συμμετέχοντες"
 msgid "Public Key Fingerprint"
 msgstr "Αποτύπωμα δημοσίου κλειδιού"
 
+#: .\etsd\msgs\templates\msgs\message_detail.html:54
+msgid "Has been read"
+msgstr "Αναγνώσθηκε"
+
 #: .\etsd\msgs\templates\msgs\message_detail.html:66
 msgid "Data will not be encrypted"
 msgstr "Τα δεδομένα δε θα κρυπτογραφηθούν"
