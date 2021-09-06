@@ -53,6 +53,7 @@ def can_unarchive(user, _rule, msg) -> bool:
     participant = get_auth_participant(msg, user)
     return participant.status == "ARCHIVED"
 
+
 def can_reply(user, _rule, msg) -> bool:
     if msg.status == "DRAFT":
         return False
@@ -60,6 +61,7 @@ def can_reply(user, _rule, msg) -> bool:
     if participant.kind == "SENDER":
         return False
     return participant.status != "UNREAD"
+
 
 rules_light.registry["msgs.message.read"] = can_read
 rules_light.registry["msgs.message.add_data"] = can_add_data

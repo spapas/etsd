@@ -172,7 +172,7 @@ class ParticipantInlineFormSet(BaseInlineFormSet):
             for inline_form in self.forms
             if not inline_form.cleaned_data.get("DELETE")
         ]
-        
+
         if len(recipient_list) != len(set(recipient_list)):
             raise ValidationError(_("Other participants may only be included once!"))
         if not [x for x in self.forms if not is_missing(x)]:
@@ -195,23 +195,24 @@ class MessageCreateView(CreateWithInlinesView):
     inlines = [ParticipantInline]
     form_class = forms.MessageCreateForm
 
-        
     def get_initial(self):
         initial = super().get_initial()
         participants = []
         try:
             initial["kind"] = self.request.GET.get("kind")
             initial["rel_message"] = self.request.GET.get("rel_message")
-            participants = list(zip(self.request.GET.getlist("pid"),self.request.GET.getlist("pkind")))
+            participants = list(
+                zip(self.request.GET.getlist("pid"), self.request.GET.getlist("pkind"))
+            )
             participants.sort(key=lambda x: x[1], reverse=True)
         except:
             pass
         if participants:
-            self.inlines[0].factory_kwargs['extra'] = len(participants)
+            self.inlines[0].factory_kwargs["extra"] = len(participants)
             for p in participants:
-                self.inlines[0].initial.append({'authority':p[0],'kind':p[1]})
+                self.inlines[0].initial.append({"authority": p[0], "kind": p[1]})
         else:
-            self.inlines[0].factory_kwargs['extra'] = 0
+            self.inlines[0].factory_kwargs["extra"] = 0
         return initial
 
     def dispatch(self, request, *args, **kwargs):
@@ -267,15 +268,15 @@ class MessageDetailView(MessageAccessMixin, DetailView):
             if x.authority == self.request.user.get_authority()
         ][0]
 
-        reply_url="?kind=REPLY&rel_message="+str(msg.id)
+        reply_url = "?kind=REPLY&rel_message=" + str(msg.id)
         for p in msg.participant_set.all():
             if p.authority != self.request.user.get_authority():
                 if p.kind == "SENDER":
                     kind = "RECIPIENT"
                 else:
                     kind = p.kind
-                reply_url += "&pid="+str(p.authority.id)+"&pkind="+kind
-        context["reply_url"]= reply_url
+                reply_url += "&pid=" + str(p.authority.id) + "&pkind=" + kind
+        context["reply_url"] = reply_url
 
         context["message_data"] = [
             {
