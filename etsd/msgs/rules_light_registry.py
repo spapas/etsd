@@ -53,6 +53,13 @@ def can_unarchive(user, _rule, msg) -> bool:
     participant = get_auth_participant(msg, user)
     return participant.status == "ARCHIVED"
 
+def can_reply(user, _rule, msg) -> bool:
+    if msg.status == "DRAFT":
+        return False
+    participant = get_auth_participant(msg, user)
+    if participant.kind == "SENDER":
+        return False
+    return participant.status != "UNREAD"
 
 rules_light.registry["msgs.message.read"] = can_read
 rules_light.registry["msgs.message.add_data"] = can_add_data
@@ -60,6 +67,7 @@ rules_light.registry["msgs.message.send"] = can_send
 rules_light.registry["msgs.message.delete"] = can_add_data
 rules_light.registry["msgs.message.archive"] = can_archive
 rules_light.registry["msgs.message.unarchive"] = can_unarchive
+rules_light.registry["msgs.message.reply"] = can_reply
 
 
 def can_delete_cipherdata(user, rule, cipher_data) -> bool:
