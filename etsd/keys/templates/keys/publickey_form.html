@@ -7,8 +7,8 @@
 {% load i18n static %}
 
 
-{% block head_title %}Public key approval submit{% endblock %}
-{% block page_title %}Public key approval submit{% endblock %}
+{% block head_title %}{% trans "Public key approval submit" %}{% endblock %}
+{% block page_title %}{% trans "Public key approval submit" %}{% endblock %}
 {% block page_content %}
 
 <div class="row">
@@ -39,8 +39,8 @@
   </div>
 </div>
 <b>
-Fingerprint: {{ form.instance.fingerprint }} <br />
-User id: {{ form.instance.user_id }}
+  {% trans "Fingerprint" %}: {{ form.instance.fingerprint }} <br />
+  {% trans "User id" %}: {{ form.instance.user_id }}
 </b>
 <div class="row">
     <div class="col-md-12">
