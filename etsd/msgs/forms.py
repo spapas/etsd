@@ -46,6 +46,9 @@ class ParticipantInlineForm(forms.ModelForm):
                 "authority",
                 _("This authority does not have an active public key!"),
             )
+    
+    def has_changed(self):
+        return True
 
 
 class MessageCreateForm(forms.ModelForm):

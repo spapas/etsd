@@ -114,6 +114,8 @@
 {% rule 'msgs.message.delete' message as can_delete %}
 {% rule 'msgs.message.archive' message as can_archive %}
 {% rule 'msgs.message.unarchive' message as can_unarchive %}
+{% rule 'msgs.message.reply' message as can_reply %}
+
 
 {% csrf_token %}
 
@@ -148,6 +150,9 @@
         {% csrf_token %}
         <input type='submit' class='btn btn-warning' value='{% trans "Unarchive" %}'>
       </form>
+    {% endif %}
+    {% if can_reply %}
+      <a class='btn btn-primary' href='{% url "message_create" %}{{reply_url}}'>{% trans "Reply" %}</a> 
     {% endif %}
    </div>
 </div>
