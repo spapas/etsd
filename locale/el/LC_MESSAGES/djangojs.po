@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-26 13:29+0300\n"
-"PO-Revision-Date: 2021-08-23 10:32+0300\n"
+"PO-Revision-Date: 2021-09-06 23:57+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: el\n"
@@ -104,32 +104,28 @@ msgid "Success"
 msgstr "Επιτυχία"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:82
-#, fuzzy
-#| msgid "Are you sure you want to delete this file?"
 msgid "Are you sure you want to accept this public key?"
-msgstr "Θέλετε προχωρήσετε στη διαγραφή;"
+msgstr "Είστε βέβαιοι ότι θέλετε να αποδεχτείτε αυτό το δημόσιο κλειδί;"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:83
 msgid "Accept key"
-msgstr ""
+msgstr "Αποδοχή κλειδιού"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:84
 msgid "Accept"
-msgstr ""
+msgstr "Αποδοχή"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:98
-#, fuzzy
-#| msgid "Are you sure you want to delete this file?"
 msgid "Are you sure you want to reject this public key?"
-msgstr "Θέλετε προχωρήσετε στη διαγραφή;"
+msgstr "Είστε βέβαιοι ότι θέλετε να απορρίψετε αυτό το δημόσιο κλειδί;"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:99
 msgid "Reject key"
-msgstr ""
+msgstr "Απόρριψη κλειδιού"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:100
 msgid "Reject"
-msgstr ""
+msgstr "Απόρριψη"
 
 #: .\etsd\keys\templates\keys\publickey_form.html:91
 #: .\etsd\msgs\templates\msgs\message_add_data.html:71

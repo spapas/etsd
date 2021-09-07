@@ -496,6 +496,26 @@ msgstr "Αυτό το έγγραφο θα ελεγχθεί για την ορθ�
 msgid "Signed confirmation document is required."
 msgstr "Απαιτείται ένα υπογεγραμμένο έγγραφο επιβεβαίωσης."
 
+#: .\etsd\keys\models.py:13
+msgid "Pending"
+msgstr "Εκκρεμεί"
+
+#: .\etsd\keys\models.py:14
+msgid "Active"
+msgstr "Ενεργό"
+
+#: .\etsd\keys\models.py:15
+msgid "Inactive"
+msgstr "Ανενεργό"
+
+#: .\etsd\keys\models.py:16
+msgid "Rejected"
+msgstr "Απορριφθέν"
+
+#: .\etsd\keys\models.py:17
+msgid "Deleted"
+msgstr "Διεγραμμένο"
+
 #: .\etsd\keys\models.py:32
 msgid "Key text"
 msgstr "Κείμενο Κλειδιού"
@@ -520,7 +540,7 @@ msgstr "Περιγραφή κλειδιού"
 msgid "The description (user id) of the key"
 msgstr "Η περιγραφή (user id) του κλειδιού"
 
-#: .\etsd\keys\models.py:47 .\etsd\keys\templates\keys\publickey_detail.html:15
+#: .\etsd\keys\models.py:47 .\etsd\keys\templates\keys\tail.html:15
 #: .\etsd\msgs\templates\msgs\message_detail.html:30
 msgid "Status"
 msgstr "Κατάσταση"
@@ -540,6 +560,10 @@ msgstr "Ημερομηνία απενεργοποίησης"
 #: .\etsd\keys\models.py:66
 msgid "Rejection date"
 msgstr "Ημερομηνία απόρριψης"
+
+#: .\etsd\keys\models.py:72
+msgid "Deletion date"
+msgstr "Ημερομηνία διαγραφής"
 
 #: .\etsd\keys\models.py:73
 msgid "Public key"
@@ -869,9 +893,17 @@ msgstr "Λήψη"
 msgid "Approved on"
 msgstr "Εγκρίθηκε στις"
 
+#: .\etsd\keys\templates\keys\publickey_detail.html:16
+msgid "by"
+msgstr "από"
+
 #: .\etsd\keys\templates\keys\publickey_detail.html:30
 msgid "The key cannot be used until it has been submitted for approval"
 msgstr "Το κλειδί δεν μπορεί να χρησιμοποιηθεί μέχρι να υποβληθεί προς έγκριση"
+
+#: .\etsd\keys\templates\keys\publickey_detail.html:34
+msgid "Submit for approval"
+msgstr "Υποβολή προς έγκριση"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:37
 msgid ""
@@ -881,6 +913,10 @@ msgstr ""
 "Πρέπει να φορτώσετε το ιδιωτικό κλειδί του ζεύγους κλειδιών για να μπορέσετε "
 "να υποβάλλετε το δημόσιο κλειδί προς έγκριση!"
 
+#: .\etsd\keys\templates\keys\publickey_detail.html:44
+msgid "The public key needs confirmation by the administration in order to be used."
+msgstr "Το δημόσιο κλειδί χρήζει έγκρισης από τη διαχείριση για να μπορεί να χρησιμοποιηθεί."
+
 #: .\etsd\keys\templates\keys\publickey_detail.html:50
 msgid "Accept"
 msgstr "Αποδοχή"
@@ -888,6 +924,10 @@ msgstr "Αποδοχή"
 #: .\etsd\keys\templates\keys\publickey_detail.html:51
 msgid "Reject"
 msgstr "Απόρριψη"
+
+#: .\etsd\keys\templates\keys\publickey_form.html:10
+msgid "Public key approval submit"
+msgstr "Υποβολή δημοσίου κλειδιού προς έγκριση"
 
 #: .\etsd\keys\templates\keys\publickey_form.html:18
 #, python-format
@@ -943,6 +983,10 @@ msgstr ""
 "        το τρέχον κλειδί της Υπηρεσίας σας</b> (αν διαθέτετε).\n"
 "        </p>\n"
 "      "
+
+#: .\etsd\keys\templates\keys\publickey_form.html:43
+msgid "User id"
+msgstr "ID Χρήστη"
 
 #: .\etsd\keys\templates\keys\publickey_form.html:63
 msgid "Validate"
@@ -1149,6 +1193,14 @@ msgstr ""
 "Αν επιλέξετε Απάντηση ή Ορθή Επανάληψη πρέπει να επιλέξετε και το σχετικό "
 "μήνυμα"
 
+#: .\etsd\msgs\models.py:74
+msgid "Message kind"
+msgstr "Είδος μηνύματος"
+
+#: .\etsd\msgs\models.py:77 .\etsd\msgs\templates\msgs\message_detail.html:31
+msgid "Message status"
+msgstr "Κατάσταση μηνύματος"
+
 #: .\etsd\msgs\models.py:80 .\etsd\msgs\templates\msgs\message_detail.html:39
 msgid "Category"
 msgstr "Κατηγορία"
@@ -1174,6 +1226,14 @@ msgstr ""
 msgid "Sent on"
 msgstr "Ημ. αποστολής"
 
+#: .\etsd\msgs\models.py:105 .\etsd\msgs\templates\msgs\message_detail.html:42
+msgid "Protocol"
+msgstr "Πρωτόκολλο"
+
+#: .\etsd\msgs\models.py:106
+msgid "Protocol year"
+msgstr "Έτος πρωτοκόλλου"
+
 #: .\etsd\msgs\models.py:112 .\etsd\msgs\models.py:176
 #: .\etsd\msgs\models.py:229
 msgid "Message"
@@ -1198,15 +1258,23 @@ msgstr "Αποστολέας"
 
 #: .\etsd\msgs\models.py:157
 msgid "Unread"
-msgstr "Μη διαβασμένο"
+msgstr "Μη αναγνωσμένο"
 
 #: .\etsd\msgs\models.py:158
 msgid "Read"
-msgstr "Διαβασμένο"
+msgstr "Αναγνωσμένο"
 
 #: .\etsd\msgs\models.py:159
 msgid "Archived"
 msgstr "Αρχειοθετημένο"
+
+#: .\etsd\msgs\models.py:179
+msgid "Participant kind"
+msgstr "Είδος συμμετέχοντος"
+
+#: .\etsd\msgs\models.py:182
+msgid "Participant status"
+msgstr "Κατάσταση συμμετέχοντος"
 
 #: .\etsd\msgs\models.py:188
 msgid "Message participant"
@@ -1248,6 +1316,10 @@ msgstr "Προσβάσεις σε δεδομένα"
 #: .\etsd\msgs\tables.py:18 .\etsd\msgs\tables.py:75
 msgid "Draft message"
 msgstr "Πρόχειρο μήνυμα"
+
+#: .\etsd\msgs\tables.py:35
+msgid "Recipients"
+msgstr "Αποδέκτες"
 
 #: .\etsd\msgs\templates\msgs\emails\new_message.txt:4
 #, python-format
@@ -1312,19 +1384,11 @@ msgstr ""
 "    Επανάληψη και να την συσχετίσετε με το προηγούμενο μήνυμα.\n"
 "  "
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:31
-msgid "Message status"
-msgstr "Κατάσταση μηνύματος"
-
 #: .\etsd\msgs\templates\msgs\message_detail.html:32
 #: .\etsd\msgs\templates\msgs\message_detail.html:51
 #: .\templates\authorities\authority_detail.html:7
 msgid "Kind"
 msgstr "Είδος"
-
-#: .\etsd\msgs\templates\msgs\message_detail.html:42
-msgid "Protocol"
-msgstr "Πρωτόκολλο"
 
 #: .\etsd\msgs\templates\msgs\message_detail.html:46
 msgid "Participants"

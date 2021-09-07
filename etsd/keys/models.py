@@ -9,12 +9,12 @@ from etsd.core.models import UserDateAbstractModel
 
 
 KEY_STATUS_CHOICES = (
-    ("NEW", "New"),
-    ("PENDING", "Pending"),
-    ("ACTIVE", "Active"),
-    ("INACTIVE", "Inactive"),
-    ("REJECTED", "Rejected"),
-    ("DELETED", "Deleted"),
+    ("NEW", _("New")),
+    ("PENDING", _("Pending")),
+    ("ACTIVE", _("Active")),
+    ("INACTIVE", _("Inactive")),
+    ("REJECTED", _("Rejected")),
+    ("DELETED", _("Deleted")),
 )
 
 
