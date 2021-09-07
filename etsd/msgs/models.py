@@ -74,7 +74,10 @@ class Message(UserDateAbstractModel):
         verbose_name=_("Message kind"),
     )
     status = models.CharField(
-        max_length=32, choices=MESSAGE_STATUS_CHOICES, default="DRAFT",verbose_name=_("Message status"),
+        max_length=32,
+        choices=MESSAGE_STATUS_CHOICES,
+        default="DRAFT",
+        verbose_name=_("Message status"),
     )
     category = models.ForeignKey(
         MessageCategory,
@@ -102,8 +105,12 @@ class Message(UserDateAbstractModel):
     )
 
     sent_on = models.DateTimeField(blank=True, null=True, verbose_name=_("Sent on"))
-    protocol = models.PositiveBigIntegerField(blank=True, null=True, verbose_name=_("Protocol"))
-    protocol_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_("Protocol year"))
+    protocol = models.PositiveBigIntegerField(
+        blank=True, null=True, verbose_name=_("Protocol")
+    )
+    protocol_year = models.PositiveIntegerField(
+        blank=True, null=True, verbose_name=_("Protocol year")
+    )
 
     participants = models.ManyToManyField(
         "authorities.Authority", through="Participant"
@@ -176,10 +183,17 @@ class Participant(models.Model):
     message = models.ForeignKey(
         Message, verbose_name=_("Message"), on_delete=models.CASCADE
     )
-    kind = models.CharField(max_length=32, choices=PARTICIPANT_KIND_CHOICES ,verbose_name=_("Participant kind"))
+    kind = models.CharField(
+        max_length=32,
+        choices=PARTICIPANT_KIND_CHOICES,
+        verbose_name=_("Participant kind"),
+    )
     # The default status of a participant-message will be unread
     status = models.CharField(
-        max_length=32, choices=MESSAGE_PARTICIPANT_STATUS_CHOICES, default="UNREAD",verbose_name=_("Participant status")
+        max_length=32,
+        choices=MESSAGE_PARTICIPANT_STATUS_CHOICES,
+        default="UNREAD",
+        verbose_name=_("Participant status"),
     )
 
     def __str__(self):
