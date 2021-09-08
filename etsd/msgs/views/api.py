@@ -6,8 +6,16 @@ from rest_framework import viewsets, authentication, permissions
 from . import ParticipantQuerysetMixin
 
 
+class IsAuthenticatedAllowOptions(permissions.IsAuthenticated):
+
+    def has_permission(self, request, view):
+        if request.method == 'OPTIONS':
+            return True
+        return super().has_permission(request, view)
+
+
 class MessageViewSet(ParticipantQuerysetMixin, viewsets.ModelViewSet):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticatedAllowOptions]
     serializer_class = serializers.ParticipantSerializer
     queryset = models.Participant.objects.all()
