@@ -59,6 +59,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "rules_light.middleware.Middleware",
+    "etsd.core.middleware.cors_debug_middleware",
     "django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware",
 ]
 
