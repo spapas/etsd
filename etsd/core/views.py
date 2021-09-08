@@ -19,6 +19,7 @@ class AuthorityCreateView(CreateView):
     fields = (
         "name",
         "kind",
+        "is_active",
         "email",
     )
 
@@ -29,6 +30,7 @@ class AuthorityUpdateView(UpdateView):
     fields = (
         "name",
         "kind",
+        "is_active",
         "email",
     )
 
