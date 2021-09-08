@@ -1337,6 +1337,18 @@ msgstr ""
 msgid "Add Data to Message"
 msgstr "Προσθήκη δεδομένων στο μήνυμα"
 
+#: .\etsd\msgs\templates\msgs\message_add_data.html:12
+msgid "File to encrypt and upload"
+msgstr "Αρχείο προς κρυπτογράφηση"
+
+#: .\etsd\msgs\templates\msgs\message_add_data.html:25
+msgid "Add File"
+msgstr "Προσθήκη Αρχείου"
+
+#: .\etsd\msgs\templates\msgs\message_add_data.html:30
+msgid "Files you have uploaded:"
+msgstr "Αρχεία που μεταφορτώσατε:"
+
 #: .\etsd\msgs\templates\msgs\message_detail.html:4
 #: .\etsd\msgs\templates\msgs\message_detail.html:5
 msgid "Message detail"
@@ -1408,7 +1420,7 @@ msgstr "Τα δεδομένα δε θα κρυπτογραφηθούν"
 
 #: .\etsd\msgs\templates\msgs\message_detail.html:81
 msgid "Data"
-msgstr "Δεδομένο"
+msgstr "Δεδομένα"
 
 #: .\etsd\msgs\templates\msgs\message_detail.html:85
 msgid "Number"
@@ -1447,6 +1459,14 @@ msgstr "Απο-αρχειοθέτηση"
 #: .\etsd\msgs\templates\msgs\message_form.html:32
 msgid "New Message"
 msgstr "Νέο μήνυμα"
+
+#: .\etsd\msgs\templates\msgs\message_form.html:56
+msgid "Recipient list"
+msgstr "Λίστα Αποδεκτών"
+
+#: .\etsd\msgs\templates\msgs\message_form.html:56
+msgid "Continue"
+msgstr "Συνέχεια"
 
 #: .\etsd\msgs\templates\msgs\message_list.html:6
 #: .\etsd\msgs\templates\msgs\message_list.html:8
@@ -1727,6 +1747,10 @@ msgstr "Αποσύνδεση"
 #: .\templates\partials\_nav.html:60
 msgid "Please login"
 msgstr "Παρακαλούμε συνδεθείτε"
+
+#: .\templates\partials\_inline_set.html:36
+msgid "Please press the add button to add a new row"
+msgstr "Επιλέξτε προσθήκη για να προσθέσετε νέο συμμετέχοντα"
 
 #: .\templates\registration\login.html:4 .\templates\registration\login.html:5
 #: .\templates\registration\login.html:25
