@@ -8,11 +8,9 @@ from django.contrib import admin
 from django.contrib.auth.decorators import permission_required
 from authorities.views import (
     AuthorityListView,
-    AuthorityCreateView,
-    AuthorityUpdateView,
     AuthorityDetailView,
 )
-from etsd.core.views import AuthorityEditUsersView
+from etsd.core.views import AuthorityEditUsersView, AuthorityCreateView, AuthorityUpdateView
 from django.contrib.auth.decorators import (
     permission_required,
     login_required,

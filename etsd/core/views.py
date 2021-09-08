@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseRedirect
-from django.views.generic import UpdateView, TemplateView
+from django.views.generic import UpdateView, TemplateView, CreateView
 from authorities.models import Authority
 from .forms import AuthorityUsersModelForm
 from django.contrib import messages
@@ -13,6 +13,26 @@ from rest_framework import status
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 
+
+class AuthorityCreateView(CreateView):
+    model = Authority
+    fields = (
+        "name",
+        "kind",
+        "is_active",
+        "email",
+    )
+
+
+class AuthorityUpdateView(UpdateView):
+    model = Authority
+    context_object_name = "authority"
+    fields = (
+        "name",
+        "kind",
+        "is_active",
+        "email",
+    )
 
 class AuthorityEditUsersView(
     UpdateView,
