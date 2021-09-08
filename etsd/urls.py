@@ -10,7 +10,11 @@ from authorities.views import (
     AuthorityListView,
     AuthorityDetailView,
 )
-from etsd.core.views import AuthorityEditUsersView, AuthorityCreateView, AuthorityUpdateView
+from etsd.core.views import (
+    AuthorityEditUsersView,
+    AuthorityCreateView,
+    AuthorityUpdateView,
+)
 from django.contrib.auth.decorators import (
     permission_required,
     login_required,

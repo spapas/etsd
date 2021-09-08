@@ -34,6 +34,7 @@ class AuthorityUpdateView(UpdateView):
         "email",
     )
 
+
 class AuthorityEditUsersView(
     UpdateView,
 ):
