@@ -33849,7 +33849,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     },
     actions: {
       login(context, { server: server2, username, password }) {
-        console.log("LIGIN ", server2, context.state);
+        console.log("LOGIN ", server2, context.state);
         context.commit("setLoading", true);
         context.commit("setServer", server2);
         localStorage.setItem("server", server2);
@@ -34088,11 +34088,45 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     },
     template: `
     
-        <ul>
-            <li v-for='message in messages' :key="message.id">
-                {{ message }}
-            </li>
-        </ul>
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Protocol</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for='message in messages' :key="message.mesage_id">
+                    <td><router-link class="btn btn-sm btn-primary" :to="'/message/' + message.message_id ">{{ message.message_id }}</router-link></td>
+                    <td>
+                        <span v-if="message.message.protocol">
+                            {{ message.message.protocol }} / {{ message.message.protocol_year }}
+                        </span>
+                        <span v-else>
+                            Draft message
+                        </span>
+                    </td>
+                    <td>{{ message }}</td>
+                </tr>
+            </tbody>
+        </table>
+    `
+  };
+
+  // src/components/Message.js
+  var Message_default = {
+    computed: mapState([
+      "messages",
+      "loading"
+    ]),
+    created() {
+      if (this.messages == void 0) {
+        this.$store.dispatch("fetchMessages");
+      }
+    },
+    template: `
+      <div>Message {{ $route.params.id }}</div>
     `
   };
 
@@ -34104,6 +34138,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     { path: "/", component: Home_default },
     { path: "/login", component: Login_default },
     { path: "/messages", component: Messages_default },
+    { path: "/message/:id/", component: Message_default },
     { path: "/help", component: Help },
     { path: "/public_key_list", component: PublicKeyList },
     { path: "/privatekey_load", component: PrivateKeyLoad }

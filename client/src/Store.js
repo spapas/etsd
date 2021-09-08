@@ -34,7 +34,7 @@ const Store = createStore({
   },
   actions: {
     login (context, {server, username, password}) {
-      console.log("LIGIN ", server, context.state)
+      console.log("LOGIN ", server, context.state)
       context.commit('setLoading', true)
       context.commit('setServer', server)
       localStorage.setItem('server', server)

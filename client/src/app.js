@@ -9,6 +9,7 @@ import Home from './components/Home';
 import Nav from './components/Nav';
 import Login from './components/Login';
 import Messages from './components/Messages';
+import Message from './components/Message';
 
 const Help = { template: '<div>Help</div>' }
 const PublicKeyList = { template: '<div>PublicKeyList</div>' }
@@ -18,6 +19,7 @@ const routes = [
   { path: '/', component: Home },
   { path: '/login', component: Login },
   { path: '/messages', component: Messages },
+  { path: '/message/:id/', component: Message },
   { path: '/help', component: Help },
   { path: '/public_key_list', component: PublicKeyList },
   { path: '/privatekey_load', component: PrivateKeyLoad },
