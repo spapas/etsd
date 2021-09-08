@@ -53,8 +53,8 @@
             {{ form.local_identifier|as_crispy_field }}
           </div>
         </div>
-
-        {% include "partials/_inline_set.html" with inline_name='participant_set' inline_title="Recipient list" formset=inlines.0 %}
+        {% trans "Recipient list" as recip_list %}
+        {% include "partials/_inline_set.html" with inline_name='participant_set' inline_title=recip_list formset=inlines.0 %}
 
         <button id='submitButton'  type='submit' class='btn btn-success' >{% trans "Continue" %}</button>
         <a class='btn btn-secondary' href='{% url "participant_list" %}'>{% trans "Return" %}</a>

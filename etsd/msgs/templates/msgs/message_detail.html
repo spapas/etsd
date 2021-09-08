@@ -27,7 +27,7 @@
 
 <div class='row mb-3'>
   <div class='col'>
-    <h5>{% trans "Status" %}: {{ participant.get_status_display }}</h5>
+    <h5>{% trans "Participant status" %}: {{ participant.get_status_display }}</h5>
     <h5>{% trans "Message status" %}: {{ message.get_status_display }}</h5>
     {% trans "Kind" %}: {{ message.get_kind_display }}<br />
     {% if message.rel_message %} 

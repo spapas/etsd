@@ -1,8 +1,9 @@
+{% load i18n static %}
 
 <div id='card_{{ inline_name }}' class="card">
     <h5 class="card-header">
         {{ inline_title }}
-        <button class='btn btn-primary' type="button" id="add-form-{{ inline_name }}">Add</button>
+        <button class='btn btn-primary' type="button" id="add-form-{{ inline_name }}">{% trans "Add"%}</button>
     </h5>
 
     
@@ -32,7 +33,7 @@
             {% empty %}
                 <div class='row p-1 m-1'>
                     <div class='alert alert-info p-1 '>
-                    Please press the add button to add a new row
+                    {% trans "Please press the add button to add a new row"%}
                     </div>
                 </div>
             {% endfor %}
