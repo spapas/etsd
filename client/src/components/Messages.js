@@ -7,7 +7,7 @@ export default {
     created() {
         
         if(this.messages== undefined) {
-            this.$store.dispatch('fetchMessages')
+            this.$store.dispatch('fetchParticipantMessages')
         }
 
       },

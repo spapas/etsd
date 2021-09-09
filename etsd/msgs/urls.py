@@ -91,6 +91,7 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 
 router = DefaultRouter()
+router.register(r"participants", api.ParticipantViewSet)
 router.register(r"messages", api.MessageViewSet)
 
 urlpatterns += [

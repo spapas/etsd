@@ -14,6 +14,7 @@ const Store = createStore({
       server,
       user: userData,
       messages: undefined,
+      message: undefined,
       pkdata: undefined,
       loading: false
     }
@@ -27,6 +28,9 @@ const Store = createStore({
     },
     setMessages(state, data) {
       state.messages = data 
+    },
+    setMessage(state, data) {
+      state.message = data 
     },
     setServer(state, data) {
       state.server = data 
@@ -94,6 +98,7 @@ const Store = createStore({
               context.commit('setLoading', false)
               context.commit('setUserData', undefined)
               context.commit('setMessages', undefined)
+              context.commit('setMessage', undefined)
               resolve()
             })
           })
@@ -105,12 +110,12 @@ const Store = createStore({
 
       })
     },
-    fetchMessages (context) {
+    fetchParticipantMessages (context) {
       console.log("MESSAGEs ", context.state)
       context.commit('setLoading', true)
       console.log("Fetch messages")
       return new Promise(async (resolve, reject) => {
-        await fetch(context.state.server + '/messages/api/messages/', {
+        await fetch(context.state.server + '/messages/api/participants/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -123,6 +128,29 @@ const Store = createStore({
             res.json().then(data => {
               context.commit('setLoading', false)
               context.commit('setMessages', data)
+            })
+          })
+
+      })
+    },
+    fetchMessage (context, {id}) {
+      console.log("MESSAGE: ", context.state)
+      context.commit('setLoading', true)
+      console.log("Fetch message ", id)
+      return new Promise(async (resolve, reject) => {
+        await fetch(context.state.server + '/messages/api/messages/' + id + '/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${context.state.user.token}`
+          }}).then(res => {
+            console.log(res)
+            if(res.status !== 200) {
+              throw new Error('Error')
+            }
+            res.json().then(data => {
+              context.commit('setLoading', false)
+              context.commit('setMessage', data)
             })
           })
 

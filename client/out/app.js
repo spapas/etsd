@@ -33829,6 +33829,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
         server,
         user: userData,
         messages: void 0,
+        message: void 0,
         pkdata: void 0,
         loading: false
       };
@@ -33842,6 +33843,9 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       },
       setMessages(state, data) {
         state.messages = data;
+      },
+      setMessage(state, data) {
+        state.message = data;
       },
       setServer(state, data) {
         state.server = data;
@@ -33904,6 +33908,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
                 context.commit("setLoading", false);
                 context.commit("setUserData", void 0);
                 context.commit("setMessages", void 0);
+                context.commit("setMessage", void 0);
                 resolve();
               });
             });
@@ -33914,12 +33919,12 @@ ${JSON.stringify(newTargetLocation, null, 2)}
           }
         });
       },
-      fetchMessages(context) {
+      fetchParticipantMessages(context) {
         console.log("MESSAGEs ", context.state);
         context.commit("setLoading", true);
         console.log("Fetch messages");
         return new Promise(async (resolve, reject) => {
-          await fetch(context.state.server + "/messages/api/messages/", {
+          await fetch(context.state.server + "/messages/api/participants/", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -33933,6 +33938,29 @@ ${JSON.stringify(newTargetLocation, null, 2)}
             res.json().then((data) => {
               context.commit("setLoading", false);
               context.commit("setMessages", data);
+            });
+          });
+        });
+      },
+      fetchMessage(context, { id }) {
+        console.log("MESSAGE: ", context.state);
+        context.commit("setLoading", true);
+        console.log("Fetch message ", id);
+        return new Promise(async (resolve, reject) => {
+          await fetch(context.state.server + "/messages/api/messages/" + id + "/", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Token ${context.state.user.token}`
+            }
+          }).then((res) => {
+            console.log(res);
+            if (res.status !== 200) {
+              throw new Error("Error");
+            }
+            res.json().then((data) => {
+              context.commit("setLoading", false);
+              context.commit("setMessage", data);
             });
           });
         });
@@ -34083,7 +34111,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     ]),
     created() {
       if (this.messages == void 0) {
-        this.$store.dispatch("fetchMessages");
+        this.$store.dispatch("fetchParticipantMessages");
       }
     },
     template: `
@@ -34117,16 +34145,19 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   // src/components/Message.js
   var Message_default = {
     computed: mapState([
-      "messages",
+      "message",
       "loading"
     ]),
     created() {
-      if (this.messages == void 0) {
-        this.$store.dispatch("fetchMessages");
-      }
+      this.$store.dispatch("fetchMessage", {
+        id: this.$route.params.id
+      });
     },
     template: `
       <div>Message {{ $route.params.id }}</div>
+      <div>{{ message }}</div>
+
+      
     `
   };
 

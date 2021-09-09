@@ -2,17 +2,20 @@ import { mapState } from 'vuex'
 
 export default {
     computed: mapState([
-        'messages', 'loading'
+        'message', 'loading'
     ]),
     created() {
         
-        if(this.messages== undefined) {
-            this.$store.dispatch('fetchMessages')
-        }
-
+        this.$store.dispatch('fetchMessage', {
+            id: this.$route.params.id
+        })
+        
       },
     template: `
       <div>Message {{ $route.params.id }}</div>
+      <div>{{ message }}</div>
+
+      
     `
 }
 
