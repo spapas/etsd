@@ -27,17 +27,49 @@ class ParticipantSerializer(serializers.ModelSerializer):
         fields = ["id", "message_id", "status", "message"]
 
 
+class ParticipantSimpleSerializer(serializers.ModelSerializer):
+    authority = AuthoritySerializer(read_only=True)
+
+    class Meta:
+        model = models.Participant
+        fields = ["id", "authority"]
+
+
+class ParticipantKeySerializer(serializers.ModelSerializer):
+    participant = ParticipantSimpleSerializer(read_only=True)
+
+    class Meta:
+        model = models.ParticipantKey
+        fields = ["id", "participant", "public_key"]
+
+
+class CipherDataSerializer(serializers.ModelSerializer):
+    participant_key = ParticipantKeySerializer(read_only=True)
+
+    class Meta:
+        model = models.CipherData
+        fields = ["id", "cipher_data", "participant_key"]
+
+
 class DataSerializer(serializers.ModelSerializer):
+    cipher_data = CipherDataSerializer(
+        read_only=True,
+        source="cipherdata_set",
+        many=True,
+    )
+
     class Meta:
         model = models.Data
-        fields = [
-            "id", "number", "extension"
-        ]
+        fields = ["id", "number", "extension", "cipher_data"]
 
 
 class MessageSerializer(serializers.ModelSerializer):
     participants = AuthoritySerializer(read_only=True, many=True)
-    data = DataSerializer(read_only=True, source="data_set", many=True, )
+    data = DataSerializer(
+        read_only=True,
+        source="data_set",
+        many=True,
+    )
 
     class Meta:
         model = models.Message
@@ -45,4 +77,6 @@ class MessageSerializer(serializers.ModelSerializer):
             "id",
             "participants",
             "data",
+            "protocol",
+            "protocol_year",
         ]
