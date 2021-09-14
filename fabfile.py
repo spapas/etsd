@@ -30,6 +30,10 @@ def pull():
 
 def work():
     "Do work on server (copy settings, migrate and run collect static)"
+    with cd(env.directory + "/etsd/branding"):
+        run("https_proxy={0} git fetch origin".format(FAB_PROXY))
+        run("git merge origin/master")
+
     with cd(env.directory):
         requirements_txt = "requirements/" + env.env + ".txt"
         if os.stat(requirements_txt).st_size > 0:
