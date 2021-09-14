@@ -96,6 +96,10 @@ using the latest version of pip.
 To install it for a production environment you can follow the instructions for 
 any python/django web app.
 
+# Branding
+
+You can override the templates used in this project by adding the corresponding files in the `etsd/branding/template` folder. I've added a project that can be cloned in the `etsd` folder (by removing the existing `branding` folder) to keep my changes under version control.
+
 # User scenarios
 
 Let's see how this works in practice. *Please notice that all the following screens have much helpful text
