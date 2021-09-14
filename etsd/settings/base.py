@@ -15,7 +15,6 @@ SITE_ID = 3
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
-    "etsd.branding",
     "etsd.core",
     "etsd.keys",
     "etsd.msgs",
