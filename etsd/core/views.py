@@ -71,7 +71,7 @@ class AuthorityEditUsersView(
                 email_body = send_mail_body(
                 "core/emails/edited_users.txt",
                 dict(
-                    action = "added",
+                    action = _("added"),
                     authority=auth,
                     action_user = self.request.user,
                     ),
@@ -80,29 +80,29 @@ class AuthorityEditUsersView(
                     subject=_("Added as user in ETSD"),
                     message=email_body,
                     from_email="noreply@hcg.gr",
-                    recipient_list=[usr.email for usr in added_users],
+                    recipient_list=[usr.email for usr in added_users if usr.email],
                     fail_silently=False,
                 )
             if removed_users:
                 email_body = send_mail_body(
                 "core/emails/edited_users.txt",
                 dict(
-                    action = "removed",
+                    action = _("removed"),
                     authority=auth,
                     action_user = self.request.user,
                     ),
                 )
                 send_mail(
-                    subject=_("Added as user in ETSD"),
+                    subject=_("Removed as a user in ETSD"),
                     message=email_body,
                     from_email="noreply@hcg.gr",
-                    recipient_list=[usr.email for usr in removed_users],
+                    recipient_list=[usr.email for usr in removed_users if usr.email],
                     fail_silently=False,
                 )
             uml = UserManagementLog()
             uml.authority = auth
-            uml.added_users = str(added_users)
-            uml.removed_users = str(removed_users)
+            uml.added_users = ', '.join(usr.username for usr in added_users)
+            uml.removed_users = ', '.join(usr.username for usr in removed_users)
             uml.save()
 
         messages.add_message(

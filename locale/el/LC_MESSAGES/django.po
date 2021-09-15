@@ -478,6 +478,22 @@ msgstr ""
 msgid "Authority Data successfully updated!"
 msgstr "Οι Πληροφορίες Υπηρεσίας ενημερώθηκαν επιτυχώς!"
 
+#: .\etsd\core\views.py:74
+msgid "added"
+msgstr "προστεθεί"
+
+#: .\etsd\core\views.py:80
+msgid "Added as user in ETSD"
+msgstr "Προστεθήκατε ως χρήστης στην Εφαρμογή Ανταλλαγής Ευαίσθητων Δεδομένων"
+
+#: .\etsd\core\views.py:90
+msgid "removed"
+msgstr "αφαιρεθεί"
+
+#: .\etsd\core\views.py:96
+msgid "Removed as a user in ETSD"
+msgstr "Αφαιρεθήκατε από χρήστης στην Εφαρμογή Ανταλλαγής Ευαίσθητων Δεδομένων"
+
 #: .\etsd\core\views.py:82
 msgid "This user is not associated with any authority!"
 msgstr "Ο χρήστης δεν έχει Υπηρεσία."
@@ -605,6 +621,19 @@ msgstr ""
 " \n"
 "Το Δημόσιο Κλειδί σας με αποτύπωμα: %(fingerprint)s έχει αλλάξει κατάσταση "
 "σε %(status)s από κάποιον διαχειριστή.\n"
+" "
+
+#: .\etsd\core\templates\core\emails\edited_users.txt:4
+#, python-format
+msgid ""
+" \n"
+"  You have been %(action)s as user of authority %(authority)s by %(action_user)s"
+" in the Electronic Transmission of Sensitive Data app."
+" "
+msgstr ""
+" \n"
+" Έχετε %(action)s ως χρήστης στην Υπηρεσία %(authority)s από τον χρήστη %(action_user)s"
+" στην Εφαρμογή Ανταλλαγής Ευαίσθητων Δεδομένων."
 " "
 
 #: .\etsd\keys\templates\keys\key_pair_create.html:9
