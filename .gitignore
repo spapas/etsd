@@ -20,3 +20,4 @@ node_modules
 dovenv2
 etsd/branding*
 client/node_modules
+ldap_conf.py

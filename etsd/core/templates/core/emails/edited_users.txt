@@ -1,0 +1,6 @@
+{% load i18n static %}
+{% block content %}
+ {% blocktrans %} 
+ You have been {{ action }} as user of authority {{ authority }} by {{ action_user }} in the Electronic Transmission of Sensitive Data app.
+ {% endblocktrans %}
+{% endblock %}
