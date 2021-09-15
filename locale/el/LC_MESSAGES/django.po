@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-25 08:38+0300\n"
-"PO-Revision-Date: 2021-08-23 10:16+0300\n"
+"POT-Creation-Date: 2021-09-15 14:08+0300\n"
+"PO-Revision-Date: 2021-09-15 14:09+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: el\n"
@@ -71,9 +71,87 @@ msgstr "Δημιουργία από"
 msgid "Modified by"
 msgstr "Επεξεργασία από"
 
+#: .\etsd\core\templates\authorities\authority_detail.html:4
+msgid "Authority detail"
+msgstr "Στοιχεία Υπηρεσίας"
+
+#: .\etsd\core\templates\authorities\authority_detail.html:7
+#: .\etsd\msgs\templates\msgs\message_detail.html:32
+#: .\etsd\msgs\templates\msgs\message_detail.html:51
+msgid "Kind"
+msgstr "Είδος"
+
+#: .\etsd\core\templates\authorities\authority_detail.html:8
+#: .\etsd\msgs\models.py:26
+msgid "Name"
+msgstr "Όνομα"
+
+#: .\etsd\core\templates\authorities\authority_detail.html:9
+msgid "Email"
+msgstr "Email"
+
+#: .\etsd\core\templates\authorities\authority_detail.html:10
+msgid "Users"
+msgstr "Χρήστες"
+
+#: .\etsd\core\templates\authorities\authority_detail.html:14
+msgid "No users"
+msgstr "Δεν υπάρχουν"
+
+#: .\etsd\core\templates\authorities\authority_detail.html:17
+#: .\etsd\core\templates\authorities\authority_list.html:11
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: .\etsd\core\templates\authorities\authority_detail.html:18
+#: .\etsd\core\templates\authorities\authority_list.html:12
+msgid "Edit users"
+msgstr "Επεξεργασία χρηστών"
+
+#: .\etsd\core\templates\authorities\authority_detail.html:19
+#: .\etsd\core\templates\authorities\authority_form.html:12
+#: .\etsd\core\templates\core\edit_authority_data.html:28
+#: .\etsd\core\templates\registration\login.html:26
+#: .\etsd\keys\templates\keys\key_pair_create.html:112
+#: .\etsd\keys\templates\keys\load_private_key.html:86
+#: .\etsd\keys\templates\keys\publickey_detail.html:69
+#: .\etsd\keys\templates\keys\publickey_form.html:65
+#: .\etsd\msgs\templates\msgs\message_add_data.html:27
+#: .\etsd\msgs\templates\msgs\message_detail.html:124
+#: .\etsd\msgs\templates\msgs\message_form.html:60
+msgid "Return"
+msgstr "Επιστροφή"
+
+#: .\etsd\core\templates\authorities\authority_form.html:5
+msgid "Authority form"
+msgstr "Επεξεργασία Υπηρεσίας"
+
+#: .\etsd\core\templates\authorities\authority_form.html:11
+#: .\etsd\core\templates\core\edit_authority_data.html:27
+#: .\etsd\keys\templates\keys\key_pair_create.html:111
+#: .\etsd\keys\templates\keys\publickey_form.html:64
+msgid "Submit"
+msgstr "Υποβολή"
+
+#: .\etsd\core\templates\authorities\authority_list.html:4
+msgid "Authority List"
+msgstr "Κατάλογος Υπηρεσίών"
+
+#: .\etsd\core\templates\authorities\authority_list.html:10
+msgid "View"
+msgstr "Εμφάνιση"
+
+#: .\etsd\core\templates\authorities\authority_list.html:15
+msgid "No authorities"
+msgstr "Δεν υπάρχουν"
+
+#: .\etsd\core\templates\authorities\authority_list.html:18
+msgid "Create"
+msgstr "Δημιουργία"
+
 #: .\etsd\core\templates\core\edit_authority_data.html:14
 #: .\etsd\core\templates\core\edit_authority_data.html:15
-#: .\templates\home.html:89
+#: .\etsd\core\templates\home.html:89
 msgid "Edit Authority Data"
 msgstr "Επεξεργασία δεδομένων Υπηρεσίας"
 
@@ -89,39 +167,30 @@ msgstr ""
 "Υπηρεσίας %(auth)s.</b>\n"
 " "
 
-#: .\etsd\core\templates\core\edit_authority_data.html:27
-#: .\etsd\keys\templates\keys\key_pair_create.html:111
-#: .\etsd\keys\templates\keys\publickey_form.html:64
-#: .\etsd\msgs\templates\msgs\message_add_data.html:25
-#: .\etsd\msgs\templates\msgs\message_form.html:59
-#: .\templates\authorities\authority_form.html:11
-msgid "Submit"
-msgstr "Υποβολή"
-
-#: .\etsd\core\templates\core\edit_authority_data.html:28
-#: .\etsd\keys\templates\keys\key_pair_create.html:112
-#: .\etsd\keys\templates\keys\load_private_key.html:86
-#: .\etsd\keys\templates\keys\publickey_detail.html:69
-#: .\etsd\keys\templates\keys\publickey_form.html:65
-#: .\etsd\msgs\templates\msgs\message_add_data.html:27
-#: .\etsd\msgs\templates\msgs\message_detail.html:110
-#: .\etsd\msgs\templates\msgs\message_form.html:60
-#: .\templates\authorities\authority_detail.html:19
-#: .\templates\authorities\authority_form.html:12
-#: .\templates\registration\login.html:26
-msgid "Return"
-msgstr "Επιστροφή"
+#: .\etsd\core\templates\core\emails\edited_users.txt:3
+#, python-format
+msgid ""
+" \n"
+" You have been %(action)s as user of authority %(authority)s by "
+"%(action_user)s in the Electronic Transmission of Sensitive Data app.\n"
+" "
+msgstr ""
+" \n"
+" Έχετε %(action)s ως χρήστης στην Υπηρεσία %(authority)s από τον χρήστη "
+"%(action_user)s στην Εφαρμογή Ανταλλαγής Ευαίσθητων Δεδομένων.\n"
+" "
 
 #: .\etsd\core\templates\core\help.html:7
-#: .\etsd\core\templates\core\help.html:8 .\templates\partials\_nav.html:35
+#: .\etsd\core\templates\core\help.html:8
+#: .\etsd\core\templates\partials\_nav.html:35
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: .\etsd\core\templates\core\help.html:11 .\templates\home.html:43
+#: .\etsd\core\templates\core\help.html:18 .\etsd\core\templates\home.html:43
 msgid "Key management"
 msgstr "Διαχείριση κλειδιών"
 
-#: .\etsd\core\templates\core\help.html:16
+#: .\etsd\core\templates\core\help.html:23
 msgid ""
 "If your Authority needs to receive data then you must generate a new private/"
 "public key pair and submit it for approval."
@@ -130,11 +199,11 @@ msgstr ""
 "δημιουργήσετε ένα νέο ζεύγος ιδιωτικού/δημόσιου κλειδιού και να το "
 "υποβάλλετε για έγκριση."
 
-#: .\etsd\core\templates\core\help.html:18
+#: .\etsd\core\templates\core\help.html:25
 msgid "Key pair generation"
 msgstr "Δημιουργία ζεύγους κλειδιών"
 
-#: .\etsd\core\templates\core\help.html:20
+#: .\etsd\core\templates\core\help.html:27
 #, python-format
 msgid ""
 "\n"
@@ -148,7 +217,7 @@ msgstr ""
 "κουμπί \n"
 " <a href='%(key_pair_create)s'>Νέο ζεύγος κλειδιών</a> \n"
 
-#: .\etsd\core\templates\core\help.html:26
+#: .\etsd\core\templates\core\help.html:33
 msgid ""
 "\n"
 "In this form you need to first enter a proper passphrase that will be used "
@@ -175,7 +244,7 @@ msgstr ""
 "εισήγατε και θα πρέπει να έχετε διαθέσιμα και τα δύο. Αν χάσετε ένα από "
 "αυτά, θα πρέπει να δημιουργήσετε νέο ζεύγος κλειδιών. \n"
 
-#: .\etsd\core\templates\core\help.html:35
+#: .\etsd\core\templates\core\help.html:42
 msgid ""
 "\n"
 "Please be extra careful when downloading the private key. It is a file that "
@@ -198,7 +267,7 @@ msgstr ""
 "κωδικό σας σε διαφορετικό \"περιβάλλον\", \n"
 "ή ιδανικά να τον θυμάστε χωρίς να τον καταγράψετε κάπου.\n"
 
-#: .\etsd\core\templates\core\help.html:43
+#: .\etsd\core\templates\core\help.html:50
 msgid ""
 "\n"
 "After you have downloaded the private key you must press the <strong>Submit</"
@@ -211,11 +280,11 @@ msgstr ""
 "κλειδί που θα χρησιμοποιείται για να κρυπτογραφεί τα δεδομένα που αφορούν "
 "την Υπηρεσία σας στον server.\n"
 
-#: .\etsd\core\templates\core\help.html:48
+#: .\etsd\core\templates\core\help.html:55
 msgid "Key pair approval"
 msgstr "Έγκριση ζεύγους κλειδιών"
 
-#: .\etsd\core\templates\core\help.html:50
+#: .\etsd\core\templates\core\help.html:57
 #, python-format
 msgid ""
 "\n"
@@ -241,7 +310,7 @@ msgstr ""
 "Τέλος επιλέξτε <strong>Φόρτωση ιδιωτικού κλειδιού</strong>  για να "
 "μεταφορτωθεί το κλειδί στο session του browser σας.\n"
 
-#: .\etsd\core\templates\core\help.html:59
+#: .\etsd\core\templates\core\help.html:66
 #, python-format
 msgid ""
 "\n"
@@ -270,7 +339,7 @@ msgstr ""
 "το κλειδί που επιθυμείτε να χρησιμοποιηθεί για την Υπηρεσία σας. Αφού το "
 "επιλέξετε, πατήστε Υποβολή.\n"
 
-#: .\etsd\core\templates\core\help.html:68
+#: .\etsd\core\templates\core\help.html:75
 msgid ""
 "\n"
 "Your approval request will be submitted to the administrators of the "
@@ -282,11 +351,11 @@ msgstr ""
 "το εγκρίνουν, η Υπηρεσία σας\n"
 "θα μπορεί να λαμβάνει κρυπτογραφημένα δεδομένα.\n"
 
-#: .\etsd\core\templates\core\help.html:75 .\templates\home.html:22
+#: .\etsd\core\templates\core\help.html:82 .\etsd\core\templates\home.html:22
 msgid "Encrypted messaging"
 msgstr "Κρυπτογραφημένη ανταλλαγή μηνυμάτων"
 
-#: .\etsd\core\templates\core\help.html:80
+#: .\etsd\core\templates\core\help.html:87
 msgid ""
 "\n"
 "Using this app you can transmit messages between Authorities. \n"
@@ -315,11 +384,11 @@ msgstr ""
 "δεδομένα δεν φθάνουν\n"
 "ποτέ στον server.\n"
 
-#: .\etsd\core\templates\core\help.html:89
+#: .\etsd\core\templates\core\help.html:96
 msgid "Sending messages"
 msgstr "Αποστολή μηνυμάτων"
 
-#: .\etsd\core\templates\core\help.html:91
+#: .\etsd\core\templates\core\help.html:98
 #, python-format
 msgid ""
 "\n"
@@ -351,7 +420,7 @@ msgstr ""
 "του κλειδί. Αν ο αποστολέας δεν διαθέτει εγκεκριμένο δημόσιο κλειδί, αυτή η "
 "επιλογή δεν  είναι διαθέσιμη.\n"
 
-#: .\etsd\core\templates\core\help.html:101
+#: .\etsd\core\templates\core\help.html:108
 msgid ""
 "\n"
 "To add the message recipients, click the <strong>Add</strong> button and "
@@ -372,7 +441,7 @@ msgstr ""
 "Μπορείτε να προσθέσετε όσους αποδέκτες επιθυμείτε.\n"
 "Όταν τελειώσετε επιλέξτε <strong>Υποβολή</strong>.\n"
 
-#: .\etsd\core\templates\core\help.html:111
+#: .\etsd\core\templates\core\help.html:118
 msgid ""
 "\n"
 "Now you need to add the data to the email. To do that press the <strong>Add "
@@ -393,7 +462,7 @@ msgstr ""
 "<strong>Επιστροφή</strong> για να κλείσετε τη φόρμα και να επιστρέψετε στο "
 "κύριο μενού προβολής του μηνύματος.\n"
 
-#: .\etsd\core\templates\core\help.html:119
+#: .\etsd\core\templates\core\help.html:126
 msgid ""
 "\n"
 "After you have added the data to the email, you can then press the "
@@ -413,11 +482,11 @@ msgstr ""
 "προσθέσει επιλέγοντας <strong>Διαγραφή</strong>.\n"
 "Δεν είναι δυνατή η διαγραφή κάποιου μηνύματος το οποίο έχει ήδη αποσταλεί.\n"
 
-#: .\etsd\core\templates\core\help.html:126
+#: .\etsd\core\templates\core\help.html:133
 msgid "Viewing messages"
 msgstr "Προβολή μηνυμάτων"
 
-#: .\etsd\core\templates\core\help.html:128
+#: .\etsd\core\templates\core\help.html:135
 #, python-format
 msgid ""
 "\n"
@@ -441,7 +510,7 @@ msgstr ""
 "της σελίδας. Μηνύματα με όμοια \n"
 "κατάσταση θα κατηγοριοποιούνται ανα ημερομηνία αποστολής.\n"
 
-#: .\etsd\core\templates\core\help.html:136
+#: .\etsd\core\templates\core\help.html:143
 #, python-format
 msgid ""
 "\n"
@@ -474,9 +543,232 @@ msgstr ""
 "μηνυμάτων. Μπορείτε να σημάνετε ένα \"Αρχειοθετημένο\" μήνυμα\n"
 "ξανά ως \"Αναγνωσμένο\".\n"
 
-#: .\etsd\core\views.py:46
-msgid "Authority Data successfully updated!"
-msgstr "Οι Πληροφορίες Υπηρεσίας ενημερώθηκαν επιτυχώς!"
+#: .\etsd\core\templates\home.html:16
+msgid "Electronic Transmission of Sensitive Data"
+msgstr "Ηλεκτρονική διαβίβαση ευαισθητης πληροφορίας"
+
+#: .\etsd\core\templates\home.html:17
+msgid ""
+"You can use this app to transmit sensitive data across your organization"
+msgstr "Η εφαρμογή χρησιμοποιείται για τη διαβίβαση ευαίσθητης πληροφορίας"
+
+#: .\etsd\core\templates\home.html:25
+msgid ""
+"\n"
+"            This app can be used to transmit messages containing encrypted "
+"data between authorities.\n"
+"            The OpenPGP standard is used to encrypt the data using the fully "
+"client-side OpenPGPjs implementation.\n"
+"            This means that the encryption and decryption of the data is "
+"performed only in the user's computer so\n"
+"            no plaintext ever reaches the server.\n"
+"        "
+msgstr ""
+"\n"
+"            Η παρούσα εφαρμογή μπορεί να χρησιμοποιηθεί για τη μετάδοση "
+"μηνυμάτων που περιέχουν κρυπτογραφημένα δεδομένα μεταξύ Υπηρεσιών.\n"
+"            Το πρότυπο OpenPGP χρησιμοποιείται για την κρυπτογράφηση των "
+"δεδομένων client-side μέσω της υλοποίησης OpenPGPjs .\n"
+"            Αυτό σημαίνει ότι η κρυπτογράφηση και η αποκρυπτογράφηση των "
+"δεδομένων πραγματοποιείται αποκλειστικά στους υπολογιστές των χρηστών\n"
+"            και τα αποκρυπτογραφημένα δεδομένα δεν υποβάλλονται σε κανένα "
+"στάδιο στον server.\n"
+"        "
+
+#: .\etsd\core\templates\home.html:33
+msgid ""
+"\n"
+"            Following the principles of Public Key Cryptography, any "
+"Authority can send encrypted messages however \n"
+"            only Authorities that do have an approved private/public key "
+"pair can receive these encrypted messages.\n"
+"            This is required because the public key of the receiving "
+"Authority must be used to encrypt the message\n"
+"            so only this Authority will be able to decrypt it using its "
+"private part of the key.\n"
+"        "
+msgstr ""
+"\n"
+"            Σύμφωνα με τις αρχές της κρυπτογράφησης δημόσιου κλειδιού, "
+"οποιαδήποτε Υπηρεσία μπορεί να στείλει κρυπτογραφημένα μηνύματα, ωστόσο \n"
+"            μόνο οι Υπηρεσίες που διαθέτουν εγκεκριμένο ζεύγος ιδιωτικού/"
+"δημόσιου κλειδιού μπορούν να λαμβάνουν αυτά τα κρυπτογραφημένα μηνύματα.\n"
+"            Αυτό απαιτείται επειδή το δημόσιο κλειδί της Υπηρεσίες που "
+"δέχεται το μήνυμα πρέπει να χρησιμοποιηθεί για την κρυπτογράφηση του "
+"μηνύματος\n"
+"            έτσι, μόνο αυτή η Υπηρεσία θα είναι σε θέση να το "
+"αποκρυπτογραφήσει χρησιμοποιώντας το ιδιωτικό τμήμα του κλειδιού.\n"
+"        "
+
+#: .\etsd\core\templates\home.html:46
+msgid ""
+"\n"
+"            Using this app you can generate a private/public key pair for "
+"your Authority. The private key will be encrypted with a passphrase.\n"
+"            Both the private key and the passphrase must be saved by the "
+"user in a safe place. Neither of them is ever send to\n"
+"            the server. The public key will be submitted to the server and "
+"must be approved from the app administrators in\n"
+"            order to be used. After the public key of an authority has been "
+"approved, the authority can receive messages with encrypted \n"
+"            data.\n"
+"        "
+msgstr ""
+"\n"
+"            Χρησιμοποιώντας αυτήν την εφαρμογή, μπορείτε να δημιουργήσετε "
+"ένα ζεύγος ιδιωτικού/δημόσιου κλειδιού για την Υπηρεσία σας. \n"
+"            Το ιδιωτικό κλειδί θα κρυπτογραφηθεί με μια κωδική φράση. Τόσο "
+"το ιδιωτικό κλειδί όσο και η λέξη-κλειδί πρέπει να αποθηκεύονται \n"
+"            από το χρήστη σε ασφαλές περιβάλλον. Κανένα από αυτά δεν "
+"στέλνεται ποτέ στον server. Το δημόσιο κλειδί θα υποβληθεί στο server και \n"
+"            πρέπει να εγκριθεί από τους διαχειριστές της εφαρμογής για "
+"χρήση. Μετά την έγκριση του δημόσιου κλειδιού μιας Υπηρεσίας, αυτή μπορεί \n"
+"            να λαμβάνει μηνύματα με κρυπτογραφημένα δεδομένα.\n"
+"        "
+
+#: .\etsd\core\templates\home.html:55
+msgid ""
+"\n"
+"            In order to quickly decrypt the data of his Authority, the user "
+"can \"load\" the private key to his session. This means that \n"
+"            this key will be decrypted with its passphrase and saved in the "
+"user's browser for as long as the user is logged in to the app.\n"
+"            That key will be then used to decrypt the encrypted data of the "
+"users' Authority.\n"
+"        "
+msgstr ""
+"\n"
+"            Για να αποκρυπτογραφήσει γρήγορα τα δεδομένα της Υπηρεσίας του, "
+"ο χρήστης μπορεί να «φορτώσει» το ιδιωτικό κλειδί της συνεδρίας του. \n"
+"            Αυτό σημαίνει ότι αυτό το κλειδί θα αποκρυπτογραφηθεί με τη "
+"κωδική φράση του και θα αποθηκευτεί στον browser του χρήστη για όσο "
+"διάστημα \n"
+"            ο χρήστης είναι συνδεδεμένος στην εφαρμογή. Στη συνέχεια, το "
+"κλειδί αυτό θα χρησιμοποιηθεί για την αποκρυπτογράφηση των "
+"κρυπτογραφημένων \n"
+"            δεδομένων της Υπηρεσίας του χρήστη.\n"
+"        "
+
+#: .\etsd\core\templates\home.html:70
+msgid "Welcome,"
+msgstr "Καλώς ήρθατε,"
+
+#: .\etsd\core\templates\home.html:72
+msgid "No user authority"
+msgstr "Δεν έχετε Υπηρεσία"
+
+#: .\etsd\core\templates\home.html:75
+msgid "Admin and user access"
+msgstr "Πρόσβαση διαχειριστή και χρήστη"
+
+#: .\etsd\core\templates\home.html:77
+msgid "Admin access"
+msgstr "Πρόσβαση διαχειριστή"
+
+#: .\etsd\core\templates\home.html:79
+msgid "User access"
+msgstr "Πρόσβαση χρήστη"
+
+#: .\etsd\core\templates\home.html:81
+msgid "No access!"
+msgstr "Χωρίς πρόσβαση!"
+
+#: .\etsd\core\templates\home.html:87
+#: .\etsd\keys\templates\keys\publickey_list.html:5
+#: .\etsd\keys\templates\keys\publickey_list.html:7
+msgid "Public key list"
+msgstr "Κατάλογος δημοσίων κλειδιών"
+
+#: .\etsd\core\templates\home.html:93
+#: .\etsd\core\templates\partials\_nav.html:16 .\etsd\msgs\models.py:121
+msgid "Messages"
+msgstr "Μηνύματα"
+
+#: .\etsd\core\templates\home.html:94
+#: .\etsd\core\templates\partials\_nav.html:25
+#: .\etsd\keys\templates\keys\load_private_key.html:8
+#: .\etsd\keys\templates\keys\load_private_key.html:9
+#: .\etsd\keys\templates\keys\load_private_key.html:85
+msgid "Load private key"
+msgstr "Φόρτωση Ιδιωτικού Κλειδιού"
+
+#: .\etsd\core\templates\home.html:97
+msgid "All Messages"
+msgstr "Όλα τα μηνύματα"
+
+#: .\etsd\core\templates\home.html:98
+msgid "Authorities"
+msgstr "Υπηρεσίες"
+
+#: .\etsd\core\templates\home.html:103
+msgid "Please login to use this site!"
+msgstr "Παρακαλούμε συνδεθείτε!"
+
+#: .\etsd\core\templates\home.html:105
+msgid "Log in"
+msgstr "Σύνδεση"
+
+#: .\etsd\core\templates\home.html:108
+msgid ""
+"\n"
+"        To use this app you need to have a <u>recent browser version, "
+"preferably Chrome or Firefox</u>. The app may work\n"
+"        in other Browsers but it is not guaranteed.\n"
+"        "
+msgstr ""
+"\n"
+"        Για να χρησιμοποιήσετε την εφαρμογή <u>πρέπει να έχετε μια πρόσφατη "
+"έκδοση φυλλομετρητή, κατά προτίμηση του Chrome ή του Firefox</u>. Η "
+"εφαρμογή\n"
+"        ίσως λειτουργήσει και σε άλλους φυλλομετρητές χωρίς όμως κάτι τέτοιο "
+"να είναι εγγυημένο.\n"
+"        "
+
+#: .\etsd\core\templates\partials\_filter.html:10
+msgid "Filter"
+msgstr "Φίλτρο"
+
+#: .\etsd\core\templates\partials\_filter.html:11
+msgid "Reset"
+msgstr "Επαναφορά"
+
+#: .\etsd\core\templates\partials\_inline_set.html:6
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: .\etsd\core\templates\partials\_inline_set.html:36
+msgid "Please press the add button to add a new row"
+msgstr "Επιλέξτε προσθήκη για να προσθέσετε νέο συμμετέχοντα"
+
+#: .\etsd\core\templates\partials\_nav.html:21
+msgid "Keys"
+msgstr "Κλειδιά"
+
+#: .\etsd\core\templates\partials\_nav.html:28
+msgid "Public key List"
+msgstr "Κατάλογος δημοσίων κλειδιών"
+
+#: .\etsd\core\templates\partials\_nav.html:51
+msgid "Private key loaded"
+msgstr "Φορτωμένο ιδιωτικό κλειδί"
+
+#: .\etsd\core\templates\partials\_nav.html:56
+msgid "Disconnect"
+msgstr "Αποσύνδεση"
+
+#: .\etsd\core\templates\partials\_nav.html:60
+msgid "Please login"
+msgstr "Παρακαλούμε συνδεθείτε"
+
+#: .\etsd\core\templates\registration\login.html:4
+#: .\etsd\core\templates\registration\login.html:5
+#: .\etsd\core\templates\registration\login.html:25
+msgid "Login"
+msgstr "Σύνδεση"
+
+#: .\etsd\core\templates\registration\login.html:9
+msgid "Cannot connect please try again"
+msgstr "Δεν ήταν δυνατή η σύνδεση"
 
 #: .\etsd\core\views.py:74
 msgid "added"
@@ -494,12 +786,15 @@ msgstr "αφαιρεθεί"
 msgid "Removed as a user in ETSD"
 msgstr "Αφαιρεθήκατε από χρήστης στην Εφαρμογή Ανταλλαγής Ευαίσθητων Δεδομένων"
 
-#: .\etsd\core\views.py:82
+#: .\etsd\core\views.py:109
+msgid "Authority Data successfully updated!"
+msgstr "Οι Πληροφορίες Υπηρεσίας ενημερώθηκαν επιτυχώς!"
+
+#: .\etsd\core\views.py:145
 msgid "This user is not associated with any authority!"
-msgstr "Ο χρήστης δεν έχει Υπηρεσία."
+msgstr "Ο χρήστης δεν έχει Υπηρεσία!"
 
-
-#: .\etsd\keys\forms.py:13 .\etsd\keys\models.py:55
+#: .\etsd\keys\forms.py:13 .\etsd\keys\models.py:58
 #: .\etsd\keys\templates\keys\publickey_detail.html:20
 msgid "Confirmation document"
 msgstr "Έγγραφο Επιβεβαίωσης"
@@ -511,6 +806,10 @@ msgstr "Αυτό το έγγραφο θα ελεγχθεί για την ορθ�
 #: .\etsd\keys\forms.py:45
 msgid "Signed confirmation document is required."
 msgstr "Απαιτείται ένα υπογεγραμμένο έγγραφο επιβεβαίωσης."
+
+#: .\etsd\keys\models.py:12 .\etsd\msgs\models.py:13
+msgid "New"
+msgstr "Νέο"
 
 #: .\etsd\keys\models.py:13
 msgid "Pending"
@@ -532,48 +831,53 @@ msgstr "Απορριφθέν"
 msgid "Deleted"
 msgstr "Διεγραμμένο"
 
-#: .\etsd\keys\models.py:32
+#: .\etsd\keys\models.py:32 .\etsd\keys\templates\keys\publickey_detail.html:14
+#: .\etsd\msgs\models.py:181 .\etsd\msgs\templates\msgs\message_detail.html:50
+#: .\etsd\msgs\templates\msgs\message_detail.html:99
+msgid "Authority"
+msgstr "Υπηρεσία"
+
+#: .\etsd\keys\models.py:35 .\etsd\keys\templates\keys\publickey_detail.html:58
 msgid "Key text"
 msgstr "Κείμενο Κλειδιού"
 
-#: .\etsd\keys\models.py:33
+#: .\etsd\keys\models.py:36
 msgid "The key text in armored ASCII format"
 msgstr "Το κείμενου του κλειδιού σε μορφή armored ASCII"
 
-#: .\etsd\keys\models.py:37
+#: .\etsd\keys\models.py:40
 msgid "Key fingerprint"
 msgstr "Αποτύπωμα Κλειδιού"
 
-#: .\etsd\keys\models.py:39
+#: .\etsd\keys\models.py:42
 msgid "The fingerprint of the key"
 msgstr "Το αποτύπωμα του κλειδιού"
 
-#: .\etsd\keys\models.py:43
+#: .\etsd\keys\models.py:46
 msgid "Description of key"
 msgstr "Περιγραφή κλειδιού"
 
-#: .\etsd\keys\models.py:44
+#: .\etsd\keys\models.py:47
 msgid "The description (user id) of the key"
 msgstr "Η περιγραφή (user id) του κλειδιού"
 
-#: .\etsd\keys\models.py:47 .\etsd\keys\templates\keys\tail.html:15
-#: .\etsd\msgs\templates\msgs\message_detail.html:30
+#: .\etsd\keys\models.py:50 .\etsd\keys\templates\keys\publickey_detail.html:15
 msgid "Status"
 msgstr "Κατάσταση"
 
-#: .\etsd\keys\models.py:51
+#: .\etsd\keys\models.py:54
 msgid "Approval status of key"
 msgstr "Κατάσταση έγκρισης κλειδιού"
 
-#: .\etsd\keys\models.py:60
+#: .\etsd\keys\models.py:63
 msgid "Approval date"
 msgstr "Ημερομηνία έγκρισης"
 
-#: .\etsd\keys\models.py:63
+#: .\etsd\keys\models.py:66
 msgid "Deactivation date"
 msgstr "Ημερομηνία απενεργοποίησης"
 
-#: .\etsd\keys\models.py:66
+#: .\etsd\keys\models.py:69
 msgid "Rejection date"
 msgstr "Ημερομηνία απόρριψης"
 
@@ -581,11 +885,11 @@ msgstr "Ημερομηνία απόρριψης"
 msgid "Deletion date"
 msgstr "Ημερομηνία διαγραφής"
 
-#: .\etsd\keys\models.py:73
+#: .\etsd\keys\models.py:79
 msgid "Public key"
 msgstr "Δημόσιο Κλειδί"
 
-#: .\etsd\keys\models.py:74
+#: .\etsd\keys\models.py:80
 msgid "Public keys"
 msgstr "Δημόσια Κλειδιά"
 
@@ -621,19 +925,6 @@ msgstr ""
 " \n"
 "Το Δημόσιο Κλειδί σας με αποτύπωμα: %(fingerprint)s έχει αλλάξει κατάσταση "
 "σε %(status)s από κάποιον διαχειριστή.\n"
-" "
-
-#: .\etsd\core\templates\core\emails\edited_users.txt:4
-#, python-format
-msgid ""
-" \n"
-"  You have been %(action)s as user of authority %(authority)s by %(action_user)s"
-" in the Electronic Transmission of Sensitive Data app."
-" "
-msgstr ""
-" \n"
-" Έχετε %(action)s ως χρήστης στην Υπηρεσία %(authority)s από τον χρήστη %(action_user)s"
-" στην Εφαρμογή Ανταλλαγής Ευαίσθητων Δεδομένων."
 " "
 
 #: .\etsd\keys\templates\keys\key_pair_create.html:9
@@ -780,13 +1071,6 @@ msgstr "Δημιουργία Ζεύγους Κλειδιών"
 msgid "Download Private Key"
 msgstr "Λήψη Ιδιωτικού Κλειδιού"
 
-#: .\etsd\keys\templates\keys\load_private_key.html:8
-#: .\etsd\keys\templates\keys\load_private_key.html:9
-#: .\etsd\keys\templates\keys\load_private_key.html:85 .\templates\home.html:94
-#: .\templates\partials\_nav.html:25
-msgid "Load private key"
-msgstr "Φόρτωση Ιδιωτικού Κλειδιού"
-
 #: .\etsd\keys\templates\keys\load_private_key.html:16
 msgid ""
 "\n"
@@ -900,13 +1184,12 @@ msgstr "Λεπτομέρειες ιδιωτικού κλειδιού %(pid)s"
 msgid "ID"
 msgstr "ID"
 
-#: .\etsd\keys\templates\keys\publickey_detail.html:14
-#: .\etsd\msgs\models.py:173 .\etsd\msgs\templates\msgs\message_detail.html:50
-#: .\etsd\msgs\templates\msgs\message_detail.html:87
-msgid "Authority"
-msgstr "Υπηρεσία"
+#: .\etsd\keys\templates\keys\publickey_detail.html:16
+msgid "by"
+msgstr "από"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:17
+#: .\etsd\keys\templates\keys\publickey_form.html:42
 msgid "Fingerprint"
 msgstr "Αποτύπωμα"
 
@@ -921,10 +1204,6 @@ msgstr "Λήψη"
 #: .\etsd\keys\templates\keys\publickey_detail.html:25
 msgid "Approved on"
 msgstr "Εγκρίθηκε στις"
-
-#: .\etsd\keys\templates\keys\publickey_detail.html:16
-msgid "by"
-msgstr "από"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:30
 msgid "The key cannot be used until it has been submitted for approval"
@@ -943,8 +1222,11 @@ msgstr ""
 "να υποβάλλετε το δημόσιο κλειδί προς έγκριση!"
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:44
-msgid "The public key needs confirmation by the administration in order to be used."
-msgstr "Το δημόσιο κλειδί χρήζει έγκρισης από τη διαχείριση για να μπορεί να χρησιμοποιηθεί."
+msgid ""
+"The public key needs confirmation by the administration in order to be used."
+msgstr ""
+"Το δημόσιο κλειδί χρήζει έγκρισης από τη διαχείριση για να μπορεί να "
+"χρησιμοποιηθεί."
 
 #: .\etsd\keys\templates\keys\publickey_detail.html:50
 msgid "Accept"
@@ -955,6 +1237,7 @@ msgid "Reject"
 msgstr "Απόρριψη"
 
 #: .\etsd\keys\templates\keys\publickey_form.html:10
+#: .\etsd\keys\templates\keys\publickey_form.html:11
 msgid "Public key approval submit"
 msgstr "Υποβολή δημοσίου κλειδιού προς έγκριση"
 
@@ -1020,11 +1303,6 @@ msgstr "ID Χρήστη"
 #: .\etsd\keys\templates\keys\publickey_form.html:63
 msgid "Validate"
 msgstr "Επιβεβαίωση"
-
-#: .\etsd\keys\templates\keys\publickey_list.html:5
-#: .\etsd\keys\templates\keys\publickey_list.html:7 .\templates\home.html:87
-msgid "Public key list"
-msgstr "Κατάλογος δημοσίων κλειδιών"
 
 #: .\etsd\keys\templates\keys\publickey_list.html:12
 msgid "New key pair"
@@ -1141,34 +1419,30 @@ msgstr " Προσθέστε Υπηρεσίες αναζητώντας τες μ�
 msgid "This authority does not have an active public key!"
 msgstr "Η Υπηρεσία αυτή δεν έχει ενεργό δημόσιο κλειδί!"
 
-#: .\etsd\msgs\forms.py:57
+#: .\etsd\msgs\forms.py:60
 msgid "Select related message"
 msgstr "Επιλέξατε το σχετικό μήνυμα"
 
-#: .\etsd\msgs\forms.py:60
+#: .\etsd\msgs\forms.py:63
 msgid ""
 "Add a related message by typing its protocol/protocol year/local identifier "
 "and selecting them. "
 msgstr ""
 "Προσθέστε ένα σχετικό μήνυμα κάνοντας αναζήτηση με τον αρ. πρωτοκόλλου του. "
 
-#: .\etsd\msgs\forms.py:81
+#: .\etsd\msgs\forms.py:84
 msgid "Your authority does not have an active public key!"
 msgstr "Η Υπηρεσία σας δεν έχει ενεργό δημόσιο κλειδί!"
 
-#: .\etsd\msgs\forms.py:89
+#: .\etsd\msgs\forms.py:92
 msgid "You cannot add a related message when message kind is New!"
 msgstr "Δε μπορείτε να επιλέξετε σχετικό μήνυμα όταν το είδος είναι Νέο!"
 
-#: .\etsd\msgs\forms.py:94
+#: .\etsd\msgs\forms.py:97
 msgid "You must provide a related message when message kind is not New!"
 msgstr "Πρέπει να επιλέξετε σχετικό μήνυμα όταν το είδος δεν είναι Νέο!"
 
-#: .\etsd\msgs\models.py:13
-msgid "New"
-msgstr "Νέο"
-
-#: .\etsd\msgs\models.py:14
+#: .\etsd\msgs\models.py:14 .\etsd\msgs\templates\msgs\message_detail.html:155
 msgid "Reply"
 msgstr "Απάντηση"
 
@@ -1183,10 +1457,6 @@ msgstr "Πρόχειρο"
 #: .\etsd\msgs\models.py:20
 msgid "Sent"
 msgstr "Απεσταλμένο"
-
-#: .\etsd\msgs\models.py:26 .\templates\authorities\authority_detail.html:8
-msgid "Name"
-msgstr "Όνομα"
 
 #: .\etsd\msgs\models.py:27
 msgid "Is active"
@@ -1226,129 +1496,120 @@ msgstr ""
 msgid "Message kind"
 msgstr "Είδος μηνύματος"
 
-#: .\etsd\msgs\models.py:77 .\etsd\msgs\templates\msgs\message_detail.html:31
+#: .\etsd\msgs\models.py:80 .\etsd\msgs\templates\msgs\message_detail.html:31
 msgid "Message status"
 msgstr "Κατάσταση μηνύματος"
 
-#: .\etsd\msgs\models.py:80 .\etsd\msgs\templates\msgs\message_detail.html:39
+#: .\etsd\msgs\models.py:84 .\etsd\msgs\templates\msgs\message_detail.html:39
 msgid "Category"
 msgstr "Κατηγορία"
 
-#: .\etsd\msgs\models.py:90 .\etsd\msgs\templates\msgs\message_detail.html:34
+#: .\etsd\msgs\models.py:94 .\etsd\msgs\templates\msgs\message_detail.html:34
 msgid "Related message"
 msgstr "Σχετικό μήνυμα"
 
-#: .\etsd\msgs\models.py:91
+#: .\etsd\msgs\models.py:95
 msgid "Please select a related message if needed"
 msgstr "Επιλέξατε σχετικό μήνυμα αν χρειάζεται"
 
-#: .\etsd\msgs\models.py:96 .\etsd\msgs\templates\msgs\message_detail.html:41
+#: .\etsd\msgs\models.py:100 .\etsd\msgs\templates\msgs\message_detail.html:41
 msgid "Local identifier"
 msgstr "Αναγνωριστικό"
 
-#: .\etsd\msgs\models.py:98
+#: .\etsd\msgs\models.py:102
 msgid "Please provide a local identifier (local authority protocol) if needed."
 msgstr ""
 "Προαιρετικά συμπληρώστε ένα τοπικό αναγνωριστικό (πρωτόκολλο Υπηρεσίας)"
 
-#: .\etsd\msgs\models.py:103 .\etsd\msgs\templates\msgs\message_detail.html:40
+#: .\etsd\msgs\models.py:107 .\etsd\msgs\templates\msgs\message_detail.html:40
 msgid "Sent on"
 msgstr "Ημ. αποστολής"
 
-#: .\etsd\msgs\models.py:105 .\etsd\msgs\templates\msgs\message_detail.html:42
+#: .\etsd\msgs\models.py:109 .\etsd\msgs\templates\msgs\message_detail.html:42
 msgid "Protocol"
 msgstr "Πρωτόκολλο"
 
-#: .\etsd\msgs\models.py:106
+#: .\etsd\msgs\models.py:112
 msgid "Protocol year"
 msgstr "Έτος πρωτοκόλλου"
 
-#: .\etsd\msgs\models.py:112 .\etsd\msgs\models.py:176
-#: .\etsd\msgs\models.py:229
+#: .\etsd\msgs\models.py:120 .\etsd\msgs\models.py:184
+#: .\etsd\msgs\models.py:244
 msgid "Message"
 msgstr "Μήνυμα"
 
-#: .\etsd\msgs\models.py:113 .\templates\home.html:93
-#: .\templates\partials\_nav.html:16
-msgid "Messages"
-msgstr "Μηνύματα"
-
-#: .\etsd\msgs\models.py:151
+#: .\etsd\msgs\models.py:159
 msgid "Recipient (to)"
 msgstr "Προς"
 
-#: .\etsd\msgs\models.py:152
+#: .\etsd\msgs\models.py:160
 msgid "Carbon Copy (cc)"
 msgstr "CC"
 
-#: .\etsd\msgs\models.py:153
+#: .\etsd\msgs\models.py:161
 msgid "Sender"
 msgstr "Αποστολέας"
 
-#: .\etsd\msgs\models.py:157
+#: .\etsd\msgs\models.py:165
 msgid "Unread"
 msgstr "Μη αναγνωσμένο"
 
-#: .\etsd\msgs\models.py:158
+#: .\etsd\msgs\models.py:166
 msgid "Read"
 msgstr "Αναγνωσμένο"
 
-#: .\etsd\msgs\models.py:159
+#: .\etsd\msgs\models.py:167
 msgid "Archived"
 msgstr "Αρχειοθετημένο"
 
-#: .\etsd\msgs\models.py:179
+#: .\etsd\msgs\models.py:189
 msgid "Participant kind"
 msgstr "Είδος συμμετέχοντος"
 
-#: .\etsd\msgs\models.py:182
+#: .\etsd\msgs\models.py:196 .\etsd\msgs\templates\msgs\message_detail.html:30
 msgid "Participant status"
 msgstr "Κατάσταση συμμετέχοντος"
 
-#: .\etsd\msgs\models.py:188
+#: .\etsd\msgs\models.py:203
 msgid "Message participant"
 msgstr "Συμμετέχων"
 
-#: .\etsd\msgs\models.py:189
+#: .\etsd\msgs\models.py:204
 msgid "Message participants"
 msgstr "Συμμετέχοντες"
 
-#: .\etsd\msgs\models.py:212
+#: .\etsd\msgs\models.py:227
 msgid "Participant key"
 msgstr "Κλειδί συμμετέχοντα"
 
-#: .\etsd\msgs\models.py:213
+#: .\etsd\msgs\models.py:228
 msgid "Participant keys"
 msgstr "Κλειδί συμμετεχόντων"
 
-#: .\etsd\msgs\models.py:238 .\etsd\msgs\models.py:239
-#: .\etsd\msgs\models.py:292
+#: .\etsd\msgs\models.py:253 .\etsd\msgs\models.py:254
+#: .\etsd\msgs\models.py:310
 msgid "Message data"
 msgstr "Δεδομένα μηνύματος"
 
-#: .\etsd\msgs\models.py:274
+#: .\etsd\msgs\models.py:289
 msgid "Encrypted data"
 msgstr "Κρυπτογραφημένα δεδομένα"
 
-#: .\etsd\msgs\models.py:281 .\etsd\msgs\models.py:282
+#: .\etsd\msgs\models.py:296 .\etsd\msgs\models.py:297
 msgid "Cipher data"
 msgstr "Κρυπτογραφημένα δεδομένα"
 
-#: .\etsd\msgs\models.py:297
+#: .\etsd\msgs\models.py:315
 msgid "Message data access"
 msgstr "Πρόσβαση σε δεδομένα"
 
-#: .\etsd\msgs\models.py:298
+#: .\etsd\msgs\models.py:316
 msgid "Message data accesses"
 msgstr "Προσβάσεις σε δεδομένα"
 
 #: .\etsd\msgs\tables.py:18 .\etsd\msgs\tables.py:75
 msgid "Draft message"
 msgstr "Πρόχειρο μήνυμα"
-
-#: .\etsd\msgs\tables.py:35
-msgid "Recipients"
-msgstr "Αποδέκτες"
 
 #: .\etsd\msgs\templates\msgs\emails\new_message.txt:4
 #, python-format
@@ -1425,12 +1686,6 @@ msgstr ""
 "    Επανάληψη και να την συσχετίσετε με το προηγούμενο μήνυμα.\n"
 "  "
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:32
-#: .\etsd\msgs\templates\msgs\message_detail.html:51
-#: .\templates\authorities\authority_detail.html:7
-msgid "Kind"
-msgstr "Είδος"
-
 #: .\etsd\msgs\templates\msgs\message_detail.html:46
 msgid "Participants"
 msgstr "Συμμετέχοντες"
@@ -1443,44 +1698,44 @@ msgstr "Αποτύπωμα δημοσίου κλειδιού"
 msgid "Has been read"
 msgstr "Αναγνώσθηκε"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:66
+#: .\etsd\msgs\templates\msgs\message_detail.html:69
 msgid "Data will not be encrypted"
 msgstr "Τα δεδομένα δε θα κρυπτογραφηθούν"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:81
+#: .\etsd\msgs\templates\msgs\message_detail.html:93
 msgid "Data"
 msgstr "Δεδομένα"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:85
+#: .\etsd\msgs\templates\msgs\message_detail.html:97
 msgid "Number"
 msgstr "Αριθμός"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:86
+#: .\etsd\msgs\templates\msgs\message_detail.html:98
 msgid "Extension"
 msgstr "Κατάληξη"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:88
+#: .\etsd\msgs\templates\msgs\message_detail.html:100
 msgid "Decrypt"
 msgstr "Αποκρυπτογράφηση"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:89
-#: .\etsd\msgs\templates\msgs\message_detail.html:119
+#: .\etsd\msgs\templates\msgs\message_detail.html:101
+#: .\etsd\msgs\templates\msgs\message_detail.html:133
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:113
+#: .\etsd\msgs\templates\msgs\message_detail.html:127
 msgid "Add data"
 msgstr "Προσθήκη αρχείων"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:125
+#: .\etsd\msgs\templates\msgs\message_detail.html:139
 msgid "Send"
 msgstr "Αποστολή"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:131
+#: .\etsd\msgs\templates\msgs\message_detail.html:145
 msgid "Archive"
 msgstr "Αρχειοθέτηση"
 
-#: .\etsd\msgs\templates\msgs\message_detail.html:137
+#: .\etsd\msgs\templates\msgs\message_detail.html:151
 msgid "Unarchive"
 msgstr "Απο-αρχειοθέτηση"
 
@@ -1493,7 +1748,7 @@ msgstr "Νέο μήνυμα"
 msgid "Recipient list"
 msgstr "Λίστα Αποδεκτών"
 
-#: .\etsd\msgs\templates\msgs\message_form.html:56
+#: .\etsd\msgs\templates\msgs\message_form.html:59
 msgid "Continue"
 msgstr "Συνέχεια"
 
@@ -1509,283 +1764,37 @@ msgstr "Κατάλογος μηνυμάτων"
 msgid "New message"
 msgstr "Νέο μήνυμα"
 
-#: .\etsd\msgs\views\__init__.py:176
+#: .\etsd\msgs\views\__init__.py:177
 msgid "Other participants may only be included once!"
 msgstr "Οι συμμετέχοντες μπορούν να περιληφθούν μία φορά!"
 
-#: .\etsd\msgs\views\__init__.py:178
+#: .\etsd\msgs\views\__init__.py:179
 msgid "At least one participant is required"
 msgstr "Χρειάζεται ένας συμμετέχων"
 
-#: .\etsd\msgs\views\__init__.py:182
+#: .\etsd\msgs\views\__init__.py:183
 msgid "Please don't add empty rows"
 msgstr "Μην προσθέτετε κενές γραμμές"
 
-#: .\etsd\msgs\views\__init__.py:208
+#: .\etsd\msgs\views\__init__.py:229
 msgid "Draft message created"
 msgstr "Το μήνυμα δημιουργήθηκε"
 
-#: .\etsd\msgs\views\__init__.py:352
+#: .\etsd\msgs\views\__init__.py:383
 msgid "Message send"
 msgstr "Το μήνυμα στάλθηκε"
 
-#: .\etsd\msgs\views\__init__.py:371
+#: .\etsd\msgs\views\__init__.py:402
 msgid "Message deleted"
 msgstr "Το μήνυμα διαγράφηκε"
 
-#: .\etsd\msgs\views\__init__.py:415
+#: .\etsd\msgs\views\__init__.py:446
 msgid "Message archived"
 msgstr "Το μήνυμα αρχειοθετήθηκε"
 
-#: .\etsd\msgs\views\__init__.py:434
+#: .\etsd\msgs\views\__init__.py:465
 msgid "Message unarchived"
 msgstr "Το μήνυμα απο-αρχειοθετήθηκε"
 
-#: .\templates\authorities\authority_detail.html:4
-msgid "Authority detail"
-msgstr "Στοιχεία Υπηρεσίας"
-
-#: .\templates\authorities\authority_detail.html:9
-msgid "Email"
-msgstr "Email"
-
-#: .\templates\authorities\authority_detail.html:10
-msgid "Users"
-msgstr "Χρήστες"
-
-#: .\templates\authorities\authority_detail.html:14
-msgid "No users"
-msgstr "Δεν υπάρχουν"
-
-#: .\templates\authorities\authority_detail.html:17
-#: .\templates\authorities\authority_list.html:11
-msgid "Edit"
-msgstr "Επεξεργασία"
-
-#: .\templates\authorities\authority_detail.html:18
-#: .\templates\authorities\authority_list.html:12
-msgid "Edit users"
-msgstr "Επεξεργασία χρηστών"
-
-#: .\templates\authorities\authority_form.html:5
-msgid "Authority form"
-msgstr "Επεξεργασία Υπηρεσίας"
-
-#: .\templates\authorities\authority_list.html:4
-msgid "Authority List"
-msgstr "Κατάλογος Υπηρεσίών"
-
-#: .\templates\authorities\authority_list.html:10
-msgid "View"
-msgstr "Εμφάνιση"
-
-#: .\templates\authorities\authority_list.html:15
-msgid "No authorities"
-msgstr "Δεν υπάρχουν"
-
-#: .\templates\authorities\authority_list.html:18
-msgid "Create"
-msgstr "Δημιουργία"
-
-#: .\templates\home.html:16
-msgid "Electronic Transmission of Sensitive Data"
-msgstr "Ηλεκτρονική διαβίβαση ευαισθητης πληροφορίας"
-
-#: .\templates\home.html:17
-msgid ""
-"You can use this app to transmit sensitive data across your organization"
-msgstr "Η εφαρμογή χρησιμοποιείται για τη διαβίβαση ευαίσθητης πληροφορίας"
-
-#: .\templates\home.html:25
-msgid ""
-"\n"
-"            This app can be used to transmit messages containing encrypted "
-"data between authorities.\n"
-"            The OpenPGP standard is used to encrypt the data using the fully "
-"client-side OpenPGPjs implementation.\n"
-"            This means that the encryption and decryption of the data is "
-"performed only in the user's computer so\n"
-"            no plaintext ever reaches the server.\n"
-"        "
-msgstr ""
-"\n"
-"            Η παρούσα εφαρμογή μπορεί να χρησιμοποιηθεί για τη μετάδοση "
-"μηνυμάτων που περιέχουν κρυπτογραφημένα δεδομένα μεταξύ Υπηρεσιών.\n"
-"            Το πρότυπο OpenPGP χρησιμοποιείται για την κρυπτογράφηση των "
-"δεδομένων client-side μέσω της υλοποίησης OpenPGPjs .\n"
-"            Αυτό σημαίνει ότι η κρυπτογράφηση και η αποκρυπτογράφηση των "
-"δεδομένων πραγματοποιείται αποκλειστικά στους υπολογιστές των χρηστών\n"
-"            και τα αποκρυπτογραφημένα δεδομένα δεν υποβάλλονται σε κανένα "
-"στάδιο στον server.\n"
-"        "
-
-#: .\templates\home.html:33
-msgid ""
-"\n"
-"            Following the principles of Public Key Cryptography, any "
-"Authority can send encrypted messages however \n"
-"            only Authorities that do have an approved private/public key "
-"pair can receive these encrypted messages.\n"
-"            This is required because the public key of the receiving "
-"Authority must be used to encrypt the message\n"
-"            so only this Authority will be able to decrypt it using its "
-"private part of the key.\n"
-"        "
-msgstr ""
-"\n"
-"            Σύμφωνα με τις αρχές της κρυπτογράφησης δημόσιου κλειδιού, "
-"οποιαδήποτε Υπηρεσία μπορεί να στείλει κρυπτογραφημένα μηνύματα, ωστόσο \n"
-"            μόνο οι Υπηρεσίες που διαθέτουν εγκεκριμένο ζεύγος ιδιωτικού/"
-"δημόσιου κλειδιού μπορούν να λαμβάνουν αυτά τα κρυπτογραφημένα μηνύματα.\n"
-"            Αυτό απαιτείται επειδή το δημόσιο κλειδί της Υπηρεσίες που "
-"δέχεται το μήνυμα πρέπει να χρησιμοποιηθεί για την κρυπτογράφηση του "
-"μηνύματος\n"
-"            έτσι, μόνο αυτή η Υπηρεσία θα είναι σε θέση να το "
-"αποκρυπτογραφήσει χρησιμοποιώντας το ιδιωτικό τμήμα του κλειδιού.\n"
-"        "
-
-#: .\templates\home.html:46
-msgid ""
-"\n"
-"            Using this app you can generate a private/public key pair for "
-"your Authority. The private key will be encrypted with a passphrase.\n"
-"            Both the private key and the passphrase must be saved by the "
-"user in a safe place. Neither of them is ever send to\n"
-"            the server. The public key will be submitted to the server and "
-"must be approved from the app administrators in\n"
-"            order to be used. After the public key of an authority has been "
-"approved, the authority can receive messages with encrypted \n"
-"            data.\n"
-"        "
-msgstr ""
-"\n"
-"            Χρησιμοποιώντας αυτήν την εφαρμογή, μπορείτε να δημιουργήσετε "
-"ένα ζεύγος ιδιωτικού/δημόσιου κλειδιού για την Υπηρεσία σας. \n"
-"            Το ιδιωτικό κλειδί θα κρυπτογραφηθεί με μια κωδική φράση. Τόσο "
-"το ιδιωτικό κλειδί όσο και η λέξη-κλειδί πρέπει να αποθηκεύονται \n"
-"            από το χρήστη σε ασφαλές περιβάλλον. Κανένα από αυτά δεν "
-"στέλνεται ποτέ στον server. Το δημόσιο κλειδί θα υποβληθεί στο server και \n"
-"            πρέπει να εγκριθεί από τους διαχειριστές της εφαρμογής για "
-"χρήση. Μετά την έγκριση του δημόσιου κλειδιού μιας Υπηρεσίας, αυτή μπορεί \n"
-"            να λαμβάνει μηνύματα με κρυπτογραφημένα δεδομένα.\n"
-"        "
-
-#: .\templates\home.html:55
-msgid ""
-"\n"
-"            In order to quickly decrypt the data of his Authority, the user "
-"can \"load\" the private key to his session. This means that \n"
-"            this key will be decrypted with its passphrase and saved in the "
-"user's browser for as long as the user is logged in to the app.\n"
-"            That key will be then used to decrypt the encrypted data of the "
-"users' Authority.\n"
-"        "
-msgstr ""
-"\n"
-"            Για να αποκρυπτογραφήσει γρήγορα τα δεδομένα της Υπηρεσίας του, "
-"ο χρήστης μπορεί να «φορτώσει» το ιδιωτικό κλειδί της συνεδρίας του. \n"
-"            Αυτό σημαίνει ότι αυτό το κλειδί θα αποκρυπτογραφηθεί με τη "
-"κωδική φράση του και θα αποθηκευτεί στον browser του χρήστη για όσο "
-"διάστημα \n"
-"            ο χρήστης είναι συνδεδεμένος στην εφαρμογή. Στη συνέχεια, το "
-"κλειδί αυτό θα χρησιμοποιηθεί για την αποκρυπτογράφηση των "
-"κρυπτογραφημένων \n"
-"            δεδομένων της Υπηρεσίας του χρήστη.\n"
-"        "
-
-#: .\templates\home.html:70
-msgid "Welcome,"
-msgstr "Καλώς ήρθατε,"
-
-#: .\templates\home.html:72
-msgid "No user authority"
-msgstr "Δεν έχετε Υπηρεσία"
-
-#: .\templates\home.html:75
-msgid "Admin and user access"
-msgstr "Πρόσβαση διαχειριστή και χρήστη"
-
-#: .\templates\home.html:77
-msgid "Admin access"
-msgstr "Πρόσβαση διαχειριστή"
-
-#: .\templates\home.html:79
-msgid "User access"
-msgstr "Πρόσβαση χρήστη"
-
-#: .\templates\home.html:81
-msgid "No access!"
-msgstr "Χωρίς πρόσβαση!"
-
-#: .\templates\home.html:97
-msgid "All Messages"
-msgstr "Όλα τα μηνύματα"
-
-#: .\templates\home.html:98
-msgid "Authorities"
-msgstr "Υπηρεσίες"
-
-#: .\templates\home.html:103
-msgid "Please login to use this site!"
-msgstr "Παρακαλούμε συνδεθείτε!"
-
-#: .\templates\home.html:105
-msgid "Log in"
-msgstr "Σύνδεση"
-
-#: .\templates\home.html:108
-msgid ""
-"\n"
-"        To use this app you need to have a <u>recent browser version, "
-"preferably Chrome or Firefox</u>. The app may work\n"
-"        in other Browsers but it is not guaranteed.\n"
-"        "
-msgstr ""
-"\n"
-"        Για να χρησιμοποιήσετε την εφαρμογή <u>πρέπει να έχετε μια πρόσφατη "
-"έκδοση φυλλομετρητή, κατά προτίμηση του Chrome ή του Firefox</u>. Η "
-"εφαρμογή\n"
-"        ίσως λειτουργήσει και σε άλλους φυλλομετρητές χωρίς όμως κάτι τέτοιο "
-"να είναι εγγυημένο.\n"
-"        "
-
-#: .\templates\partials\_filter.html:10
-msgid "Filter"
-msgstr "Φίλτρο"
-
-#: .\templates\partials\_filter.html:11
-msgid "Reset"
-msgstr "Επαναφορά"
-
-#: .\templates\partials\_nav.html:21
-msgid "Keys"
-msgstr "Κλειδιά"
-
-#: .\templates\partials\_nav.html:28
-msgid "Public key List"
-msgstr "Κατάλογος δημοσίων κλειδιών"
-
-#: .\templates\partials\_nav.html:51
-msgid "Private key loaded"
-msgstr "Φορτωμένο ιδιωτικό κλειδί"
-
-#: .\templates\partials\_nav.html:56
-msgid "Disconnect"
-msgstr "Αποσύνδεση"
-
-#: .\templates\partials\_nav.html:60
-msgid "Please login"
-msgstr "Παρακαλούμε συνδεθείτε"
-
-#: .\templates\partials\_inline_set.html:36
-msgid "Please press the add button to add a new row"
-msgstr "Επιλέξτε προσθήκη για να προσθέσετε νέο συμμετέχοντα"
-
-#: .\templates\registration\login.html:4 .\templates\registration\login.html:5
-#: .\templates\registration\login.html:25
-msgid "Login"
-msgstr "Σύνδεση"
-
-#: .\templates\registration\login.html:9
-msgid "Cannot connect please try again"
-msgstr "Δεν ήταν δυνατή η σύνδεση"
+#~ msgid "Recipients"
+#~ msgstr "Αποδέκτες"

@@ -5,7 +5,9 @@
 {% block page_title %}{% trans "Authority form" %}{% endblock %}
 
 {% block page_content %}
+
 <form method='POST'>
+
     {% csrf_token %}
     {{ form|crispy }}
     <input class='btn btn-primary' type='submit' value='{% trans "Submit" %}' />

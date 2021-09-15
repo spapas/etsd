@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-26 13:29+0300\n"
+"POT-Creation-Date: 2021-09-15 14:07+0300\n"
 "PO-Revision-Date: 2021-09-06 23:57+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -32,9 +32,9 @@ msgstr "Παρακαλούμε συμπληρώστε μια κωδική φρά
 #: .\etsd\keys\templates\keys\publickey_form.html:91
 #: .\etsd\keys\templates\keys\publickey_form.html:96
 #: .\etsd\msgs\static\message_detail.js:54
-#: .\etsd\msgs\templates\msgs\message_add_data.html:71
-#: .\etsd\msgs\templates\msgs\message_add_data.html:139
-#: .\etsd\msgs\templates\msgs\message_add_data.html:148
+#: .\etsd\msgs\templates\msgs\message_add_data.html:81
+#: .\etsd\msgs\templates\msgs\message_add_data.html:150
+#: .\etsd\msgs\templates\msgs\message_add_data.html:159
 msgid "ERROR"
 msgstr "ΣΦΑΛΜΑ"
 
@@ -128,7 +128,7 @@ msgid "Reject"
 msgstr "Απόρριψη"
 
 #: .\etsd\keys\templates\keys\publickey_form.html:91
-#: .\etsd\msgs\templates\msgs\message_add_data.html:71
+#: .\etsd\msgs\templates\msgs\message_add_data.html:81
 msgid "File can be up to "
 msgstr "Το αρχείο μπορεί να είναι μέχρι "
 
@@ -182,7 +182,7 @@ msgstr "Είστε βέβαιος ότι θέλετε να στείλετε το
 msgid "Send message"
 msgstr "Αποστολή μηνύματος"
 
-#: .\etsd\msgs\templates\msgs\message_add_data.html:133
+#: .\etsd\msgs\templates\msgs\message_add_data.html:143
 msgid ""
 "Data successfully added to message!<br />You can add more data if you want."
 "<br /><br />Please press Return when you are finished to send your message."
@@ -191,15 +191,15 @@ msgstr ""
 "επιπλέον δεδομένα.<br /><br />Παρακαλούμε πατήστε το κουμπί επιστροφή όταν "
 "ολοκληρώσετε την προσθήκη δεδομένων."
 
-#: .\etsd\msgs\templates\msgs\message_add_data.html:134
+#: .\etsd\msgs\templates\msgs\message_add_data.html:144
 msgid "SUCCESS"
 msgstr "ΕΠΙΤΥΧΙΑ"
 
-#: .\etsd\msgs\templates\msgs\message_add_data.html:139
+#: .\etsd\msgs\templates\msgs\message_add_data.html:150
 msgid "Error while trying to upload!"
 msgstr "Σφάλμα κατά το ανέβασμα!"
 
-#: .\etsd\msgs\templates\msgs\message_add_data.html:147
+#: .\etsd\msgs\templates\msgs\message_add_data.html:158
 msgid "Error while trying to add the data: <br /> "
 msgstr "Σφάλμα κατά την προσθήκη δεδομένων: <br /> "
 

@@ -8,6 +8,11 @@
   .select2{
     all:inherit !important;
   }
+
+  .log-table {
+    max-height: 400px !important;
+    overflow: auto;
+  }
   </style>
 {% endblock %}
 
@@ -20,14 +25,41 @@
   <b>Here you can update Authority's {{auth}} active users and email. </b>
   {% endblocktrans %}
 </div>
-<form method='POST' >
-  {% csrf_token %}
-  {{ form|crispy }}
-  <div class='mt-3'>
-    <button id='submitButton' type="submit" class='btn btn-primary' >{% translate "Submit" %}</button>
-    <a class='btn btn-secondary' href='{% url "home" %}'>{% translate "Return" %}</a>
+<div class='row'>
+  <div class='col-md-6'>
+    <form method='POST' >
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class='mt-3'>
+        <button id='submitButton' type="submit" class='btn btn-primary' >{% translate "Submit" %}</button>
+        <a class='btn btn-secondary' href='{% url "home" %}'>{% translate "Return" %}</a>
+      </div>
+    </form>
   </div>
-</form>
+  <div class='col-md-6 log-table'>
+    <h5>{% trans "Authority user changes" %}</h5>
+    <table class='table table-sm '>
+      <thead>
+        <tr>
+              <td>{%  trans "Date" %}</td>
+              <td>{%  trans "User" %}</td>
+              <td>{%  trans "Removed users" %}</td>
+              <td>{%  trans "Added users" %}</td>
+        </tr>
+      </thead>
+      <tbody>
+        
+          {% for uml in user_management_log %}
+            <tr>
+              <td>{{ uml.created_on }}</td>
+              <td>{{ uml.created_by }}</td>
+              <td>{{ uml.removed_users|default:"-" }}</td>
+              <td>{{ uml.added_users|default:"-" }}</td>
+            </tr>
+          {% endfor %}
+    </table>
+  </div>
+</div>
 
 
 {% endblock %}

@@ -50,6 +50,15 @@ class AuthorityEditUsersView(
         kwargs["request"] = self.request
         return kwargs
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["user_management_log"] = (
+            self.object.usermanagementlog_set.all()
+            .order_by("-created_on")
+            .select_related("created_by")
+        )
+        return ctx
+
     def form_valid(self, form):
         new_users = form.cleaned_data["users"]
         auth = form.instance
@@ -69,11 +78,11 @@ class AuthorityEditUsersView(
         if added_users or removed_users:
             if added_users:
                 email_body = send_mail_body(
-                "core/emails/edited_users.txt",
-                dict(
-                    action = _("added"),
-                    authority=auth,
-                    action_user = self.request.user,
+                    "core/emails/edited_users.txt",
+                    dict(
+                        action=_("added"),
+                        authority=auth,
+                        action_user=self.request.user,
                     ),
                 )
                 send_mail(
@@ -85,11 +94,11 @@ class AuthorityEditUsersView(
                 )
             if removed_users:
                 email_body = send_mail_body(
-                "core/emails/edited_users.txt",
-                dict(
-                    action = _("removed"),
-                    authority=auth,
-                    action_user = self.request.user,
+                    "core/emails/edited_users.txt",
+                    dict(
+                        action=_("removed"),
+                        authority=auth,
+                        action_user=self.request.user,
                     ),
                 )
                 send_mail(
@@ -101,8 +110,8 @@ class AuthorityEditUsersView(
                 )
             uml = UserManagementLog()
             uml.authority = auth
-            uml.added_users = ', '.join(usr.username for usr in added_users)
-            uml.removed_users = ', '.join(usr.username for usr in removed_users)
+            uml.added_users = ", ".join(usr.username for usr in added_users)
+            uml.removed_users = ", ".join(usr.username for usr in removed_users)
             uml.save()
 
         messages.add_message(
