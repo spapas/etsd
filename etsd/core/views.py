@@ -12,6 +12,9 @@ from dj_rest_auth.views import LogoutView, LoginView
 from rest_framework import status
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
+from etsd.users.models import UserManagementLog
+from django.core.mail import send_mail
+from etsd.core.utils import send_mail_body
 
 
 class AuthorityCreateView(CreateView):
@@ -63,6 +66,45 @@ class AuthorityEditUsersView(
             usr.user_permissions.remove(user_permission)
 
         form.save()
+        if added_users or removed_users:
+            if added_users:
+                email_body = send_mail_body(
+                "core/emails/edited_users.txt",
+                dict(
+                    action = "added",
+                    authority=auth,
+                    action_user = self.request.user,
+                    ),
+                )
+                send_mail(
+                    subject=_("Added as user in ETSD"),
+                    message=email_body,
+                    from_email="noreply@hcg.gr",
+                    recipient_list=[usr.email for usr in added_users],
+                    fail_silently=False,
+                )
+            if removed_users:
+                email_body = send_mail_body(
+                "core/emails/edited_users.txt",
+                dict(
+                    action = "removed",
+                    authority=auth,
+                    action_user = self.request.user,
+                    ),
+                )
+                send_mail(
+                    subject=_("Added as user in ETSD"),
+                    message=email_body,
+                    from_email="noreply@hcg.gr",
+                    recipient_list=[usr.email for usr in removed_users],
+                    fail_silently=False,
+                )
+            uml = UserManagementLog()
+            uml.authority = auth
+            uml.added_users = str(added_users)
+            uml.removed_users = str(removed_users)
+            uml.save()
+
         messages.add_message(
             self.request, messages.INFO, _("Authority Data successfully updated!")
         )
