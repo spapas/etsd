@@ -62,7 +62,7 @@
             <td>{{ mp.get_kind_display }}</td>
             <td>
               {% if mp.participantkey %}
-                <a href='{{ mp.participantkey.public_key.confirmation_document.path }}'>
+                <a href='{{ mp.participantkey.public_key.confirmation_document.path }}' title='Id: {{ mp.participantkey.public_key.id }} '>
                   {{ mp.participantkey.public_key }}
                 </a>
               {% else %}
