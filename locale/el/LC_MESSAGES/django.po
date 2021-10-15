@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-15 14:08+0300\n"
+"POT-Creation-Date: 2021-10-15 09:46+0300\n"
 "PO-Revision-Date: 2021-09-15 14:09+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -109,8 +109,8 @@ msgid "Edit users"
 msgstr "Επεξεργασία χρηστών"
 
 #: .\etsd\core\templates\authorities\authority_detail.html:19
-#: .\etsd\core\templates\authorities\authority_form.html:12
-#: .\etsd\core\templates\core\edit_authority_data.html:28
+#: .\etsd\core\templates\authorities\authority_form.html:14
+#: .\etsd\core\templates\core\edit_authority_data.html:35
 #: .\etsd\core\templates\registration\login.html:26
 #: .\etsd\keys\templates\keys\key_pair_create.html:112
 #: .\etsd\keys\templates\keys\load_private_key.html:86
@@ -126,8 +126,8 @@ msgstr "Επιστροφή"
 msgid "Authority form"
 msgstr "Επεξεργασία Υπηρεσίας"
 
-#: .\etsd\core\templates\authorities\authority_form.html:11
-#: .\etsd\core\templates\core\edit_authority_data.html:27
+#: .\etsd\core\templates\authorities\authority_form.html:13
+#: .\etsd\core\templates\core\edit_authority_data.html:34
 #: .\etsd\keys\templates\keys\key_pair_create.html:111
 #: .\etsd\keys\templates\keys\publickey_form.html:64
 msgid "Submit"
@@ -149,13 +149,13 @@ msgstr "Δεν υπάρχουν"
 msgid "Create"
 msgstr "Δημιουργία"
 
-#: .\etsd\core\templates\core\edit_authority_data.html:14
-#: .\etsd\core\templates\core\edit_authority_data.html:15
+#: .\etsd\core\templates\core\edit_authority_data.html:19
+#: .\etsd\core\templates\core\edit_authority_data.html:20
 #: .\etsd\core\templates\home.html:89
 msgid "Edit Authority Data"
 msgstr "Επεξεργασία δεδομένων Υπηρεσίας"
 
-#: .\etsd\core\templates\core\edit_authority_data.html:19
+#: .\etsd\core\templates\core\edit_authority_data.html:24
 #, python-format
 msgid ""
 "\n"
@@ -166,6 +166,34 @@ msgstr ""
 "<b>Εδώ μπορείτε να επεξεργαστείτε τους ενεργούς χρήστες και το email της "
 "Υπηρεσίας %(auth)s.</b>\n"
 " "
+
+#: .\etsd\core\templates\core\edit_authority_data.html:40
+#, fuzzy
+#| msgid "Authority detail"
+msgid "Authority user changes"
+msgstr "Στοιχεία Υπηρεσίας"
+
+#: .\etsd\core\templates\core\edit_authority_data.html:44
+msgid "Date"
+msgstr ""
+
+#: .\etsd\core\templates\core\edit_authority_data.html:45
+#, fuzzy
+#| msgid "Users"
+msgid "User"
+msgstr "Χρήστες"
+
+#: .\etsd\core\templates\core\edit_authority_data.html:46
+#, fuzzy
+#| msgid "No users"
+msgid "Removed users"
+msgstr "Δεν υπάρχουν"
+
+#: .\etsd\core\templates\core\edit_authority_data.html:47
+#, fuzzy
+#| msgid "Edit users"
+msgid "Added users"
+msgstr "Επεξεργασία χρηστών"
 
 #: .\etsd\core\templates\core\emails\edited_users.txt:3
 #, python-format
@@ -770,27 +798,27 @@ msgstr "Σύνδεση"
 msgid "Cannot connect please try again"
 msgstr "Δεν ήταν δυνατή η σύνδεση"
 
-#: .\etsd\core\views.py:74
+#: .\etsd\core\views.py:83
 msgid "added"
 msgstr "προστεθεί"
 
-#: .\etsd\core\views.py:80
+#: .\etsd\core\views.py:89
 msgid "Added as user in ETSD"
 msgstr "Προστεθήκατε ως χρήστης στην Εφαρμογή Ανταλλαγής Ευαίσθητων Δεδομένων"
 
-#: .\etsd\core\views.py:90
+#: .\etsd\core\views.py:99
 msgid "removed"
 msgstr "αφαιρεθεί"
 
-#: .\etsd\core\views.py:96
+#: .\etsd\core\views.py:105
 msgid "Removed as a user in ETSD"
 msgstr "Αφαιρεθήκατε από χρήστης στην Εφαρμογή Ανταλλαγής Ευαίσθητων Δεδομένων"
 
-#: .\etsd\core\views.py:109
+#: .\etsd\core\views.py:118
 msgid "Authority Data successfully updated!"
 msgstr "Οι Πληροφορίες Υπηρεσίας ενημερώθηκαν επιτυχώς!"
 
-#: .\etsd\core\views.py:145
+#: .\etsd\core\views.py:154
 msgid "This user is not associated with any authority!"
 msgstr "Ο χρήστης δεν έχει Υπηρεσία!"
 
@@ -1442,6 +1470,10 @@ msgstr "Δε μπορείτε να επιλέξετε σχετικό μήνυμ�
 msgid "You must provide a related message when message kind is not New!"
 msgstr "Πρέπει να επιλέξετε σχετικό μήνυμα όταν το είδος δεν είναι Νέο!"
 
+#: .\etsd\msgs\management\commands\delete_old_data.py:78
+msgid "[ETSD] Old message data will be deleted"
+msgstr "[ETSD] Διαγραφή δεδομένων παλαιών μηνυμάτων"
+
 #: .\etsd\msgs\models.py:14 .\etsd\msgs\templates\msgs\message_detail.html:155
 msgid "Reply"
 msgstr "Απάντηση"
@@ -1621,6 +1653,19 @@ msgstr ""
 " \n"
 " Η Υπηρεσία %(sender)s σας έστειλε ένα νέο κρυπτογραφημένο μήνυμα.\n"
 " "
+
+#: .\etsd\msgs\templates\msgs\emails\notify_data_deletion.txt:1
+#, python-format
+msgid ""
+"Encrypted data contained in the following old messages associated with your "
+"authority will be deleted within 10 days.\n"
+"These messages have a send date older than %(one_year_before_p10)s.\n"
+"Please save these messages outside of this app if you want to keep the data."
+msgstr ""
+"Τα κρυπτογραφημένα δεδομένα που περιέχονται στα επόμενα παλαιά μηνύματα της "
+"Υπηρεσίας σας θα διαγραφούν σε 10 ημέρες.\n"
+"Τα μηνύματα έχουν ημερομηνία αποστολής παλαιότερη της %(one_year_before_p10)s.\n"
+"Παρακαλούμε αποθηκεύστε τα δεδομένα των μηνυμάτων εξωσυστημικά αν θέλετε να τα διατηρήσετε."
 
 #: .\etsd\msgs\templates\msgs\message_add_data.html:5
 #: .\etsd\msgs\templates\msgs\message_add_data.html:6

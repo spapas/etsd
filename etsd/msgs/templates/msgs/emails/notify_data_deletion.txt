@@ -1,7 +1,5 @@
-{% extends 'msgs/emails/base.txt' %}
-{% load i18n static %}
-{% block content %}
- {% blocktrans %} 
-Encrypted data contained in messages {{ messages }} associated with your authority will be deleted within 10 days.
- {% endblocktrans %}
-{% endblock %}
+{% extends 'msgs/emails/base.txt' %}{% load i18n static %}{% block content %}{% blocktrans %}Encrypted data contained in the following old messages associated with your authority will be deleted within 10 days.
+These messages have a send date older than {{ one_year_before_p10 }}.
+Please save these messages outside of this app if you want to keep the data.{% endblocktrans %}
+{% for m in messages %}- {{ m }}
+{% endfor %}{% endblock %}
