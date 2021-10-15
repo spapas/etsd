@@ -1,0 +1,7 @@
+{% extends 'msgs/emails/base.txt' %}
+{% load i18n static %}
+{% block content %}
+ {% blocktrans %} 
+Encrypted data contained in messages {{ messages }} associated with your authority will be deleted within 10 days.
+ {% endblocktrans %}
+{% endblock %}
