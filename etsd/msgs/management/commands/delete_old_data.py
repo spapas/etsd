@@ -22,7 +22,7 @@ class Command(BaseCommand):
     
 
     def handle(self, *args, **kwargs):
-        one_year_before = timezone.now() - timezone.timedelta(days=67)
+        one_year_before = timezone.now() - timezone.timedelta(days=1095)
         one_year_before_p10 = one_year_before + timezone.timedelta(days=10)
         self.stdout.write("Will delete messages older than: {}".format(one_year_before))
         self.stdout.write("Will notify for messages older than: {}".format(one_year_before_p10))
