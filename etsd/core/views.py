@@ -16,6 +16,7 @@ from etsd.users.models import UserManagementLog
 from django.core.mail import send_mail
 from etsd.core.utils import send_mail_body
 
+  
 
 class AuthorityCreateView(CreateView):
     model = Authority

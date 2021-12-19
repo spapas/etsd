@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "compressor",
     "authorities",
     "crispy_forms",
+    "django_browser_reload",
     "crispy_bootstrap5",
     "django_tables2",
     "django_tables2_column_shifter",

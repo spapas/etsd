@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load compress %}
 {% load static %}
+{% load django_browser_reload %}
 <html lang="{{ LANGUAGE_CODE }}" class='h-100'>
 
 <head>
@@ -46,7 +47,7 @@
   {% block script_base %}
 
     {% compress js %}
-      <script>
+      <script>   
         console.log('%cWhy so curious?', 'color: red; font-size: 30px; font-weight: bold;');
       </script>
       <script src="{% static 'jquery-3.5.1.min.js' %}"></script>
@@ -80,7 +81,9 @@
   {% block extra_body_base %}
     {% block extra_body %}{% endblock %}
   {% endblock %}
-
+  
+  {% django_browser_reload_script %}
+  
 </body>
 
 </html>
