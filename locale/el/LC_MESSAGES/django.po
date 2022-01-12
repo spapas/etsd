@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-10 11:00+0200\n"
+"POT-Creation-Date: 2021-10-15 09:46+0300\n"
 "PO-Revision-Date: 2021-09-15 14:09+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -55,8 +55,7 @@ msgstr ""
 msgid "You cant remove yourself!"
 msgstr "Δε μπορείτε να αφαιρέσετε τον εαυτό σας!"
 
-#: .\etsd\core\models.py:17
-#: .\etsd\keys\templates\keys\publickey_detail.html:16
+#: .\etsd\core\models.py:17 .\etsd\keys\templates\keys\publickey_detail.html:16
 msgid "Created on"
 msgstr "Δημιουργία στις"
 
@@ -572,11 +571,6 @@ msgstr ""
 "μηνυμάτων. Μπορείτε να σημάνετε ένα \"Αρχειοθετημένο\" μήνυμα\n"
 "ξανά ως \"Αναγνωσμένο\".\n"
 
-#: .\etsd\core\templates\home.html:10 .\etsd\core\templates\home.html:15
-#: .\etsd\core\templates\partials\_nav.html:4
-msgid "E · T · S · D"
-msgstr "ΕΦ · Η · Δ · Ε · Π"
-
 #: .\etsd\core\templates\home.html:16
 msgid "Electronic Transmission of Sensitive Data"
 msgstr "Ηλεκτρονική διαβίβαση ευαισθητης πληροφορίας"
@@ -865,15 +859,13 @@ msgstr "Απορριφθέν"
 msgid "Deleted"
 msgstr "Διεγραμμένο"
 
-#: .\etsd\keys\models.py:32
-#: .\etsd\keys\templates\keys\publickey_detail.html:14
+#: .\etsd\keys\models.py:32 .\etsd\keys\templates\keys\publickey_detail.html:14
 #: .\etsd\msgs\models.py:181 .\etsd\msgs\templates\msgs\message_detail.html:50
 #: .\etsd\msgs\templates\msgs\message_detail.html:99
 msgid "Authority"
 msgstr "Υπηρεσία"
 
-#: .\etsd\keys\models.py:35
-#: .\etsd\keys\templates\keys\publickey_detail.html:58
+#: .\etsd\keys\models.py:35 .\etsd\keys\templates\keys\publickey_detail.html:58
 msgid "Key text"
 msgstr "Κείμενο Κλειδιού"
 
@@ -897,8 +889,7 @@ msgstr "Περιγραφή κλειδιού"
 msgid "The description (user id) of the key"
 msgstr "Η περιγραφή (user id) του κλειδιού"
 
-#: .\etsd\keys\models.py:50
-#: .\etsd\keys\templates\keys\publickey_detail.html:15
+#: .\etsd\keys\models.py:50 .\etsd\keys\templates\keys\publickey_detail.html:15
 msgid "Status"
 msgstr "Κατάσταση"
 
@@ -1673,10 +1664,8 @@ msgid ""
 msgstr ""
 "Τα κρυπτογραφημένα δεδομένα που περιέχονται στα επόμενα παλαιά μηνύματα της "
 "Υπηρεσίας σας θα διαγραφούν σε 10 ημέρες.\n"
-"Τα μηνύματα έχουν ημερομηνία αποστολής παλαιότερη της "
-"%(one_year_before_p10)s.\n"
-"Παρακαλούμε αποθηκεύστε τα δεδομένα των μηνυμάτων εξωσυστημικά αν θέλετε να "
-"τα διατηρήσετε."
+"Τα μηνύματα έχουν ημερομηνία αποστολής παλαιότερη της %(one_year_before_p10)s.\n"
+"Παρακαλούμε αποθηκεύστε τα δεδομένα των μηνυμάτων εξωσυστημικά αν θέλετε να τα διατηρήσετε."
 
 #: .\etsd\msgs\templates\msgs\message_add_data.html:5
 #: .\etsd\msgs\templates\msgs\message_add_data.html:6

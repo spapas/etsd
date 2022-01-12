@@ -119,7 +119,7 @@
 {% block extra_script_no_compress %}
 {% get_user_authority as auth %}
 <script>
-  const passphraseLength = 8;
+  const passphraseLength = 4;
   const authority = '{{ auth.name }}';
   const authority_email = '{{ auth.email }}';
 </script>
