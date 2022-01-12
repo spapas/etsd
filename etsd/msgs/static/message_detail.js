@@ -73,7 +73,7 @@ $(function() {
       let cd = cipherData.find(cd => cd.data_id == md.data_id)
       
       return `<tr>
-        <td>${md.number}</td>
+        <td title='Data id: ${md.data_id}'>${md.number}</td>
         <td>${md.ext}</td>
         <td>${cd?cd.authority_name:"-"}</td>
         <td>${

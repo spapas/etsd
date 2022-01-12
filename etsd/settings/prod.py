@@ -12,6 +12,7 @@ STATICFILES_FINDERS = (
 )
 
 EMAIL_LOG_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+LANGUAGE_CODE = "el"
 
 try:
     from .local import *

@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "compressor",
     "authorities",
     "crispy_forms",
+    "django_browser_reload",
     "crispy_bootstrap5",
     "django_tables2",
     "django_tables2_column_shifter",
@@ -124,16 +125,15 @@ STATIC_ROOT = "/home/serafeim/etsd/static"
 STATIC_URL = "/static_etsd/"
 
 MEDIA_URL = "/media_etsd/"
-MEDIA_ROOT = "/home/serafeim/etsd/media"
+MEDIA_ROOT = "/home/files/etsd/media"
 
-SENDFILE_ROOT = "/home/serafeim/etsd/media/protected"
+SENDFILE_ROOT = "/home/files/etsd/media/protected"
 SENDFILE_URL = "/media_etsd/protected"
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 SENDFILE_BACKEND = "sendfile.backends.nginx"
-# TODO: CONFIGURE SENDFILE HERE
 
 
 CACHES = {
