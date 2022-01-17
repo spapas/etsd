@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 09:46+0300\n"
+"POT-Creation-Date: 2022-01-17 13:57+0200\n"
 "PO-Revision-Date: 2021-09-15 14:09+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -168,32 +168,24 @@ msgstr ""
 " "
 
 #: .\etsd\core\templates\core\edit_authority_data.html:40
-#, fuzzy
-#| msgid "Authority detail"
 msgid "Authority user changes"
-msgstr "Στοιχεία Υπηρεσίας"
+msgstr "Αλλαγή χρηστών"
 
 #: .\etsd\core\templates\core\edit_authority_data.html:44
 msgid "Date"
-msgstr ""
+msgstr "Ημερομηνία"
 
 #: .\etsd\core\templates\core\edit_authority_data.html:45
-#, fuzzy
-#| msgid "Users"
 msgid "User"
-msgstr "Χρήστες"
+msgstr "Χρήστης"
 
 #: .\etsd\core\templates\core\edit_authority_data.html:46
-#, fuzzy
-#| msgid "No users"
 msgid "Removed users"
-msgstr "Δεν υπάρχουν"
+msgstr "Χρήστες που έχουν αφαιρεθεί"
 
 #: .\etsd\core\templates\core\edit_authority_data.html:47
-#, fuzzy
-#| msgid "Edit users"
 msgid "Added users"
-msgstr "Επεξεργασία χρηστών"
+msgstr "Χρήστες που έχουν προστεθεί"
 
 #: .\etsd\core\templates\core\emails\edited_users.txt:3
 #, python-format
@@ -571,9 +563,14 @@ msgstr ""
 "μηνυμάτων. Μπορείτε να σημάνετε ένα \"Αρχειοθετημένο\" μήνυμα\n"
 "ξανά ως \"Αναγνωσμένο\".\n"
 
+#: .\etsd\core\templates\home.html:10 .\etsd\core\templates\home.html:15
+#: .\etsd\core\templates\partials\_nav.html:4
+msgid "E · T · S · D"
+msgstr "ΕΦ · Η · Δ · Ε · Π"
+
 #: .\etsd\core\templates\home.html:16
 msgid "Electronic Transmission of Sensitive Data"
-msgstr "Ηλεκτρονική διαβίβαση ευαισθητης πληροφορίας"
+msgstr "Εφαρμογή Ηλεκτρονικής Διακίνησης Ευαίσθητης Πληροφορίας"
 
 #: .\etsd\core\templates\home.html:17
 msgid ""
@@ -1470,7 +1467,7 @@ msgstr "Δε μπορείτε να επιλέξετε σχετικό μήνυμ�
 msgid "You must provide a related message when message kind is not New!"
 msgstr "Πρέπει να επιλέξετε σχετικό μήνυμα όταν το είδος δεν είναι Νέο!"
 
-#: .\etsd\msgs\management\commands\delete_old_data.py:78
+#: .\etsd\msgs\management\commands\delete_old_data.py:89
 msgid "[ETSD] Old message data will be deleted"
 msgstr "[ETSD] Διαγραφή δεδομένων παλαιών μηνυμάτων"
 
@@ -1664,8 +1661,10 @@ msgid ""
 msgstr ""
 "Τα κρυπτογραφημένα δεδομένα που περιέχονται στα επόμενα παλαιά μηνύματα της "
 "Υπηρεσίας σας θα διαγραφούν σε 10 ημέρες.\n"
-"Τα μηνύματα έχουν ημερομηνία αποστολής παλαιότερη της %(one_year_before_p10)s.\n"
-"Παρακαλούμε αποθηκεύστε τα δεδομένα των μηνυμάτων εξωσυστημικά αν θέλετε να τα διατηρήσετε."
+"Τα μηνύματα έχουν ημερομηνία αποστολής παλαιότερη της "
+"%(one_year_before_p10)s.\n"
+"Παρακαλούμε αποθηκεύστε τα δεδομένα των μηνυμάτων εξωσυστημικά αν θέλετε να "
+"τα διατηρήσετε."
 
 #: .\etsd\msgs\templates\msgs\message_add_data.html:5
 #: .\etsd\msgs\templates\msgs\message_add_data.html:6
