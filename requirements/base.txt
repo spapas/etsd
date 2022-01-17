@@ -22,7 +22,7 @@ djangorestframework==3.12.4
 django-tables2==2.4.1
 django-tables2-column-shifter==2.0.3
 django-tools==0.48.3
-django-widget-tweaks==1.4.12
+django-widget-tweaks==1.4.11
 openpyxl==3.0.9
 python-gnupg==0.4.7
 python-ldap==3.3.1
