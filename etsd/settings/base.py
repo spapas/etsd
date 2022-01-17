@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     "etsd.keys",
     "etsd.msgs",
     "etsd.users",
-    "etsd.branding",
     "dal",
     "dal_select2",
     "django.contrib.admin",
