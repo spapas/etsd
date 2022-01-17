@@ -7,7 +7,7 @@ from django.http.response import (
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.detail import SingleObjectMixin
 from django.db.models import Q, Case, Value, When, Prefetch

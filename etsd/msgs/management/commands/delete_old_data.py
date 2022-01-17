@@ -6,7 +6,7 @@ from etsd.msgs import models
 from django.core.mail import send_mail
 from etsd.core.utils import send_mail_body
 from etsd.users.utils import get_authority_users_emails
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class Command(BaseCommand):

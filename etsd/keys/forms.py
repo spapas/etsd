@@ -1,8 +1,8 @@
 from . import models
 from django import forms
 from django.conf import settings
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy as __
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as __
 import gnupg
 from .util import check_signatures
 
