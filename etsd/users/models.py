@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from memoize import memoize
 from authorities.models import Authority
 from etsd.core.models import UserDateAbstractModel

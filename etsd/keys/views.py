@@ -5,7 +5,7 @@ from django.contrib import messages
 
 from django.views.generic import ListView, DetailView, CreateView, FormView, UpdateView
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.utils import timezone
 from django.core.mail import send_mail
 

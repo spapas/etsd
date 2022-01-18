@@ -3,7 +3,7 @@ from django.views.generic import UpdateView, TemplateView, CreateView
 from authorities.models import Authority
 from .forms import AuthorityUsersModelForm
 from django.contrib import messages
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from dal import autocomplete

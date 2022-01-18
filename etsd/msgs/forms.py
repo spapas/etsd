@@ -1,6 +1,6 @@
 from django import forms
 from django_tools.middlewares import ThreadLocal
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from dal import autocomplete
 from authorities.models import Authority
 
