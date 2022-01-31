@@ -164,3 +164,17 @@ class RestLoginView(LoginView):
             },
             status=status.HTTP_200_OK,
         )
+
+
+def send_test_mail(request):
+    from django.core.mail import send_mail
+    from django.conf import settings
+    from django.http import HttpResponse
+
+    send_mail(
+        "TEST FROM ETSD",
+        "TEST",
+        settings.DEFAULT_FROM_EMAIL,
+        [x[1] for x in settings.ADMINS],
+    )
+    return HttpResponse("OK")

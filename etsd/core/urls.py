@@ -54,5 +54,15 @@ urlpatterns = [
         ),
         name="authority-autocomplete",
     ),
+    path(
+        "send_test_mail/",
+        permission_required("core.admin")(views.send_test_mail),
+        name="send_test_mail",
+    ),
+    path(
+        "test_sentry/",
+        permission_required("core.admin")(lambda r: 1 / 0),
+        name="test_sentry",
+    ),
     path("help/", views.HelpTemplateView.as_view(), name="help"),
 ]
