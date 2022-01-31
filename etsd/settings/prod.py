@@ -14,6 +14,8 @@ STATICFILES_FINDERS = (
 EMAIL_LOG_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 LANGUAGE_CODE = "el"
 
+CSRF_TRUSTED_ORIGINS = ["https://etsd.hcg.gr", "http://etsd.hcg.gr"]
+
 try:
     from .local import *
 except ImportError:
