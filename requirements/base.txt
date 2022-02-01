@@ -15,7 +15,7 @@ django-filter==21.1
 django-memoize==2.3.1
 django-reversion==4.0.2
 django-rules-light==0.3.1
-django-sendfile==0.3.11
+django-sendfile2==0.6.1
 dj-rest-auth==2.1.11
 djangorestframework==3.12.4
 django-tables2==2.4.1
