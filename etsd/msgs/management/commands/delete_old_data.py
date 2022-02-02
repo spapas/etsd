@@ -23,7 +23,9 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         three_years_before = timezone.now() - timezone.timedelta(days=1095)
         three_years_before_p10 = three_years_before + timezone.timedelta(days=10)
-        self.stdout.write("Will delete messages older than: {}".format(three_years_before))
+        self.stdout.write(
+            "Will delete messages older than: {}".format(three_years_before)
+        )
         self.stdout.write(
             "Will notify for messages older than: {}".format(three_years_before_p10)
         )
