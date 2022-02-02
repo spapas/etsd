@@ -21,7 +21,7 @@ from django.forms.models import BaseInlineFormSet
 from django_tables2 import RequestConfig
 from django_tables2.export.views import ExportMixin
 import rules_light
-from sendfile import sendfile
+from django_sendfile import sendfile
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 from etsd.keys.models import PublicKey

@@ -133,7 +133,7 @@ SENDFILE_URL = "/media_etsd/protected"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
-SENDFILE_BACKEND = "sendfile.backends.nginx"
+SENDFILE_BACKEND = "django_sendfile.backends.nginx"
 
 
 CACHES = {

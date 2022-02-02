@@ -35,7 +35,7 @@ def ldap_check(usernames):
 
         dn = lu[0][1]["departmentNumber"][0].decode("utf-8")
 
-        if u"ΥΠΗΡΕΣΙΕΣ" in dn or u"ΛΙΜΕΝΙΚΕΣ" in dn:
+        if "ΥΠΗΡΕΣΙΕΣ" in dn or "ΛΙΜΕΝΙΚΕΣ" in dn:
             return _(
                 "{0} is an authority and cannot be added as a user!".format(un.username)
             )
