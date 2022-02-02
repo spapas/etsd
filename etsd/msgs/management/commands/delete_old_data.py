@@ -21,16 +21,16 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **kwargs):
-        one_year_before = timezone.now() - timezone.timedelta(days=365)
-        one_year_before_p10 = one_year_before + timezone.timedelta(days=10)
-        self.stdout.write("Will delete messages older than: {}".format(one_year_before))
+        three_years_before = timezone.now() - timezone.timedelta(days=1095)
+        three_years_before_p10 = three_years_before + timezone.timedelta(days=10)
+        self.stdout.write("Will delete messages older than: {}".format(three_years_before))
         self.stdout.write(
-            "Will notify for messages older than: {}".format(one_year_before_p10)
+            "Will notify for messages older than: {}".format(three_years_before_p10)
         )
 
         messages_to_delete = models.Message.objects.filter(
             Exists(models.CipherData.objects.filter(data__message=OuterRef("pk"))),
-            sent_on__lte=one_year_before,
+            sent_on__lte=three_years_before,
         )
 
         del_cdata = models.CipherData.objects.filter(
@@ -49,7 +49,7 @@ class Command(BaseCommand):
 
         messages_to_notify = models.Message.objects.filter(
             Exists(models.CipherData.objects.filter(data__message=OuterRef("pk"))),
-            sent_on__lte=one_year_before_p10,
+            sent_on__lte=three_years_before_p10,
         )
 
         participants_to_notify = []
@@ -80,7 +80,7 @@ class Command(BaseCommand):
                 "msgs/emails/notify_data_deletion.txt",
                 dict(
                     messages=participants_to_notify_dict[k],
-                    one_year_before_p10=one_year_before_p10,
+                    three_years_before_p10=three_years_before_p10,
                 ),
             )
             recipients = get_authority_users_emails(k)
