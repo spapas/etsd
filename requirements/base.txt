@@ -7,8 +7,8 @@ django-browser-reload==1.3.0
 django-cleanup==6.0.0
 django-compressor==3.1
 django-crispy-forms==1.14.0
- -e git+https://github.com/spapas/django-email-log#egg=django_email_log
-# django-email-log==1.1.0
+##-e git+https://github.com/spapas/django-email-log#egg=django_email_log
+django-email-log==1.2.0
 django-extensions==3.1.5
 django-extra-views==0.14.0
 django-filter==21.1
