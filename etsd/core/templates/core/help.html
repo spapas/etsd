@@ -10,9 +10,13 @@
 
 {% get_current_language as LANGUAGE_CODE %}
 {% if LANGUAGE_CODE == 'el' %}
-<h3>
-    <a href='{% static "ETSD manual.pdf" %}'>Εγχειρίδιο χρήσης εφαρμογής (PDF)</a>
-</h3>
+<h4>
+<ul>
+    <li><a href='{% static "etsd_manual.pdf" %}'>Εγχειρίδιο βασικών λειτουργιών (PDF)</a></li>
+    <li><a href='{% static "diatagh2022.pdf" %}'>Διαταγή για ΕΦ.Η.Δ.Ε.Π. 2022 (PDF)</a></li>
+    <li><a href='{% static "app.doc" %}'>ΠΡΟΤΥΠΟ ΑΙΤΗΣΗΣ_ΑΝΑΦΟΡΑΣ ΕΦΗΔΕΠ (doc)</a></li>
+</ul>
+</h4>
 {% endif %}
 
 <h2>{% trans "Key management" %}</h2>
