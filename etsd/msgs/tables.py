@@ -54,13 +54,13 @@ class MessageTable(ColumnShiftTableBootstrap5):
     def render_sender(self, record):
         snder = record.participant_set.filter(kind="SENDER")
         if snder:
-            return snder.first().authority.name
+            return snder.first().authority
         else:
             return None
 
     def render_recipients(self, record):
         return ", ".join(
-            z.authority.name
+            str(z.authority)
             for z in record.participant_set.filter(kind__in=("CC", "RECIPIENT")).all()
         )
 
@@ -117,7 +117,7 @@ class ParticipantTable(ColumnShiftTableBootstrap5):
         empty_text = "No entries"
 
     def render_sender(self, record):
-        return ", ".join(z.authority.name for z in record.message.sender)
+        return ", ".join(str(z.authority) for z in record.message.sender)
 
     def render_recipients(self, record):
-        return ", ".join(z.authority.name for z in record.message.recipients)
+        return ", ".join(str(z.authority) for z in record.message.recipients)
