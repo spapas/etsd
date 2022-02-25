@@ -131,7 +131,7 @@ class PublicKeySubmitView(UpdateView):
         form.instance.status = "PENDING"
         form.save()
         pubk = self.object
-        
+
         email_body = send_mail_body(
             "keys/emails/awaiting_approval.txt",
             dict(
