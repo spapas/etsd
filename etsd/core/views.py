@@ -89,7 +89,7 @@ class AuthorityEditUsersView(
                     subject=_("Added as user in ETSD"),
                     message=email_body,
                     from_email="noreply@hcg.gr",
-                    recipient_list=[usr.email for usr in added_users if usr.email],
+                    recipient_list=[usr.email for usr in added_users if usr.email]+[auth.email],
                     fail_silently=False,
                 )
             if removed_users:
@@ -105,7 +105,7 @@ class AuthorityEditUsersView(
                     subject=_("Removed as a user in ETSD"),
                     message=email_body,
                     from_email="noreply@hcg.gr",
-                    recipient_list=[usr.email for usr in removed_users if usr.email],
+                    recipient_list=[usr.email for usr in removed_users if usr.email]+[auth.email],
                     fail_silently=False,
                 )
             uml = UserManagementLog()

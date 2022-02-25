@@ -131,7 +131,7 @@ class PublicKeySubmitView(UpdateView):
         form.instance.status = "PENDING"
         form.save()
         pubk = self.object
-        
+
         email_body = send_mail_body(
             "keys/emails/awaiting_approval.txt",
             dict(
@@ -191,7 +191,7 @@ class PublicKeyAcceptRejectFormView(UpdateView):
             subject=_("Public Key Confirmation"),
             message=email_body,
             from_email="noreply@hcg.gr",
-            recipient_list=get_authority_users_emails(pubk.authority),
+            recipient_list=get_authority_users_emails(pubk.authority)+[pubk.authority.email],
             fail_silently=False,
         )
 
