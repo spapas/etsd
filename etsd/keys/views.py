@@ -191,7 +191,8 @@ class PublicKeyAcceptRejectFormView(UpdateView):
             subject=_("Public Key Confirmation"),
             message=email_body,
             from_email="noreply@hcg.gr",
-            recipient_list=get_authority_users_emails(pubk.authority)+[pubk.authority.email],
+            recipient_list=get_authority_users_emails(pubk.authority)
+            + [pubk.authority.email],
             fail_silently=False,
         )
 
