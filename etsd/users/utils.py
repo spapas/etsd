@@ -11,7 +11,4 @@ def get_authority_users_emails(authority):
 
 
 def get_admin_emails():
-    return [
-        usr.email
-        for usr in models.User.objects.filter(is_staff="True")
-    ]
+    return [usr.email for usr in models.User.objects.filter(is_staff="True")]
