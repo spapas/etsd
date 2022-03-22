@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseRedirect
-from django.views.generic import UpdateView, TemplateView, CreateView
+from django.views.generic import UpdateView, TemplateView, CreateView, ListView
 from authorities.models import Authority
 from .forms import AuthorityUsersModelForm
 from django.contrib import messages
@@ -15,6 +15,83 @@ from rest_framework.response import Response
 from etsd.users.models import UserManagementLog
 from django.core.mail import send_mail
 from etsd.core.utils import send_mail_body
+import django_filters
+from django_tables2_column_shifter.tables import ColumnShiftTableBootstrap5
+import django_tables2 as tables
+from django_tables2.utils import A
+from django_tables2 import RequestConfig
+
+
+def filter_has_active_key(queryset, name, value):
+    if value == True:
+        return queryset.filter(publickey__status="ACTIVE").distinct()
+    else:
+        return queryset.exclude(publickey__status="ACTIVE").distinct()
+
+
+class AuthorityFilter(django_filters.FilterSet):
+    has_active_key = django_filters.BooleanFilter(
+        label="Has active key", field_name="foo", method=filter_has_active_key
+    )
+
+    class Meta:
+        model = Authority
+        fields = {
+            "name": ["icontains"],
+            "kind": ["exact"],
+            "is_active": ["exact"],
+            "users__username": ["isnull"],
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.form["users__username__isnull"].label = "Χωρίς χρήστες"
+
+
+class AuthorityTable(ColumnShiftTableBootstrap5):
+    id = tables.LinkColumn(
+        "authority_view",
+        args=[A("pk")],
+        attrs={"a": {"class": "btn btn-info btn-sm"}},
+    )
+    users = tables.TemplateColumn(
+        "{% for u in record.users.all %}{{ u.username }}{% if not forloop.last %}, {% endif %}{% endfor %}"
+    )
+    # keys = tables.TemplateColumn("{% for u in record.publickeys_set.all %}{{ u.approved_on }}{% if not forloop.last %}, {% endif %}{% endfor %}")
+
+    class Meta:
+        model = Authority
+        attrs = {"class": "table table-sm table-stripped"}
+        empty_text = "No entries"
+        fields = ("id", "kind", "name", "email", "is_active", "users")
+
+
+class AuthorityListView(ListView):
+    model = Authority
+    context_object_name = "authorities"
+
+    def get_queryset(self):
+
+        qs = (
+            super()
+            .get_queryset()
+            .prefetch_related("users", "publickey_set")
+            .select_related("kind")
+        )
+
+        return qs
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        qs = self.get_queryset()
+        self.filter = AuthorityFilter(self.request.GET, qs)
+        self.table = table = AuthorityTable(self.filter.qs)
+
+        RequestConfig(self.request, paginate={"per_page": 15}).configure(table)
+        context["filter"] = self.filter
+        context["table"] = self.table
+        return context
 
 
 class AuthorityCreateView(CreateView):

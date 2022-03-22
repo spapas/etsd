@@ -1,30 +1,13 @@
 {% extends "site_base.html" %}
 {% load i18n %}
+{% load render_table from django_tables2 %}
 {%block extra_style%}
-<style>
-.container.main-container div ul li{display:flex; flex-direction:row; justify-content:flex-start; align-items:baseline;margin-top:2px;}
 
-.container.main-container .ypiresia-buttons a {white-space:nowrap; margin-top:4px; margin-bottom:3px; justify-content: space-evenly;}
-
-.container.main-container .ypiresia-text{min-width:20vw;}
-
-.container.main-container div ul li:hover{border-radius: 10px; background-color:rgb(220,220,220);}
-</style>
 {% endblock %}
 {% block page_title %}{% trans "Authority List" %}{% endblock %}
 {% block page_content %}
 
-
-<ul>
-{% for a in authorities %}
-    <li><div class="ypiresia-text">{{ a }}</div> 
-        <div class='ypiresia-buttons'><a class='btn btn-info btn-sm' href='{% url "authority_view" a.id %}'>{% trans "View" %}</a>
-        <a class='btn btn-warning btn-sm' href='{% url "authority_update" a.id %}'>{% trans "Edit" %}</a>
-        <a class='btn btn-warning btn-sm' href='{% url "authority_update_data" a.id %}'>{% trans "Edit users" %}</a></div>
-    </li>
-{% empty %}
-    <li>{% trans "No authorities" %}</li>
-{% endfor %}
-</ul>
+{% include "partials/_filter.html" with filter=filter %}
+{% render_table table %}
 <a class='btn btn-primary' href='{% url "authority_create" %}'>{% trans "Create" %}</a>
 {% endblock %}

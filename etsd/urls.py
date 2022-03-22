@@ -7,10 +7,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import permission_required
 from authorities.views import (
-    AuthorityListView,
     AuthorityDetailView,
 )
 from etsd.core.views import (
+    AuthorityListView,
     AuthorityEditUsersView,
     AuthorityCreateView,
     AuthorityUpdateView,
