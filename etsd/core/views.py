@@ -29,9 +29,19 @@ def filter_has_active_key(queryset, name, value):
         return queryset.exclude(publickey__status="ACTIVE").distinct()
 
 
+def filter_has_users(queryset, name, value):
+    if value == True:
+        return queryset.exclude(users__id__isnull=True).distinct()
+    else:
+        return queryset.filter(users__id__isnull=True).distinct()
+
+
 class AuthorityFilter(django_filters.FilterSet):
     has_active_key = django_filters.BooleanFilter(
         label="Has active key", field_name="foo", method=filter_has_active_key
+    )
+    has_users = django_filters.BooleanFilter(
+        label="Has users", field_name="foo", method=filter_has_users
     )
 
     class Meta:
@@ -45,7 +55,7 @@ class AuthorityFilter(django_filters.FilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.form["users__username__isnull"].label = "Χωρίς χρήστες"
+        # self.form["users__username__isnull"].label = "Χωρίς χρήστες"
 
 
 class AuthorityTable(ColumnShiftTableBootstrap5):
