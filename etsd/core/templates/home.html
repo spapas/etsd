@@ -95,7 +95,8 @@
           {% endif %}
           {% if perms.core.admin %}
             <a class="btn btn-primary btn-sm" href="{% url 'message_list' %}" role="button">{% trans "All Messages" %}</a>
-              <a class="btn btn-danger btn-sm" href="{% url 'authority_list' %}" role="button">{% translate "Authorities" %}</a></p>              
+            <a class="btn btn-danger btn-sm" href="{% url 'authority_list' %}" role="button">{% translate "Authorities" %}</a>
+            <a class="btn btn-danger btn-sm" href="{% url 'stats' %}" role="button">{% translate "Stats" %}</a></p>              
           {% endif %}
               
       {% else %}

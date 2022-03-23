@@ -14,6 +14,7 @@ from etsd.core.views import (
     AuthorityEditUsersView,
     AuthorityCreateView,
     AuthorityUpdateView,
+    StatsView,
 )
 from django.contrib.auth.decorators import (
     permission_required,
@@ -39,6 +40,11 @@ urlpatterns = [
     path("keys/", include("etsd.keys.urls")),
     path("users/", include("etsd.users.urls")),
     path("admin/", admin.site.urls),
+    path(
+        "stats/",
+        permission_required("core.admin")(StatsView.as_view()),
+        name="stats",
+    ),
     path(
         "authorities/",
         permission_required("core.admin")(AuthorityListView.as_view()),

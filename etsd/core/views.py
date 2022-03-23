@@ -267,3 +267,90 @@ def send_test_mail(request):
         [x[1] for x in settings.ADMINS],
     )
     return HttpResponse("OK")
+
+
+from simple_stats import get_stats
+from etsd.msgs import models
+from django.db.models import OuterRef, Subquery
+
+STATS_CFG = [
+    {
+        "label": "Total Messages",
+        "kind": "query_aggregate_single",
+        "method": "count",
+        "field": "id",
+    },
+    {
+        "label": "Per year",
+        "kind": "query_aggregate",
+        "method": "count",
+        "field": "protocol_year",
+    },
+    {
+        "label": "Per status",
+        "kind": "choice_aggregate",
+        "method": "count",
+        "field": "status",
+        "choices": models.MESSAGE_STATUS_CHOICES,
+    },
+    {
+        "label": "Per kind",
+        "kind": "choice_aggregate",
+        "method": "count",
+        "field": "kind",
+        "choices": models.MESSAGE_KIND_CHOICES,
+    },
+    {
+        "label": "Per sending authority",
+        "kind": "query_aggregate",
+        "method": "count",
+        "field": "sender",
+    },
+    {
+        "label": "Per recipient authority",
+        "kind": "query_aggregate",
+        "method": "count",
+        "field": "recipient",
+    },
+    {
+        "label": "Per cc authority",
+        "kind": "query_aggregate",
+        "method": "count",
+        "field": "cc",
+    },
+    # {
+    #    'label': 'Per year sent on',
+    #    'kind': 'query_aggregate_date',
+    #    'method': 'count',
+    #    'field': 'sent_on',
+    #    'what': 'year',
+    # },
+]
+
+
+class StatsView(TemplateView):
+    template_name = "core/stats.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        qs = models.Message.objects.all().annotate(
+            sender=Subquery(
+                models.Participant.objects.filter(
+                    message=OuterRef("pk"), kind="SENDER"
+                ).values("authority__name")
+            ),
+            recipient=Subquery(
+                models.Participant.objects.filter(
+                    message=OuterRef("pk"), kind="RECIPIENT"
+                ).values("authority__name")
+            ),
+            cc=Subquery(
+                models.Participant.objects.filter(
+                    message=OuterRef("pk"), kind="CC"
+                ).values("authority__name")
+            ),
+        )
+
+        stats = get_stats(qs, STATS_CFG)
+        ctx.update({"stats": stats})
+        return ctx

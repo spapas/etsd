@@ -1,0 +1,36 @@
+{% extends "site_base.html" %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% load i18n static %}
+
+
+{% block head_title %}{% blocktrans %}Stats{% endblocktrans %}{% endblock %}
+{% block page_title %}{% blocktrans %}Stats{% endblocktrans %}{% endblock %}
+
+{% block page_content %}
+
+<div class='row'>
+    {% for s in stats %}
+    <div class='col-md-4 mb-5' style='max-height: 500px; overflow: auto;'>
+        <h4>{{ s.label }}</h4>
+        {% if s.values %}
+            <table class='table table-condensed table-striped small table-sm'>
+                {% for v in s.values %}
+                    <tr>
+                        <td>{{ v.0 }}</td>
+                        <td>{{ v.1 }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <b>{{ s.value }}</b>
+        {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+
+
+{% block extra_script_no_compress %}
+{% endblock %}
