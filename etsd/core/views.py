@@ -50,7 +50,7 @@ class AuthorityFilter(django_filters.FilterSet):
             "name": ["icontains"],
             "kind": ["exact"],
             "is_active": ["exact"],
-            "users__username": ["isnull"],
+            # "users__username": ["isnull"],
         }
 
     def __init__(self, *args, **kwargs):
