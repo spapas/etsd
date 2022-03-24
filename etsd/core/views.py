@@ -1,6 +1,7 @@
 from django.http.response import HttpResponseRedirect
 from django.views.generic import UpdateView, TemplateView, CreateView, ListView
 from authorities.models import Authority
+from etsd.msgs.filters import MessageFilter
 from .forms import AuthorityUsersModelForm
 from django.contrib import messages
 from django.utils.translation import gettext as _
@@ -324,9 +325,21 @@ STATS_CFG = [
         "field": "cc",
     },
     {
-        "label": "Per avg read time",
+        "label": "Avg read time",
         "kind": "query_aggregate_single",
         "method": "avg",
+        "field": "read_time",
+    },
+    {
+        "label": "Max read time",
+        "kind": "query_aggregate_single",
+        "method": "max",
+        "field": "read_time",
+    },
+    {
+        "label": "Min read time",
+        "kind": "query_aggregate_single",
+        "method": "min",
         "field": "read_time",
     },
 ]
@@ -365,6 +378,28 @@ AUTH_STATS_CFG = [
 ]
 
 
+class StatsMessageFilter(django_filters.FilterSet):
+    sender = django_filters.CharFilter(
+        label="Sender", field_name="sender", lookup_expr="icontains"
+    )
+    recipient = django_filters.CharFilter(
+        label="Recipient", field_name="recipient", lookup_expr="icontains"
+    )
+    cc = django_filters.CharFilter(label="CC", field_name="cc", lookup_expr="icontains")
+
+    class Meta:
+        model = models.Message
+        fields = {
+            "kind": ["exact"],
+            "status": ["exact"],
+            "protocol_year": ["exact"],
+            "sent_on": ["exact", "month", "year"],
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
 class StatsView(TemplateView):
     template_name = "core/stats.html"
 
@@ -395,7 +430,9 @@ class StatsView(TemplateView):
             read_time=F("data_access_date") - F("sent_on"),
         )
 
-        stats = get_stats(qs, STATS_CFG)
+        filter = StatsMessageFilter(self.request.GET, qs)
+
+        stats = get_stats(filter.qs, STATS_CFG)
 
         auth_qs = auth_models.Authority.objects.all().annotate(
             has_users=Exists(User.objects.filter(authorities__id=OuterRef("pk"))),
@@ -406,6 +443,12 @@ class StatsView(TemplateView):
             ),
         )
         auth_stats = get_stats(auth_qs, AUTH_STATS_CFG)
-        ctx.update({"stats": stats, "auth_stats": auth_stats})
+        ctx.update(
+            {
+                "stats": stats,
+                "auth_stats": auth_stats,
+                "filter": filter,
+            }
+        )
 
         return ctx

@@ -8,7 +8,7 @@
 {% block page_title %}{% blocktrans %}Stats{% endblocktrans %}{% endblock %}
 
 {% block page_content %}
-
+{% include "partials/_filter.html" with filter=filter %}
 <div class='row'>
     {% for s in stats %}
     <div class='col-md-4 mb-5' style='max-height: 500px; overflow: auto;'>
