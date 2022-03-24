@@ -273,7 +273,7 @@ from simple_stats import get_stats
 from etsd.msgs import models
 from authorities import models as auth_models
 from etsd.keys import models as key_models
-from django.db.models import OuterRef, Subquery, Exists
+from django.db.models import OuterRef, Subquery, Exists, F
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -323,13 +323,12 @@ STATS_CFG = [
         "method": "count",
         "field": "cc",
     },
-    # {
-    #    'label': 'Per year sent on',
-    #    'kind': 'query_aggregate_date',
-    #    'method': 'count',
-    #    'field': 'sent_on',
-    #    'what': 'year',
-    # },
+    {
+        "label": "Per avg read time",
+        "kind": "query_aggregate_single",
+        "method": "avg",
+        "field": "read_time",
+    },
 ]
 
 AUTH_STATS_CFG = [
@@ -387,6 +386,13 @@ class StatsView(TemplateView):
                     message=OuterRef("pk"), kind="CC"
                 ).values("authority__name")
             ),
+            data_access_date=Subquery(
+                models.DataAccess.objects.filter(
+                    data__message=OuterRef("pk"),
+                    participant__kind="RECIPIENT",
+                ).values("created_on")
+            ),
+            read_time=F("data_access_date") - F("sent_on"),
         )
 
         stats = get_stats(qs, STATS_CFG)
@@ -401,4 +407,5 @@ class StatsView(TemplateView):
         )
         auth_stats = get_stats(auth_qs, AUTH_STATS_CFG)
         ctx.update({"stats": stats, "auth_stats": auth_stats})
+
         return ctx
