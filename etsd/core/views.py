@@ -271,7 +271,12 @@ def send_test_mail(request):
 
 from simple_stats import get_stats
 from etsd.msgs import models
-from django.db.models import OuterRef, Subquery
+from authorities import models as auth_models
+from etsd.keys import models as key_models
+from django.db.models import OuterRef, Subquery, Exists
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 STATS_CFG = [
     {
@@ -327,6 +332,39 @@ STATS_CFG = [
     # },
 ]
 
+AUTH_STATS_CFG = [
+    {
+        "label": "Total authorities",
+        "kind": "query_aggregate_single",
+        "method": "count",
+        "field": "id",
+    },
+    {
+        "label": "Per active",
+        "kind": "query_aggregate",
+        "method": "count",
+        "field": "is_active",
+    },
+    {
+        "label": "Per kind",
+        "kind": "query_aggregate",
+        "method": "count",
+        "field": "kind__name",
+    },
+    {
+        "label": "Per has users",
+        "kind": "query_aggregate",
+        "method": "count",
+        "field": "has_users",
+    },
+    {
+        "label": "Per has active key",
+        "kind": "query_aggregate",
+        "method": "count",
+        "field": "has_active_key",
+    },
+]
+
 
 class StatsView(TemplateView):
     template_name = "core/stats.html"
@@ -352,5 +390,15 @@ class StatsView(TemplateView):
         )
 
         stats = get_stats(qs, STATS_CFG)
-        ctx.update({"stats": stats})
+
+        auth_qs = auth_models.Authority.objects.all().annotate(
+            has_users=Exists(User.objects.filter(authorities__id=OuterRef("pk"))),
+            has_active_key=Exists(
+                key_models.PublicKey.objects.filter(
+                    status="ACTIVE", authority__id=OuterRef("pk")
+                )
+            ),
+        )
+        auth_stats = get_stats(auth_qs, AUTH_STATS_CFG)
+        ctx.update({"stats": stats, "auth_stats": auth_stats})
         return ctx

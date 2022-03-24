@@ -27,7 +27,29 @@
         {% endif %}
     </div>
     {% endfor %}
-  </div>
+</div>
+
+<hr />
+
+<div class='row'>
+    {% for s in auth_stats %}
+    <div class='col-md-4 mb-5' style='max-height: 500px; overflow: auto;'>
+        <h4>{{ s.label }}</h4>
+        {% if s.values %}
+            <table class='table table-condensed table-striped small table-sm'>
+                {% for v in s.values %}
+                    <tr>
+                        <td>{{ v.0 }}</td>
+                        <td>{{ v.1 }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <b>{{ s.value }}</b>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
 
