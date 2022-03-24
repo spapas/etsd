@@ -390,9 +390,7 @@ class StatsView(TemplateView):
                 models.DataAccess.objects.filter(
                     data__message=OuterRef("pk"),
                     participant__kind="RECIPIENT",
-                )
-                .values("created_on")
-                .first()
+                ).values("created_on")[:1]
             ),
             read_time=F("data_access_date") - F("sent_on"),
         )
