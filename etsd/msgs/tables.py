@@ -95,6 +95,7 @@ class ParticipantTable(ColumnShiftTableBootstrap5):
         args=[A("message.rel_message_id")],
         verbose_name=__("Related message"),
         attrs={"a": {"class": "btn btn-primary btn-sm"}},
+        orderable=False,
     )
 
     sender = tables.Column(verbose_name=__("Sender"), empty_values=(), orderable=False)
