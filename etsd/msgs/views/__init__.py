@@ -392,10 +392,14 @@ class MessageDeletePostView(SingleObjectMixin, View):
 
     def post(self, request, *args, **kwargs):
         message = self.object = self.get_object()
-        for m in message.participant_set.all():
-            if hasattr(m, "participantkey"):
-                m.participantkey.delete()
-            m.delete()
+
+        for p in message.participant_set.all():
+            p.dataaccess_set.all().delete()
+
+            if hasattr(p, "participantkey"):
+                p.participantkey.delete()
+
+            p.delete()
         message.delete()
         messages.error(
             self.request,
@@ -476,6 +480,9 @@ class CipherDataDeletePostView(SingleObjectMixin, View):
         cipherdata = self.object = self.get_object()
         if cipherdata.data.message.status == "DRAFT":
             for cd in models.CipherData.objects.filter(data=cipherdata.data):
+                cd.delete()  # Is this necessary? Maybe cascade deletes it?
+
+            for cd in models.DataAccess.objects.filter(data=cipherdata.data):
                 cd.delete()  # Is this necessary? Maybe cascade deletes it?
 
             cipherdata.data.delete()

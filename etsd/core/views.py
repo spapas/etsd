@@ -405,6 +405,9 @@ class StatsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        # TODO: THis query is *not* correct. Please notice that we
+        # need to use the [:1] to get only the 1st recipient and cc
+        # or else this will break (because the subquery will return multiple results)
         qs = models.Message.objects.all().annotate(
             sender=Subquery(
                 models.Participant.objects.filter(
@@ -414,12 +417,12 @@ class StatsView(TemplateView):
             recipient=Subquery(
                 models.Participant.objects.filter(
                     message=OuterRef("pk"), kind="RECIPIENT"
-                ).values("authority__name")
+                ).values("authority__name")[:1]
             ),
             cc=Subquery(
                 models.Participant.objects.filter(
                     message=OuterRef("pk"), kind="CC"
-                ).values("authority__name")
+                ).values("authority__name")[:1]
             ),
             data_access_date=Subquery(
                 models.DataAccess.objects.filter(
