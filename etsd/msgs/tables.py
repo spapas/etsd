@@ -90,12 +90,11 @@ class ParticipantTable(ColumnShiftTableBootstrap5):
         order_by=A("message.protocol"),
     )
 
-    rel_message = tables.LinkColumn(
+    message__rel_message = tables.LinkColumn(
         "message_detail",
         args=[A("message.rel_message_id")],
         verbose_name=__("Related message"),
         attrs={"a": {"class": "btn btn-primary btn-sm"}},
-        orderable=False,
     )
 
     sender = tables.Column(verbose_name=__("Sender"), empty_values=(), orderable=False)
@@ -111,6 +110,7 @@ class ParticipantTable(ColumnShiftTableBootstrap5):
             "status",
             "proto",
             "kind",
+            "message__rel_message",
             A("message.sent_on"),
             A("message.kind"),
             A("message.local_identifier"),
