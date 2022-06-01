@@ -275,7 +275,7 @@ class MessageDetailView(MessageAccessMixin, DetailView):
                     kind = "RECIPIENT"
                 else:
                     kind = p.kind
-                reply_url += "&pid=" + str(p.authority.id) + "&pkind=" + kind
+                reply_url += "&pid=" + str(p.authority_id) + "&pkind=" + kind
         context["reply_url"] = reply_url
 
         context["message_data"] = [
