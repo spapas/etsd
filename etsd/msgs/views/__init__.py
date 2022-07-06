@@ -371,7 +371,7 @@ class MessageSendPostView(SingleObjectMixin, View):
                 recip_emails.append(recip_user.email)
 
         send_mail(
-            subject="New encrypted message",
+            subject="[ETSD] New encrypted message",
             message=email_body,
             from_email="noreply@hcg.gr",
             recipient_list=recip_emails,

@@ -174,7 +174,7 @@ class AuthorityEditUsersView(
                     ),
                 )
                 send_mail(
-                    subject=_("Added as user in ETSD"),
+                    subject=_("[ETSD] Added as user in ETSD"),
                     message=email_body,
                     from_email="noreply@hcg.gr",
                     recipient_list=[usr.email for usr in added_users if usr.email]
@@ -191,7 +191,7 @@ class AuthorityEditUsersView(
                     ),
                 )
                 send_mail(
-                    subject=_("Removed as a user in ETSD"),
+                    subject=_("[ETSD] Removed as a user in ETSD"),
                     message=email_body,
                     from_email="noreply@hcg.gr",
                     recipient_list=[usr.email for usr in removed_users if usr.email]
