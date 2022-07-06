@@ -140,7 +140,7 @@ class PublicKeySubmitView(UpdateView):
             ),
         )
         send_mail(
-            subject=_("Public Key awaiting approval"),
+            subject=_("[ETSD] Public Key awaiting approval"),
             message=email_body,
             from_email="noreply@hcg.gr",
             recipient_list=get_admin_emails(),
@@ -188,7 +188,7 @@ class PublicKeyAcceptRejectFormView(UpdateView):
         )
 
         send_mail(
-            subject=_("Public Key Confirmation"),
+            subject=_("[ETSD] Public Key Confirmation"),
             message=email_body,
             from_email="noreply@hcg.gr",
             recipient_list=get_authority_users_emails(pubk.authority)
