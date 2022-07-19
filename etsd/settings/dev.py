@@ -35,6 +35,7 @@ CHECK_FILE_SIGNATURES = False
 AUTH_PASSWORD_VALIDATORS = []
 
 SENDFILE_BACKEND = "django_sendfile.backends.development"
+SENDFILE_ROOT = "c:/home/files/etsd/media/protected"
 
 # Ldap debug logging
 # LOGGING = {
