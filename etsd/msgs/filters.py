@@ -1,5 +1,6 @@
 import django_filters
 from . import models
+from django.utils.translation import gettext_lazy as _
 
 
 class MessageFilter(django_filters.FilterSet):
@@ -19,6 +20,15 @@ class MessageFilter(django_filters.FilterSet):
 
 
 class ParticipantFilter(django_filters.FilterSet):
+    sender = django_filters.CharFilter(
+        label=_("Sender"), method="filter_sender", help_text=_("Enter authority name")
+    )
+    recipient = django_filters.CharFilter(
+        label=_("Recipient (to)"),
+        method="filter_recipient",
+        help_text=_("Enter authority name"),
+    )
+
     class Meta:
         model = models.Participant
         fields = {
@@ -36,3 +46,19 @@ class ParticipantFilter(django_filters.FilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def filter_sender(self, qs, name, value):
+        if value:
+            return qs.filter(
+                message__participant__kind="SENDER",
+                message__participant__authority__name__icontains=value,
+            )
+        return qs
+
+    def filter_recipient(self, qs, name, value):
+        if value:
+            return qs.filter(
+                message__participant__kind="RECIPIENT",
+                message__participant__authority__name__icontains=value,
+            )
+        return qs
