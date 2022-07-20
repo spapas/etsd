@@ -209,6 +209,7 @@ class MessageCreateView(CreateWithInlinesView):
             pass
         if participants:
             self.inlines[0].factory_kwargs["extra"] = len(participants)
+            self.inlines[0].initial = []
             for p in participants:
                 self.inlines[0].initial.append({"authority": p[0], "kind": p[1]})
         else:
