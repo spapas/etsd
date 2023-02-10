@@ -56,6 +56,17 @@ When a user of the receiving authority logs in
 he can choose to submit the authority private key so
 it can be used to decrypt the authority data.
 
+# Risks
+
+If your server is compromised, the client-side (JS) code *could* be changed 
+so it transmits the private key of the users over the network when they unlock it. 
+This way the malicious user will get access to the data of all the users that
+unlock their key while the backdoor is undetected.
+
+This can be resolved by using self-contained binaries that interact with the service
+and have their signature published.
+
+
 # Installation
 
 This is a rather simple Django application. It has *no* external dependencies
@@ -181,3 +192,5 @@ Once again, the data is downloaded as a cipher and it is decrypted in his comput
 
 He could also delete the cipher data from the server completely if he choses. The message will not be deleted but the data that was 
 encrypted with his public key will be completely removed.
+
+
