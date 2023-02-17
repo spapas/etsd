@@ -86,11 +86,11 @@ class MessageCreateForm(forms.ModelForm):
 
         kind = self.cleaned_data.get("kind")
         rel_message = self.cleaned_data.get("rel_message")
-        if kind == "NEW" and rel_message:
+        '''if kind == "NEW" and rel_message:
             self.add_error(
                 "rel_message",
                 _("You cannot add a related message when message kind is New!"),
-            )
+            )'''
         if kind != "NEW" and not rel_message:
             self.add_error(
                 "rel_message",
