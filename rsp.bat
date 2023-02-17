@@ -1,2 +1,2 @@
 set WERKZEUG_DEBUG_PIN=off
-python manage.py runserver_plus
+python manage.py runserver_plus --keep-meta-shutdown

@@ -38,10 +38,14 @@
 {% block extra_script_no_compress %}
 {% get_setting_value "MAX_FILE_SIZE" as MAX_FILE_SIZE %}
 {% get_setting_value "MAX_FILE_SIZE_STR" as MAX_FILE_SIZE_STR %}
+{% get_setting_value "MAX_ZIP_SIZE" as MAX_ZIP_SIZE %}
+{% get_setting_value "MAX_ZIP_SIZE_STR" as MAX_ZIP_SIZE_STR %}
 <script>
   const requestPath = '{{ request.path }}'
   const maxFileSize = {{ MAX_FILE_SIZE }};
   const maxFileSizeStr = '{{ MAX_FILE_SIZE_STR }}';
+  const maxZipSize = {{ MAX_ZIP_SIZE }};
+  const maxZipSizeStr = '{{ MAX_ZIP_SIZE_STR }}';
 </script>
 
 <script>
@@ -76,8 +80,13 @@
       document.getElementById('file').addEventListener("change", function() {
         if (this.files && this.files[0]) {
             let theFile = this.files[0];
-            
-            if (theFile.size > maxFileSize) {
+
+            if (getFileExt(theFile.name) == 'zip' && theFile.size > maxZipSize  ) {
+              bootstrap5Alert({'message': gettext("Zip file can be up to ") + maxZipSizeStr , 'title': gettext("ERROR")})
+              document.getElementById('file').value=''
+              return 
+            }
+            else if (theFile.size > maxFileSize && getFileExt(theFile.name) != 'zip') {
               bootstrap5Alert({'message': gettext("File can be up to ") + maxFileSizeStr, 'title': gettext("ERROR")})
               document.getElementById('file').value=''
               return 
