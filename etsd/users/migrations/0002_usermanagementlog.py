@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("authorities", "0003_authority_email"),
         ("users", "0001_initial"),

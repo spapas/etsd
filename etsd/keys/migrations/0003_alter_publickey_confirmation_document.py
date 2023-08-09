@@ -5,7 +5,6 @@ import etsd.keys.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("keys", "0002_initial"),
     ]

@@ -5,6 +5,7 @@ from memoize import memoize
 from authorities.models import Authority
 from etsd.core.models import UserDateAbstractModel
 
+
 # Use custom user model by default as per
 # https://docs.djangoproject.com/en/2.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
 class User(AbstractUser):

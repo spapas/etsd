@@ -22,7 +22,6 @@ def get_ldap_user(con, user):
 
 
 def ldap_check(usernames):
-
     con = init_ldap_con()
     for un in usernames:
         if un.username in ["root", "pir", "raf", "lav", "hr_user", "mark_user"]:

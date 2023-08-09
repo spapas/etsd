@@ -82,7 +82,6 @@ class AuthorityListView(ListView):
     context_object_name = "authorities"
 
     def get_queryset(self):
-
         qs = (
             super()
             .get_queryset()

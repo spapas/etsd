@@ -5,7 +5,6 @@ import etsd.msgs.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("msgs", "0005_auto_20210812_2124"),
     ]
