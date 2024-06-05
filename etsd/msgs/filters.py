@@ -7,6 +7,7 @@ class MessageFilter(django_filters.FilterSet):
     class Meta:
         model = models.Message
         fields = {
+            "id": ["exact"],
             "kind": ["exact"],
             "category": ["exact"],
             "status": ["exact"],
@@ -32,6 +33,7 @@ class ParticipantFilter(django_filters.FilterSet):
     class Meta:
         model = models.Participant
         fields = {
+            "id": ["exact"],
             "status": ["exact"],
             "kind": ["exact"],
             "message__kind": ["exact"],
