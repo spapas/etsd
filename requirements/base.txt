@@ -1,5 +1,5 @@
 crispy-bootstrap5==0.7
-Django==4.2.4
+Django==4.2.13
 django-auth-ldap==4.5.0
 django-authorities==0.4.2
 django-autocomplete-light==3.9.7
