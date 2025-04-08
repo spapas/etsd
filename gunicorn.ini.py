@@ -4,7 +4,7 @@ from os import environ
 
 
 def max_workers():
-    return 2 * cpu_count() + 1
+    return cpu_count()
 
 
 # bind = '0.0.0.0:' + environ.get('PORT', '8000')
@@ -13,8 +13,8 @@ chdir = "/home/serafeim/etsd/etsd/"
 pidfile = "/home/serafeim/etsd/gunicorn.pid"
 
 proc_name = "etsd"
-# threads = 2
-# worker_class = "gthread"
+threads = 2
+worker_class = "gthread"
 workers = max_workers()
 
 errorlog = "/home/serafeim/etsd/logs/gunicorn_error.log"
