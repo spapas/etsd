@@ -13,8 +13,8 @@ chdir = "/home/serafeim/etsd/etsd/"
 pidfile = "/home/serafeim/etsd/gunicorn.pid"
 
 proc_name = "etsd"
-threads = 2
-worker_class = "gthread"
+# threads = 2
+# worker_class = "gthread"
 workers = max_workers()
 
 errorlog = "/home/serafeim/etsd/logs/gunicorn_error.log"
