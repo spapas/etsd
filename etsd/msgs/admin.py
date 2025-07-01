@@ -69,9 +69,9 @@ class DataAccessAdmin(admin.ModelAdmin):
         "participant__authority__name",
     )
 
+
 @admin.register(models.Participant)
 class ParticipantAdmin(admin.ModelAdmin):
     list_display = ("id", "authority", "message", "kind", "status")
     list_filter = ("authority", "message", "kind", "status")
     search_fields = ("id", "authority__name", "message__protocol")
-
