@@ -44,6 +44,7 @@ class ParticipantFilter(django_filters.FilterSet):
             "message__rel_message__protocol": [
                 "exact",
             ],
+            "message__local_identifier": ["icontains"],
         }
 
     def __init__(self, *args, **kwargs):
