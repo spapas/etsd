@@ -2,15 +2,15 @@ import ldap
 from django_auth_ldap.config import LDAPSearch, LDAPSearchUnion
 
 
-AUTH_LDAP_BIND_DN = ""
-AUTH_LDAP_BIND_PASSWORD = ""
-AUTH_LDAP_SERVER_URI = ""
+AUTH_LDAP_BIND_DN = "uid=admin,ou=system"
+AUTH_LDAP_BIND_PASSWORD = "secret"
+AUTH_LDAP_SERVER_URI = "ldap://localhost:10389"
 
 AUTH_LDAP_USER_SEARCH = LDAPSearchUnion(
-    LDAPSearch("ou=People,dc=yen,dc=gr", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
+    LDAPSearch("ou=users,dc=example,dc=com", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
 )
 AUTH_LDAP_USER_ATTR_MAP = {
-    "first_name": "givenName",
+    "first_name": "cn",
     "last_name": "sn",
     "email": "mail",
 }

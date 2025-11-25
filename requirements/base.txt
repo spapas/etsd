@@ -23,7 +23,7 @@ django-tools==0.54.0
 django-widget-tweaks==1.5.0
 openpyxl==3.1.5
 python-gnupg==0.5.4
-python-ldap==3.4.0
+python-ldap==3.4.5
 pytz==2025.2
 requests==2.32.4
 six==1.16.0
