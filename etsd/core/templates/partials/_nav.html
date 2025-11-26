@@ -52,9 +52,14 @@
                   </a>
                 {% endif %}
               {% endwith %}
-              <a class="btn btn-outline-info btn-sm" href="{% url 'auth_logout' %}">
+				<form method="post" action="{% url 'auth_logout' %}">
+					{% csrf_token %}
+					{{ user.get_full_name }} ({{ user.username }}) | {% trans "Disconnect" %}
+					<button class="btn btn-outline-info btn-sm" type="submit">Logout</button>
+				</form>
+              <!--<a class="btn btn-outline-info btn-sm" href="{% url 'auth_logout' %}">
                 {{ user.get_full_name }} ({{ user.username }}) | {% trans "Disconnect" %}
-              </a>
+              </a>-->
             {% else %}
               <a class="btn btn-outline-info btn-sm" href="{% url 'auth_login' %}">
                 {% trans "Please login" %}

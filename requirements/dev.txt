@@ -1,10 +1,9 @@
 -r base.txt
 
-django-browser-reload==1.11.0
-django-debug-toolbar==4.1.0
-fab-classic==1.19.2
-black==23.3.0
-pylint==2.17.2
-pylint-django==2.5.3
-mypy==1.1.1
-mypy-extensions==1.0.0
+django-browser-reload==1.21.0
+django-debug-toolbar==6.1.0
+fab-classic==1.20.2
+black==25.11.0
+pylint-django==2.6.1
+mypy==1.18.2
+mypy-extensions==1.1.0
