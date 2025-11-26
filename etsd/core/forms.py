@@ -15,7 +15,7 @@ def init_ldap_con():
 
 
 def get_ldap_user(con, user):
-    base_dn = "ou=users,dc=example,dc=com"
+    base_dn = "ou=People,dc=yen,dc=gr"
     filt = "(uid={0})".format(user)
     ldap_user = con.search_s(base_dn, ldap.SCOPE_SUBTREE, filt)
     return ldap_user
