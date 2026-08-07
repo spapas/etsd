@@ -181,7 +181,7 @@ const decryptAndDownloadAll = (data) => {
     
     zip.generateAsync({type:"blob"}).then(function (blob) { 
       $('#downloaAllButton').prop('disabled', false);
-      gtools.downloadBlob(blob, 'data.zip')
+      gtools.downloadBlob(blob, `${messageProtocolName}.zip`)
     }, function (err) {
       $('#downloaAllButton').prop('disabled', false);
       console.log("ERRORS", err)

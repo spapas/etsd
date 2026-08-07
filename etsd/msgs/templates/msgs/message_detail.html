@@ -166,7 +166,7 @@
     const cipherDataFileUrl = '{% url "get_cipher_data_file" 1 %}'.slice(0,-2)
     const cipherDataDeleteUrl = '{% url "cipherdata_delete" 1 %}'.slice(0,-2)
     const privateKeyFingerprint = '{{ request.session.private_key_data.fingerprint }}'
-
+    const messageProtocolName = '{{ message.protocol|default:"" }}{% if message.protocol %}-{{ message.protocol_year }}{% else %}message-{{ message.id }}{% endif %}'
   </script>
 {% endblock %}
 

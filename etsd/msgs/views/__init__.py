@@ -28,7 +28,7 @@ from etsd.keys.models import PublicKey
 from .. import models, filters, tables, forms
 from django.core.mail import send_mail
 from dal import autocomplete
-
+from django.db import transaction
 
 class MessageAccessMixin:
     def get_queryset(self):
@@ -415,19 +415,15 @@ def get_cipher_data_file(request, pk):
     rules_light.require(request.user, "msgs.message.read", msg)
     if cipher_data.participant_key.public_key.authority == request.user.get_authority():
         participant = cipher_data.participant_key.participant
-        models.DataAccess.objects.create(participant=participant, data=cipher_data.data)
-
-        # Check if all data has been accessed
-
-        if (
-            models.DataAccess.objects.filter(participant=participant)
-            .values("data_id")
-            .distinct()
-            .count()
-            == msg.data_set.all().count()
-        ):
-            # If the status = 'UNREAD' make it read
-            if participant.status == "UNREAD":
+        with transaction.atomic():
+            participant = models.Participant.objects.select_for_update().get(pk=participant.pk)
+            models.DataAccess.objects.get_or_create(participant=participant, data=cipher_data.data)
+            accessed = (
+                models.DataAccess.objects.filter(participant=participant)
+                .values("data_id").distinct().count()
+            )
+            total = msg.data_set.count()
+            if accessed == total and participant.status == "UNREAD":
                 participant.status = "READ"
                 participant.save()
         return sendfile(request, cipher_data.cipher_data.path)
