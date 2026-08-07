@@ -1,6 +1,6 @@
-""" Test settings and globals which
-    allow us to run our test suite
-    locally. """
+"""Test settings and globals which
+allow us to run our test suite
+locally."""
 
 from .dev import *
 
