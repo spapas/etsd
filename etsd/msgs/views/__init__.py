@@ -417,7 +417,10 @@ def get_cipher_data_file(request, pk):
         participant = cipher_data.participant_key.participant
         with transaction.atomic():
             participant = models.Participant.objects.select_for_update().get(pk=participant.pk)
-            models.DataAccess.objects.get_or_create(participant=participant, data=cipher_data.data)
+
+            # Always log the access — every download is recorded, duplicates included
+            models.DataAccess.objects.create(participant=participant, data=cipher_data.data)
+
             accessed = (
                 models.DataAccess.objects.filter(participant=participant)
                 .values("data_id").distinct().count()
