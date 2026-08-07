@@ -33,7 +33,7 @@ class ParticipantFilter(django_filters.FilterSet):
     class Meta:
         model = models.Participant
         fields = {
-            "id": ["exact"],
+            "message__id": ["exact"],
             "status": ["exact"],
             "kind": ["exact"],
             "message__kind": ["exact"],
